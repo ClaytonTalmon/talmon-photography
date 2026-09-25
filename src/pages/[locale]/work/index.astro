@@ -84,7 +84,7 @@ const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - 
     display: block;
   }
 
-  .series-card__image {
+  :global(.series-card__image) {
     display: block;
     width: 100%;
     height: auto;
