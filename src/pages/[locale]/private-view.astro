@@ -1,0 +1,320 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../i18n/translations';
+import { locales, type Locale } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = getTranslations(locale);
+const contactEmail = 'ctalmon@gmail.com';
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
+const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mailto:${contactEmail}`;
+
+// The password is never stored in the page as plain text — only its
+// SHA-256 hash is baked into the build, and the browser hashes whatever
+// the visitor types before comparing. This keeps a casual "view source"
+// from revealing the password, but it is NOT real security: this is a
+// static site with no server, so a determined visitor could still find
+// it. Treat this the way a gallery treats a shared viewing-room code —
+// a courtesy barrier for invited collectors, not a vault.
+//
+// To set the password:
+//   1. Pick a password, e.g. "midnight-tide"
+//   2. Generate its hash:  echo -n "midnight-tide" | shasum -a 256
+//   3. Put the hash in .env as: PUBLIC_PRIVATE_VIEW_HASH=<the hash>
+const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
+---
+
+<BaseLayout locale={locale} title={t.privateView.title} description={t.privateView.intro}>
+  <div class="private-view container">
+    <header class="private-view__header">
+      <span class="eyebrow">{t.nav.privateView}</span>
+      <h1>{t.privateView.title}</h1>
+      <p>{t.privateView.intro}</p>
+    </header>
+
+    {passwordHash ? (
+      <>
+        <form id="pv-gate" class="pv-gate" data-hash={passwordHash}>
+          <label>
+            {t.privateView.passwordLabel}
+            <input type="password" name="password" required autocomplete="off" />
+          </label>
+          <button class="btn" type="submit">{t.privateView.submit}</button>
+          <p class="pv-error" hidden>{t.privateView.error}</p>
+        </form>
+
+        <div id="pv-content" class="pv-content" hidden>
+          <h2>{t.privateView.welcomeTitle}</h2>
+          <p>{t.privateView.welcomeBody}</p>
+        </div>
+      </>
+    ) : (
+      null
+    )}
+
+    <form id="pv-request-form" class="pv-request-form" action={formAction} method={formspreeId ? 'POST' : 'GET'}>
+      <label>
+        {t.privateView.requestNameLabel}
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        {t.privateView.requestEmailLabel}
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Interested Collection
+        <select name="collection" required>
+          <option value="" disabled selected>Select a collection</option>
+          <option value="FORM">FORM</option>
+          <option value="FLOW">FLOW</option>
+          <option value="FLIGHT">FLIGHT</option>
+        </select>
+      </label>
+      <div class="pv-request-form__row">
+        <label>
+          {t.privateView.requestDateLabel}
+          <input type="date" name="date" required />
+        </label>
+        <label>
+          {t.privateView.requestTimeLabel}
+          <input type="time" name="time" required />
+        </label>
+      </div>
+      <label>
+        {t.privateView.requestMessageLabel}
+        <textarea name="message" rows="5"></textarea>
+      </label>
+      {formspreeId ? (
+        <>
+          <input type="hidden" name="_language" value={locale} />
+          <input type="hidden" name="_subject" value="Private viewing request" />
+          <input type="hidden" name="_replyto" value="" data-pv-reply-to />
+        </>
+      ) : null}
+      <button class="btn" type="submit">{t.privateView.requestSubmit}</button>
+      <p class="pv-request-note">{t.privateView.requestNote}</p>
+    </form>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('pv-gate') as HTMLFormElement | null;
+  const content = document.getElementById('pv-content');
+  const errorEl = form?.querySelector('.pv-error') as HTMLElement | null;
+  const STORAGE_KEY = 'pv-unlocked';
+
+  async function sha256Hex(text: string): Promise<string> {
+    const data = new TextEncoder().encode(text);
+    const digest = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  function unlock() {
+    form?.setAttribute('hidden', '');
+    content?.removeAttribute('hidden');
+  }
+
+  if (form && content) {
+    const expectedHash = form.dataset.hash;
+
+    if (sessionStorage.getItem(STORAGE_KEY) === expectedHash) {
+      unlock();
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = form.querySelector<HTMLInputElement>('input[name="password"]');
+      const value = input?.value ?? '';
+      const hash = await sha256Hex(value);
+
+      if (hash === expectedHash) {
+        sessionStorage.setItem(STORAGE_KEY, hash);
+        errorEl?.setAttribute('hidden', '');
+        unlock();
+      } else {
+        errorEl?.removeAttribute('hidden');
+      }
+    });
+  }
+
+  const requestForm = document.getElementById('pv-request-form') as HTMLFormElement | null;
+  const requestEmail = requestForm?.querySelector<HTMLInputElement>('input[name="email"]');
+  const requestReplyTo = requestForm?.querySelector<HTMLInputElement>('[data-pv-reply-to]');
+  const isMailtoRequest = requestForm?.getAttribute('action')?.startsWith('mailto:');
+
+  if (requestEmail && requestReplyTo) {
+    requestEmail.addEventListener('input', () => {
+      requestReplyTo.value = requestEmail.value;
+    });
+  }
+
+  if (requestForm && isMailtoRequest) {
+    requestForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(requestForm);
+      const name = (formData.get('name') ?? '').toString().trim();
+      const email = (formData.get('email') ?? '').toString().trim();
+      const collection = (formData.get('collection') ?? '').toString().trim();
+      const date = (formData.get('date') ?? '').toString().trim();
+      const time = (formData.get('time') ?? '').toString().trim();
+      const message = (formData.get('message') ?? '').toString().trim();
+      const body = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Interested Collection: ${collection}`,
+        `Preferred date: ${date}`,
+        `Preferred time: ${time}`,
+        '',
+        message,
+      ].join('\n');
+
+      const mailtoUrl = `mailto:ctalmon@gmail.com?subject=${encodeURIComponent('Private viewing request')}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+    });
+  }
+</script>
+
+<style>
+  .private-view {
+    padding-block: clamp(56px, 10vw, 96px) clamp(96px, 14vw, 160px);
+    max-width: 620px;
+  }
+
+  .private-view__header h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    margin-top: 12px;
+  }
+
+  .private-view__header p {
+    margin-top: 16px;
+    color: var(--color-ink-soft);
+    max-width: 52ch;
+  }
+
+  .pv-gate {
+    margin-top: 40px;
+    display: grid;
+    gap: 20px;
+    max-width: 360px;
+  }
+
+  .pv-gate label {
+    display: grid;
+    gap: 8px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .pv-gate input {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    background: transparent;
+    border: 1px solid var(--color-line);
+    padding: 12px 14px;
+  }
+
+  .pv-gate input:focus {
+    outline: 1px solid var(--color-ink);
+  }
+
+  .pv-gate .btn {
+    justify-self: start;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .pv-error {
+    color: #a4302a;
+    font-size: 0.85rem;
+  }
+
+  .pv-content {
+    margin-top: 48px;
+    border-top: 1px solid var(--color-line);
+    padding-top: 40px;
+  }
+
+  .pv-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .pv-content p {
+    margin-top: 12px;
+    color: var(--color-ink-soft);
+  }
+
+  .pv-request-form {
+    margin-top: 32px;
+    display: grid;
+    gap: 20px;
+  }
+
+  .pv-request-form__row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .pv-request-form label {
+    display: grid;
+    gap: 8px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .pv-request-form input,
+  .pv-request-form textarea,
+  .pv-request-form select {
+    width: 100%;
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: var(--color-ink);
+    background: transparent;
+    border: 1px solid var(--color-line);
+    padding: 12px 14px;
+    resize: vertical;
+  }
+
+  .pv-request-form input:focus,
+  .pv-request-form textarea:focus {
+    outline: 1px solid var(--color-ink);
+  }
+
+  .pv-request-form .btn {
+    justify-self: start;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .pv-request-note {
+    font-size: 0.82rem;
+  }
+
+  .pv-note {
+    margin-top: 32px;
+    color: var(--color-ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .pv-note code {
+    background: var(--color-line);
+    padding: 0.1em 0.4em;
+  }
+
+  @media (max-width: 520px) {
+    .pv-request-form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

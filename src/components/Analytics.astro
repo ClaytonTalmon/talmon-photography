@@ -1,0 +1,22 @@
+---
+// Privacy-friendly, cookie-free analytics — no backend to run.
+//
+// Default here is Cloudflare Web Analytics, which reports visitor
+// geography and visit frequency without cookies or consent banners.
+// Sign up at https://dash.cloudflare.com → Analytics → Web Analytics,
+// grab your beacon token, and put it in a `.env` file as:
+//   PUBLIC_CF_BEACON_TOKEN=your-token-here
+//
+// Prefer Plausible or Fathom instead? Swap the script tag below for
+// their snippet — same "drop a script tag" pattern, same no-backend model.
+const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
+---
+
+{beaconToken && (
+  <script
+    is:inline
+    defer
+    src="https://static.cloudflareinsights.com/beacon.min.js"
+    data-cf-beacon={`{"token": "${beaconToken}"}`}
+  />
+)}

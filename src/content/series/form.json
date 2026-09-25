@@ -1,0 +1,39 @@
+{
+  "slug": "form",
+  "year": "2026",
+  "featured": false,
+  "order": 2,
+  "title": {
+    "en": "FORM",
+    "fr": "FORM",
+    "ja": "FORM"
+  },
+  "subtitle": {
+    "en": "",
+    "fr": "",
+    "ja": ""
+  },
+  "description": {
+    "en": "FORM explores the relationship between the human figure and the elemental forces of the desert.\n\nEach image emerges from a collaboration between body, wind, time, and geology. The figure is not presented as subject, but as matter, shaped by the same forces that carve dunes and erode stone.\n\nWithin this vast, enduring terrain, the human presence becomes a fragile counterpoint, temporary, exposed, and acutely aware of scale.\n\nThe series unfolds as a meditation on solitude, scale, and resilience, inviting the viewer to pause, to breathe, and to encounter the desert not only as landscape, but as an interior state.",
+    "fr": "Ajoutez les images de FORM dans src/assets/work/form/ et mettez à jour cette description dans src/content/series/form.json — la page les reprendra automatiquement.",
+    "ja": "FORMの画像をsrc/assets/work/form/に追加し、src/content/series/form.jsonでこの説明を更新してください。ページが自動的に反映します。"
+  },
+  "descriptionCredit": {
+    "en": "Clayton Talmon de l’Armée",
+    "fr": "Clayton Talmon de l’Armée",
+    "ja": "Clayton Talmon de l’Armée"
+  },
+  "imageDetails": {
+    "Between Ages.jpg": { "title": "Between Ages", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "Current Change.jpg": { "title": "Current Change", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "Flight of Faith.jpg": { "title": "Flight of Faith", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "Her Secret.jpg": { "title": "Her Secret", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "Inspire Me.jpg": { "title": "Inspire Me", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "Inspire You.jpg": { "title": "Inspire You", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "Personal Passage.jpg": { "title": "Personal Passage", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "The Signal.jpg": { "title": "The Signal", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "The Tempest.jpg": { "title": "The Tempest", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "Together, We Are Free.jpg": { "title": "Together, We Are Free", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" },
+    "Truth Is.jpg": { "title": "Truth Is", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "Edition of 10", "printType": "Silver Gelatin" }
+  }
+}

@@ -1,0 +1,45 @@
+// Loads images from folders under src/assets/ by eagerly globbing them at
+// build time. Drop new files into the relevant folder (any names) and they
+// appear automatically — nothing else to wire up. Sorted alphabetically, so
+// prefixing files with numbers (01-, 02-, ...) controls display order.
+
+export interface LoadedImage {
+  image: ImageMetadata;
+  filename: string; // original filename, e.g. "flow-01.jpg" — used to look
+  // up captions (e.g. a series' imageDetails in content/config.ts)
+}
+
+const allWorkImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/work/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}',
+  { eager: true }
+);
+
+const allAboutImages = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/about/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}',
+  { eager: true }
+);
+
+function fromGlob(glob: Record<string, { default: ImageMetadata }>, matchSegment: string): LoadedImage[] {
+  return Object.entries(glob)
+    .filter(([path]) => path.includes(matchSegment))
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([path, mod]) => ({
+      image: mod.default,
+      filename: path.split('/').pop()!,
+    }));
+}
+
+/** All images inside src/assets/work/<slug>/ for one exhibition/series. */
+export function getSeriesImages(slug: string): LoadedImage[] {
+  return fromGlob(allWorkImages, `/work/${slug}/`);
+}
+
+/** All images inside src/assets/about/ — used on the About page. */
+export function getAboutImages(): LoadedImage[] {
+  return Object.entries(allAboutImages)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([path, mod]) => ({
+      image: mod.default,
+      filename: path.split('/').pop()!,
+    }));
+}

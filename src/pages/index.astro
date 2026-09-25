@@ -1,0 +1,19 @@
+---
+// Root "/" has no language of its own — send visitors to the default
+// locale. (A real deploy can also do this redirect at the host/CDN level,
+// e.g. Netlify's _redirects file, which is slightly faster than a meta
+// refresh — see README for the one-line version.)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="refresh" content="0; url=/en/" />
+    <link rel="canonical" href="/en/" />
+    <title>Talmon de l’Armée Photography</title>
+  </head>
+  <body>
+    <p>Redirecting to <a href="/en/">talmondelarmee.com/en/</a>…</p>
+  </body>
+</html>

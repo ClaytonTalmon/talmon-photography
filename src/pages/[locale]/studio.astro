@@ -1,0 +1,167 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../i18n/translations';
+import { locales, type Locale } from '../../i18n/utils';
+import { getAboutImages } from '../../lib/seriesImages';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = getTranslations(locale);
+const aboutImages = getAboutImages();
+const processEight = aboutImages.find(({ filename }) => filename === 'Process-8.jpg');
+const processImages = aboutImages
+  .filter(({ filename }) => filename.startsWith('Process-') && filename !== 'Process-8.jpg')
+  .map((loadedImage) =>
+    loadedImage.filename === 'Process-7.jpg' && processEight
+      ? { ...loadedImage, image: processEight.image }
+      : loadedImage
+  );
+---
+
+<BaseLayout locale={locale} title={t.studio.title} description={t.studio.intro}>
+  <header class="page-header container">
+    <span class="eyebrow">{t.nav.studio}</span>
+    <h1>{t.studio.title}</h1>
+    <p class="page-header__lede">{t.studio.intro}</p>
+  </header>
+
+  {processImages.length > 0 && (
+    <div class="process-gallery">
+      <div class="process-gallery__row">
+        {processImages.slice(0, 2).map(({ image, filename }) => (
+          <figure class="process-image-item">
+            <Image
+              src={image}
+              alt=""
+              class="process-gallery__image"
+              widths={[640, 1024, 1600, 2200]}
+              sizes="(max-width: 760px) 100vw, 50vw"
+              loading="lazy"
+              format="avif"
+            />
+            {filename === 'Process-2.jpg' && (
+              <figcaption>Working out the tonal values.</figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+      <p class="process-note">
+        Each photograph is produced as a museum-grade, fibre-based silver-gelatin print, chosen for its deep blacks, luminous highlights, and exceptional tonal range. Archival processing, conservation mounting, and museum-quality framing preserve the print’s tonal integrity and physical presence for generations.
+      </p>
+      <div class="process-gallery__row">
+        {processImages.slice(2).map(({ image, filename }) => (
+          <Fragment>
+            <figure class="process-image-item">
+              <Image
+                src={image}
+                alt=""
+                class="process-gallery__image"
+                widths={[640, 1024, 1600, 2200]}
+                sizes="(max-width: 760px) 100vw, 50vw"
+                loading="lazy"
+                format="avif"
+              />
+              {filename === 'Process-5.jpg' && (
+                <figcaption>Archival matting, backing and framining.</figcaption>
+              )}
+              {filename === 'Process-6.jpeg' && (
+                <figcaption>FLOW debut - Venice, Italy.</figcaption>
+              )}
+            </figure>
+            {filename === 'Process-7.jpg' && (
+              <p class="process-side-caption">Testing scale variations.</p>
+            )}
+          </Fragment>
+        ))}
+      </div>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-block: clamp(56px, 10vw, 96px) 0;
+    max-width: 680px;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    margin-top: 12px;
+  }
+
+  .page-header__lede {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-top: 20px;
+  }
+
+  .page-header__body {
+    margin-top: 16px;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    max-width: 60ch;
+  }
+
+  .process-gallery {
+    margin-top: 32px;
+  }
+
+  .process-gallery__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 4px;
+  }
+
+  .process-gallery__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .process-image-item {
+    margin: 0;
+  }
+
+  .process-image-item figcaption {
+    margin-top: 4px;
+    text-align: center;
+    white-space: nowrap;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    font-size: 1.62rem;
+  }
+
+  .process-side-caption {
+    align-self: center;
+    justify-self: start;
+    margin: 0 0 0 10%;
+    text-align: center;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    font-size: 1.62rem;
+  }
+
+  .process-note {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px clamp(20px, 5vw, 64px);
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    font-size: 1.53rem;
+    line-height: 1.05;
+  }
+
+  @media (min-width: 760px) {
+    .process-gallery__row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+

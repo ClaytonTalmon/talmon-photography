@@ -1,0 +1,26 @@
+{
+  "slug": "world",
+  "year": "2026",
+  "featured": false,
+  "order": 4,
+  "title": {
+    "en": "WORLD",
+    "fr": "WORLD",
+    "ja": "WORLD"
+  },
+  "subtitle": {
+    "en": "Infinite space. Improbable life. One fleeting moment.",
+    "fr": "Espace infini. Vie improbable. Un instant fugace.",
+    "ja": "無限の空間。ありえない生命。一瞬の時。"
+  },
+  "description": {
+    "en": "WORLD considers the fragile relationship between human life and the vast spaces that hold it. Each image is a pause in motion: a fleeting encounter with distance, scale, and the improbable forms of life that appear within them.",
+    "fr": "WORLD observe la relation fragile entre la vie humaine et les espaces vastes qui l’accueillent. Chaque image est une pause dans le mouvement : une rencontre fugace avec la distance, l’échelle et les formes improbables de la vie qui y apparaissent.",
+    "ja": "WORLDは、人間の営みとそれを包む広大な空間との、儚い関係を見つめます。一枚一枚の写真は、動きの中の一時停止。距離、スケール、そしてその中に現れるありえない生命との束の間の出会いです。"
+  },
+  "descriptionCredit": {
+    "en": "Clayton Talmon de l’Armée",
+    "fr": "Clayton Talmon de l’Armée",
+    "ja": "Clayton Talmon de l’Armée"
+  }
+}

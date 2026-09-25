@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../i18n/translations';
+import { locales, type Locale } from '../../i18n/utils';
+import { getAboutImages } from '../../lib/seriesImages';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = getTranslations(locale);
+const portraitImage = getAboutImages().find(({ filename }) => filename === 'Web Portrait.jpg')?.image;
+---
+
+<BaseLayout locale={locale} title={t.about.title} description={t.about.body}>
+  <header class="page-header container">
+    <span class="eyebrow">{t.nav.about}</span>
+    <h1>{t.about.intro}</h1>
+  </header>
+
+  {portraitImage && (
+    <div class="about-portrait container">
+      <Image
+        src={portraitImage}
+        alt="Talmon de l’Armée"
+        widths={[640, 1024, 1600]}
+        sizes="(max-width: 760px) 100vw, 760px"
+        loading="eager"
+        format="avif"
+      />
+    </div>
+  )}
+
+  {locale === 'en' ? (
+    <article class="about-content container">
+      <section>
+        <h2>Thirty-five years of looking.</h2>
+        <p>Clayton Talmon de l’Armée is an American photographer based in the South of France. For more than thirty-five years, he has worked across still photography and cinema, developing a monochrome practice grounded in light, structure, landscape, and the fleeting nature of human presence.</p>
+        <p>His training began in advertising photography and continued through studies in cinematography at UCLA. Working internationally as a photographer, cinematographer, director, and producer expanded his understanding of sequence, scale, and visual narrative. Alongside that professional career, his fine-art practice developed quietly and independently through extended bodies of work produced over many years.</p>
+        <p>At the center of the work is a sustained act of observation: waiting for the brief convergence of light, form, movement, and place that allows an image to exist.</p>
+      </section>
+
+      <section>
+        <h2>The Work</h2>
+        <p>Talmon de l’Armée works in distinct but connected series.</p>
+        <p>FORM, begun around 2000, places the human figure within the elemental terrain of the desert. Body, wind, time, and geology act upon one another, reducing the distinction between figure and landscape.</p>
+        <p>FLOW turns toward the sea, approaching water not as scenery but as force—a field in which structure continually emerges, fractures, and disappears.</p>
+        <p>FLIGHT considers the world from altitude, where distance removes detail and reorganizes familiar terrain into line, rhythm, and abstraction.</p>
+        <p>WORLD brings together people, landscapes, and objects encountered across decades of travel and image-making. Collectively, the photographs reflect the improbable presence of life within the immensity of the world around us.</p>
+        <p>Although the subjects change, the underlying concerns remain consistent: human vulnerability, elemental force, duration, scale, and the moment at which light transforms observation into form.</p>
+      </section>
+
+      <section>
+        <h2>The Print</h2>
+        <p>For Talmon de l’Armée, the photograph is not finished until the print is finished.</p>
+        <p>Printing is an extension of image-making rather than a process of reproduction. Exposure, tonal separation, surface, paper, and scale are considered as carefully as the original moment of capture. Each image is refined through test prints and close tonal adjustments until it reaches its final physical form.</p>
+        <p>The works are produced as traditional silver-gelatin or archival pigment prints. Talmon de l’Armée works closely with the print experts at Dupon in Paris to produce the final prints, preserving the depth of the blacks, the luminosity of the highlights, and the subtle tonal transitions central to the work.</p>
+        <p>Prints are produced in strictly limited editions, signed and numbered, and accompanied by a certificate of authenticity. Conservation mounting and museum-quality framing are available to protect the physical and tonal integrity of the work for generations.</p>
+      </section>
+
+      <section>
+        <h2>Collections and Exhibitions</h2>
+        <p>Talmon de l’Armée’s photographs are held in private collections across Europe, Australia, and the United States. His work has been acquired by collectors during major international art weeks in London, Miami, and San Francisco.</p>
+        <p>In 2026, four works from FLOW were presented in Venice by ITSLIQUID Group as part of ANIMA MUNDI, an independent international group exhibition held concurrently with the Venice Biennale.</p>
+        <p>He continues to develop new photographic series from his studio in the South of France.</p>
+      </section>
+
+      <p class="about-content__closing"><strong>Selected works, exhibition proposals, and private studio viewings are available by inquiry.</strong></p>
+    </article>
+  ) : (
+    <div class="about-content about-content--translated container">
+      <p>{t.about.body}</p>
+    </div>
+  )}
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-block: clamp(56px, 10vw, 96px) 0;
+    max-width: 680px;
+  }
+
+  .page-header h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    margin-top: 12px;
+  }
+
+  .about-content {
+    max-width: 760px;
+    padding-block: clamp(40px, 6vw, 64px) clamp(72px, 10vw, 120px);
+  }
+
+  .about-portrait {
+    max-width: 500px;
+    padding-top: clamp(32px, 5vw, 56px);
+  }
+
+  .about-portrait :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .about-content section + section {
+    margin-top: clamp(48px, 7vw, 80px);
+  }
+
+  .about-content h2 {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 20px;
+  }
+
+  .about-content p {
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    max-width: 65ch;
+  }
+
+  .about-content p + p {
+    margin-top: 18px;
+  }
+
+  .about-content__closing {
+    margin-top: clamp(48px, 7vw, 80px);
+  }
+
+  .about-content__closing strong {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .about-content--translated {
+    padding-top: 40px;
+  }
+</style>

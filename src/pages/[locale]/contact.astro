@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../i18n/translations';
+import { locales, type Locale } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = getTranslations(locale);
+
+const contactEmail = 'ctalmon@gmail.com';
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
+const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mailto:${contactEmail}`;
+---
+
+<BaseLayout locale={locale} title={t.contact.title} description={t.contact.intro}>
+  <div class="contact container">
+    <header class="contact__header">
+      <span class="eyebrow">{t.nav.contact}</span>
+      <h1>{t.contact.title}</h1>
+      <p>{t.contact.intro}</p>
+    </header>
+
+    <form class="contact-form" action={formAction} method={formspreeId ? 'POST' : 'GET'}>
+      <label>
+        {t.contact.nameLabel}
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        {t.contact.emailLabel}
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        {t.contact.messageLabel}
+        <textarea name="message" rows="6" required></textarea>
+      </label>
+      {formspreeId ? (
+        <>
+          <input type="hidden" name="_language" value={locale} />
+          <input type="hidden" name="_subject" value="Photography inquiry" />
+          <input type="hidden" name="_replyto" value="" data-reply-to />
+        </>
+      ) : null}
+      <button class="btn" type="submit">{t.contact.submit}</button>
+      <p class="contact-note">{t.contact.note}</p>
+    </form>
+  </div>
+</BaseLayout>
+
+<script>
+  const contactForm = document.querySelector<HTMLFormElement>('.contact-form');
+  const emailInput = contactForm?.querySelector<HTMLInputElement>('input[name="email"]');
+  const replyToInput = contactForm?.querySelector<HTMLInputElement>('[data-reply-to]');
+  const isMailtoForm = contactForm?.getAttribute('action')?.startsWith('mailto:');
+
+  if (emailInput && replyToInput) {
+    emailInput.addEventListener('input', () => {
+      replyToInput.value = emailInput.value;
+    });
+  }
+
+  if (contactForm && isMailtoForm) {
+    contactForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(contactForm);
+      const name = (formData.get('name') ?? '').toString().trim();
+      const email = (formData.get('email') ?? '').toString().trim();
+      const message = (formData.get('message') ?? '').toString().trim();
+      const body = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        '',
+        message,
+      ].join('\n');
+
+      const mailtoUrl = `mailto:ctalmon@gmail.com?subject=${encodeURIComponent('Photography inquiry')}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoUrl;
+    });
+  }
+</script>
+
+<style>
+  :global(body) {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  :global(main) {
+    flex: 1;
+  }
+
+  .contact {
+    padding-block: clamp(56px, 10vw, 96px) 0;
+    display: grid;
+    gap: 40px;
+    max-width: 620px;
+  }
+
+  .contact__header h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    margin-top: 12px;
+  }
+
+  .contact__header p {
+    margin-top: 16px;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    font-size: 1.62rem;
+  }
+
+  .contact-form {
+    display: grid;
+    gap: 20px;
+  }
+
+  .contact-form label {
+    display: grid;
+    gap: 8px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    color: var(--color-ink);
+    background: transparent;
+    border: 1px solid var(--color-line);
+    padding: 12px 14px;
+    resize: vertical;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: 1px solid var(--color-ink);
+  }
+
+  .contact-form .btn {
+    justify-self: start;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .contact-note {
+    font-size: 0.82rem;
+    color: var(--color-ink-soft);
+  }
+
+  .contact-note code {
+    background: var(--color-line);
+    padding: 0.1em 0.4em;
+  }
+</style>

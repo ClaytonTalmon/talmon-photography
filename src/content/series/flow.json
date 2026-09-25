@@ -1,0 +1,46 @@
+{
+  "slug": "flow",
+  "year": "2026",
+  "featured": true,
+  "order": 1,
+  "title": {
+    "en": "FLOW",
+    "fr": "FLOW",
+    "ja": "FLOW"
+  },
+  "subtitle": {
+    "en": "Studies of the Ancient Sea",
+    "fr": "Figures de vent, de volonté et de devenir.",
+    "ja": "風、意志、して生成の図形。"
+  },
+  "description": {
+    "en": "FLOW examines the sea not as landscape, but as force. The images remain close to the surface, where water meets edge, and form is continuously made and unmade.\n\nIn this narrow zone, nothing is fixed. Structure emerges, shifts, and dissolves under pressure. Light fractures, surfaces destabilize, and orientation begins to slip.\n\nAs in FORM, the work is grounded in attention, light, structure, and the relationship between elements. Here, the body is replaced by a field: fluid, unstable, and in constant negotiation with itself.\n\nWhat appears familiar resists recognition. The sea is no longer a place, but a condition.\n\nThese works are not depictions of water, but encounters with time itself.",
+    "fr": "L’eau et le tissu en mouvement, observés de près jusqu’à ce que la surface devienne structure. FLOW suit la lumière sur l’eau en mouvement et le tissu porté par le vent, figeant ce qui refuse de rester immobile.",
+    "ja": "水と布の動きを間近で見つめ、表面が構造となるまで観察する。FLOWは、動く水と風にはためく布の上を渡る光を追い、静止を拒むものを静かに留める。"
+  },
+  "descriptionCredit": {
+    "en": "Clayton Talmon de l’Armée",
+    "fr": "Clayton Talmon de l’Armée",
+    "ja": "Clayton Talmon de l’Armée"
+  },
+  "imageDetails": {
+    "COMPRESSION I.jpg": { "title": "COMPRESSION I", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "COMPRESSION II.jpg": { "title": "COMPRESSION II", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "COMPRESSION III.jpg": { "title": "COMPRESSION III", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "COMPRESSION IV.jpg": { "title": "COMPRESSION IV", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "DISRUPTION I.jpg": { "title": "DISRUPTION I", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "DISRUPTION II.jpg": { "title": "DISRUPTION II", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "DISRUPTION III.jpg": { "title": "DISRUPTION III", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "DISRUPTION IV.jpg": { "title": "DISRUPTION IV", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "FAULT I.jpg": { "title": "FAULT I", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "FAULT II.jpg": { "title": "FAULT II", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "FAULT III.jpg": { "title": "FAULT III", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "FRICTION I.jpg": { "title": "FRICTION I", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "FRICTION II.jpg": { "title": "FRICTION II", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "FRICTION III.jpg": { "title": "FRICTION III", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "RETREAT I.jpg": { "title": "RETREAT I", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "RETREAT II.jpg": { "title": "RETREAT II", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "RETREAT III.jpg": { "title": "RETREAT III", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" },
+    "RETREAT IV.jpg": { "title": "RETREAT IV", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "Edition of 8", "printType": "Silver Gelatin" }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "slug": "flight",
+  "year": "2026",
+  "featured": false,
+  "order": 3,
+  "title": {
+    "en": "FLIGHT",
+    "fr": "FLIGHT",
+    "ja": "FLIGHT"
+  },
+  "subtitle": {
+    "en": "",
+    "fr": "",
+    "ja": ""
+  },
+  "description": {
+    "en": "From above, land reveals itself not as territory, but as form. Rivers becoming veins, cities dissolving into patterns, borders fading into suggestion. Distance simplifies. Altitude edits. What felt urgent on the ground loosens its grip in the air.\n\nWe live on the surface of a rapidly moving planet, yet most days we forget that we are already in motion. Flight reminds us. These images are not about destinations. They are about the brief suspension between departure and arrival, when time thins and scale reasserts itself. Inside an aluminum shell, we surrender weight and control, trusting invisible forces to carry us aloft. The paradox is quiet and absolute.\n\nClouds interrupt the story. Weather redraws the scene. Sometimes the window offers nothing at all. Then, without warning, the world opens.\n\nThe Earth is neither abstract nor familiar. It is patient. Ancient. Indifferent to our routes and schedules. What changes is not the land, but the viewer.\n\nThis collection is meant to offer a steady form of awe. Not the loud kind, not the performative kind, but the intimate kind: a private reset.",
+    "fr": "Ajoutez les images de FLIGHT dans src/assets/work/flight/ et mettez à jour cette description dans src/content/series/flight.json — la page les reprendra automatiquement.",
+    "ja": "FLIGHTの画像をsrc/assets/work/flight/に追加し、src/content/series/flight.jsonでこの説明を更新してください。ページが自動的に反映します。"
+  },
+  "descriptionCredit": {
+    "en": "Clayton Talmon de l’Armée",
+    "fr": "Clayton Talmon de l’Armée",
+    "ja": "Clayton Talmon de l’Armée"
+  },
+  "imageDetails": {
+    "ATL 1.jpg": { "title": "ATL 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "BUR 2.jpg": { "title": "BUR 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "CDG 1.jpg": { "title": "CDG 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "JFK 1.jpg": { "title": "JFK 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "JFK 3.jpg": { "title": "JFK 3", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "LXR 1.jpg": { "title": "LXR 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "MIA 4.jpg": { "title": "MIA 4", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "NCE 1.jpg": { "title": "NCE 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "NCE 2.jpg": { "title": "NCE 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "SFJ 1.jpg": { "title": "SFJ 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "SFJ 3.jpg": { "title": "SFJ 3", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "SFO 6.jpg": { "title": "SFO 6", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "SKY 1.jpg": { "title": "SKY 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
+    "SKY 2.jpg": { "title": "SKY 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" }
+  }
+}

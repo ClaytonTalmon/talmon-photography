@@ -1,0 +1,50 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Analytics from '../components/Analytics.astro';
+import '../styles/global.css';
+import { locales, type Locale } from '../i18n/utils';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description?: string;
+  headerVariant?: 'light' | 'dark';
+}
+
+const { locale, title, description, headerVariant = 'light' } = Astro.props;
+const currentPath = new URL(Astro.request.url).pathname;
+const siteName = 'Talmon de l’Armée Photography';
+const localePrefixPattern = new RegExp(`^/(${locales.join('|')})`);
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title} — {siteName}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- hreflang: tells search engines about the other language versions of this page -->
+    {locales.map((l) => (
+      <link rel="alternate" hreflang={l} href={`https://talmondelarmee.com${currentPath.replace(localePrefixPattern, `/${l}`)}`} />
+    ))}
+
+    <meta property="og:title" content={`${title} — ${siteName}`} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:type" content="website" />
+
+    <Analytics />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header locale={locale} currentPath={currentPath} variant={headerVariant} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
+  </body>
+</html>

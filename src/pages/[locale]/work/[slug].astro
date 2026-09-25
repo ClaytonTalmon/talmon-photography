@@ -1,0 +1,161 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../../i18n/translations';
+import { locales, localizedPath, type Locale } from '../../../i18n/utils';
+import { getSeriesImages } from '../../../lib/seriesImages';
+
+export async function getStaticPaths() {
+  const allSeries = await getCollection('series');
+  return locales.flatMap((locale) =>
+    allSeries.map((entry) => ({
+      params: { locale, slug: entry.data.slug },
+      props: { entry },
+    }))
+  );
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const { entry } = Astro.props;
+const t = getTranslations(locale);
+const images = getSeriesImages(entry.data.slug);
+const descriptionParagraphs = entry.data.description[locale].split('\n\n');
+
+// Look up each image's caption (title / print size / edition size) by its
+// filename in this series' `imageDetails` — see src/content/series/*.json.
+function detailsFor(filename: string) {
+  return entry.data.imageDetails[filename] ?? {};
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={entry.data.title[locale]}
+  description={entry.data.subtitle[locale]}
+>
+  <header class="series-header container">
+    <span class="eyebrow">{t.work.title} — {entry.data.year}</span>
+    <h1>{entry.data.title[locale]}</h1>
+    {entry.data.subtitle[locale] && <p class="series-header__subtitle">{entry.data.subtitle[locale]}</p>}
+    <div class="series-header__body">
+      {descriptionParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+      {entry.data.descriptionCredit?.[locale] && (
+        <p class="series-header__credit"><strong>{entry.data.descriptionCredit[locale]}</strong></p>
+      )}
+    </div>
+  </header>
+
+  {images.length > 0 ? (
+    <>
+      {/*
+        Gallery layout: this is a CSS grid. To change how it's arranged:
+        - Number of columns: edit `grid-template-columns` in the .gallery
+          rule below. `repeat(auto-fill, minmax(280px, 1fr))` fits as many
+          280px-or-wider columns as the screen allows (responsive). For a
+          fixed column count instead, use e.g. `repeat(3, 1fr)` for 3 columns.
+        - Spacing between images: edit the `gap` value (currently 4px).
+        - Crop shape: edit `aspect-ratio` on .gallery__image (2/3 = portrait,
+          1/1 = square, 4/5 = slightly less tall, etc).
+      */}
+      <div class="gallery">
+        {images.map(({ image, filename }, i) => {
+          const details = detailsFor(filename);
+          return (
+            <a
+              class="gallery__item"
+              href={localizedPath(locale, `/work/${entry.data.slug}/${i}/`)}
+              aria-label={`${t.work.viewImage}${details.title ? `: ${details.title}` : ''}`}
+            >
+              <Image
+                src={image}
+                alt={details.title ?? ''}
+                class="gallery__image"
+                widths={[480, 800, 1200, 1800, 2400]}
+                sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                loading={i < 2 ? 'eager' : 'lazy'}
+                format="avif"
+              />
+            </a>
+          );
+        })}
+      </div>
+    </>
+  ) : (
+    <p class="gallery-empty container">
+      No images yet — drop files into <code>src/assets/work/{entry.data.slug}/</code> and they’ll appear here automatically.
+    </p>
+  )}
+</BaseLayout>
+
+<style>
+  .series-header {
+    padding-block: clamp(56px, 10vw, 96px) clamp(32px, 6vw, 56px);
+    max-width: 680px;
+  }
+
+  .series-header h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    margin-top: 12px;
+  }
+
+  .series-header__subtitle {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-top: 16px;
+  }
+
+  .series-header__body {
+    margin-top: 20px;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    max-width: 60ch;
+  }
+
+  .series-header__body p + p {
+    margin-top: 16px;
+  }
+
+  .series-header__credit {
+    color: var(--color-ink);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding-inline: clamp(16px, 4vw, 64px);
+    padding-bottom: 4px;
+  }
+
+  @media (min-width: 760px) {
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .gallery__item {
+    display: block;
+    width: 100%;
+    cursor: zoom-in;
+  }
+
+  .gallery__image {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+
+  .gallery-empty {
+    padding-block: 40px 96px;
+    color: var(--color-ink-soft);
+  }
+
+  .gallery-empty code {
+    background: var(--color-line);
+    padding: 0.1em 0.4em;
+  }
+
+</style>

@@ -1,0 +1,210 @@
+---
+import { getTranslations } from '../i18n/translations';
+import { localizedPath, otherLocales, type Locale } from '../i18n/utils';
+import { localeNames } from '../i18n/translations';
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+  variant?: 'light' | 'dark'; // 'dark' = light text, for hero overlays
+}
+
+const { locale, currentPath, variant = 'light' } = Astro.props;
+const t = getTranslations(locale);
+---
+
+<header class:list={['site-header', { 'site-header--dark': variant === 'dark' }]}>
+  <div class="site-header__inner container">
+    <a class="wordmark" href={localizedPath(locale, '/')}>
+      <span class="wordmark__name">Talmon de l’Armée</span>
+      <span class="wordmark__sub eyebrow">Photography</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
+      <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
+      <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
+      <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
+      <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
+    </nav>
+
+    <div class="lang-switch" aria-label="Language">
+      {otherLocales(locale).map((l) => (
+        <a href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
+      ))}
+      <span class="lang-switch__current">{localeNames[locale]}</span>
+    </div>
+
+    <details class="mobile-menu">
+      <summary aria-label="Menu">
+        <span></span><span></span><span></span>
+      </summary>
+      <nav class="mobile-menu__nav" aria-label="Primary (mobile)">
+        <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
+        <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
+        <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
+        <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
+        <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
+        <div class="mobile-menu__langs">
+          {otherLocales(locale).map((l) => (
+            <a href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
+          ))}
+          <span>{localeNames[locale]}</span>
+        </div>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    z-index: 20;
+    color: var(--color-dark-ink);
+  }
+
+  .site-header:not(.site-header--dark) {
+    position: relative;
+    color: var(--color-ink);
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-bg);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: var(--nav-height);
+  }
+
+  .wordmark {
+    text-decoration: none;
+    color: inherit;
+    line-height: 1.2;
+  }
+
+  .wordmark__name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+  }
+
+  .wordmark__sub {
+    display: block;
+    margin-top: 2px;
+  }
+
+  .site-header--dark .wordmark__sub {
+    color: var(--color-dark-ink);
+  }
+
+  .site-nav {
+    display: flex;
+    gap: 28px;
+    font-size: 0.76rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .site-nav a {
+    text-decoration: none;
+    opacity: 0.85;
+  }
+
+  .site-nav a:hover {
+    opacity: 1;
+  }
+
+  .lang-switch {
+    display: flex;
+    gap: 10px;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+  }
+
+  .lang-switch a {
+    text-decoration: none;
+    opacity: 0.6;
+  }
+
+  .lang-switch a:hover {
+    opacity: 1;
+  }
+
+  .lang-switch__current {
+    font-weight: 600;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-menu > summary {
+    list-style: none;
+    cursor: pointer;
+    width: 28px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .mobile-menu > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-menu > summary span {
+    display: block;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .mobile-menu__nav {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    border-bottom: 1px solid var(--color-line);
+    display: flex;
+    flex-direction: column;
+    padding: 8px clamp(20px, 5vw, 64px) 24px;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .mobile-menu__nav a {
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .mobile-menu__langs {
+    display: flex;
+    gap: 16px;
+    padding-top: 16px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+  }
+
+  .mobile-menu__langs a,
+  .mobile-menu__langs span {
+    padding: 0;
+    border: 0;
+  }
+
+  @media (max-width: 860px) {
+    .site-nav,
+    .lang-switch {
+      display: none;
+    }
+
+    .mobile-menu {
+      display: block;
+    }
+  }
+</style>

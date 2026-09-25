@@ -1,0 +1,194 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../../../i18n/translations';
+import { locales, localizedPath, type Locale } from '../../../../i18n/utils';
+import { getSeriesImages } from '../../../../lib/seriesImages';
+
+export async function getStaticPaths() {
+  const allSeries = await getCollection('series');
+
+  return locales.flatMap((locale) =>
+    allSeries.flatMap((entry) => {
+      const images = getSeriesImages(entry.data.slug);
+
+      return images.map((loadedImage, index) => ({
+        params: {
+          locale,
+          slug: entry.data.slug,
+          index: String(index),
+        },
+        props: {
+          entry,
+          loadedImage,
+          index,
+          imageCount: images.length,
+        },
+      }));
+    })
+  );
+}
+
+const { locale, slug } = Astro.params as { locale: Locale; slug: string };
+const { entry, loadedImage, index, imageCount } = Astro.props;
+const t = getTranslations(locale);
+const details = entry.data.imageDetails[loadedImage.filename] ?? {};
+const dimensions = details.printSize ?? `${loadedImage.image.width} x ${loadedImage.image.height} px`;
+const imageCountLabel = t.work.imageCount
+  .replace('{current}', String(index + 1))
+  .replace('{total}', String(imageCount));
+const seriesPath = localizedPath(locale, `/work/${slug}/`);
+const previousPath = index > 0 ? localizedPath(locale, `/work/${slug}/${index - 1}/`) : null;
+const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/${index + 1}/`) : null;
+---
+
+<BaseLayout
+  locale={locale}
+  title={details.title ?? entry.data.title[locale]}
+  description={entry.data.subtitle[locale]}
+>
+  <div class="image-page container">
+    <a class="back-link" href={seriesPath}>← {t.work.backToSeries}</a>
+
+    <header class="image-header">
+      <span class="eyebrow">{entry.data.title[locale]} — {imageCountLabel}</span>
+      {details.title && <h1>{details.title}</h1>}
+    </header>
+
+    <figure class="image-view">
+      <Image
+        src={loadedImage.image}
+        alt={details.title ?? entry.data.title[locale]}
+        widths={[800, 1400, 2000, 2600]}
+        sizes="(max-width: 900px) 92vw, 78vw"
+        loading="eager"
+        format="avif"
+      />
+      <figcaption class="image-details">
+        <div>
+          <dt>{t.work.titleLabel}</dt>
+          <dd>{details.title ?? t.work.notSpecified}</dd>
+        </div>
+        <div>
+          <dt>{t.work.dimensions}</dt>
+          <dd>
+            <span>{dimensions}</span>
+            {details.printSize2 && <span>{details.printSize2}</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>{t.work.edition}</dt>
+          <dd>
+            <span>{details.editionSize ?? t.work.notSpecified}</span>
+            {details.editionSize2 && <span>{details.editionSize2}</span>}
+          </dd>
+        </div>
+        <div>
+          <dt>{t.work.printType}</dt>
+          <dd>{details.printType ?? t.work.notSpecified}</dd>
+        </div>
+      </figcaption>
+    </figure>
+
+    <nav class="image-navigation" aria-label={t.work.title}>
+      {previousPath ? <a href={previousPath}>← {t.work.previous}</a> : <span />}
+      <a href={seriesPath}>{t.work.backToSeries}</a>
+      {nextPath ? <a href={nextPath}>{t.work.next} →</a> : <span />}
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+  .image-page {
+    padding-block: clamp(32px, 6vw, 64px) clamp(64px, 10vw, 120px);
+  }
+
+  .back-link,
+  .image-navigation a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .back-link:hover,
+  .image-navigation a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .image-header {
+    padding-block: clamp(40px, 7vw, 80px) clamp(24px, 4vw, 40px);
+  }
+
+  .image-header h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+    margin-top: 12px;
+  }
+
+  .image-view {
+    margin: 0;
+  }
+
+  .image-view :global(img) {
+    display: block;
+    width: 100%;
+    max-height: 78vh;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .image-details {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    padding-block: 20px;
+    border-bottom: 1px solid var(--color-line);
+    text-align: center;
+  }
+
+  .image-details div {
+    flex: 0 0 25%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .image-details {
+      flex-wrap: wrap;
+    }
+
+    .image-details div {
+      flex-basis: 50%;
+      width: 50%;
+    }
+  }
+
+  .image-details dt {
+    color: var(--color-ink-soft);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .image-details dd {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 6px;
+    transform: translateX(-25px);
+  }
+
+  .image-navigation {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    padding-top: 20px;
+  }
+
+  .image-navigation a:last-child {
+    text-align: right;
+  }
+</style>

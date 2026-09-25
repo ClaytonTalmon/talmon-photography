@@ -1,0 +1,112 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../../i18n/translations';
+import { locales, localizedPath, type Locale } from '../../../i18n/utils';
+import { getSeriesImages } from '../../../lib/seriesImages';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = getTranslations(locale);
+
+const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout locale={locale} title={t.work.title} description={t.work.intro}>
+  <header class="work-header container">
+    <span class="eyebrow">{t.nav.work}</span>
+    <h1>{t.work.title}</h1>
+    <p>{t.work.intro}</p>
+  </header>
+
+  <div class="series-list container">
+    {allSeries.map((entry) => {
+      const cover = getSeriesImages(entry.data.slug)[0]?.image;
+      return (
+        <a class="series-card" href={localizedPath(locale, `/work/${entry.data.slug}`)}>
+          {cover && (
+            <Image
+              src={cover}
+              alt=""
+              class="series-card__image"
+              widths={[480, 800, 1200, 1600]}
+              sizes="(max-width: 860px) 100vw, 50vw"
+              loading="lazy"
+              format="avif"
+            />
+          )}
+          <div class="series-card__meta">
+            <h2>{entry.data.title[locale]}</h2>
+            <p>{entry.data.subtitle[locale]}</p>
+            <span class="link-underline">{t.work.viewSeries} ↗</span>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</BaseLayout>
+
+<style>
+  .work-header {
+    padding-block: clamp(56px, 10vw, 96px) clamp(32px, 6vw, 56px);
+    max-width: 620px;
+  }
+
+  .work-header h1 {
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    margin-top: 12px;
+  }
+
+  .work-header p {
+    margin-top: 16px;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+  }
+
+  .series-list {
+    display: grid;
+    gap: clamp(32px, 5vw, 56px);
+    padding-bottom: clamp(64px, 10vw, 120px);
+  }
+
+  @media (min-width: 760px) {
+    .series-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .series-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .series-card__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .series-card__meta {
+    padding-top: 20px;
+  }
+
+  .series-card__meta h2 {
+    font-size: 1.8rem;
+  }
+
+  .series-card__meta p {
+    margin-top: 8px;
+    color: var(--color-ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .series-card__meta .link-underline {
+    margin-top: 16px;
+  }
+</style>

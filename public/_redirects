@@ -1,0 +1,5 @@
+# Netlify redirect rule (ignored by Vercel/Cloudflare Pages, harmless to keep).
+# Faster than the meta-refresh in src/pages/index.astro since it happens at
+# the edge, before any HTML loads. Vercel/Cloudflare Pages users: see the
+# equivalent config note in README.md.
+/  /en/  302

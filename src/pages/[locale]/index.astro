@@ -1,0 +1,413 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getTranslations } from '../../i18n/translations';
+import { locales, localizedPath, type Locale } from '../../i18n/utils';
+import { getAboutImages, getSeriesImages } from '../../lib/seriesImages';
+
+export function getStaticPaths() {
+  return locales.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params as { locale: Locale };
+const t = getTranslations(locale);
+
+const flowImages = getSeriesImages('flow');
+const formImages = getSeriesImages('form');
+const flightImages = getSeriesImages('flight');
+const worldImages = getSeriesImages('world');
+const aboutImages = getAboutImages();
+const heroImage = flowImages[0]?.image;
+const workImage = (formImages.find(({ filename }) => filename === 'Together, We Are Free.jpg') ?? formImages[0])?.image;
+const flightImage = (flightImages.find(({ filename }) => filename === 'SIHLO-13.jpg') ?? flightImages[0])?.image;
+const worldImage = (worldImages.find(({ filename }) => filename === 'HERO.jpg') ?? worldImages[0])?.image;
+const studioImage = (aboutImages.find(({ filename }) => filename === 'Studio-3.jpeg') ?? aboutImages[0])?.image;
+---
+
+<BaseLayout
+  locale={locale}
+  title="Home"
+  description={t.home.workBody}
+  headerVariant="dark"
+>
+  <section class="hero">
+    <Image
+      src={heroImage}
+      alt=""
+      class="hero__image"
+      widths={[640, 1024, 1600, 2200]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      format="avif"
+    />
+    <div class="hero__overlay">
+      <div class="container hero__content">
+        <span class="eyebrow eyebrow--light">{t.home.exhibitionLabel}</span>
+        <h1 class="hero__title">{t.home.exhibitionTitle}</h1>
+        <p class="hero__subtitle">{t.home.exhibitionSubtitle}</p>
+        <a class="link-underline hero__cta" href={localizedPath(locale, '/work/flow')}>
+          {t.home.exhibitionCta} ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="work-section container">
+    <div class="work-section__head">
+      <span class="eyebrow">{t.home.workLabel}</span>
+      <h2 class="work-section__title">
+        {t.home.workTitle.split('\n').map((line) => <span>{line}</span>)}
+      </h2>
+      <p class="work-section__body">{t.home.workBody}</p>
+    </div>
+    <div class="work-section__visual form-featured-image">
+      <Image
+        src={workImage}
+        alt=""
+        class="work-section__image"
+        widths={[640, 1024, 1600, 2200]}
+        sizes="100vw"
+        loading="lazy"
+        format="avif"
+      />
+      <div class="work-section__overlay">
+        <h2 class="hero__title">{t.home.formTitle}</h2>
+        <p class="hero__subtitle">{t.home.formSubtitle}</p>
+        <a class="link-underline hero__cta" href={localizedPath(locale, '/work/form')}>
+          {t.home.exhibitionCta} ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-image flight-featured-image">
+    <div class="work-section__visual">
+      <Image
+        src={flightImage}
+        alt=""
+        class="work-section__image"
+        widths={[640, 1024, 1600, 2200]}
+        sizes="100vw"
+        loading="lazy"
+        format="avif"
+      />
+      <div class="work-section__overlay">
+        <h2 class="hero__title">{t.home.flightTitle}</h2>
+        <p class="hero__subtitle">{t.home.flightSubtitle}</p>
+        <a class="link-underline hero__cta" href={localizedPath(locale, '/work/flight')}>
+          {t.home.exhibitionCta} ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured-image world-featured-image">
+    <div class="work-section__visual">
+      <Image
+        src={worldImage}
+        alt=""
+        class="work-section__image"
+        widths={[640, 1024, 1600, 2200]}
+        sizes="100vw"
+        loading="lazy"
+        format="avif"
+      />
+      <div class="work-section__overlay">
+        <div class="world-text-block">
+          <h2 class="hero__title">{t.home.worldTitle}</h2>
+          <p class="hero__subtitle">{t.home.worldSubtitle}</p>
+          <a class="link-underline hero__cta" href={localizedPath(locale, '/work/world')}>
+            {t.home.worldCta} ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio-section">
+    <Image
+      src={studioImage}
+      alt=""
+      class="studio-section__image"
+      widths={[480, 800, 1200]}
+      sizes="(max-width: 860px) 100vw, 50vw"
+      loading="lazy"
+      format="avif"
+    />
+    <div class="studio-section__panel">
+      <div class="studio-section__inner">
+        <span class="eyebrow eyebrow--light">{t.home.studioLabel}</span>
+        <h2 class="studio-section__title">
+          {t.home.studioTitle.split('\n').map((line) => <span>{line}</span>)}
+        </h2>
+        <a class="link-underline studio-section__cta" href={localizedPath(locale, '/studio')}>
+          {t.home.studioCta} ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="collectors-section container">
+    <span class="eyebrow">{t.home.collectorsLabel}</span>
+    <h2 class="collectors-section__title">
+      {t.home.collectorsTitle.split('\n').map((line) => <span>{line}</span>)}
+    </h2>
+    <p class="collectors-section__body">{t.home.collectorsBody}</p>
+    <a class="btn" href={localizedPath(locale, '/private-view')}>{t.home.collectorsCta}</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 560px;
+    overflow: hidden;
+  }
+
+  .hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.05) 45%, transparent 65%);
+  }
+
+  .hero__content {
+    padding-bottom: clamp(48px, 8vw, 96px);
+    color: var(--color-dark-ink);
+    max-width: 720px;
+  }
+
+  .hero__title {
+    font-size: clamp(4.8rem, 14.4vw, 10.8rem);
+    margin-top: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.32rem, 2.4vw, 1.68rem);
+    margin-top: 16px;
+  }
+
+  .hero__cta {
+    margin-top: 28px;
+    color: var(--color-dark-ink);
+  }
+
+  .work-section {
+    padding-top: clamp(56px, 10vw, 120px);
+    display: grid;
+    gap: 40px;
+  }
+
+  .work-section__head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .work-section__title {
+    font-size: clamp(2rem, 4.5vw, 3.4rem);
+  }
+
+  .work-section__title span {
+    display: block;
+  }
+
+  .work-section__body {
+    max-width: 605px;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    font-size: 1.235rem;
+    white-space: pre-line;
+  }
+
+  .work-section__image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .work-section__visual {
+    position: relative;
+    width: 100vw;
+    justify-self: start;
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+  }
+
+  .work-section__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: clamp(24px, 5vw, 64px);
+    padding-top: clamp(48px, 12%, 120px);
+    color: var(--color-dark-ink);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.05) 50%, transparent 70%);
+  }
+
+  .work-section__overlay .hero__title {
+    font-size: clamp(3.6rem, 9.6vw, 8.4rem);
+  }
+
+  .work-section__overlay .hero__cta {
+    align-self: flex-start;
+  }
+
+  .flight-featured-image .work-section__image {
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+
+  .flight-featured-image .work-section__overlay {
+    justify-content: flex-end;
+    padding-top: clamp(24px, 5vw, 64px);
+    padding-bottom: clamp(48px, 12%, 120px);
+  }
+
+  .world-featured-image .work-section__image {
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+
+  .world-featured-image .work-section__overlay {
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: clamp(16px, 2vw, 32px);
+    padding-bottom: clamp(24px, 5vw, 64px);
+    text-align: left;
+  }
+
+  .world-featured-image .work-section__overlay .hero__cta {
+    align-self: flex-start;
+    color: #fff;
+    border-color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.35em 0.65em 0.4em;
+  }
+
+  .world-text-block {
+    transform: translateY(-45%);
+  }
+
+  .form-featured-image .work-section__image {
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+
+  @media (min-width: 860px) {
+    .work-section__head {
+      grid-template-columns: 2fr 1fr;
+    }
+
+    .work-section__body {
+      justify-self: start;
+      padding-top: 8px;
+      transform: translateY(-50%);
+    }
+  }
+
+  .studio-section {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .studio-section__image {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    filter: grayscale(1);
+  }
+
+  .studio-section__panel {
+    background: var(--color-dark-bg);
+    color: var(--color-dark-ink);
+    display: flex;
+    align-items: center;
+  }
+
+  .studio-section__inner {
+    padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 64px);
+    max-width: 520px;
+  }
+
+  .studio-section__title {
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    margin-top: 16px;
+  }
+
+  .studio-section__title span {
+    display: block;
+  }
+
+  .studio-section__body {
+    margin-top: 20px;
+    color: var(--color-dark-ink-soft);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    max-width: 380px;
+  }
+
+  .studio-section__cta {
+    margin-top: 24px;
+  }
+
+  @media (min-width: 860px) {
+    .studio-section {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .studio-section__image {
+      height: 100%;
+      min-height: 520px;
+    }
+  }
+
+  .collectors-section {
+    padding-block: clamp(72px, 12vw, 140px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .collectors-section__title {
+    margin-top: 16px;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    max-width: 14ch;
+  }
+
+  .collectors-section__title span {
+    display: block;
+  }
+
+  .collectors-section__body {
+    margin-top: 24px;
+    max-width: 480px;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+  }
+
+  .collectors-section__body + .btn,
+  .collectors-section .btn {
+    margin-top: 32px;
+  }
+</style>
