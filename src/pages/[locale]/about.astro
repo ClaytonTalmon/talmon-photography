@@ -24,6 +24,7 @@ const portraitImage = getAboutImages().find(({ filename }) => filename === 'Web 
     <div class="about-portrait container">
       <Image
         src={portraitImage}
+        format={portraitImage.format}
         alt="Talmon de l’Armée"
         widths={[640, 1024, 1600]}
         sizes="(max-width: 760px) 100vw, 760px"

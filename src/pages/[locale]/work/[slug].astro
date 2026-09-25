@@ -69,6 +69,7 @@ function detailsFor(filename: string) {
             >
               <Image
                 src={image}
+                format={image.format}
                 alt={details.title ?? ''}
                 class="gallery__image"
                 widths={[480, 800, 1200, 1800, 2400]}

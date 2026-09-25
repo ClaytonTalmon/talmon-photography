@@ -59,6 +59,7 @@ const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/$
     <figure class="image-view">
       <Image
         src={loadedImage.image}
+        format={loadedImage.image.format}
         alt={details.title ?? entry.data.title[locale]}
         widths={[800, 1400, 2000, 2600]}
         sizes="(max-width: 900px) 92vw, 78vw"

@@ -31,6 +31,7 @@ const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - 
           {cover && (
             <Image
               src={cover}
+              format={cover.format}
               alt=""
               class="series-card__image"
               widths={[480, 800, 1200, 1600]}
