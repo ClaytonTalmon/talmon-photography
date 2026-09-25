@@ -24,19 +24,19 @@
     "ja": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
-    "ATL 1.jpg": { "title": "ATL 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "BUR 2.jpg": { "title": "BUR 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "CDG 1.jpg": { "title": "CDG 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "JFK 1.jpg": { "title": "JFK 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "JFK 3.jpg": { "title": "JFK 3", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "LXR 1.jpg": { "title": "LXR 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "MIA 4.jpg": { "title": "MIA 4", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "NCE 1.jpg": { "title": "NCE 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "NCE 2.jpg": { "title": "NCE 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "SFJ 1.jpg": { "title": "SFJ 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "SFJ 3.jpg": { "title": "SFJ 3", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "SFO 6.jpg": { "title": "SFO 6", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "SKY 1.jpg": { "title": "SKY 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" },
-    "SKY 2.jpg": { "title": "SKY 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "Edition of 8", "editionSize2": "Edition of 5", "printType": "Pigment or Silver Gelatin" }
+    "ATL 1.jpg": { "title": "ATL 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "BUR 2.jpg": { "title": "BUR 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "CDG 1.jpg": { "title": "CDG 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "JFK 1.jpg": { "title": "JFK 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "JFK 3.jpg": { "title": "JFK 3", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "LXR 1.jpg": { "title": "LXR 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "MIA 4.jpg": { "title": "MIA 4", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "NCE 1.jpg": { "title": "NCE 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "NCE 2.jpg": { "title": "NCE 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "SFJ 1.jpg": { "title": "SFJ 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "SFJ 3.jpg": { "title": "SFJ 3", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "SFO 6.jpg": { "title": "SFO 6", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "SKY 1.jpg": { "title": "SKY 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" },
+    "SKY 2.jpg": { "title": "SKY 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Pigment or Silver Gelatin" }
   }
 }
