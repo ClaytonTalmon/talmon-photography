@@ -11,19 +11,8 @@ interface Props {
 
 const { locale, currentPath, variant = 'light' } = Astro.props;
 const t = getTranslations(locale);
-const isHomePage = new RegExp(`/${locale}/?---
-import { getTranslations } from '../i18n/translations';
-import { localizedPath, otherLocales, type Locale } from '../i18n/utils';
-import { localeNames } from '../i18n/translations';
+const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
 
-interface Props {
-  locale: Locale;
-  currentPath: string;
-  variant?: 'light' | 'dark'; // 'dark' = light text, for hero overlays
-}
-
-const { locale, currentPath, variant = 'light' } = Astro.props;
-).test(currentPath);
 ---
 
 <header class:list={['site-header', { 'site-header--dark': variant === 'dark', 'site-header--home': isHomePage }]}>
