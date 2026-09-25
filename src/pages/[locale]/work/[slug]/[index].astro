@@ -41,6 +41,8 @@ const imageCountLabel = t.work.imageCount
 const seriesPath = localizedPath(locale, `/work/${slug}/`);
 const previousPath = index > 0 ? localizedPath(locale, `/work/${slug}/${index - 1}/`) : null;
 const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/${index + 1}/`) : null;
+const previousImagePath = previousPath ? `${previousPath}#artwork` : null;
+const nextImagePath = nextPath ? `${nextPath}#artwork` : null;
 ---
 
 <BaseLayout
@@ -56,7 +58,7 @@ const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/$
       {details.title && <h1>{details.title}</h1>}
     </header>
 
-    <figure class="image-view">
+    <figure class="image-view" id="artwork">
       <ResponsivePhoto
         src={loadedImage.image}
         assetPath={loadedImage.assetPath}
@@ -91,12 +93,31 @@ const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/$
     </figure>
 
     <nav class="image-navigation" aria-label={t.work.title}>
-      {previousPath ? <a href={previousPath}>← {t.work.previous}</a> : <span />}
+      {previousImagePath ? <a href={previousImagePath}>← {t.work.previous}</a> : <span />}
       <a href={seriesPath}>{t.work.backToSeries}</a>
-      {nextPath ? <a href={nextPath}>{t.work.next} →</a> : <span />}
+      {nextImagePath ? <a href={nextImagePath}>{t.work.next} →</a> : <span />}
     </nav>
   </div>
 </BaseLayout>
+
+<script>
+  const centerArtwork = () => {
+    if (window.location.hash !== '#artwork') return;
+
+    const image = document.querySelector<HTMLImageElement>('#artwork img');
+    if (!image) return;
+
+    const centerImage = () => {
+      requestAnimationFrame(() => image.scrollIntoView({ block: 'center', inline: 'nearest' }));
+    };
+
+    if (image.complete) centerImage();
+    else image.addEventListener('load', centerImage, { once: true });
+  };
+
+  centerArtwork();
+  window.addEventListener('pageshow', centerArtwork);
+</script>
 
 <style>
   .image-page {
