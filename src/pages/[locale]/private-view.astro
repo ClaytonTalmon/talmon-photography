@@ -14,9 +14,8 @@ const timeOptions = Array.from({ length: 96 }, (_, index) => {
   const minutes = String((index % 4) * 15).padStart(2, '0');
   return `${hours}:${minutes}`;
 });
-const contactEmail = 'ctalmon@gmail.com';
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
-const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mailto:${contactEmail}`;
+const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : 'https://formspree.io/f/mdekzkeb';
 
 // The password is never stored in the page as plain text — only its
 // SHA-256 hash is baked into the build, and the browser hashes whatever
@@ -60,7 +59,15 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
       null
     )}
 
-    <form id="pv-request-form" class="pv-request-form" action={formAction} method={formspreeId ? 'POST' : 'GET'}>
+    <form
+      id="pv-request-form"
+      class="pv-request-form"
+      action={formAction}
+      method="POST"
+      data-sending={t.contact.sending}
+      data-success={t.contact.success}
+      data-error={t.contact.error}
+    >
       <label>
         {t.privateView.requestNameLabel}
         <input type="text" name="name" required />
@@ -96,14 +103,10 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
         {t.privateView.requestMessageLabel}
         <textarea name="message" rows="5"></textarea>
       </label>
-      {formspreeId ? (
-        <>
-          <input type="hidden" name="_language" value={locale} />
-          <input type="hidden" name="_subject" value="Private viewing request" />
-          <input type="hidden" name="_replyto" value="" data-pv-reply-to />
-        </>
-      ) : null}
+      <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="subject" value="Private viewing request" />
       <button class="btn" type="submit">{t.privateView.requestSubmit}</button>
+      <p class="pv-status" role="status" aria-live="polite" hidden></p>
       <p class="pv-request-note">{t.privateView.requestNote}</p>
     </form>
   </div>
@@ -152,39 +155,44 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
   }
 
   const requestForm = document.getElementById('pv-request-form') as HTMLFormElement | null;
-  const requestEmail = requestForm?.querySelector<HTMLInputElement>('input[name="email"]');
-  const requestReplyTo = requestForm?.querySelector<HTMLInputElement>('[data-pv-reply-to]');
-  const isMailtoRequest = requestForm?.getAttribute('action')?.startsWith('mailto:');
+  const submitButton = requestForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const formStatus = requestForm?.querySelector<HTMLElement>('.pv-status');
+  let sending = false;
 
-  if (requestEmail && requestReplyTo) {
-    requestEmail.addEventListener('input', () => {
-      requestReplyTo.value = requestEmail.value;
-    });
-  }
-
-  if (requestForm && isMailtoRequest) {
-    requestForm.addEventListener('submit', (event) => {
+  if (requestForm && submitButton && formStatus) {
+    requestForm.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (sending || !requestForm.reportValidity()) return;
 
-      const formData = new FormData(requestForm);
-      const name = (formData.get('name') ?? '').toString().trim();
-      const email = (formData.get('email') ?? '').toString().trim();
-      const collection = (formData.get('collection') ?? '').toString().trim();
-      const date = (formData.get('date') ?? '').toString().trim();
-      const time = (formData.get('time') ?? '').toString().trim();
-      const message = (formData.get('message') ?? '').toString().trim();
-      const body = [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Interested Collection: ${collection}`,
-        `Preferred date: ${date}`,
-        `Preferred time: ${time}`,
-        '',
-        message,
-      ].join('\n');
+      sending = true;
+      const originalLabel = submitButton.textContent ?? '';
+      submitButton.disabled = true;
+      submitButton.textContent = requestForm.dataset.sending ?? originalLabel;
+      requestForm.setAttribute('aria-busy', 'true');
+      formStatus.hidden = true;
+      formStatus.classList.remove('pv-status--error');
 
-      const mailtoUrl = `mailto:ctalmon@gmail.com?subject=${encodeURIComponent('Private viewing request')}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoUrl;
+      try {
+        const formData = new FormData(requestForm);
+        const response = await fetch(requestForm.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: formData,
+        });
+        if (!response.ok) throw new Error('Submission failed');
+
+        requestForm.reset();
+        formStatus.textContent = requestForm.dataset.success ?? 'Thank you. Your request has been sent.';
+      } catch {
+        formStatus.textContent = requestForm.dataset.error ?? 'Your request could not be sent. Please try again.';
+        formStatus.classList.add('pv-status--error');
+      } finally {
+        formStatus.hidden = false;
+        submitButton.disabled = false;
+        submitButton.textContent = originalLabel;
+        requestForm.removeAttribute('aria-busy');
+        sending = false;
+      }
     });
   }
 </script>
@@ -323,6 +331,19 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
     justify-self: start;
     background: transparent;
     cursor: pointer;
+  }
+
+  .pv-request-form .btn:disabled {
+    cursor: wait;
+    opacity: 0.55;
+  }
+
+  .pv-status {
+    font-size: 0.9rem;
+  }
+
+  .pv-status--error {
+    color: #8b2f2f;
   }
 
   .pv-request-note {
