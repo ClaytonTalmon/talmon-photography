@@ -80,10 +80,6 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
           {t.home.formCta} ↗
         </a>
       </div>
-      <div class="scroll-cue" aria-hidden="true">
-        <span>{t.home.scrollCue}</span>
-        <span class="scroll-cue__line"></span>
-      </div>
     </div>
   </section>
 
@@ -103,10 +99,6 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
         <a class="link-underline hero__cta" href={localizedPath(locale, '/work/flight')}>
           {t.home.flightCta} ↗
         </a>
-      </div>
-      <div class="scroll-cue" aria-hidden="true">
-        <span>{t.home.scrollCue}</span>
-        <span class="scroll-cue__line"></span>
       </div>
     </div>
   </section>
@@ -129,10 +121,6 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
             {t.home.worldCta} ↗
           </a>
         </div>
-      </div>
-      <div class="scroll-cue" aria-hidden="true">
-        <span>{t.home.scrollCue}</span>
-        <span class="scroll-cue__line"></span>
       </div>
     </div>
   </section>
@@ -370,10 +358,6 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
       padding-bottom: clamp(96px, 22vw, 124px);
     }
 
-    .form-featured-image .work-section__overlay {
-      padding-top: clamp(24px, 6vw, 36px);
-    }
-
     .world-featured-image .work-section__overlay {
       justify-content: flex-start;
       padding-top: clamp(32px, 8vw, 56px);
@@ -381,7 +365,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
 
     .world-text-block {
       width: 100%;
-      transform: translateY(clamp(-64px, -10vw, -44px));
+      transform: none;
     }
   }
 
