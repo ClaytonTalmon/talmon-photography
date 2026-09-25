@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, passthroughImageService } from 'astro/config';
 
 // Build at the domain root on Netlify, and beneath the repository name
 // when GitHub Pages runs the build.
@@ -10,4 +10,10 @@ export default defineConfig({
     : 'https://www.claytontalmon.com',
   base: isGitHubPages ? '/talmon-photography' : '/',
   output: 'static',
+
+  // Preserve the supplied photographic files instead of generating hundreds
+  // of duplicate responsive variants during every hosted deployment.
+  image: {
+    service: passthroughImageService(),
+  },
 });
