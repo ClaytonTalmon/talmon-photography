@@ -166,7 +166,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: 'The Work',
       titleLabel: 'Title',
-      intro: 'Exhibitions and series, presented in full.',
+      intro: 'Collections, presented in full.',
       viewSeries: 'View Series',
       viewImage: 'View larger',
       backToSeries: 'Back to series',
@@ -266,7 +266,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: 'L’œuvre',
       titleLabel: 'Titre',
-      intro: 'Expositions et séries, présentées intégralement.',
+      intro: 'Collections, présentées intégralement.',
       viewSeries: 'Voir la série',
       viewImage: 'Agrandir',
       backToSeries: 'Retour à la série',
@@ -366,7 +366,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: '作品',
       titleLabel: 'タイトル',
-      intro: '展覧会とシリーズを全体ご覧いただけます。',
+      intro: 'コレクションを全体ご覧いただけます。',
       viewSeries: 'シリーズを見る',
       viewImage: '拡大表示',
       backToSeries: 'シリーズに戻る',
