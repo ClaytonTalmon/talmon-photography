@@ -18,7 +18,6 @@ const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - 
 
 <BaseLayout locale={locale} title={t.work.title} description={t.work.intro}>
   <header class="work-header container">
-    <span class="eyebrow">{t.nav.work}</span>
     <h1>{t.work.title}</h1>
     <p>{t.work.intro}</p>
   </header>
@@ -57,7 +56,6 @@ const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - 
 
   .work-header h1 {
     font-size: clamp(2.4rem, 5vw, 3.6rem);
-    margin-top: 12px;
   }
 
   .work-header p {
