@@ -159,7 +159,7 @@ export const translations: Record<Locale, Dictionary> = {
       rights: 'Talmon de l’Armée',
     },
     home: {
-      exhibitionLabel: 'New Exhibition',
+      exhibitionLabel: 'New Collection',
       exhibitionTitle: 'FLOW',
       exhibitionSubtitle: 'Studies of the Ancient Sea',
       flowCta: 'View the FLOW Collection',
