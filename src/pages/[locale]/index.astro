@@ -250,9 +250,9 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
   }
 
   .work-section {
-    padding-top: clamp(56px, 10vw, 120px);
+    padding-top: clamp(42px, 7.5vw, 90px);
     display: grid;
-    gap: 40px;
+    gap: 30px;
   }
 
   .work-section__head {
@@ -404,8 +404,16 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
   }
 
   @media (min-width: 860px) {
+    .work-section {
+      /* Trim equal space above and below the existing text composition. */
+      --work-space-trim: clamp(36px, 6.6667vw, 80px);
+      padding-top: calc(clamp(56px, 10vw, 120px) - var(--work-space-trim));
+      gap: 40px;
+    }
+
     .work-section__head {
       grid-template-columns: 2fr 1fr;
+      margin-bottom: calc(-1 * var(--work-space-trim));
     }
 
     .work-section__title span {
