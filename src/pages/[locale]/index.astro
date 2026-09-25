@@ -274,10 +274,15 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
 
   .work-section__title {
     font-size: clamp(2rem, 4.5vw, 3.4rem);
+    text-wrap: balance;
   }
 
   .work-section__title span {
-    display: block;
+    display: inline;
+  }
+
+  .work-section__title span:not(:last-child)::after {
+    content: ' ';
   }
 
   .work-section__body {
@@ -391,6 +396,14 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
   @media (min-width: 860px) {
     .work-section__head {
       grid-template-columns: 2fr 1fr;
+    }
+
+    .work-section__title span {
+      display: block;
+    }
+
+    .work-section__title span:not(:last-child)::after {
+      content: none;
     }
 
     .work-section__body {
