@@ -1,4 +1,11 @@
 ---
+// @ts-expect-error Astro renders this component in Node during the static build.
+import { stat } from 'node:fs/promises';
+// @ts-expect-error Astro renders this component in Node during the static build.
+import { resolve } from 'node:path';
+// @ts-expect-error Astro renders this component in Node during the static build.
+import process from 'node:process';
+
 interface Props {
   src: ImageMetadata;
   assetPath: string;
@@ -21,22 +28,40 @@ const {
 
 const displayWidths = [...new Set([640, 1200, 1800, 2400].map((width) => Math.min(width, src.width)))].sort((a, b) => a - b);
 const encodedPath = assetPath.split('/').map(encodeURIComponent).join('/');
-const srcset = displayWidths
-  .map((width) => `/_images/${encodedPath}-${width}.webp ${width}w`)
-  .join(', ');
+const encodedOriginalSrc = encodeURI(src.src);
+const originalStats = await stat(resolve(process.cwd(), 'src/assets', assetPath));
+const candidates = [];
+const optimizedWidths = [];
+
+for (const width of displayWidths) {
+  const optimizedUrl = `/_images/${encodedPath}-${width}.webp`;
+  const optimizedStats = await stat(resolve(process.cwd(), 'public/_images', `${assetPath}-${width}.webp`));
+
+  // Fine grain can occasionally make WebP larger than an already excellent
+  // source JPEG. Only advertise a derivative when it actually saves bytes.
+  if (optimizedStats.size < originalStats.size) {
+    candidates.push(`${optimizedUrl} ${width}w`);
+    optimizedWidths.push(width);
+  }
+}
+
+const largestOptimizedWidth = optimizedWidths.at(-1) ?? 0;
+if (src.width <= 2400 || largestOptimizedWidth < Math.min(1800, src.width)) {
+  candidates.push(`${encodedOriginalSrc} ${src.width}w`);
+}
+
+const srcset = candidates.join(', ');
 ---
 
-<picture>
-  <source type="image/webp" srcset={srcset} sizes={sizes} />
-  <img
-    src={src.src}
-    alt={alt}
-    class={className}
-    width={src.width}
-    height={src.height}
-    sizes={sizes}
-    loading={loading}
-    decoding="async"
-    fetchpriority={fetchpriority}
-  />
-</picture>
+<img
+  src={src.src}
+  srcset={srcset}
+  alt={alt}
+  class={className}
+  width={src.width}
+  height={src.height}
+  sizes={sizes}
+  loading={loading}
+  decoding="async"
+  fetchpriority={fetchpriority}
+/>
