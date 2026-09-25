@@ -10,19 +10,19 @@ const allowedOrigins = new Set([
 
 const replies = {
   en: {
-    subject: 'Thank you for your inquiry',
-    greeting: 'Thank you for your interest in the collections.',
-    message: 'Your inquiry has been received. We will reply shortly.',
+    subject: 'Talmon de l’Armée Photography — Collection Inquiry Received',
+    statement: 'Thank you for your interest in the collections exploring time, space, and what the forces of nature leave unresolved.',
+    message: 'Your inquiry has reached me, and I will respond personally within two to three business days.',
   },
   fr: {
-    subject: 'Merci pour votre demande',
-    greeting: 'Merci de l’intérêt que vous portez aux collections.',
-    message: 'Votre demande a bien été reçue. Nous vous répondrons prochainement.',
+    subject: 'Talmon de l’Armée Photography — Votre demande a bien été reçue',
+    statement: 'Merci de l’intérêt que vous portez aux collections, qui explorent le temps, l’espace et ce que les forces de la nature laissent irrésolu.',
+    message: 'Votre demande m’est bien parvenue et je vous répondrai personnellement sous deux à trois jours ouvrés.',
   },
   ja: {
-    subject: 'お問い合わせありがとうございます',
-    greeting: 'コレクションにご関心をお寄せいただき、ありがとうございます。',
-    message: 'お問い合わせを受け付けました。折り返しご連絡いたします。',
+    subject: 'Talmon de l’Armée Photography — コレクションに関するお問い合わせを受け付けました',
+    statement: '時間、空間、そして自然の力が未解決のまま残すものを探求するコレクションにご関心をお寄せいただき、ありがとうございます。',
+    message: 'お問い合わせは私のもとに届いております。2〜3営業日以内に私から直接ご返信いたします。',
   },
 };
 
@@ -106,8 +106,8 @@ export default async (request) => {
       to: [email],
       reply_to: OWNER_EMAIL,
       subject: reply.subject,
-      text: `${reply.greeting}\n\n${reply.message}\n\nTalmon de l’Armée Photography\n${SITE_URL}`,
-      html: `<div style="font-family:Arial,sans-serif;line-height:1.65;color:#1c1b18;max-width:560px"><p>${reply.greeting}</p><p>${reply.message}</p><p style="margin-top:32px">Talmon de l’Armée Photography<br><a href="${SITE_URL}" style="color:#1c1b18">claytontalmon.com</a></p></div>`,
+      text: `${reply.statement}\n\n${reply.message}\n\nTalmon de l’Armée Photography\n${SITE_URL}`,
+      html: `<div style="font-family:Arial,sans-serif;line-height:1.65;color:#1c1b18;max-width:560px"><p>${reply.statement}</p><p>${reply.message}</p><p style="margin-top:32px">Talmon de l’Armée Photography<br><a href="${SITE_URL}" style="color:#1c1b18">claytontalmon.com</a></p></div>`,
     },
   ];
 
