@@ -19,10 +19,10 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
   <div class="site-header__inner container">
     <a class="wordmark" href={localizedPath(locale, '/')}>
       <span class="wordmark__name">Talmon de l’Armée</span>
-      <span class="wordmark__sub eyebrow">Photography</span>
+      <span class="wordmark__sub eyebrow">{locale === 'de' ? 'Fotografie' : 'Photography'}</span>
     </a>
 
-    <nav class="site-nav" aria-label="Primary">
+    <nav class="site-nav" aria-label={locale === 'de' ? 'Hauptnavigation' : 'Primary'}>
       <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
       <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
       <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
@@ -30,7 +30,7 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
       <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
     </nav>
 
-    <div class="lang-switch" aria-label="Language">
+    <div class="lang-switch" aria-label={locale === 'de' ? 'Sprache' : 'Language'}>
       {otherLocales(locale).map((l) => (
         <a href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
       ))}
@@ -38,10 +38,10 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
     </div>
 
     <details class="mobile-menu">
-      <summary aria-label="Menu">
+      <summary aria-label={locale === 'de' ? 'Menü' : 'Menu'}>
         <span></span><span></span><span></span>
       </summary>
-      <nav class="mobile-menu__nav" aria-label="Primary (mobile)">
+      <nav class="mobile-menu__nav" aria-label={locale === 'de' ? 'Hauptnavigation (mobil)' : 'Primary (mobile)'}>
         <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
         <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
         <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
@@ -206,6 +206,7 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
     display: flex;
     gap: 16px;
     padding-top: 16px;
+    flex-wrap: wrap;
     font-size: 1.014rem;
     letter-spacing: 0.08em;
   }
@@ -216,7 +217,7 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
     border: 0;
   }
 
-  @media (max-width: 860px) {
+  @media (max-width: 1100px) {
     .wordmark__name {
       font-size: 1.3225rem;
     }

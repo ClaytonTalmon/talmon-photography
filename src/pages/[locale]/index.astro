@@ -24,7 +24,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
 
 <BaseLayout
   locale={locale}
-  title="Home"
+  title={locale === 'de' ? 'Startseite' : 'Home'}
   description={t.home.workBody}
   headerVariant="dark"
 >

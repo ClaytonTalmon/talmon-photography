@@ -9,7 +9,8 @@
     "ja": "WORLD",
     "es": "WORLD",
     "it": "WORLD",
-    "zh": "WORLD"
+    "zh": "WORLD",
+    "de": "WORLD"
   },
   "subtitle": {
     "en": "Infinite space. Improbable life. One fleeting moment.",
@@ -17,7 +18,8 @@
     "ja": "無限の空間。ありえない生命。一瞬の時。",
     "es": "Espacio infinito. Vida improbable. Un instante fugaz.",
     "it": "Spazio infinito. Vita improbabile. Un istante fugace.",
-    "zh": "无垠空间。不可思议的生命。转瞬即逝的一刻。"
+    "zh": "无垠空间。不可思议的生命。转瞬即逝的一刻。",
+    "de": "Unendlicher Raum. Unwahrscheinliches Leben. Ein flüchtiger Augenblick."
   },
   "description": {
     "en": "WORLD considers the fragile relationship between human life and the vast spaces that hold it. Each image is a pause in motion: a fleeting encounter with distance, scale, and the improbable forms of life that appear within our world.",
@@ -25,7 +27,8 @@
     "ja": "WORLDは、人間の営みとそれを包む広大な空間との、儚い関係を見つめます。一枚一枚の写真は、動きの中の一時停止。距離、スケール、そしてその中に現れるありえない生命との束の間の出会いです。",
     "es": "WORLD contempla la frágil relación entre la vida humana y los vastos espacios que la contienen. Cada imagen es una pausa en movimiento: un encuentro fugaz con la distancia, la escala y las improbables formas de vida que aparecen en nuestro mundo.",
     "it": "WORLD considera il fragile rapporto tra la vita umana e gli spazi vasti che la accolgono. Ogni immagine è una pausa nel movimento: un incontro fugace con la distanza, la scala e le improbabili forme di vita che appaiono nel nostro mondo.",
-    "zh": "WORLD 凝视人类生命与承载它的广阔空间之间脆弱的关系。每幅影像都是运动中的一次停顿：与距离、尺度，以及在这个世界中出现的不可思议生命形态的一次短暂相遇。"
+    "zh": "WORLD 凝视人类生命与承载它的广阔空间之间脆弱的关系。每幅影像都是运动中的一次停顿：与距离、尺度，以及在这个世界中出现的不可思议生命形态的一次短暂相遇。",
+    "de": "WORLD betrachtet die zerbrechliche Beziehung zwischen dem menschlichen Leben und den weiten Räumen, die es umgeben. Jedes Bild ist ein Innehalten in der Bewegung: eine flüchtige Begegnung mit Distanz, Maßstab und den unwahrscheinlichen Formen des Lebens, die in unserer Welt erscheinen."
   },
   "descriptionCredit": {
     "en": "Clayton Talmon de l’Armée",
@@ -33,7 +36,8 @@
     "ja": "Clayton Talmon de l’Armée",
     "es": "Clayton Talmon de l’Armée",
     "it": "Clayton Talmon de l’Armée",
-    "zh": "Clayton Talmon de l’Armée"
+    "zh": "Clayton Talmon de l’Armée",
+    "de": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
     "Mach Girl.jpg": {

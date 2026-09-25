@@ -1,14 +1,16 @@
+import { de } from './de';
+
 // Central translation dictionary.
 //
 // To add a new language:
-//   1. Add its locale code to `locales` in astro.config.mjs
+//   1. Add its locale code to `locales` below and src/content/config.ts
 //   2. Add a key + full object below (copy the "en" block as a starting point)
 //   3. Add it to `localeNames` so the language switcher shows a nice label
 //
 // Every page pulls its strings from here via `getTranslations(locale)`,
 // so there is exactly one place to edit copy per language.
 
-export const locales = ['en', 'fr', 'ja', 'es', 'it', 'zh'] as const;
+export const locales = ['en', 'fr', 'ja', 'es', 'it', 'zh', 'de'] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'en';
@@ -20,6 +22,7 @@ export const localeNames: Record<Locale, string> = {
   es: 'ES',
   it: 'IT',
   zh: '中文',
+  de: 'DE',
 };
 
 export const localeHtmlLang: Record<Locale, string> = {
@@ -29,6 +32,7 @@ export const localeHtmlLang: Record<Locale, string> = {
   es: 'es',
   it: 'it',
   zh: 'zh-Hans',
+  de: 'de',
 };
 
 type Dictionary = {
@@ -138,6 +142,7 @@ type Dictionary = {
 };
 
 export const translations: Record<Locale, Dictionary> = {
+  de,
   en: {
     nav: {
       work: 'Work',

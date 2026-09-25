@@ -9,7 +9,8 @@
     "ja": "FORM",
     "es": "FORM",
     "it": "FORM",
-    "zh": "FORM"
+    "zh": "FORM",
+    "de": "FORM"
   },
   "subtitle": {
     "en": "",
@@ -17,7 +18,8 @@
     "ja": "",
     "es": "",
     "it": "",
-    "zh": ""
+    "zh": "",
+    "de": ""
   },
   "description": {
     "en": "FORM explores the relationship between the human figure and the elemental forces of the desert.\n\nEach image emerges from a collaboration between body, wind, time, and geology. The figure is not presented as subject, but as matter, shaped by the same forces that carve dunes and erode stone.\n\nWithin this vast, enduring terrain, the human presence becomes a fragile counterpoint, temporary, exposed, and acutely aware of scale.\n\nThe series unfolds as a meditation on solitude, scale, and resilience, inviting the viewer to pause, to breathe, and to encounter the desert not only as landscape, but as an interior state.",
@@ -25,7 +27,8 @@
     "ja": "FORMは、人の身体と砂漠の根源的な自然の力との関係を探ります。\n\n一枚一枚の画像は、身体、風、時間、地質の共同作用から生まれます。人の姿は主体としてではなく、砂丘を刻み、石を侵食するのと同じ力に形づくられる物質として現れます。\n\nこの広大で悠久の地形のなかで、人間の存在は儚い対照をなします。束の間そこに身をさらし、スケールを鋭く意識する存在です。\n\nこのシリーズは、孤独、スケール、しなやかな強さについての思索として展開します。立ち止まり、呼吸し、砂漠を単なる風景としてではなく、内面の状態としても受け止めるよう、見る人を誘います。",
     "es": "FORM explora la relación entre la figura humana y las fuerzas elementales del desierto.\n\nCada imagen nace de una colaboración entre el cuerpo, el viento, el tiempo y la geología. La figura no aparece como sujeto, sino como materia, moldeada por las mismas fuerzas que esculpen las dunas y erosionan la piedra.\n\nEn este territorio vasto y perdurable, la presencia humana se convierte en un contrapunto frágil: temporal, expuesto y profundamente consciente de la escala.\n\nLa serie se despliega como una meditación sobre la soledad, la escala y la resiliencia, invitando al espectador a detenerse, respirar y encontrar el desierto no solo como paisaje, sino como estado interior.",
     "it": "FORM esplora il rapporto tra la figura umana e le forze elementari del deserto.\n\nOgni immagine nasce da una collaborazione tra corpo, vento, tempo e geologia. La figura non è presentata come soggetto, ma come materia, plasmata dalle stesse forze che scolpiscono le dune ed erodono la pietra.\n\nIn questo territorio vasto e duraturo, la presenza umana diventa un fragile contrappunto: temporanea, esposta e profondamente consapevole della scala.\n\nLa serie si sviluppa come una meditazione sulla solitudine, sulla scala e sulla resilienza, invitando lo spettatore a fermarsi, respirare e incontrare il deserto non soltanto come paesaggio, ma come stato interiore.",
-    "zh": "FORM 探索人体与沙漠自然力量之间的关系。\n\n每幅作品都诞生于身体、风、时间与地质之间的共同作用。人物并非作为主体出现，而是成为物质，被塑造沙丘、侵蚀岩石的同一股力量所改变。\n\n在这片广阔而恒久的土地上，人的存在成为脆弱的对照：短暂、暴露，并敏锐地感知尺度。\n\n这组作品如同对孤独、尺度与韧性的沉思，邀请观者停下、呼吸，并把沙漠不仅视为风景，也视为一种内在状态。"
+    "zh": "FORM 探索人体与沙漠自然力量之间的关系。\n\n每幅作品都诞生于身体、风、时间与地质之间的共同作用。人物并非作为主体出现，而是成为物质，被塑造沙丘、侵蚀岩石的同一股力量所改变。\n\n在这片广阔而恒久的土地上，人的存在成为脆弱的对照：短暂、暴露，并敏锐地感知尺度。\n\n这组作品如同对孤独、尺度与韧性的沉思，邀请观者停下、呼吸，并把沙漠不仅视为风景，也视为一种内在状态。",
+    "de": "FORM erforscht die Beziehung zwischen der menschlichen Gestalt und den elementaren Kräften der Wüste.\n\nJedes Bild entsteht aus dem Zusammenspiel von Körper, Wind, Zeit und Geologie. Die Gestalt erscheint nicht als Subjekt, sondern als Materie, geformt von denselben Kräften, die Dünen modellieren und Stein erodieren.\n\nIn diesem weiten, überdauernden Gelände wird die menschliche Präsenz zu einem zerbrechlichen Gegenpol: vergänglich, ungeschützt und sich der Größenverhältnisse zutiefst bewusst.\n\nDie Serie entfaltet sich als Meditation über Einsamkeit, Maßstab und Widerstandskraft. Sie lädt dazu ein, innezuhalten, zu atmen und der Wüste nicht nur als Landschaft, sondern auch als innerem Zustand zu begegnen."
   },
   "descriptionCredit": {
     "en": "Clayton Talmon de l’Armée",
@@ -33,7 +36,8 @@
     "ja": "Clayton Talmon de l’Armée",
     "es": "Clayton Talmon de l’Armée",
     "it": "Clayton Talmon de l’Armée",
-    "zh": "Clayton Talmon de l’Armée"
+    "zh": "Clayton Talmon de l’Armée",
+    "de": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
     "Between Ages.jpg": { "title": "Between Ages", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
