@@ -24,18 +24,16 @@
     "ja": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
-    "BEEKMAN.jpg": { "title": "BEEKMAN", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "CUTLER.jpg": { "title": "CUTLER", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "EGYPT1.jpg": { "title": "EGYPT1", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "EGYPT2.jpg": { "title": "EGYPT2", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "EGYPT3.jpg": { "title": "EGYPT3", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "EGYPT4.jpg": { "title": "EGYPT4", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "EGYPT5.jpg": { "title": "EGYPT5", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "EGYPT6.jpg": { "title": "EGYPT6", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "HERO.jpg": { "title": "HERO", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "HUMANS1.jpg": { "title": "HUMANS1", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "HUMANS2.jpg": { "title": "HUMANS2", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "PICNIC1.jpg": { "title": "PICNIC1", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "VENICE1.jpg": { "title": "VENICE1", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" }
+    "Ancient Travel.jpg": { "title": "Ancient Travel", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "Cloth and Wind.jpg": { "title": "Cloth and Wind", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "Extended in Thought.jpg": { "title": "Extended in Thought", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "Family Time.jpg": { "title": "Family Time", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "Human Vibration.jpg": { "title": "Human Vibration", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "River of Life.jpg": { "title": "River of Life", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "Sweet Dreams.jpg": { "title": "Sweet Dreams", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "The Small Hours.jpg": { "title": "The Small Hours", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "The Weight of History.jpg": { "title": "The Weight of History", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "Time and Space.jpg": { "title": "Time and Space", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "Winds of Thought.jpg": { "title": "Winds of Thought", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" }
   }
 }
