@@ -10,11 +10,7 @@ export function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 
-const contactEmail = 'ctalmon@gmail.com';
-// Formspree form IDs are public identifiers embedded in the page markup.
-// The environment variable allows future overrides without another code edit.
-const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID || 'mdekzkeb';
-const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mailto:${contactEmail}`;
+const contactEndpoint = 'https://willowy-pika-c392c9.netlify.app/.netlify/functions/contact';
 ---
 
 <BaseLayout locale={locale} title={t.contact.title} description={t.contact.intro}>
@@ -27,9 +23,9 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
 
     <form
       class="contact-form"
-      action={formAction}
-      method={formspreeId ? 'POST' : 'GET'}
-      data-enhanced={formspreeId ? 'true' : 'false'}
+      action={contactEndpoint}
+      method="POST"
+      data-locale={locale}
       data-sending={t.contact.sending}
       data-success={t.contact.success}
       data-error={t.contact.error}
@@ -46,13 +42,12 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
         {t.contact.messageLabel}
         <textarea name="message" rows="6" required></textarea>
       </label>
-      {formspreeId ? (
-        <>
-          <input type="hidden" name="_language" value={locale} />
-          <input type="hidden" name="_subject" value="Photography inquiry" />
-          <input type="hidden" name="_replyto" value="" data-reply-to />
-        </>
-      ) : null}
+      <div class="contact-form__trap" aria-hidden="true">
+        <label>
+          Company
+          <input type="text" name="company" tabindex="-1" autocomplete="off" />
+        </label>
+      </div>
       <button class="btn" type="submit">{t.contact.submit}</button>
       <p class="form-status" role="status" aria-live="polite" hidden></p>
       <p class="contact-note">{t.contact.note}</p>
@@ -62,39 +57,10 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
 
 <script>
   const contactForm = document.querySelector<HTMLFormElement>('.contact-form');
-  const emailInput = contactForm?.querySelector<HTMLInputElement>('input[name="email"]');
-  const replyToInput = contactForm?.querySelector<HTMLInputElement>('[data-reply-to]');
   const submitButton = contactForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const formStatus = contactForm?.querySelector<HTMLElement>('.form-status');
-  const isMailtoForm = contactForm?.getAttribute('action')?.startsWith('mailto:');
 
-  if (emailInput && replyToInput) {
-    emailInput.addEventListener('input', () => {
-      replyToInput.value = emailInput.value;
-    });
-  }
-
-  if (contactForm && isMailtoForm) {
-    contactForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      const formData = new FormData(contactForm);
-      const name = (formData.get('name') ?? '').toString().trim();
-      const email = (formData.get('email') ?? '').toString().trim();
-      const message = (formData.get('message') ?? '').toString().trim();
-      const body = [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        '',
-        message,
-      ].join('\n');
-
-      const mailtoUrl = `mailto:ctalmon@gmail.com?subject=${encodeURIComponent('Photography inquiry')}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoUrl;
-    });
-  }
-
-  if (contactForm?.dataset.enhanced === 'true') {
+  if (contactForm) {
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
@@ -107,10 +73,17 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
       formStatus.classList.remove('form-status--success', 'form-status--error');
 
       try {
+        const formData = new FormData(contactForm);
         const response = await fetch(contactForm.action, {
           method: 'POST',
-          body: new FormData(contactForm),
-          headers: { Accept: 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.get('name'),
+            email: formData.get('email'),
+            message: formData.get('message'),
+            company: formData.get('company'),
+            locale: contactForm.dataset.locale,
+          }),
         });
 
         if (!response.ok) throw new Error('Form submission failed');
@@ -199,6 +172,16 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
   .contact-form .btn:disabled {
     cursor: wait;
     opacity: 0.55;
+  }
+
+  .contact-form__trap {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .form-status {
