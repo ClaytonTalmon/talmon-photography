@@ -91,6 +91,9 @@ type Dictionary = {
     emailLabel: string;
     messageLabel: string;
     submit: string;
+    sending: string;
+    success: string;
+    error: string;
     note: string;
   };
   privateView: {
@@ -187,6 +190,9 @@ export const translations: Record<Locale, Dictionary> = {
       emailLabel: 'Email',
       messageLabel: 'Message',
       submit: 'Send Inquiry',
+      sending: 'Sending…',
+      success: 'Thank you. Your inquiry has been sent.',
+      error: 'Your message could not be sent. Please try again.',
       note: 'Replies typically arrive within two to three business days.',
     },
     privateView: {
@@ -281,6 +287,9 @@ export const translations: Record<Locale, Dictionary> = {
       emailLabel: 'E-mail',
       messageLabel: 'Message',
       submit: 'Envoyer',
+      sending: 'Envoi en cours…',
+      success: 'Merci. Votre message a bien été envoyé.',
+      error: 'Votre message n’a pas pu être envoyé. Veuillez réessayer.',
       note: 'Les réponses arrivent généralement sous deux à trois jours ouvrés.',
     },
     privateView: {
@@ -375,6 +384,9 @@ export const translations: Record<Locale, Dictionary> = {
       emailLabel: 'メールアドレス',
       messageLabel: 'メッセージ',
       submit: '送信',
+      sending: '送信中…',
+      success: 'ありがとうございます。お問い合わせを送信しました。',
+      error: 'メッセージを送信できませんでした。もう一度お試しください。',
       note: '通常2～3営業日以内にご返信いたします。',
     },
     privateView: {

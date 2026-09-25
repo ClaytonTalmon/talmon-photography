@@ -40,6 +40,7 @@ jobs:
       - name: Build Astro site
         env:
           RESPONSIVE_CACHE_HIT: ${{ steps.responsive-cache.outputs.cache-hit }}
+          PUBLIC_FORMSPREE_ID: ${{ secrets.PUBLIC_FORMSPREE_ID }}
         run: npm run build
 
       - name: Configure Pages

@@ -11,7 +11,9 @@ const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 
 const contactEmail = 'ctalmon@gmail.com';
-const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
+// Formspree form IDs are public identifiers embedded in the page markup.
+// The environment variable allows future overrides without another code edit.
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID || 'mdekzkeb';
 const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mailto:${contactEmail}`;
 ---
 
@@ -23,7 +25,15 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
       <p>{t.contact.intro}</p>
     </header>
 
-    <form class="contact-form" action={formAction} method={formspreeId ? 'POST' : 'GET'}>
+    <form
+      class="contact-form"
+      action={formAction}
+      method={formspreeId ? 'POST' : 'GET'}
+      data-enhanced={formspreeId ? 'true' : 'false'}
+      data-sending={t.contact.sending}
+      data-success={t.contact.success}
+      data-error={t.contact.error}
+    >
       <label>
         {t.contact.nameLabel}
         <input type="text" name="name" required />
@@ -44,6 +54,7 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
         </>
       ) : null}
       <button class="btn" type="submit">{t.contact.submit}</button>
+      <p class="form-status" role="status" aria-live="polite" hidden></p>
       <p class="contact-note">{t.contact.note}</p>
     </form>
   </div>
@@ -53,6 +64,8 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
   const contactForm = document.querySelector<HTMLFormElement>('.contact-form');
   const emailInput = contactForm?.querySelector<HTMLInputElement>('input[name="email"]');
   const replyToInput = contactForm?.querySelector<HTMLInputElement>('[data-reply-to]');
+  const submitButton = contactForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
+  const formStatus = contactForm?.querySelector<HTMLElement>('.form-status');
   const isMailtoForm = contactForm?.getAttribute('action')?.startsWith('mailto:');
 
   if (emailInput && replyToInput) {
@@ -78,6 +91,41 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
 
       const mailtoUrl = `mailto:ctalmon@gmail.com?subject=${encodeURIComponent('Photography inquiry')}&body=${encodeURIComponent(body)}`;
       window.location.href = mailtoUrl;
+    });
+  }
+
+  if (contactForm?.dataset.enhanced === 'true') {
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (!submitButton || !formStatus) return;
+
+      const originalLabel = submitButton.textContent ?? '';
+      submitButton.disabled = true;
+      submitButton.textContent = contactForm.dataset.sending ?? originalLabel;
+      formStatus.hidden = true;
+      formStatus.classList.remove('form-status--success', 'form-status--error');
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (!response.ok) throw new Error('Form submission failed');
+
+        contactForm.reset();
+        formStatus.textContent = contactForm.dataset.success ?? 'Thank you.';
+        formStatus.classList.add('form-status--success');
+      } catch {
+        formStatus.textContent = contactForm.dataset.error ?? 'Please try again.';
+        formStatus.classList.add('form-status--error');
+      } finally {
+        formStatus.hidden = false;
+        submitButton.disabled = false;
+        submitButton.textContent = originalLabel;
+      }
     });
   }
 </script>
@@ -146,6 +194,24 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : `mail
     justify-self: start;
     background: transparent;
     cursor: pointer;
+  }
+
+  .contact-form .btn:disabled {
+    cursor: wait;
+    opacity: 0.55;
+  }
+
+  .form-status {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .form-status--success {
+    color: var(--color-ink);
+  }
+
+  .form-status--error {
+    color: #8b2f2f;
   }
 
   .contact-note {
