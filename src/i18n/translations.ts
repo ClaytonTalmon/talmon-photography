@@ -183,10 +183,10 @@ export const translations: Record<Locale, Dictionary> = {
         'Enter the darkroom, see test prints on the wall, and follow the decisions that bring an image into its final form.',
       studioCta: 'Visit the Studio',
       collectorsLabel: 'For Collectors',
-      collectorsTitle: 'A private viewing,\nin your own time.',
+      collectorsTitle: 'Discuss the Collection',
       collectorsBody:
         'Invited collectors may enter a quiet viewing room for advance work, edition details, price reveals, and artist Q&A invitations.',
-      collectorsCta: 'Enter Private View',
+      collectorsCta: 'Discuss the Collection',
     },
     work: {
       title: 'The Work',
@@ -238,7 +238,7 @@ export const translations: Record<Locale, Dictionary> = {
       note: 'Replies typically arrive within two to three business days.',
     },
     privateView: {
-      title: 'Private View',
+      title: 'Request an Appointment',
       intro: 'To arrange a remote, on-line, review and discussion suggest a time in the form.',
       passwordLabel: 'Password',
       submit: 'Enter',
@@ -252,7 +252,7 @@ export const translations: Record<Locale, Dictionary> = {
       requestMessageLabel: 'Message',
       collectionLabel: 'Interested Collection',
       collectionPlaceholder: 'Select a collection',
-      requestSubmit: 'Request viewing',
+      requestSubmit: 'Request an Appointment',
       requestNote: 'I will confirm the viewing time by email.',
     },
   },
