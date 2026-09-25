@@ -43,7 +43,7 @@ const processImages = aboutImages
               loading="lazy"
             />
             {filename === 'Process-2.jpg' && (
-              <figcaption>Working out the tonal values.</figcaption>
+              <figcaption class="process-caption">Working out the tonal values.</figcaption>
             )}
           </figure>
         ))}
@@ -64,14 +64,14 @@ const processImages = aboutImages
                 loading="lazy"
               />
               {filename === 'Process-5.jpg' && (
-                <figcaption>Archival matting, backing and framining.</figcaption>
+                <figcaption class="process-caption">Archival matting, backing and framing.</figcaption>
               )}
               {filename === 'Process-6.jpeg' && (
-                <figcaption>FLOW debut - Venice, Italy.</figcaption>
+                <figcaption class="process-caption">FLOW - Venice, Italy.</figcaption>
               )}
             </figure>
             {filename === 'Process-7.jpg' && (
-              <p class="process-side-caption">Testing scale variations.</p>
+              <p class="process-caption process-side-caption">Testing scale variations.</p>
             )}
           </Fragment>
         ))}
@@ -127,7 +127,7 @@ const processImages = aboutImages
     margin: 0;
   }
 
-  .process-image-item figcaption {
+  .process-caption {
     margin-top: 4px;
     text-align: center;
     white-space: nowrap;
@@ -140,10 +140,6 @@ const processImages = aboutImages
     align-self: center;
     justify-self: start;
     margin: 0 0 0 10%;
-    text-align: center;
-    color: var(--color-ink-soft);
-    font-family: var(--font-display);
-    font-size: 1.62rem;
   }
 
   .process-note {
