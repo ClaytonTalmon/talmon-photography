@@ -1,7 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import ResponsivePhoto from '../../../../components/ResponsivePhoto.astro';
 import { getTranslations } from '../../../../i18n/translations';
 import { locales, localizedPath, type Locale } from '../../../../i18n/utils';
 import { getSeriesImages } from '../../../../lib/seriesImages';
@@ -57,11 +57,10 @@ const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/$
     </header>
 
     <figure class="image-view">
-      <Image
+      <ResponsivePhoto
         src={loadedImage.image}
-        format={loadedImage.image.format}
+        assetPath={loadedImage.assetPath}
         alt={details.title ?? entry.data.title[locale]}
-        widths={[800, 1400, 2000, 2600]}
         sizes="(max-width: 900px) 92vw, 78vw"
         loading="eager"
       />

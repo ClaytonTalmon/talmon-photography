@@ -1,0 +1,42 @@
+---
+interface Props {
+  src: ImageMetadata;
+  assetPath: string;
+  alt: string;
+  sizes: string;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  src,
+  assetPath,
+  alt,
+  sizes,
+  class: className,
+  loading = 'lazy',
+  fetchpriority,
+} = Astro.props;
+
+const displayWidths = [...new Set([640, 1200, 1800, 2400].map((width) => Math.min(width, src.width)))].sort((a, b) => a - b);
+const encodedPath = assetPath.split('/').map(encodeURIComponent).join('/');
+const srcset = displayWidths
+  .map((width) => `/_images/${encodedPath}-${width}.webp ${width}w`)
+  .join(', ');
+---
+
+<picture>
+  <source type="image/webp" srcset={srcset} sizes={sizes} />
+  <img
+    src={src.src}
+    alt={alt}
+    class={className}
+    width={src.width}
+    height={src.height}
+    sizes={sizes}
+    loading={loading}
+    decoding="async"
+    fetchpriority={fetchpriority}
+  />
+</picture>

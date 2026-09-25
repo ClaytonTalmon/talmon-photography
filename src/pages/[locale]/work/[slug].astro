@@ -1,7 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ResponsivePhoto from '../../../components/ResponsivePhoto.astro';
 import { getTranslations } from '../../../i18n/translations';
 import { locales, localizedPath, type Locale } from '../../../i18n/utils';
 import { getSeriesImages } from '../../../lib/seriesImages';
@@ -59,7 +59,7 @@ function detailsFor(filename: string) {
           1/1 = square, 4/5 = slightly less tall, etc).
       */}
       <div class="gallery">
-        {images.map(({ image, filename }, i) => {
+        {images.map(({ image, filename, assetPath }, i) => {
           const details = detailsFor(filename);
           return (
             <a
@@ -67,12 +67,11 @@ function detailsFor(filename: string) {
               href={localizedPath(locale, `/work/${entry.data.slug}/${i}/`)}
               aria-label={`${t.work.viewImage}${details.title ? `: ${details.title}` : ''}`}
             >
-              <Image
+              <ResponsivePhoto
                 src={image}
-                format={image.format}
+                assetPath={assetPath}
                 alt={details.title ?? ''}
                 class="gallery__image"
-                widths={[480, 800, 1200, 1800, 2400]}
                 sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
                 loading={i < 2 ? 'eager' : 'lazy'}
               />

@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResponsivePhoto from '../../components/ResponsivePhoto.astro';
 import { getTranslations } from '../../i18n/translations';
 import { locales, type Locale } from '../../i18n/utils';
 import { getAboutImages } from '../../lib/seriesImages';
@@ -17,7 +17,7 @@ const processImages = aboutImages
   .filter(({ filename }) => filename.startsWith('Process-') && filename !== 'Process-8.jpg')
   .map((loadedImage) =>
     loadedImage.filename === 'Process-7.jpg' && processEight
-      ? { ...loadedImage, image: processEight.image }
+      ? { ...loadedImage, image: processEight.image, assetPath: processEight.assetPath }
       : loadedImage
   );
 ---
@@ -32,14 +32,13 @@ const processImages = aboutImages
   {processImages.length > 0 && (
     <div class="process-gallery">
       <div class="process-gallery__row">
-        {processImages.slice(0, 2).map(({ image, filename }) => (
+        {processImages.slice(0, 2).map(({ image, filename, assetPath }) => (
           <figure class="process-image-item">
-            <Image
+            <ResponsivePhoto
               src={image}
-              format={image.format}
-              alt=""
+              assetPath={assetPath}
+              alt={t.studio.title}
               class="process-gallery__image"
-              widths={[640, 1024, 1600, 2200]}
               sizes="(max-width: 760px) 100vw, 50vw"
               loading="lazy"
             />
@@ -53,15 +52,14 @@ const processImages = aboutImages
         Each photograph is produced as a museum-grade, fibre-based silver-gelatin print, chosen for its deep blacks, luminous highlights, and exceptional tonal range. Archival processing, conservation mounting, and museum-quality framing preserve the print’s tonal integrity and physical presence for generations.
       </p>
       <div class="process-gallery__row">
-        {processImages.slice(2).map(({ image, filename }) => (
+        {processImages.slice(2).map(({ image, filename, assetPath }) => (
           <Fragment>
             <figure class="process-image-item">
-              <Image
+              <ResponsivePhoto
                 src={image}
-              format={image.format}
-                alt=""
+                assetPath={assetPath}
+                alt={t.studio.title}
                 class="process-gallery__image"
-                widths={[640, 1024, 1600, 2200]}
                 sizes="(max-width: 760px) 100vw, 50vw"
                 loading="lazy"
               />
@@ -164,4 +162,3 @@ const processImages = aboutImages
     }
   }
 </style>
-

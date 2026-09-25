@@ -1,7 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ResponsivePhoto from '../../../components/ResponsivePhoto.astro';
 import { getTranslations } from '../../../i18n/translations';
 import { locales, localizedPath, type Locale } from '../../../i18n/utils';
 import { getSeriesImages } from '../../../lib/seriesImages';
@@ -25,16 +25,15 @@ const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - 
 
   <div class="series-list container">
     {allSeries.map((entry) => {
-      const cover = getSeriesImages(entry.data.slug)[0]?.image;
+      const cover = getSeriesImages(entry.data.slug)[0];
       return (
         <a class="series-card" href={localizedPath(locale, `/work/${entry.data.slug}`)}>
           {cover && (
-            <Image
-              src={cover}
-              format={cover.format}
-              alt=""
+            <ResponsivePhoto
+              src={cover.image}
+              assetPath={cover.assetPath}
+              alt={entry.data.title[locale]}
               class="series-card__image"
-              widths={[480, 800, 1200, 1600]}
               sizes="(max-width: 860px) 100vw, 50vw"
               loading="lazy"
             />

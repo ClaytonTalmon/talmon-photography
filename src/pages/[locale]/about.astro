@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResponsivePhoto from '../../components/ResponsivePhoto.astro';
 import { getTranslations } from '../../i18n/translations';
 import { locales, type Locale } from '../../i18n/utils';
 import { getAboutImages } from '../../lib/seriesImages';
@@ -11,7 +11,7 @@ export function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
-const portraitImage = getAboutImages().find(({ filename }) => filename === 'Web Portrait.jpg')?.image;
+const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'Web Portrait.jpg');
 ---
 
 <BaseLayout locale={locale} title={t.about.title} description={t.about.body}>
@@ -20,13 +20,12 @@ const portraitImage = getAboutImages().find(({ filename }) => filename === 'Web 
     <h1>{t.about.intro}</h1>
   </header>
 
-  {portraitImage && (
+  {portraitPhoto && (
     <div class="about-portrait container">
-      <Image
-        src={portraitImage}
-        format={portraitImage.format}
+      <ResponsivePhoto
+        src={portraitPhoto.image}
+        assetPath={portraitPhoto.assetPath}
         alt="Talmon de l’Armée"
-        widths={[640, 1024, 1600]}
         sizes="(max-width: 760px) 100vw, 760px"
         loading="eager"
       />

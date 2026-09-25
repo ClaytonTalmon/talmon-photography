@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResponsivePhoto from '../../components/ResponsivePhoto.astro';
 import { getTranslations } from '../../i18n/translations';
 import { locales, localizedPath, type Locale } from '../../i18n/utils';
 import { getAboutImages, getSeriesImages } from '../../lib/seriesImages';
@@ -17,11 +17,11 @@ const formImages = getSeriesImages('form');
 const flightImages = getSeriesImages('flight');
 const worldImages = getSeriesImages('world');
 const aboutImages = getAboutImages();
-const heroImage = flowImages[0]?.image;
-const workImage = (formImages.find(({ filename }) => filename === 'Together, We Are Free.jpg') ?? formImages[0])?.image;
-const flightImage = (flightImages.find(({ filename }) => filename === 'SIHLO-13.jpg') ?? flightImages[0])?.image;
-const worldImage = (worldImages.find(({ filename }) => filename === 'HERO.jpg') ?? worldImages[0])?.image;
-const studioImage = (aboutImages.find(({ filename }) => filename === 'Studio-3.jpeg') ?? aboutImages[0])?.image;
+const heroPhoto = flowImages[0];
+const workPhoto = formImages.find(({ filename }) => filename === 'Together, We Are Free.jpg') ?? formImages[0];
+const flightPhoto = flightImages.find(({ filename }) => filename === 'SIHLO-13.jpg') ?? flightImages[0];
+const worldPhoto = worldImages.find(({ filename }) => filename === 'HERO.jpg') ?? worldImages[0];
+const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jpeg') ?? aboutImages[0];
 ---
 
 <BaseLayout
@@ -31,12 +31,11 @@ const studioImage = (aboutImages.find(({ filename }) => filename === 'Studio-3.j
   headerVariant="dark"
 >
   <section class="hero">
-    <Image
-      src={heroImage}
-      format={heroImage.format}
-      alt=""
+    <ResponsivePhoto
+      src={heroPhoto.image}
+      assetPath={heroPhoto.assetPath}
+      alt={t.home.exhibitionTitle}
       class="hero__image"
-      widths={[640, 1024, 1600, 2200]}
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
@@ -62,12 +61,11 @@ const studioImage = (aboutImages.find(({ filename }) => filename === 'Studio-3.j
       <p class="work-section__body">{t.home.workBody}</p>
     </div>
     <div class="work-section__visual form-featured-image">
-      <Image
-        src={workImage}
-        format={workImage.format}
-        alt=""
+      <ResponsivePhoto
+        src={workPhoto.image}
+        assetPath={workPhoto.assetPath}
+        alt={t.home.formTitle}
         class="work-section__image"
-        widths={[640, 1024, 1600, 2200]}
         sizes="100vw"
         loading="lazy"
       />
@@ -83,12 +81,11 @@ const studioImage = (aboutImages.find(({ filename }) => filename === 'Studio-3.j
 
   <section class="featured-image flight-featured-image">
     <div class="work-section__visual">
-      <Image
-        src={flightImage}
-        format={flightImage.format}
-        alt=""
+      <ResponsivePhoto
+        src={flightPhoto.image}
+        assetPath={flightPhoto.assetPath}
+        alt={t.home.flightTitle}
         class="work-section__image"
-        widths={[640, 1024, 1600, 2200]}
         sizes="100vw"
         loading="lazy"
       />
@@ -104,12 +101,11 @@ const studioImage = (aboutImages.find(({ filename }) => filename === 'Studio-3.j
 
   <section class="featured-image world-featured-image">
     <div class="work-section__visual">
-      <Image
-        src={worldImage}
-        format={worldImage.format}
-        alt=""
+      <ResponsivePhoto
+        src={worldPhoto.image}
+        assetPath={worldPhoto.assetPath}
+        alt={t.home.worldTitle}
         class="work-section__image"
-        widths={[640, 1024, 1600, 2200]}
         sizes="100vw"
         loading="lazy"
       />
@@ -126,12 +122,11 @@ const studioImage = (aboutImages.find(({ filename }) => filename === 'Studio-3.j
   </section>
 
   <section class="studio-section">
-    <Image
-      src={studioImage}
-      format={studioImage.format}
-      alt=""
+    <ResponsivePhoto
+      src={studioPhoto.image}
+      assetPath={studioPhoto.assetPath}
+      alt={t.home.studioTitle.replace('\n', ' ')}
       class="studio-section__image"
-      widths={[480, 800, 1200]}
       sizes="(max-width: 860px) 100vw, 50vw"
       loading="lazy"
     />

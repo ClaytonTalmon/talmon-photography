@@ -7,6 +7,7 @@ export interface LoadedImage {
   image: ImageMetadata;
   filename: string; // original filename, e.g. "flow-01.jpg" — used to look
   // up captions (e.g. a series' imageDetails in content/config.ts)
+  assetPath: string; // path below src/assets, used for responsive display files
 }
 
 const allWorkImages = import.meta.glob<{ default: ImageMetadata }>(
@@ -26,6 +27,7 @@ function fromGlob(glob: Record<string, { default: ImageMetadata }>, matchSegment
     .map(([path, mod]) => ({
       image: mod.default,
       filename: path.split('/').pop()!,
+      assetPath: path.split('/src/assets/')[1]!,
     }));
 }
 
@@ -41,5 +43,6 @@ export function getAboutImages(): LoadedImage[] {
     .map(([path, mod]) => ({
       image: mod.default,
       filename: path.split('/').pop()!,
+      assetPath: path.split('/src/assets/')[1]!,
     }));
 }
