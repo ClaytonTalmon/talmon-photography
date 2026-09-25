@@ -6,22 +6,30 @@
   "title": {
     "en": "FLOW",
     "fr": "FLOW",
-    "ja": "FLOW"
+    "ja": "FLOW",
+    "es": "FLOW",
+    "zh": "FLOW"
   },
   "subtitle": {
     "en": "Studies of the Ancient Sea",
     "fr": "Figures de vent, de volonté et de devenir.",
-    "ja": "風、意志、して生成の図形。"
+    "ja": "風、意志、して生成の図形。",
+    "es": "Estudios del mar ancestral",
+    "zh": "远古之海研究"
   },
   "description": {
     "en": "FLOW examines the sea not as landscape, but as force. The images remain close to the surface, where water meets edge, and form is continuously made and unmade.\n\nIn this narrow zone, nothing is fixed. Structure emerges, shifts, and dissolves under pressure. Light fractures, surfaces destabilize, and orientation begins to slip.\n\nAs in FORM, the work is grounded in attention, light, structure, and the relationship between elements. Here, the body is replaced by a field: fluid, unstable, and in constant negotiation with itself.\n\nWhat appears familiar resists recognition. The sea is no longer a place, but a condition.\n\nThese works are not depictions of water, but encounters with time itself.",
     "fr": "L’eau et le tissu en mouvement, observés de près jusqu’à ce que la surface devienne structure. FLOW suit la lumière sur l’eau en mouvement et le tissu porté par le vent, figeant ce qui refuse de rester immobile.",
-    "ja": "水と布の動きを間近で見つめ、表面が構造となるまで観察する。FLOWは、動く水と風にはためく布の上を渡る光を追い、静止を拒むものを静かに留める。"
+    "ja": "水と布の動きを間近で見つめ、表面が構造となるまで観察する。FLOWは、動く水と風にはためく布の上を渡る光を追い、静止を拒むものを静かに留める。",
+    "es": "FLOW examina el mar no como paisaje, sino como fuerza. Las imágenes permanecen cerca de la superficie, allí donde el agua encuentra un límite y la forma se crea y se deshace continuamente.\n\nEn esta franja estrecha, nada es fijo. La estructura emerge, se desplaza y se disuelve bajo presión. La luz se fragmenta, las superficies se desestabilizan y la orientación comienza a desvanecerse.\n\nComo en FORM, la obra se fundamenta en la atención, la luz, la estructura y la relación entre los elementos. Aquí, el cuerpo es sustituido por un campo: fluido, inestable y en constante negociación consigo mismo.\n\nLo que parece familiar se resiste al reconocimiento. El mar deja de ser un lugar para convertirse en una condición.\n\nEstas obras no representan el agua: son encuentros con el tiempo mismo.",
+    "zh": "FLOW 所审视的海并非风景，而是一种力量。影像贴近水面，在水与边界相遇之处，形态不断生成，又不断消散。\n\n在这一狭窄地带，没有什么是固定的。结构在压力下浮现、变化并溶解；光线碎裂，表面失去稳定，方向感也开始游移。\n\n与 FORM 一样，这组作品立足于专注、光线、结构以及元素之间的关系。在这里，身体被一个场域取代：流动、不稳定，并不断与自身协商。\n\n看似熟悉之物拒绝被辨认。海不再是一个地点，而成为一种状态。\n\n这些作品并非对水的描绘，而是与时间本身的相遇。"
   },
   "descriptionCredit": {
     "en": "Clayton Talmon de l’Armée",
     "fr": "Clayton Talmon de l’Armée",
-    "ja": "Clayton Talmon de l’Armée"
+    "ja": "Clayton Talmon de l’Armée",
+    "es": "Clayton Talmon de l’Armée",
+    "zh": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
     "COMPRESSION I.jpg": { "title": "COMPRESSION I", "printSize": "70 x 37 cm (27.5 x 14.5 in)", "editionSize": "8", "printType": "Silver Gelatin" },

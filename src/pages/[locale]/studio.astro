@@ -28,10 +28,7 @@ const processImages = aboutImages
     <h1>{t.studio.title}</h1>
     <p class="page-header__lede">{t.studio.intro}</p>
     <div class="page-header__body">
-      <p>My process begins with questions about the life we are living. Why are we here? What am I looking at? Am I truly seeing?</p>
-      <p>I search for the fraction of time when those questions become visible, when a human figure, a landscape, light, and time briefly come into alignment. The moment passes, but the photograph allows us to remain inside it.</p>
-      <p>My work is for people who look deeply into that fraction of time, not for an immediate answer, but for what it might reveal about our relationship with nature, the Earth, and the universe we inhabit. Are we the universe trying to understand itself? Perhaps. These collections are an invitation to slow down and observe the moment.</p>
-      <p>With that said, let’s tour the studio and my process of getting from idea to the print.</p>
+      {t.studio.processIntro.map((paragraph) => <p>{paragraph}</p>)}
     </div>
   </header>
 
@@ -49,13 +46,13 @@ const processImages = aboutImages
               loading="lazy"
             />
             {filename === 'Process-2.jpg' && (
-              <figcaption class="process-caption">Working out the tonal values.</figcaption>
+              <figcaption class="process-caption">{t.studio.tonalCaption}</figcaption>
             )}
           </figure>
         ))}
       </div>
       <p class="process-note">
-        Each photograph is produced as a museum-grade, fibre-based silver-gelatin print, chosen for its deep blacks, luminous highlights, and exceptional tonal range. Archival processing, conservation mounting, and museum-quality framing preserve the print’s tonal integrity and physical presence for generations.
+        {t.studio.archivalNote}
       </p>
       <div class="process-gallery__row">
         {processImages.slice(2).map(({ image, filename, assetPath }) => (
@@ -70,14 +67,14 @@ const processImages = aboutImages
                 loading="lazy"
               />
               {filename === 'Process-5.jpg' && (
-                <figcaption class="process-caption">Archival matting, backing and framing.</figcaption>
+                <figcaption class="process-caption">{t.studio.mattingCaption}</figcaption>
               )}
               {filename === 'Process-6.jpeg' && (
-                <figcaption class="process-caption">FLOW - Venice, Italy.</figcaption>
+                <figcaption class="process-caption">{t.studio.veniceCaption}</figcaption>
               )}
             </figure>
             {filename === 'Process-7.jpg' && (
-              <p class="process-caption process-side-caption">Testing scale variations.</p>
+              <p class="process-caption process-side-caption">{t.studio.scaleCaption}</p>
             )}
           </Fragment>
         ))}

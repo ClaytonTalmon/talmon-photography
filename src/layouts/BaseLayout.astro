@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
 import '../styles/global.css';
 import { locales, type Locale } from '../i18n/utils';
+import { localeHtmlLang } from '../i18n/translations';
 
 interface Props {
   locale: Locale;
@@ -22,10 +23,12 @@ const canonicalPath =
     : currentPath;
 const localePrefixPattern = new RegExp(`^/(${locales.join('|')})`);
 const faviconPath = `${basePath}/favicon.svg`;
+const alternatePath = (targetLocale: Locale) =>
+  canonicalPath.replace(localePrefixPattern, `/${targetLocale}`);
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={localeHtmlLang[locale]}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,8 +38,9 @@ const faviconPath = `${basePath}/favicon.svg`;
     <meta name="generator" content={Astro.generator} />
 
     {locales.map((l) => (
-      <link rel="alternate" hreflang={l} href={`https://talmondelarmee.com${canonicalPath.replace(localePrefixPattern, `/${l}`)}`} />
+      <link rel="alternate" hreflang={localeHtmlLang[l]} href={`https://www.claytontalmon.com${alternatePath(l)}`} />
     ))}
+    <link rel="alternate" hreflang="x-default" href={`https://www.claytontalmon.com${alternatePath('en')}`} />
 
     <meta property="og:title" content={`${title} — ${siteName}`} />
     {description && <meta property="og:description" content={description} />}

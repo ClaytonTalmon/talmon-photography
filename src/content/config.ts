@@ -13,6 +13,8 @@ const localizedString = z.object({
   en: z.string(),
   fr: z.string(),
   ja: z.string(),
+  es: z.string(),
+  zh: z.string(),
 });
 
 // Per-image caption info for the click-to-enlarge lightbox, keyed by the

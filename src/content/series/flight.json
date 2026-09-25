@@ -6,22 +6,30 @@
   "title": {
     "en": "FLIGHT",
     "fr": "FLIGHT",
-    "ja": "FLIGHT"
+    "ja": "FLIGHT",
+    "es": "FLIGHT",
+    "zh": "FLIGHT"
   },
   "subtitle": {
     "en": "",
     "fr": "",
-    "ja": ""
+    "ja": "",
+    "es": "",
+    "zh": ""
   },
   "description": {
     "en": "From above, land reveals itself not as territory, but as form. Rivers becoming veins, cities dissolving into patterns, borders fading into suggestion. Distance simplifies. Altitude edits. What felt urgent on the ground loosens its grip in the air.\n\nWe live on the surface of a rapidly moving planet, yet most days we forget that we are already in motion. Flight reminds us. These images are not about destinations. They are about the brief suspension between departure and arrival, when time thins and scale reasserts itself. Inside an aluminum shell, we surrender weight and control, trusting invisible forces to carry us aloft. The paradox is quiet and absolute.\n\nClouds interrupt the story. Weather redraws the scene. Sometimes the window offers nothing at all. Then, without warning, the world opens.\n\nThe Earth is neither abstract nor familiar. It is patient. Ancient. Indifferent to our routes and schedules. What changes is not the land, but the viewer.\n\nThis collection is meant to offer a steady form of awe. Not the loud kind, not the performative kind, but the intimate kind: a private reset.",
     "fr": "Ajoutez les images de FLIGHT dans src/assets/work/flight/ et mettez à jour cette description dans src/content/series/flight.json — la page les reprendra automatiquement.",
-    "ja": "FLIGHTの画像をsrc/assets/work/flight/に追加し、src/content/series/flight.jsonでこの説明を更新してください。ページが自動的に反映します。"
+    "ja": "FLIGHTの画像をsrc/assets/work/flight/に追加し、src/content/series/flight.jsonでこの説明を更新してください。ページが自動的に反映します。",
+    "es": "Desde lo alto, la tierra se revela no como territorio, sino como forma. Los ríos se convierten en venas, las ciudades se disuelven en patrones y las fronteras se desvanecen en sugerencias. La distancia simplifica. La altitud edita. Lo que parecía urgente en tierra afloja su dominio en el aire.\n\nVivimos sobre la superficie de un planeta que se mueve con rapidez, aunque la mayoría de los días olvidamos que ya estamos en movimiento. El vuelo nos lo recuerda. Estas imágenes no tratan de destinos, sino de la breve suspensión entre la partida y la llegada, cuando el tiempo se adelgaza y la escala vuelve a imponerse.\n\nLas nubes interrumpen el relato. El clima redibuja la escena. A veces la ventanilla no ofrece nada. Entonces, sin previo aviso, el mundo se abre.\n\nLa Tierra no es abstracta ni familiar. Es paciente, antigua e indiferente a nuestras rutas y horarios. Lo que cambia no es el territorio, sino quien lo contempla.\n\nEsta colección busca ofrecer una forma serena de asombro: no estridente ni performativa, sino íntima; un reajuste privado.",
+    "zh": "从高空俯瞰，大地呈现的并非疆域，而是形态。河流化作血脉，城市消融为纹理，边界淡成暗示。距离化繁为简，高度重新剪裁。地面上紧迫的一切，在空中渐渐松开。\n\n我们生活在一颗高速运行的星球表面，却常常忘记自己早已身处运动之中。飞行提醒了我们。这些影像无关目的地，而关乎出发与抵达之间短暂的悬停——时间在此变薄，尺度重新显现。\n\n云层打断叙事，天气重绘景象。有时舷窗之外一无所有，随后毫无预警地，世界忽然展开。\n\n地球既非抽象，也不熟悉。它耐心、古老，对我们的航线与日程漠不关心。改变的不是土地，而是观看者。\n\n这组作品希望带来一种安静的敬畏：不喧闹，不表演，而是私密的——一次内心的重新校准。"
   },
   "descriptionCredit": {
     "en": "Clayton Talmon de l’Armée",
     "fr": "Clayton Talmon de l’Armée",
-    "ja": "Clayton Talmon de l’Armée"
+    "ja": "Clayton Talmon de l’Armée",
+    "es": "Clayton Talmon de l’Armée",
+    "zh": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
     "ATL 1.jpg": { "title": "ATL 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Silver Gelatin" },

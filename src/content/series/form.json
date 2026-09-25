@@ -6,22 +6,30 @@
   "title": {
     "en": "FORM",
     "fr": "FORM",
-    "ja": "FORM"
+    "ja": "FORM",
+    "es": "FORM",
+    "zh": "FORM"
   },
   "subtitle": {
     "en": "",
     "fr": "",
-    "ja": ""
+    "ja": "",
+    "es": "",
+    "zh": ""
   },
   "description": {
     "en": "FORM explores the relationship between the human figure and the elemental forces of the desert.\n\nEach image emerges from a collaboration between body, wind, time, and geology. The figure is not presented as subject, but as matter, shaped by the same forces that carve dunes and erode stone.\n\nWithin this vast, enduring terrain, the human presence becomes a fragile counterpoint, temporary, exposed, and acutely aware of scale.\n\nThe series unfolds as a meditation on solitude, scale, and resilience, inviting the viewer to pause, to breathe, and to encounter the desert not only as landscape, but as an interior state.",
     "fr": "Ajoutez les images de FORM dans src/assets/work/form/ et mettez à jour cette description dans src/content/series/form.json — la page les reprendra automatiquement.",
-    "ja": "FORMの画像をsrc/assets/work/form/に追加し、src/content/series/form.jsonでこの説明を更新してください。ページが自動的に反映します。"
+    "ja": "FORMの画像をsrc/assets/work/form/に追加し、src/content/series/form.jsonでこの説明を更新してください。ページが自動的に反映します。",
+    "es": "FORM explora la relación entre la figura humana y las fuerzas elementales del desierto.\n\nCada imagen nace de una colaboración entre el cuerpo, el viento, el tiempo y la geología. La figura no aparece como sujeto, sino como materia, moldeada por las mismas fuerzas que esculpen las dunas y erosionan la piedra.\n\nEn este territorio vasto y perdurable, la presencia humana se convierte en un contrapunto frágil: temporal, expuesto y profundamente consciente de la escala.\n\nLa serie se despliega como una meditación sobre la soledad, la escala y la resiliencia, invitando al espectador a detenerse, respirar y encontrar el desierto no solo como paisaje, sino como estado interior.",
+    "zh": "FORM 探索人体与沙漠自然力量之间的关系。\n\n每幅作品都诞生于身体、风、时间与地质之间的共同作用。人物并非作为主体出现，而是成为物质，被塑造沙丘、侵蚀岩石的同一股力量所改变。\n\n在这片广阔而恒久的土地上，人的存在成为脆弱的对照：短暂、暴露，并敏锐地感知尺度。\n\n这组作品如同对孤独、尺度与韧性的沉思，邀请观者停下、呼吸，并把沙漠不仅视为风景，也视为一种内在状态。"
   },
   "descriptionCredit": {
     "en": "Clayton Talmon de l’Armée",
     "fr": "Clayton Talmon de l’Armée",
-    "ja": "Clayton Talmon de l’Armée"
+    "ja": "Clayton Talmon de l’Armée",
+    "es": "Clayton Talmon de l’Armée",
+    "zh": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
     "Between Ages.jpg": { "title": "Between Ages", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },

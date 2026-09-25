@@ -6,22 +6,30 @@
   "title": {
     "en": "WORLD",
     "fr": "WORLD",
-    "ja": "WORLD"
+    "ja": "WORLD",
+    "es": "WORLD",
+    "zh": "WORLD"
   },
   "subtitle": {
     "en": "Infinite space. Improbable life. One fleeting moment.",
     "fr": "Espace infini. Vie improbable. Un instant fugace.",
-    "ja": "無限の空間。ありえない生命。一瞬の時。"
+    "ja": "無限の空間。ありえない生命。一瞬の時。",
+    "es": "Espacio infinito. Vida improbable. Un instante fugaz.",
+    "zh": "无垠空间。不可思议的生命。转瞬即逝的一刻。"
   },
   "description": {
     "en": "WORLD considers the fragile relationship between human life and the vast spaces that hold it. Each image is a pause in motion: a fleeting encounter with distance, scale, and the improbable forms of life that appear within our world.",
     "fr": "WORLD observe la relation fragile entre la vie humaine et les espaces vastes qui l’accueillent. Chaque image est une pause dans le mouvement : une rencontre fugace avec la distance, l’échelle et les formes improbables de la vie qui y apparaissent.",
-    "ja": "WORLDは、人間の営みとそれを包む広大な空間との、儚い関係を見つめます。一枚一枚の写真は、動きの中の一時停止。距離、スケール、そしてその中に現れるありえない生命との束の間の出会いです。"
+    "ja": "WORLDは、人間の営みとそれを包む広大な空間との、儚い関係を見つめます。一枚一枚の写真は、動きの中の一時停止。距離、スケール、そしてその中に現れるありえない生命との束の間の出会いです。",
+    "es": "WORLD contempla la frágil relación entre la vida humana y los vastos espacios que la contienen. Cada imagen es una pausa en movimiento: un encuentro fugaz con la distancia, la escala y las improbables formas de vida que aparecen en nuestro mundo.",
+    "zh": "WORLD 凝视人类生命与承载它的广阔空间之间脆弱的关系。每幅影像都是运动中的一次停顿：与距离、尺度，以及在这个世界中出现的不可思议生命形态的一次短暂相遇。"
   },
   "descriptionCredit": {
     "en": "Clayton Talmon de l’Armée",
     "fr": "Clayton Talmon de l’Armée",
-    "ja": "Clayton Talmon de l’Armée"
+    "ja": "Clayton Talmon de l’Armée",
+    "es": "Clayton Talmon de l’Armée",
+    "zh": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
     "Ancient Travel.jpg": { "title": "Ancient Travel", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },

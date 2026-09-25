@@ -66,9 +66,9 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
         <input type="email" name="email" required />
       </label>
       <label>
-        Interested Collection
+        {t.privateView.collectionLabel}
         <select name="collection" required>
-          <option value="" disabled selected>Select a collection</option>
+          <option value="" disabled selected>{t.privateView.collectionPlaceholder}</option>
           <option value="FORM">FORM</option>
           <option value="FLOW">FLOW</option>
           <option value="FLIGHT">FLIGHT</option>
