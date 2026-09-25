@@ -131,13 +131,13 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
   .lang-switch {
     display: flex;
     gap: 10px;
-    font-size: 0.72rem;
+    font-size: 0.936rem;
     letter-spacing: 0.08em;
   }
 
   .lang-switch a {
     text-decoration: none;
-    opacity: 0.6;
+    opacity: 0.85;
   }
 
   .lang-switch a:hover {
@@ -146,6 +146,15 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
 
   .lang-switch__current {
     font-weight: 600;
+  }
+
+  .site-header--dark .lang-switch {
+    color: #fff;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .site-header--dark .lang-switch a {
+    opacity: 0.92;
   }
 
   .mobile-menu {
@@ -197,7 +206,7 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
     display: flex;
     gap: 16px;
     padding-top: 16px;
-    font-size: 0.78rem;
+    font-size: 1.014rem;
     letter-spacing: 0.08em;
   }
 
