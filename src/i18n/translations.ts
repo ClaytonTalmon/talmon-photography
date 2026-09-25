@@ -148,7 +148,7 @@ export const translations: Record<Locale, Dictionary> = {
       work: 'Work',
       studio: 'Studio',
       about: 'About',
-      privateView: 'Private View',
+      privateView: 'Discuss the Collection',
       contact: 'Contact',
     },
     footer: {
