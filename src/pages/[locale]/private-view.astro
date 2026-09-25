@@ -181,6 +181,16 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
 </script>
 
 <style>
+  :global(body) {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  :global(main) {
+    flex: 1;
+  }
+
   .private-view {
     padding-block: clamp(56px, 10vw, 96px) clamp(96px, 14vw, 160px);
     max-width: 620px;
