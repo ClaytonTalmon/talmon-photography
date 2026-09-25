@@ -44,7 +44,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     />
     <div class="hero__overlay">
       <div class="container hero__content">
-        <span class="eyebrow eyebrow--light">{t.home.exhibitionLabel}</span>
+        <span class="eyebrow hero__label">{t.home.exhibitionLabel}</span>
         <h1 class="hero__title">{t.home.exhibitionTitle}</h1>
         <p class="hero__subtitle">{t.home.exhibitionSubtitle}</p>
         <a class="link-underline hero__cta" href={localizedPath(locale, '/work/flow')}>
@@ -187,6 +187,11 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     padding-bottom: clamp(48px, 8vw, 96px);
     color: var(--color-dark-ink);
     max-width: 720px;
+  }
+
+  .hero__label {
+    color: #fff;
+    font-size: 0.864rem;
   }
 
   .hero__title {
