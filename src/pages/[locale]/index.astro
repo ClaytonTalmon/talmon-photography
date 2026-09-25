@@ -46,8 +46,12 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
         <h1 class="hero__title">{t.home.exhibitionTitle}</h1>
         <p class="hero__subtitle">{t.home.exhibitionSubtitle}</p>
         <a class="link-underline hero__cta" href={localizedPath(locale, '/work/flow')}>
-          {t.home.exhibitionCta} ↗
+          {t.home.flowCta} ↗
         </a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span>{t.home.scrollCue}</span>
+        <span class="scroll-cue__line"></span>
       </div>
     </div>
   </section>
@@ -73,8 +77,12 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
         <h2 class="hero__title">{t.home.formTitle}</h2>
         <p class="hero__subtitle">{t.home.formSubtitle}</p>
         <a class="link-underline hero__cta" href={localizedPath(locale, '/work/form')}>
-          {t.home.exhibitionCta} ↗
+          {t.home.formCta} ↗
         </a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span>{t.home.scrollCue}</span>
+        <span class="scroll-cue__line"></span>
       </div>
     </div>
   </section>
@@ -93,8 +101,12 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
         <h2 class="hero__title">{t.home.flightTitle}</h2>
         <p class="hero__subtitle">{t.home.flightSubtitle}</p>
         <a class="link-underline hero__cta" href={localizedPath(locale, '/work/flight')}>
-          {t.home.exhibitionCta} ↗
+          {t.home.flightCta} ↗
         </a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span>{t.home.scrollCue}</span>
+        <span class="scroll-cue__line"></span>
       </div>
     </div>
   </section>
@@ -117,6 +129,10 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
             {t.home.worldCta} ↗
           </a>
         </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span>{t.home.scrollCue}</span>
+        <span class="scroll-cue__line"></span>
       </div>
     </div>
   </section>
@@ -201,6 +217,48 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     color: var(--color-dark-ink);
   }
 
+  .scroll-cue {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: max(14px, env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    color: var(--color-dark-ink);
+    font-family: var(--font-ui);
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.82;
+    pointer-events: none;
+  }
+
+  .scroll-cue__line {
+    width: 1px;
+    height: 25px;
+    background: currentColor;
+    transform-origin: top;
+    animation: scroll-pulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scroll-pulse {
+    0%,
+    100% {
+      transform: scaleY(0.35);
+      opacity: 0.4;
+    }
+
+    50% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
   .work-section {
     padding-top: clamp(56px, 10vw, 120px);
     display: grid;
@@ -273,7 +331,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
   .flight-featured-image .work-section__overlay {
     justify-content: flex-end;
     padding-top: clamp(24px, 5vw, 64px);
-    padding-bottom: clamp(48px, 12%, 120px);
+    padding-bottom: clamp(88px, 15%, 144px);
   }
 
   .world-featured-image :global(.work-section__image) {
@@ -303,6 +361,10 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
   }
 
   @media (max-width: 859px) {
+    .hero__content {
+      padding-bottom: clamp(96px, 22vw, 124px);
+    }
+
     .world-featured-image .work-section__overlay {
       justify-content: flex-start;
       padding-top: clamp(32px, 8vw, 56px);
@@ -311,6 +373,12 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     .world-text-block {
       width: 100%;
       transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-cue__line {
+      animation: none;
     }
   }
 

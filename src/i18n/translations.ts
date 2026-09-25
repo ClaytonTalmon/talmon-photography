@@ -38,14 +38,17 @@ type Dictionary = {
     exhibitionLabel: string;
     exhibitionTitle: string;
     exhibitionSubtitle: string;
-    exhibitionCta: string;
+    flowCta: string;
     formTitle: string;
     formSubtitle: string;
+    formCta: string;
     flightTitle: string;
     flightSubtitle: string;
+    flightCta: string;
     worldTitle: string;
     worldSubtitle: string;
     worldCta: string;
+    scrollCue: string;
     workLabel: string;
     workTitle: string;
     workBody: string;
@@ -134,14 +137,17 @@ export const translations: Record<Locale, Dictionary> = {
       exhibitionLabel: 'New Exhibition',
       exhibitionTitle: 'FLOW',
       exhibitionSubtitle: 'Studies of the Ancient Sea',
-      exhibitionCta: 'Enter the Exhibition',
+      flowCta: 'View the FLOW Collection',
       formTitle: 'FORM',
       formSubtitle: 'Human figure and the elemental forces of the desert.',
+      formCta: 'View the FORM Collection',
       flightTitle: 'FLIGHT',
       flightSubtitle: 'Distance simplifies. Altitude edits.',
+      flightCta: 'View the FLIGHT Collection',
       worldTitle: 'WORLD',
       worldSubtitle: 'Infinite space. Improbable life. One fleeting moment.',
-      worldCta: 'Enter the Exhibition',
+      worldCta: 'View the WORLD Collection',
+      scrollCue: 'Scroll to Explore',
       workLabel: 'The Work',
       workTitle: 'Monochrome works shaped\nby light, form, and the forces\nof nature.',
       workBody:
@@ -231,14 +237,17 @@ export const translations: Record<Locale, Dictionary> = {
       exhibitionLabel: 'Nouvelle exposition',
       exhibitionTitle: 'FLOW',
       exhibitionSubtitle: 'Figures de vent, de volonté et de devenir.',
-      exhibitionCta: 'Entrer dans l’exposition',
+      flowCta: 'Voir la collection FLOW',
       formTitle: 'FORM',
       formSubtitle: 'Human figure and the elemental forces of the desert.',
+      formCta: 'Voir la collection FORM',
       flightTitle: 'FLIGHT',
       flightSubtitle: 'Distance simplifies. Altitude edits.',
+      flightCta: 'Voir la collection FLIGHT',
       worldTitle: 'WORLD',
       worldSubtitle: 'Espace infini. Vie improbable. Un instant fugace.',
-      worldCta: 'Entrer dans l’exposition',
+      worldCta: 'Voir la collection WORLD',
+      scrollCue: 'Faire défiler pour explorer',
       workLabel: 'L’œuvre',
       workTitle: 'Des œuvres monochromes façonnées\npar la lumière, la forme et les\nforces de la nature.',
       workBody:
@@ -328,14 +337,17 @@ export const translations: Record<Locale, Dictionary> = {
       exhibitionLabel: '新作展',
       exhibitionTitle: 'FLOW',
       exhibitionSubtitle: '風、意志、して生成の図形。',
-      exhibitionCta: '展示を見る',
+      flowCta: 'FLOWコレクションを見る',
       formTitle: 'FORM',
       formSubtitle: 'Human figure and the elemental forces of the desert.',
+      formCta: 'FORMコレクションを見る',
       flightTitle: 'FLIGHT',
       flightSubtitle: 'Distance simplifies. Altitude edits.',
+      flightCta: 'FLIGHTコレクションを見る',
       worldTitle: 'WORLD',
       worldSubtitle: '無限の空間。ありえない生命。一瞬の時。',
-      worldCta: '展示を見る',
+      worldCta: 'WORLDコレクションを見る',
+      scrollCue: 'スクロールして見る',
       workLabel: '作品',
       workTitle: '光、形、自然の力によって\n形作られたモノクローム作品。',
       workBody:
