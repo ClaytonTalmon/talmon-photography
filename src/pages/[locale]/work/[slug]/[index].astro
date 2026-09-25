@@ -87,7 +87,7 @@ const nextImagePath = nextPath ? `${nextPath}#artwork` : null;
         </div>
         <div>
           <dt>{t.work.printType}</dt>
-          <dd>{details.printType ?? t.work.notSpecified}</dd>
+          <dd>{locale === 'ja' && details.printType === 'Silver Gelatin' ? 'ゼラチン・シルバー・プリント' : (details.printType ?? t.work.notSpecified)}</dd>
         </div>
       </figcaption>
     </figure>

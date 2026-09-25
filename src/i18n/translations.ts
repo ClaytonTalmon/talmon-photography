@@ -721,7 +721,7 @@ export const translations: Record<Locale, Dictionary> = {
     home: {
       exhibitionLabel: '新作展',
       exhibitionTitle: 'FLOW',
-      exhibitionSubtitle: '風、意志、して生成の図形。',
+      exhibitionSubtitle: '太古の海の研究',
       flowCta: 'FLOWコレクションを見る',
       formTitle: 'FORM',
       formSubtitle: '人の姿と、砂漠を形づくる自然の力。',
@@ -736,9 +736,9 @@ export const translations: Record<Locale, Dictionary> = {
       workLabel: '作品',
       workTitle: '光、形、自然の力によって\n形作られたモノクローム作品。',
       workBody:
-        'Talmon de l’Arméeの写真は、見る人に時間を求めます。人間の存在は静かに風景に入り込み—時には隠され、時には変容しながら—所作、布、天候がフレームを支えます。',
+        'Talmon de l’Arméeの写真は、見る人に時間を求めます。\nその作品では、人間の存在は明示されるよりも暗示されることが多く、時間の持続、距離、抑制を感じさせる広大な環境のなかに置かれています。これらの画像は即時的な受け取り方に抗い、ゆっくりと見つめ、繰り返し向き合うことを促します。それは、美術としての白黒写真の伝統にとって中心となる姿勢です。',
       studioLabel: 'スタジオの中',
-      studioTitle: '写真は、プリントが\n完成するまで完成しない。',
+      studioTitle: '画像は着想、\nプリントはその表現。',
       studioBody:
         '暗室に入り、壁に貼られたテストプリントをご覧いただき、一枚の画像が最終形態に至るまでの判断をたどってください。',
       studioCta: 'スタジオを見る',
@@ -751,7 +751,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: '作品',
       titleLabel: 'タイトル',
-      intro: 'コレクションを全体ご覧いただけます。',
+      intro: '各コレクションの全作品をご覧いただけます。',
       viewSeries: 'シリーズを見る',
       viewImage: '拡大表示',
       backToSeries: 'シリーズに戻る',
@@ -766,8 +766,8 @@ export const translations: Record<Locale, Dictionary> = {
     },
     studio: {
       title: 'スタジオの中',
-      intro: '写真は、プリントが完成するまで完成しない。',
-      body: '露光から最終プリントまで、すべての画像は丁寧な手作業の工程を経ます—テストストリップ、部分露光、そしてマウントへの最終サイン。',
+      intro: '画像は着想、プリントはその表現。',
+      body: '露光から最終プリントまで、すべての画像は、意図を持った手作業の工程を経ます。テストストリップ、覆い焼きと焼き込み、そして最後にマウントへ署名を施します。',
       processIntro: [
         '私の制作は、私たちが生きている世界への問いから始まります。なぜ私たちはここにいるのか。私は何を見ているのか。本当に見えているのか。',
         '人の姿、風景、光、時間が束の間ひとつに重なり、それらの問いが目に見える形となる瞬間を探します。その瞬間は過ぎ去りますが、写真は私たちをそこに留めてくれます。',
@@ -787,7 +787,7 @@ export const translations: Record<Locale, Dictionary> = {
     },
     contact: {
       title: 'お問い合わせ',
-      intro: '作品、コミッション、取材に関するご連絡はこちらから。',
+      intro: '限定エディションのプリント、制作のご依頼、取材については、こちらからお問い合わせください。',
       nameLabel: 'お名前',
       emailLabel: 'メールアドレス',
       messageLabel: 'メッセージ',
@@ -799,7 +799,7 @@ export const translations: Record<Locale, Dictionary> = {
     },
     privateView: {
       title: 'プライベートビュー',
-      intro: 'ご自身のペースで、プライベートな観覧を。招待時に共有されたパスワードを入力してください。',
+      intro: 'オンラインで作品をご覧いただき、お話しする機会をご希望の方は、フォームにご希望の日時をご記入ください。',
       passwordLabel: 'パスワード',
       submit: '入る',
       error: 'パスワードが確認できませんでした。招待状をご確認の上、もう一度お試しください。',
