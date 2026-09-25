@@ -22,5 +22,20 @@
     "en": "Clayton Talmon de l’Armée",
     "fr": "Clayton Talmon de l’Armée",
     "ja": "Clayton Talmon de l’Armée"
+  },
+  "imageDetails": {
+    "BEEKMAN.jpg": { "title": "BEEKMAN", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "CUTLER.jpg": { "title": "CUTLER", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "EGYPT1.jpg": { "title": "EGYPT1", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "EGYPT2.jpg": { "title": "EGYPT2", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "EGYPT3.jpg": { "title": "EGYPT3", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "EGYPT4.jpg": { "title": "EGYPT4", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "EGYPT5.jpg": { "title": "EGYPT5", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "EGYPT6.jpg": { "title": "EGYPT6", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "HERO.jpg": { "title": "HERO", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "HUMANS1.jpg": { "title": "HUMANS1", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "HUMANS2.jpg": { "title": "HUMANS2", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "PICNIC1.jpg": { "title": "PICNIC1", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
+    "VENICE1.jpg": { "title": "VENICE1", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" }
   }
 }
