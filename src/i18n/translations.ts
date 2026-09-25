@@ -8,7 +8,7 @@
 // Every page pulls its strings from here via `getTranslations(locale)`,
 // so there is exactly one place to edit copy per language.
 
-export const locales = ['en', 'fr', 'ja', 'es', 'zh'] as const;
+export const locales = ['en', 'fr', 'ja', 'es', 'it', 'zh'] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'en';
@@ -18,6 +18,7 @@ export const localeNames: Record<Locale, string> = {
   fr: 'FR',
   ja: '日本語',
   es: 'ES',
+  it: 'IT',
   zh: '中文',
 };
 
@@ -26,6 +27,7 @@ export const localeHtmlLang: Record<Locale, string> = {
   fr: 'fr',
   ja: 'ja',
   es: 'es',
+  it: 'it',
   zh: 'zh-Hans',
 };
 
@@ -473,6 +475,119 @@ export const translations: Record<Locale, Dictionary> = {
       collectionPlaceholder: 'Selecciona una colección',
       requestSubmit: 'Solicitar una visita',
       requestNote: 'Confirmaré la hora de la visita por correo electrónico.',
+    },
+  },
+  it: {
+    nav: {
+      work: 'Opere',
+      studio: 'Studio',
+      about: 'Biografia',
+      privateView: 'Visione privata',
+      contact: 'Contatti',
+    },
+    footer: {
+      tagline: 'Opere monocromatiche plasmate dalla luce, dalla forma e dalle forze della natura.',
+      inquiries: 'Informazioni',
+      privateView: 'Visione privata',
+      instagram: 'Instagram',
+      rights: 'Talmon de l’Armée',
+    },
+    home: {
+      exhibitionLabel: 'Nuova mostra',
+      exhibitionTitle: 'FLOW',
+      exhibitionSubtitle: 'Studi del mare antico',
+      flowCta: 'Scopri la collezione FLOW',
+      formTitle: 'FORM',
+      formSubtitle: 'La figura umana e le forze elementari del deserto.',
+      formCta: 'Scopri la collezione FORM',
+      flightTitle: 'FLIGHT',
+      flightSubtitle: 'La distanza semplifica. L’altitudine seleziona.',
+      flightCta: 'Scopri la collezione FLIGHT',
+      worldTitle: 'WORLD',
+      worldSubtitle: 'Spazio infinito. Vita improbabile. Un istante fugace.',
+      worldCta: 'Scopri la collezione WORLD',
+      scrollCue: 'Scorri per esplorare',
+      workLabel: 'Le opere',
+      workTitle: 'Opere monocromatiche plasmate\ndalla luce, dalla forma e dalle forze\ndella natura.',
+      workBody:
+        'Le fotografie di Talmon de l’Armée richiedono tempo. Nel suo lavoro, la presenza umana è spesso suggerita più che affermata, collocata in ambienti vasti che sottolineano la durata, la distanza e il ritegno. Le immagini resistono all’immediatezza e invitano a uno sguardo lento e ripetuto, qualità centrali nella tradizione della fotografia d’arte in bianco e nero.',
+      studioLabel: 'Dentro lo studio',
+      studioTitle: 'L’immagine è l’idea;\nla stampa è l’interpretazione.',
+      studioBody:
+        'Entra in camera oscura, osserva le prove appese alla parete e segui le decisioni che conducono un’immagine alla sua forma definitiva.',
+      studioCta: 'Visita lo studio',
+      collectorsLabel: 'Per i collezionisti',
+      collectorsTitle: 'Una visione privata,\nsecondo i tuoi tempi.',
+      collectorsBody:
+        'I collezionisti invitati possono accedere a uno spazio riservato per vedere opere in anteprima, conoscere i dettagli delle edizioni e i prezzi e ricevere inviti a incontri con l’artista.',
+      collectorsCta: 'Accedi alla visione privata',
+    },
+    work: {
+      title: 'Le opere',
+      titleLabel: 'Titolo',
+      intro: 'Le collezioni, presentate integralmente.',
+      viewSeries: 'Vedi la serie',
+      viewImage: 'Ingrandisci',
+      backToSeries: 'Torna alla serie',
+      dimensions: 'Dimensioni immagine',
+      edition: 'Tiratura',
+      printType: 'Tipo di stampa',
+      imageCount: 'Immagine {current} di {total}',
+      notSpecified: 'Non specificato',
+      close: 'Chiudi',
+      previous: 'Precedente',
+      next: 'Successiva',
+    },
+    studio: {
+      title: 'Dentro lo studio',
+      intro: 'L’immagine è l’idea; la stampa è l’interpretazione.',
+      body: 'Dallo scatto alla stampa finale, ogni immagine attraversa un processo deliberato e manuale: strisce di prova, schermature e bruciature, fino alla firma sul supporto.',
+      processIntro: [
+        'Il mio processo inizia con domande sulla vita che stiamo vivendo. Perché siamo qui? Che cosa sto guardando? Sto davvero vedendo?',
+        'Cerco quella frazione di tempo in cui queste domande diventano visibili, quando una figura umana, un paesaggio, la luce e il tempo si allineano brevemente. L’istante passa, ma la fotografia ci permette di rimanervi dentro.',
+        'Il mio lavoro è rivolto a chi osserva profondamente quella frazione di tempo, non per ottenere una risposta immediata, ma per scoprire ciò che può rivelare sul nostro rapporto con la natura, la Terra e l’universo che abitiamo. Siamo l’universo che cerca di comprendere se stesso? Forse. Queste collezioni sono un invito a rallentare e a osservare l’istante.',
+        'Detto questo, entriamo nello studio e seguiamo il processo che conduce dall’idea alla stampa.',
+      ],
+      tonalCaption: 'Definizione dei valori tonali.',
+      archivalNote: 'Ogni fotografia è realizzata come stampa alla gelatina d’argento su carta baritata di qualità museale, scelta per i neri profondi, le alte luci luminose e l’eccezionale gamma tonale. Il trattamento d’archivio, il montaggio conservativo e la cornice di qualità museale preservano per generazioni l’integrità tonale e la presenza fisica della stampa.',
+      mattingCaption: 'Passe-partout, supporto e cornice conservativi.',
+      veniceCaption: 'FLOW — Venezia, Italia.',
+      scaleCaption: 'Prove di variazioni di scala.',
+    },
+    about: {
+      title: 'Biografia',
+      intro: 'Talmon de l’Armée',
+      body: 'Fotografo che lavora esclusivamente in bianco e nero, attratto dal punto d’incontro tra paesaggio, condizioni atmosferiche e figura umana. Le stampe sono realizzate e rifinite a mano in uno studio dedicato.',
+    },
+    contact: {
+      title: 'Contatti',
+      intro: 'Per informazioni su stampe in edizione limitata, commissioni o richieste stampa.',
+      nameLabel: 'Nome',
+      emailLabel: 'Email',
+      messageLabel: 'Messaggio',
+      submit: 'Invia richiesta',
+      sending: 'Invio in corso…',
+      success: 'Grazie. La tua richiesta è stata inviata.',
+      error: 'Non è stato possibile inviare il messaggio. Riprova.',
+      note: 'Le risposte arrivano normalmente entro due o tre giorni lavorativi.',
+    },
+    privateView: {
+      title: 'Visione privata',
+      intro: 'Una visione privata, secondo i tuoi tempi. Inserisci la password indicata nell’invito.',
+      passwordLabel: 'Password',
+      submit: 'Entra',
+      error: 'Password non riconosciuta. Controlla l’invito e riprova.',
+      welcomeTitle: 'Benvenuto',
+      welcomeBody: 'Qui saranno presentate opere in anteprima, informazioni sulle edizioni e prezzi riservati ai collezionisti invitati.',
+      requestNameLabel: 'Nome',
+      requestEmailLabel: 'Email',
+      requestDateLabel: 'Data preferita',
+      requestTimeLabel: 'Orario preferito',
+      requestMessageLabel: 'Messaggio',
+      collectionLabel: 'Collezione di interesse',
+      collectionPlaceholder: 'Seleziona una collezione',
+      requestSubmit: 'Richiedi una visita',
+      requestNote: 'Confermerò l’orario della visita via email.',
     },
   },
   zh: {

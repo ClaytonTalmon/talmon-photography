@@ -14,6 +14,7 @@ const localizedString = z.object({
   fr: z.string(),
   ja: z.string(),
   es: z.string(),
+  it: z.string(),
   zh: z.string(),
 });
 

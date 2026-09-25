@@ -8,6 +8,7 @@
     "fr": "FORM",
     "ja": "FORM",
     "es": "FORM",
+    "it": "FORM",
     "zh": "FORM"
   },
   "subtitle": {
@@ -15,6 +16,7 @@
     "fr": "",
     "ja": "",
     "es": "",
+    "it": "",
     "zh": ""
   },
   "description": {
@@ -22,6 +24,7 @@
     "fr": "Ajoutez les images de FORM dans src/assets/work/form/ et mettez à jour cette description dans src/content/series/form.json — la page les reprendra automatiquement.",
     "ja": "FORMの画像をsrc/assets/work/form/に追加し、src/content/series/form.jsonでこの説明を更新してください。ページが自動的に反映します。",
     "es": "FORM explora la relación entre la figura humana y las fuerzas elementales del desierto.\n\nCada imagen nace de una colaboración entre el cuerpo, el viento, el tiempo y la geología. La figura no aparece como sujeto, sino como materia, moldeada por las mismas fuerzas que esculpen las dunas y erosionan la piedra.\n\nEn este territorio vasto y perdurable, la presencia humana se convierte en un contrapunto frágil: temporal, expuesto y profundamente consciente de la escala.\n\nLa serie se despliega como una meditación sobre la soledad, la escala y la resiliencia, invitando al espectador a detenerse, respirar y encontrar el desierto no solo como paisaje, sino como estado interior.",
+    "it": "FORM esplora il rapporto tra la figura umana e le forze elementari del deserto.\n\nOgni immagine nasce da una collaborazione tra corpo, vento, tempo e geologia. La figura non è presentata come soggetto, ma come materia, plasmata dalle stesse forze che scolpiscono le dune ed erodono la pietra.\n\nIn questo territorio vasto e duraturo, la presenza umana diventa un fragile contrappunto: temporanea, esposta e profondamente consapevole della scala.\n\nLa serie si sviluppa come una meditazione sulla solitudine, sulla scala e sulla resilienza, invitando lo spettatore a fermarsi, respirare e incontrare il deserto non soltanto come paesaggio, ma come stato interiore.",
     "zh": "FORM 探索人体与沙漠自然力量之间的关系。\n\n每幅作品都诞生于身体、风、时间与地质之间的共同作用。人物并非作为主体出现，而是成为物质，被塑造沙丘、侵蚀岩石的同一股力量所改变。\n\n在这片广阔而恒久的土地上，人的存在成为脆弱的对照：短暂、暴露，并敏锐地感知尺度。\n\n这组作品如同对孤独、尺度与韧性的沉思，邀请观者停下、呼吸，并把沙漠不仅视为风景，也视为一种内在状态。"
   },
   "descriptionCredit": {
@@ -29,6 +32,7 @@
     "fr": "Clayton Talmon de l’Armée",
     "ja": "Clayton Talmon de l’Armée",
     "es": "Clayton Talmon de l’Armée",
+    "it": "Clayton Talmon de l’Armée",
     "zh": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
