@@ -239,7 +239,7 @@ export const translations: Record<Locale, Dictionary> = {
     },
     privateView: {
       title: 'Request an Appointment',
-      intro: 'To arrange a remote, on-line, review and discussion suggest a time in the form.',
+      intro: 'To arrange a remote, on-line, viewing and discussion suggest a time in the form.',
       passwordLabel: 'Password',
       submit: 'Enter',
       error: 'That password wasn’t recognized. Please check your invitation and try again.',
