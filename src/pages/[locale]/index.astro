@@ -12,12 +12,10 @@ export function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 
-const flowImages = getSeriesImages('flow');
 const formImages = getSeriesImages('form');
 const flightImages = getSeriesImages('flight');
 const worldImages = getSeriesImages('world');
 const aboutImages = getAboutImages();
-const heroPhoto = flowImages[0];
 const workPhoto = formImages.find(({ filename }) => filename === 'Together, We Are Free.jpg') ?? formImages[0];
 const flightPhoto = flightImages.find(({ filename }) => filename === 'SIHLO-13.jpg') ?? flightImages[0];
 const worldPhoto = worldImages.find(({ filename }) => filename === 'Space Time.jpg') ?? worldImages[0];
@@ -31,13 +29,17 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
   headerVariant="dark"
 >
   <section class="hero">
-    <ResponsivePhoto
-      src={heroPhoto.image}
-      assetPath={heroPhoto.assetPath}
+    <!-- Account for the portrait image's rendered width when object-fit covers the hero. -->
+    <img
+      src="/images/flow-hero-1869.webp"
+      srcset="/images/flow-hero-960.webp 960w, /images/flow-hero-1440.webp 1440w, /images/flow-hero-1869.webp 1869w"
+      width="1869"
+      height="3543"
       alt={t.home.exhibitionTitle}
       class="hero__image"
-      sizes="100vw"
+      sizes="max(100vw, 52.752svh, 295.412px)"
       loading="eager"
+      decoding="async"
       fetchpriority="high"
     />
     <div class="hero__overlay">
