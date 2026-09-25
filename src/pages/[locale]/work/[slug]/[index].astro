@@ -104,11 +104,24 @@ const nextImagePath = nextPath ? `${nextPath}#artwork` : null;
   const centerArtwork = () => {
     if (window.location.hash !== '#artwork') return;
 
+    const artwork = document.querySelector<HTMLElement>('#artwork');
     const image = document.querySelector<HTMLImageElement>('#artwork img');
-    if (!image) return;
+    const navigation = document.querySelector<HTMLElement>('.image-navigation');
+    if (!artwork || !image || !navigation) return;
 
     const centerImage = () => {
-      requestAnimationFrame(() => image.scrollIntoView({ block: 'center', inline: 'nearest' }));
+      requestAnimationFrame(() => {
+        const artworkTop = artwork.getBoundingClientRect().top + window.scrollY;
+        const navigationBottom = navigation.getBoundingClientRect().bottom + window.scrollY;
+        const presentationHeight = navigationBottom - artworkTop;
+        const viewportHeight = window.visualViewport?.height ?? window.innerHeight;
+        const breathingRoom = Math.max((viewportHeight - presentationHeight) / 2, 16);
+
+        window.scrollTo({
+          top: Math.max(artworkTop - breathingRoom, 0),
+          behavior: 'auto',
+        });
+      });
     };
 
     if (image.complete) centerImage();
