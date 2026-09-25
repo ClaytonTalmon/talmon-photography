@@ -20,10 +20,19 @@ const allAboutImages = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true }
 );
 
+const worldOrder = ["Timeless Travel.jpg", "Cloth & Wind.jpg", "Extended Thoughts.jpg", "Family Time.jpg", "Human Vibration.jpg", "Mach Girl.jpg", "River of Life.jpg", "Sweet Dreams.jpg", "Shadow Hours.jpg", "Weight of History.jpg", "Space Time.jpg", "Cloud Swept.jpg"];
+
 function fromGlob(glob: Record<string, { default: ImageMetadata }>, matchSegment: string): LoadedImage[] {
   return Object.entries(glob)
     .filter(([path]) => path.includes(matchSegment))
-    .sort(([a], [b]) => a.localeCompare(b))
+    .sort(([a], [b]) => {
+      if (a.includes('/work/world/') && b.includes('/work/world/')) {
+        const ai = worldOrder.indexOf(a.split('/').pop()!);
+        const bi = worldOrder.indexOf(b.split('/').pop()!);
+        if (ai >= 0 && bi >= 0) return ai - bi;
+      }
+      return a.localeCompare(b);
+    })
     .map(([path, mod]) => ({
       image: mod.default,
       filename: path.split('/').pop()!,

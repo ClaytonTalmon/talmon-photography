@@ -26,7 +26,7 @@ const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - 
     {allSeries.map((entry) => {
       const images = getSeriesImages(entry.data.slug);
       const cover = entry.data.slug === 'world'
-        ? images.find(({ filename }) => filename === 'Time and Space.jpg') ?? images[0]
+        ? images.find(({ filename }) => filename === 'Space Time.jpg') ?? images[0]
         : images[0];
       return (
         <a class="series-card" href={localizedPath(locale, `/work/${entry.data.slug}`)}>

@@ -36,17 +36,74 @@
     "zh": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
-    "Mach 1 Girl.jpg": { "title": "Mach 1 Girl" },
-    "Ancient Travel.jpg": { "title": "Ancient Travel", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "Cloth and Wind.jpg": { "title": "Cloth and Wind", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "Extended in Thought.jpg": { "title": "Extended in Thought", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "Family Time.jpg": { "title": "Family Time", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "Human Vibration.jpg": { "title": "Human Vibration", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "River of Life.jpg": { "title": "River of Life", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "Sweet Dreams.jpg": { "title": "Sweet Dreams", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "The Small Hours.jpg": { "title": "The Small Hours", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "The Weight of History.jpg": { "title": "The Weight of History", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "Time and Space.jpg": { "title": "Time and Space", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" },
-    "Winds of Thought.jpg": { "title": "Winds of Thought", "printSize": "60 x 40 cm (23.62 x 15.75\")", "editionSize": "8", "printType": "Silver Gelatin" }
+    "Mach Girl.jpg": {
+      "title": "Mach Girl"
+    },
+    "Timeless Travel.jpg": {
+      "title": "Timeless Travel",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Cloth & Wind.jpg": {
+      "title": "Cloth & Wind",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Extended Thoughts.jpg": {
+      "title": "Extended Thoughts",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Family Time.jpg": {
+      "title": "Family Time",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Human Vibration.jpg": {
+      "title": "Human Vibration",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "River of Life.jpg": {
+      "title": "River of Life",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Sweet Dreams.jpg": {
+      "title": "Sweet Dreams",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Shadow Hours.jpg": {
+      "title": "Shadow Hours",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Weight of History.jpg": {
+      "title": "Weight of History",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Space Time.jpg": {
+      "title": "Space Time",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    },
+    "Cloud Swept.jpg": {
+      "title": "Cloud Swept",
+      "printSize": "60 x 40 cm (23.62 x 15.75\")",
+      "editionSize": "8",
+      "printType": "Silver Gelatin"
+    }
   }
 }
