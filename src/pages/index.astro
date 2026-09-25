@@ -1,19 +1,17 @@
 ---
-// Root "/" has no language of its own — send visitors to the default
-// locale. (A real deploy can also do this redirect at the host/CDN level,
-// e.g. Netlify's _redirects file, which is slightly faster than a meta
-// refresh — see README for the one-line version.)
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const defaultPath = `${basePath}/en/`;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content="0; url=/en/" />
-    <link rel="canonical" href="/en/" />
+    <meta http-equiv="refresh" content={`0; url=${defaultPath}`} />
+    <link rel="canonical" href={defaultPath} />
     <title>Talmon de l’Armée Photography</title>
   </head>
   <body>
-    <p>Redirecting to <a href="/en/">talmondelarmee.com/en/</a>…</p>
+    <p>Redirecting to <a href={defaultPath}>Talmon de l’Armée Photography</a>…</p>
   </body>
 </html>
