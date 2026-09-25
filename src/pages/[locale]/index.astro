@@ -370,6 +370,10 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
       padding-bottom: clamp(96px, 22vw, 124px);
     }
 
+    .form-featured-image .work-section__overlay {
+      padding-top: clamp(24px, 6vw, 36px);
+    }
+
     .world-featured-image .work-section__overlay {
       justify-content: flex-start;
       padding-top: clamp(32px, 8vw, 56px);
@@ -377,7 +381,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
 
     .world-text-block {
       width: 100%;
-      transform: none;
+      transform: translateY(clamp(-64px, -10vw, -44px));
     }
   }
 
