@@ -15,8 +15,13 @@ interface Props {
 const { locale, title, description, headerVariant = 'light' } = Astro.props;
 const currentPath = new URL(Astro.request.url).pathname;
 const siteName = 'Talmon de l’Armée Photography';
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonicalPath =
+  basePath && currentPath.startsWith(basePath)
+    ? currentPath.slice(basePath.length) || '/'
+    : currentPath;
 const localePrefixPattern = new RegExp(`^/(${locales.join('|')})`);
-const faviconPath = `${import.meta.env.BASE_URL}favicon.svg`;
+const faviconPath = `${basePath}/favicon.svg`;
 ---
 
 <!doctype html>
@@ -30,7 +35,7 @@ const faviconPath = `${import.meta.env.BASE_URL}favicon.svg`;
     <meta name="generator" content={Astro.generator} />
 
     {locales.map((l) => (
-      <link rel="alternate" hreflang={l} href={`https://talmondelarmee.com${currentPath.replace(localePrefixPattern, `/${l}`)}`} />
+      <link rel="alternate" hreflang={l} href={`https://talmondelarmee.com${canonicalPath.replace(localePrefixPattern, `/${l}`)}`} />
     ))}
 
     <meta property="og:title" content={`${title} — ${siteName}`} />
