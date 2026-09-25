@@ -7,6 +7,7 @@ const sourceRoot = new URL('../src/assets/', import.meta.url);
 const outputRoot = new URL('../public/_images/', import.meta.url);
 const widths = [640, 1200, 1800, 2400];
 const supported = new Set(['.jpg', '.jpeg', '.png']);
+const restoredFromCache = process.env.RESPONSIVE_CACHE_HIT === 'true';
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -34,7 +35,7 @@ for (const input of files) {
     if (jobs.some((job) => job.output === output)) continue;
     try {
       const [sourceStats, outputStats] = await Promise.all([stat(input), stat(output)]);
-      if (outputStats.mtimeMs >= sourceStats.mtimeMs) continue;
+      if (restoredFromCache || outputStats.mtimeMs >= sourceStats.mtimeMs) continue;
     } catch {
       // Missing output: generate it below.
     }

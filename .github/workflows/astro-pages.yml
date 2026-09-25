@@ -31,12 +31,15 @@ jobs:
         run: npm ci
 
       - name: Cache responsive images
+        id: responsive-cache
         uses: actions/cache@v4
         with:
           path: public/_images
           key: ${{ runner.os }}-responsive-${{ hashFiles('src/assets/**/*', 'scripts/generate-responsive-images.mjs') }}
 
       - name: Build Astro site
+        env:
+          RESPONSIVE_CACHE_HIT: ${{ steps.responsive-cache.outputs.cache-hit }}
         run: npm run build
 
       - name: Configure Pages
