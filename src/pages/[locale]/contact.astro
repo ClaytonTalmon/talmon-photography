@@ -10,7 +10,7 @@ export function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 
-const contactEndpoint = 'https://willowy-pika-c392c9.netlify.app/.netlify/functions/contact';
+const contactEndpoint = 'https://formspree.io/f/mdekzkeb';
 ---
 
 <BaseLayout locale={locale} title={t.contact.title} description={t.contact.intro}>
@@ -74,16 +74,11 @@ const contactEndpoint = 'https://willowy-pika-c392c9.netlify.app/.netlify/functi
 
       try {
         const formData = new FormData(contactForm);
+        formData.append('locale', contactForm.dataset.locale ?? 'en');
         const response = await fetch(contactForm.action, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: formData.get('name'),
-            email: formData.get('email'),
-            message: formData.get('message'),
-            company: formData.get('company'),
-            locale: contactForm.dataset.locale,
-          }),
+          headers: { 'Accept': 'application/json' },
+          body: formData,
         });
 
         if (!response.ok) throw new Error('Form submission failed');
