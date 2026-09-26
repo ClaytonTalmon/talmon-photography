@@ -77,7 +77,6 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
       <h2 class="work-section__title">
         {t.home.workTitle.split('\n').map((line) => <span>{line}</span>)}
       </h2>
-      <p class="work-section__body">{t.home.workBody}</p>
     </div>
     <div class="work-section__visual form-featured-image">
       <ResponsivePhoto
@@ -281,6 +280,8 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
 
   .work-section__intro {
     max-width: 720px;
+    justify-self: center;
+    align-self: center;
     color: var(--color-ink-soft);
     font-family: var(--font-display);
     font-size: 1.235rem;
@@ -307,13 +308,6 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     content: ' ';
   }
 
-  .work-section__body {
-    max-width: 605px;
-    color: var(--color-ink-soft);
-    font-family: var(--font-display);
-    font-size: 0.988rem;
-    white-space: pre-line;
-  }
 
   :global(.work-section__image) {
     width: 100%;
@@ -449,20 +443,14 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     }
 
     .work-section__label { grid-column: 1; grid-row: 1; }
-    .work-section__intro { grid-column: 1; grid-row: 2; }
+    .work-section__intro { grid-column: 1; grid-row: 2; align-self: center; justify-self: center; }
     .work-section__title {
       grid-column: 2;
-      grid-row: 1 / 4;
+      grid-row: 2;
       align-self: center;
       font-size: clamp(2rem, 4.5vw, 3.4rem);
     }
-    .work-section__body {
-      grid-column: 1;
-      grid-row: 3;
-      margin-left: 200px;
-      max-width: min(605px, calc(100% - 200px));
-    }
-
+  
     .work-section__title span {
       display: block;
     }
@@ -471,12 +459,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
       content: none;
     }
 
-    .work-section__body {
-      justify-self: start;
-      padding-top: 8px;
-
     }
-  }
 
   .studio-section {
     border-top: 7px solid #fff;
