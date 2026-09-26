@@ -1,16 +1,10 @@
 ---
 import { Image } from 'astro:assets';
-import searchPhoto0 from '../../assets/process-search/Dog.jpg';
-import searchPhoto1 from '../../assets/process-search/Space.jpg';
-import searchPhoto2 from '../../assets/process-search/Camera.jpg';
-import searchPhoto3 from '../../assets/process-search/Location.jpg';
-import searchPhoto4 from '../../assets/process-search/Surf 2.jpg';
-import searchPhoto5 from '../../assets/process-search/Surf 1.jpg';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ResponsivePhoto from '../../components/ResponsivePhoto.astro';
 import { getTranslations } from '../../i18n/translations';
 import { locales, type Locale } from '../../i18n/utils';
-import { getAboutImages } from '../../lib/seriesImages';
+import processLayout from '../../data/process-layout.json';
 
 export function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
@@ -27,74 +21,20 @@ const searchReflection: Record<Locale, string> = {
   "ja": "私はたいてい、一つの問いから始めます。FLOWの場合は、「宇宙がその壮大なダンスを踊る姿を捉えられるだろうか」という問いでした。海と陸が出会うときの光の歪みと、時間の知覚をめぐるものです。シリーズの視覚言語を見つけるには時間がかかり、その問いに答えられない写真を何百枚も撮る必要があります。何か月もの撮影と選定を経て、シリーズは少しずつ形を成し、やがてここでご覧いただく作品群に辿り着きます。",
   "zh": "我往往从一个问题开始。对于FLOW，这个问题是：我能否捕捉宇宙跳起它的宇宙之舞的那一刻？它关乎海陆相遇时光线的扭曲与时间的感知。我需要一段时间才能找到这一系列的视觉语言，为此要拍摄数百张无法回答那个问题的照片。经过数月的拍摄与筛选，系列开始逐渐成形，最终成为您在这里看到的作品。"
 };
-const searchCaptions: Record<Locale, string[]> = {
-  "en": [
-    "Consult with one of these",
-    "Consider our place",
-    "Get one of these",
-    "Look for the elements",
-    "Experiment",
-    "Keep looking"
-  ],
-  "fr": [
-    "Consultez l’un d’eux",
-    "Réfléchissez à notre place",
-    "Procurez-vous un de ces appareils",
-    "Cherchez les éléments",
-    "Expérimentez",
-    "Continuez à regarder"
-  ],
-  "es": [
-    "Consulta con uno de estos",
-    "Reflexiona sobre nuestro lugar",
-    "Consigue uno de estos",
-    "Busca los elementos",
-    "Experimenta",
-    "Sigue mirando"
-  ],
-  "it": [
-    "Consulta uno di loro",
-    "Considera il nostro posto",
-    "Procurati uno di questi",
-    "Cerca gli elementi",
-    "Sperimenta",
-    "Continua a guardare"
-  ],
-  "de": [
-    "Frag einen von ihnen",
-    "Denk über unseren Platz nach",
-    "Besorg dir so eine",
-    "Such nach den Elementen",
-    "Experimentiere",
-    "Schau weiter"
-  ],
-  "ja": [
-    "こんな相棒に相談する",
-    "私たちの居場所を考える",
-    "こんな一台を手に入れる",
-    "自然の要素を探す",
-    "実験する",
-    "見つめ続ける"
-  ],
-  "zh": [
-    "向这样的伙伴请教",
-    "思考我们的位置",
-    "准备一台这样的相机",
-    "寻找自然元素",
-    "尝试",
-    "继续观察"
-  ]
-};
-const searchPhotos = [searchPhoto0, searchPhoto1, searchPhoto2, searchPhoto3, searchPhoto4, searchPhoto5];
-const aboutImages = getAboutImages();
-const processEight = aboutImages.find(({ filename }) => filename === 'Process-8.jpg');
-const processImages = aboutImages
-  .filter(({ filename }) => filename.startsWith('Process-') && filename !== 'Process-8.jpg')
-  .map((loadedImage) =>
-    loadedImage.filename === 'Process-7.jpg' && processEight
-      ? { ...loadedImage, image: processEight.image, assetPath: processEight.assetPath }
-      : loadedImage
-  );
+const processAssets = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/**/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', { eager: true }
+);
+function resolvePhoto(path: string) {
+  const photo = processAssets['/' + path]?.default;
+  if (!photo) throw new Error('Missing PROCESS image: ' + path);
+  return photo;
+}
+const searchPhotos = processLayout.squares;
+const processImages = processLayout.gallery;
+function galleryCaption(item: (typeof processImages)[number]) {
+  return item.captionKey ? t.studio[item.captionKey as keyof typeof t.studio] as string : '';
+}
+
 ---
 
 <BaseLayout locale={locale} title={t.studio.title} description={t.studio.intro}>
@@ -107,12 +47,12 @@ const processImages = aboutImages
   </header>
 
   <div class="search-sequence container">
-    {searchPhotos.map((photo, index) => (
+    {searchPhotos.map((item) => (
       <figure class="search-sequence__item">
-        <Image src={photo} alt={searchCaptions[locale][index]} class="search-sequence__image"
+        <Image src={resolvePhoto(item.path)} alt={item.captions[locale]} class="search-sequence__image"
           widths={[320, 640, 960]} sizes="(max-width: 599px) 45vw, (max-width: 1199px) 30vw, 16vw"
           format="webp" loading="lazy" />
-        <figcaption>{searchCaptions[locale][index]}</figcaption>
+        <figcaption>{item.captions[locale]}</figcaption>
       </figure>
     ))}
   </div>
@@ -124,18 +64,18 @@ const processImages = aboutImages
   {processImages.length > 0 && (
     <div class="process-gallery">
       <div class="process-gallery__row">
-        {processImages.slice(0, 2).map(({ image, filename, assetPath }) => (
+        {processImages.slice(0, 2).map((item) => (
           <figure class="process-image-item">
             <ResponsivePhoto
-              src={image}
-              assetPath={assetPath}
+              src={resolvePhoto(item.path)}
+              assetPath={item.path.replace('src/assets/', '')}
               alt={t.studio.title}
               class="process-gallery__image"
               sizes="(max-width: 760px) 100vw, 50vw"
               loading="lazy"
             />
-            {filename === 'Process-2.jpg' && (
-              <figcaption class="process-caption">{t.studio.tonalCaption}</figcaption>
+            {galleryCaption(item) && (
+              <figcaption class="process-caption">{galleryCaption(item)}</figcaption>
             )}
           </figure>
         ))}
@@ -144,26 +84,23 @@ const processImages = aboutImages
         {t.studio.archivalNote}
       </p>
       <div class="process-gallery__row">
-        {processImages.slice(2).map(({ image, filename, assetPath }) => (
+        {processImages.slice(2).map((item) => (
           <Fragment>
             <figure class="process-image-item">
               <ResponsivePhoto
-                src={image}
-                assetPath={assetPath}
+                src={resolvePhoto(item.path)}
+                assetPath={item.path.replace('src/assets/', '')}
                 alt={t.studio.title}
                 class="process-gallery__image"
                 sizes="(max-width: 760px) 100vw, 50vw"
                 loading="lazy"
               />
-              {filename === 'Process-5.jpg' && (
-                <figcaption class="process-caption">{t.studio.mattingCaption}</figcaption>
-              )}
-              {filename === 'Process-6.jpeg' && (
-                <figcaption class="process-caption">{t.studio.veniceCaption}</figcaption>
+              {galleryCaption(item) && !item.sideCaption && (
+                <figcaption class="process-caption">{galleryCaption(item)}</figcaption>
               )}
             </figure>
-            {filename === 'Process-7.jpg' && (
-              <p class="process-caption process-side-caption">{t.studio.scaleCaption}</p>
+            {item.sideCaption && galleryCaption(item) && (
+              <p class="process-caption process-side-caption">{galleryCaption(item)}</p>
             )}
           </Fragment>
         ))}

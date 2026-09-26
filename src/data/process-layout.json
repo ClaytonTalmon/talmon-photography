@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "squares": [
+    {
+      "id": "square-1",
+      "path": "src/assets/process-search/Dog.jpg",
+      "captions": {
+        "en": "Consult with one of these",
+        "fr": "Consultez l’un d’eux",
+        "es": "Consulta con uno de estos",
+        "it": "Consulta uno di loro",
+        "de": "Frag einen von ihnen",
+        "ja": "こんな相棒に相談する",
+        "zh": "向这样的伙伴请教"
+      }
+    },
+    {
+      "id": "square-2",
+      "path": "src/assets/process-search/Space.jpg",
+      "captions": {
+        "en": "Consider our place",
+        "fr": "Réfléchissez à notre place",
+        "es": "Reflexiona sobre nuestro lugar",
+        "it": "Considera il nostro posto",
+        "de": "Denk über unseren Platz nach",
+        "ja": "私たちの居場所を考える",
+        "zh": "思考我们的位置"
+      }
+    },
+    {
+      "id": "square-3",
+      "path": "src/assets/process-search/Camera.jpg",
+      "captions": {
+        "en": "Get one of these",
+        "fr": "Procurez-vous un de ces appareils",
+        "es": "Consigue uno de estos",
+        "it": "Procurati uno di questi",
+        "de": "Besorg dir so eine",
+        "ja": "こんな一台を手に入れる",
+        "zh": "准备一台这样的相机"
+      }
+    },
+    {
+      "id": "square-4",
+      "path": "src/assets/process-search/Location.jpg",
+      "captions": {
+        "en": "Look for the elements",
+        "fr": "Cherchez les éléments",
+        "es": "Busca los elementos",
+        "it": "Cerca gli elementi",
+        "de": "Such nach den Elementen",
+        "ja": "自然の要素を探す",
+        "zh": "寻找自然元素"
+      }
+    },
+    {
+      "id": "square-5",
+      "path": "src/assets/process-search/Surf 2.jpg",
+      "captions": {
+        "en": "Experiment",
+        "fr": "Expérimentez",
+        "es": "Experimenta",
+        "it": "Sperimenta",
+        "de": "Experimentiere",
+        "ja": "実験する",
+        "zh": "尝试"
+      }
+    },
+    {
+      "id": "square-6",
+      "path": "src/assets/process-search/Surf 1.jpg",
+      "captions": {
+        "en": "Keep looking",
+        "fr": "Continuez à regarder",
+        "es": "Sigue mirando",
+        "it": "Continua a guardare",
+        "de": "Schau weiter",
+        "ja": "見つめ続ける",
+        "zh": "继续观察"
+      }
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gallery-1",
+      "path": "src/assets/about/Process-1.jpg",
+      "captionKey": "",
+      "sideCaption": false
+    },
+    {
+      "id": "gallery-2",
+      "path": "src/assets/about/Process-2.jpg",
+      "captionKey": "tonalCaption",
+      "sideCaption": false
+    },
+    {
+      "id": "gallery-3",
+      "path": "src/assets/about/Process-3.jpg",
+      "captionKey": "",
+      "sideCaption": false
+    },
+    {
+      "id": "gallery-4",
+      "path": "src/assets/about/Process-4.jpg",
+      "captionKey": "",
+      "sideCaption": false
+    },
+    {
+      "id": "gallery-5",
+      "path": "src/assets/about/Process-5.jpg",
+      "captionKey": "mattingCaption",
+      "sideCaption": false
+    },
+    {
+      "id": "gallery-6",
+      "path": "src/assets/about/Process-6.jpeg",
+      "captionKey": "veniceCaption",
+      "sideCaption": false
+    },
+    {
+      "id": "gallery-7",
+      "path": "src/assets/about/Process-8.jpg",
+      "captionKey": "scaleCaption",
+      "sideCaption": true
+    }
+  ]
+}
