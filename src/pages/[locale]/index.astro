@@ -447,10 +447,14 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
       column-gap: 40px;
     }
 
-    .work-section__label { grid-column: 1 / -1; }
-    .work-section__intro { grid-column: 1; }
-    .work-section__title { grid-column: 1; }
-    .work-section__body { grid-column: 2; grid-row: 3;
+    .work-section__label { grid-column: 1; grid-row: 1; }
+    .work-section__intro { grid-column: 1; grid-row: 2; }
+    .work-section__title {
+      grid-column: 2;
+      grid-row: 1 / 4;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    }
+    .work-section__body { grid-column: 1; grid-row: 3;
     }
 
     .work-section__title span {
