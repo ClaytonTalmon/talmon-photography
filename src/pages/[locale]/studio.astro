@@ -65,7 +65,7 @@ function galleryCaption(item: (typeof processImages)[number]) {
     <div class="process-gallery">
       <div class="process-gallery__row">
         {processImages.slice(0, 2).map((item) => (
-          <figure class="process-image-item">
+          <figure class:list={["process-image-item", { "process-image-item--scale": item.captionKey === "scaleCaption" }]}>
             <ResponsivePhoto
               src={resolvePhoto(item.path)}
               assetPath={item.path.replace('src/assets/', '')}
@@ -86,7 +86,7 @@ function galleryCaption(item: (typeof processImages)[number]) {
       <div class="process-gallery__row">
         {processImages.slice(2).map((item) => (
           <Fragment>
-            <figure class="process-image-item">
+            <figure class:list={["process-image-item", { "process-image-item--scale": item.captionKey === "scaleCaption" }]}>
               <ResponsivePhoto
                 src={resolvePhoto(item.path)}
                 assetPath={item.path.replace('src/assets/', '')}
@@ -189,6 +189,11 @@ function galleryCaption(item: (typeof processImages)[number]) {
 
   .process-image-item {
     margin: 0;
+  }
+
+  .process-image-item--scale :global(.process-gallery__image) {
+    width: 50%;
+    margin-inline: auto;
   }
 
   .process-caption {
