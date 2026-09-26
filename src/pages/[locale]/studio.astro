@@ -18,6 +18,15 @@ export function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
+const searchReflection: Record<Locale, string> = {
+  "en": "I tend to start with a question. In the case of FLOW it was, can I capture the universe performing its cosmic dance. It's about the distortion of light and the perception of time when sea and land meet. It takes me a while to work out the visual language of the series and requires hundreds of images that don't answer the question. After months of shooting and curation the series starts to take shape and finishes with the series you see here.",
+  "fr": "J’ai tendance à commencer par une question. Pour FLOW, c’était : puis-je saisir l’univers dans sa danse cosmique ? Il s’agit de la distorsion de la lumière et de la perception du temps lorsque la mer et la terre se rencontrent. Il me faut du temps pour trouver le langage visuel de la série, et des centaines d’images qui ne répondent pas à la question. Après des mois de prises de vue et de sélection, la série commence à prendre forme et aboutit à celle que vous voyez ici.",
+  "es": "Suelo empezar con una pregunta. En el caso de FLOW fue: ¿puedo capturar el universo interpretando su danza cósmica? Se trata de la distorsión de la luz y de la percepción del tiempo cuando el mar y la tierra se encuentran. Me lleva tiempo encontrar el lenguaje visual de la serie y requiere cientos de imágenes que no responden a la pregunta. Tras meses de fotografías y selección, la serie empieza a tomar forma y culmina en la que ven aquí.",
+  "it": "Tendo a partire da una domanda. Nel caso di FLOW era: posso catturare l’universo mentre esegue la sua danza cosmica? Si tratta della distorsione della luce e della percezione del tempo quando mare e terra si incontrano. Mi occorre tempo per trovare il linguaggio visivo della serie, e servono centinaia di immagini che non rispondono alla domanda. Dopo mesi di scatti e selezione, la serie comincia a prendere forma e si conclude con quella che vedete qui.",
+  "de": "Ich beginne meist mit einer Frage. Bei FLOW lautete sie: Kann ich das Universum bei seinem kosmischen Tanz festhalten? Es geht um die Verzerrung des Lichts und die Wahrnehmung der Zeit, wenn Meer und Land aufeinandertreffen. Ich brauche eine Weile, um die Bildsprache der Serie zu finden, und dafür entstehen Hunderte von Bildern, die die Frage nicht beantworten. Nach Monaten des Fotografierens und Auswählens nimmt die Serie allmählich Gestalt an und wird schließlich zu der Serie, die Sie hier sehen.",
+  "ja": "私はたいてい、一つの問いから始めます。FLOWの場合は、「宇宙がその壮大なダンスを踊る姿を捉えられるだろうか」という問いでした。海と陸が出会うときの光の歪みと、時間の知覚をめぐるものです。シリーズの視覚言語を見つけるには時間がかかり、その問いに答えられない写真を何百枚も撮る必要があります。何か月もの撮影と選定を経て、シリーズは少しずつ形を成し、やがてここでご覧いただく作品群に辿り着きます。",
+  "zh": "我往往从一个问题开始。对于FLOW，这个问题是：我能否捕捉宇宙跳起它的宇宙之舞的那一刻？它关乎海陆相遇时光线的扭曲与时间的感知。我需要一段时间才能找到这一系列的视觉语言，为此要拍摄数百张无法回答那个问题的照片。经过数月的拍摄与筛选，系列开始逐渐成形，最终成为您在这里看到的作品。"
+};
 const searchCaptions: Record<Locale, string[]> = {
   "en": [
     "Consult with one of these",
@@ -108,6 +117,10 @@ const processImages = aboutImages
     ))}
   </div>
 
+  <div class="search-reflection container">
+    <p>{searchReflection[locale]}</p>
+  </div>
+
   {processImages.length > 0 && (
     <div class="process-gallery">
       <div class="process-gallery__row">
@@ -160,6 +173,15 @@ const processImages = aboutImages
 </BaseLayout>
 
 <style>
+  .search-reflection {
+    max-width: 900px;
+    margin-block: 0 64px;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    font-size: 1.235rem;
+    line-height: 1.6;
+  }
+
   .search-sequence {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
