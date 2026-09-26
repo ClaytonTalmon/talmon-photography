@@ -72,7 +72,7 @@ function detailsFor(filename: string) {
                 assetPath={assetPath}
                 alt={details.title ?? ''}
                 class="gallery__image"
-                sizes={entry.data.slug === 'flow' ? '(max-width: 759px) 100vw, 50vw' : '(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw'}
+                sizes={entry.data.slug === 'flow' ? '(max-width: 759px) 50vw, 25vw' : '(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw'}
                 loading={i < 2 ? 'eager' : 'lazy'}
               />
             </a>
@@ -144,6 +144,12 @@ function detailsFor(filename: string) {
     .gallery--flow {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+  }
+
+  .gallery--flow .gallery__item {
+    width: 50%;
+    justify-self: center;
+    align-self: start;
   }
 
   .gallery--flow :global(.gallery__image) {
