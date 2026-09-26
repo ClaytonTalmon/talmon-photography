@@ -12,13 +12,13 @@ export function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 const workIntro: Record<Locale, string> = {
-  "en": "My work is for people who look deeply into that fraction of time, not for an immediate answer, but for what it might reveal about our relationship with nature, the Earth, and the universe we inhabit.",
-  "fr": "Mon travail s’adresse à celles et ceux qui scrutent cette fraction de temps, non pour y trouver une réponse immédiate, mais pour ce qu’elle pourrait révéler de notre relation avec la nature, la Terre et l’univers que nous habitons.",
-  "es": "Mi obra se dirige a quienes observan profundamente esa fracción de tiempo, no en busca de una respuesta inmediata, sino de lo que podría revelar sobre nuestra relación con la naturaleza, la Tierra y el universo que habitamos.",
-  "it": "Il mio lavoro si rivolge a chi osserva in profondità quella frazione di tempo, non per trovare una risposta immediata, ma per ciò che potrebbe rivelare sul nostro rapporto con la natura, la Terra e l’universo che abitiamo.",
-  "de": "Meine Arbeit richtet sich an Menschen, die tief in diesen Bruchteil der Zeit hineinblicken – nicht auf der Suche nach einer unmittelbaren Antwort, sondern danach, was er über unsere Beziehung zur Natur, zur Erde und zum Universum, in dem wir leben, offenbaren könnte.",
-  "zh": "我的作品献给那些深入凝视那一瞬间的人，不是为了寻求一个即时的答案，而是为了探寻它可能揭示的、我们与自然、地球以及所栖居的宇宙之间的关系。",
-  "ja": "私の作品は、その一瞬を深く見つめる人々のためにあります。すぐに答えを求めるのではなく、自然や地球、そして私たちが生きる宇宙との関わりについて、その一瞬が何を明らかにしてくれるのかを探る人々のために。"
+  "en": "My work is for people who look deeply into a fraction of time, not for an immediate answer, but for what it might reveal about our relationship with nature, Earth, and the star dust we are made from.",
+  "fr": "Mon travail s’adresse à celles et ceux qui scrutent une fraction de temps, non pour y trouver une réponse immédiate, mais pour ce qu’elle pourrait révéler de notre relation avec la nature, la Terre et la poussière d’étoiles dont nous sommes faits.",
+  "es": "Mi obra se dirige a quienes observan profundamente una fracción de tiempo, no en busca de una respuesta inmediata, sino de lo que podría revelar sobre nuestra relación con la naturaleza, la Tierra y el polvo de estrellas del que estamos hechos.",
+  "it": "Il mio lavoro si rivolge a chi osserva in profondità una frazione di tempo, non per trovare una risposta immediata, ma per ciò che potrebbe rivelare sul nostro rapporto con la natura, la Terra e la polvere di stelle di cui siamo fatti.",
+  "de": "Meine Arbeit richtet sich an Menschen, die tief in einen Bruchteil der Zeit hineinblicken – nicht auf der Suche nach einer unmittelbaren Antwort, sondern danach, was er über unsere Beziehung zur Natur, zur Erde und zum Sternenstaub, aus dem wir bestehen, offenbaren könnte.",
+  "zh": "我的作品献给那些深入凝视一瞬间的人，不是为了寻求一个即时的答案，而是为了探寻它可能揭示的、我们与自然、地球以及构成我们的星尘之间的关系。",
+  "ja": "私の作品は、一瞬を深く見つめる人々のためにあります。すぐに答えを求めるのではなく、自然や地球、そして私たちを形づくる星の塵との関わりについて、その一瞬が何を明らかにしてくれるのかを探る人々のために。"
 };
 
 const formImages = getSeriesImages('form');
@@ -311,7 +311,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     max-width: 605px;
     color: var(--color-ink-soft);
     font-family: var(--font-display);
-    font-size: 1.235rem;
+    font-size: 0.988rem;
     white-space: pre-line;
   }
 
@@ -459,8 +459,8 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     .work-section__body {
       grid-column: 1;
       grid-row: 3;
-      margin-left: 100px;
-      max-width: min(605px, calc(100% - 100px));
+      margin-left: 200px;
+      max-width: min(605px, calc(100% - 200px));
     }
 
     .work-section__title span {
