@@ -15,9 +15,9 @@ export const de = {
     workBody: 'Die Fotografien von Talmon de l’Armée brauchen Zeit.\nIn seinem Werk wird menschliche Präsenz oft eher angedeutet als ausdrücklich gezeigt, eingebettet in weite Umgebungen, die Dauer, Distanz und Zurückhaltung betonen. Die Bilder verweigern sich dem schnellen Blick. Sie laden zu langsamem Betrachten und wiederholter Auseinandersetzung ein – Qualitäten, die im Mittelpunkt der künstlerischen Schwarzweißfotografie stehen.',
     studioLabel: 'Einblick in den Prozess', studioTitle: 'Das Bild ist die Idee, der Abzug ihre Aufführung.',
     studioBody: 'Betreten Sie die Dunkelkammer, betrachten Sie die Probeabzüge an der Wand und verfolgen Sie die Entscheidungen, die einem Bild seine endgültige Form geben.',
-    studioCta: 'Den Prozess entdecken', collectorsLabel: 'Für Sammler', collectorsTitle: 'Eine private Ansicht,\nin Ihrem eigenen Tempo.',
-    collectorsBody: 'Eingeladene Sammler erhalten Zugang zu einem ruhigen Betrachtungsraum mit neuen Arbeiten, Angaben zu Editionen und Preisen sowie Einladungen zum Gespräch mit dem Künstler.',
-    collectorsCta: 'Zur privaten Ansicht',
+    studioCta: 'Den Prozess entdecken', collectorsLabel: 'Für Sammler', collectorsTitle: "Sprechen wir über die Werke",
+    collectorsBody: "Wenn eine Fotografie oder eine Sammlung Ihr Interesse geweckt hat, würde ich gern erfahren, was Sie daran anspricht. Treffen Sie mich online, um die Werke zu erkunden, die Geschichten dahinter kennenzulernen und Ihre Fragen zu stellen. Schlagen Sie eine passende Zeit vor, und ich melde mich zur Bestätigung bei Ihnen.",
+    collectorsCta: "Termin anfragen",
   },
   work: {
     title: 'Die Werke', titleLabel: 'Titel', intro: 'Die Sammlungen in ihrer Gesamtheit.', viewSeries: 'Serie ansehen', viewImage: 'Vergrößern',
