@@ -146,7 +146,7 @@ export const translations: Record<Locale, Dictionary> = {
   en: {
     nav: {
       work: 'Work',
-      studio: 'Studio',
+      studio: 'Process',
       about: 'About',
       privateView: 'Appointments',
       contact: 'Contact',
@@ -177,11 +177,11 @@ export const translations: Record<Locale, Dictionary> = {
       workTitle: 'Monochrome works shaped\nby light, form, and the forces\nof nature.',
       workBody:
         'Talmon de l’Armée’s photographs require time.\nAcross his body of work, human presence is often implied rather than asserted, set within expansive environments that emphasize duration, distance, and restraint. The images resist immediacy, inviting slow looking and repeated engagement, qualities central to the tradition of fine-art black-and-white photography.',
-      studioLabel: 'Inside the Studio',
+      studioLabel: 'Inside the Process',
       studioTitle: 'The image is the idea the print is the performance.',
       studioBody:
         'Enter the darkroom, see test prints on the wall, and follow the decisions that bring an image into its final form.',
-      studioCta: 'Visit the Studio',
+      studioCta: 'Explore the Process',
       collectorsLabel: 'For Collectors',
       collectorsTitle: 'Discuss the Collection',
       collectorsBody:
@@ -205,7 +205,7 @@ export const translations: Record<Locale, Dictionary> = {
       next: 'Next',
     },
     studio: {
-      title: 'Inside the Studio',
+      title: 'Inside the Process',
       intro: 'The image is the idea the print is the performance.',
       body: 'From exposure to final print, every image passes through a deliberate, hands-on process—test strips, dodge and burn, and a final signature on the mount.',
       processIntro: [
@@ -259,7 +259,7 @@ export const translations: Record<Locale, Dictionary> = {
   fr: {
     nav: {
       work: 'Œuvres',
-      studio: 'Atelier',
+      studio: 'Processus',
       about: 'À propos',
       privateView: 'Visite privée',
       contact: 'Contact',
@@ -290,11 +290,11 @@ export const translations: Record<Locale, Dictionary> = {
       workTitle: 'Des œuvres monochromes façonnées\npar la lumière, la forme et les\nforces de la nature.',
       workBody:
         'Les photographies de Talmon de l’Armée demandent du temps. La présence humaine entre dans le paysage discrètement—parfois dissimulée, parfois transformée—tandis que le geste, le tissu et le temps maîtrisent le cadre.',
-      studioLabel: 'Dans l’atelier',
+      studioLabel: 'Au cœur du processus',
       studioTitle: 'La photographie n’est achevée\nque lorsque le tirage l’est.',
       studioBody:
         'Entrez dans la chambre noire, découvrez les essais de tirage sur le mur et suivez les décisions qui donnent à une image sa forme finale.',
-      studioCta: 'Visiter l’atelier',
+      studioCta: 'Découvrir le processus',
       collectorsLabel: 'Pour les collectionneurs',
       collectorsTitle: 'Une visite privée,\nà votre rythme.',
       collectorsBody:
@@ -318,7 +318,7 @@ export const translations: Record<Locale, Dictionary> = {
       next: 'Suivant',
     },
     studio: {
-      title: 'Dans l’atelier',
+      title: 'Au cœur du processus',
       intro: 'La photographie n’est achevée que lorsque le tirage l’est.',
       body: 'De la prise de vue au tirage final, chaque image traverse un processus artisanal et délibéré—bandes d’essai, masquage et une signature finale sur le support.',
       processIntro: [
@@ -372,7 +372,7 @@ export const translations: Record<Locale, Dictionary> = {
   es: {
     nav: {
       work: 'Obra',
-      studio: 'Estudio',
+      studio: 'Proceso',
       about: 'Acerca de',
       privateView: 'Visita privada',
       contact: 'Contacto',
@@ -403,11 +403,11 @@ export const translations: Record<Locale, Dictionary> = {
       workTitle: 'Obras monocromas modeladas\npor la luz, la forma y las fuerzas\nde la naturaleza.',
       workBody:
         'Las fotografías de Talmon de l’Armée exigen tiempo. En el conjunto de su obra, la presencia humana suele insinuarse más que afirmarse, situada en espacios abiertos que subrayan la duración, la distancia y la contención. Las imágenes rehúyen la inmediatez e invitan a una mirada lenta y repetida, cualidades esenciales en la tradición de la fotografía artística en blanco y negro.',
-      studioLabel: 'Dentro del estudio',
+      studioLabel: 'Dentro del proceso',
       studioTitle: 'La imagen es la idea;\nla copia es la interpretación.',
       studioBody:
         'Entra en el cuarto oscuro, observa las pruebas en la pared y sigue las decisiones que conducen una imagen hasta su forma definitiva.',
-      studioCta: 'Visitar el estudio',
+      studioCta: 'Explorar el proceso',
       collectorsLabel: 'Para coleccionistas',
       collectorsTitle: 'Una visita privada,\na tu propio ritmo.',
       collectorsBody:
@@ -431,7 +431,7 @@ export const translations: Record<Locale, Dictionary> = {
       next: 'Siguiente',
     },
     studio: {
-      title: 'Dentro del estudio',
+      title: 'Dentro del proceso',
       intro: 'La imagen es la idea; la copia es la interpretación.',
       body: 'Desde la exposición hasta la copia final, cada imagen atraviesa un proceso deliberado y manual: tiras de prueba, reservas y quemados, y una firma final sobre el soporte.',
       processIntro: [
@@ -485,7 +485,7 @@ export const translations: Record<Locale, Dictionary> = {
   it: {
     nav: {
       work: 'Opere',
-      studio: 'Studio',
+      studio: 'Processo',
       about: 'Biografia',
       privateView: 'Visione privata',
       contact: 'Contatti',
@@ -516,11 +516,11 @@ export const translations: Record<Locale, Dictionary> = {
       workTitle: 'Opere monocromatiche plasmate\ndalla luce, dalla forma e dalle forze\ndella natura.',
       workBody:
         'Le fotografie di Talmon de l’Armée richiedono tempo. Nel suo lavoro, la presenza umana è spesso suggerita più che affermata, collocata in ambienti vasti che sottolineano la durata, la distanza e il ritegno. Le immagini resistono all’immediatezza e invitano a uno sguardo lento e ripetuto, qualità centrali nella tradizione della fotografia d’arte in bianco e nero.',
-      studioLabel: 'Dentro lo studio',
+      studioLabel: 'Dentro il processo',
       studioTitle: 'L’immagine è l’idea;\nla stampa è l’interpretazione.',
       studioBody:
         'Entra in camera oscura, osserva le prove appese alla parete e segui le decisioni che conducono un’immagine alla sua forma definitiva.',
-      studioCta: 'Visita lo studio',
+      studioCta: 'Scopri il processo',
       collectorsLabel: 'Per i collezionisti',
       collectorsTitle: 'Una visione privata,\nsecondo i tuoi tempi.',
       collectorsBody:
@@ -544,7 +544,7 @@ export const translations: Record<Locale, Dictionary> = {
       next: 'Successiva',
     },
     studio: {
-      title: 'Dentro lo studio',
+      title: 'Dentro il processo',
       intro: 'L’immagine è l’idea; la stampa è l’interpretazione.',
       body: 'Dallo scatto alla stampa finale, ogni immagine attraversa un processo deliberato e manuale: strisce di prova, schermature e bruciature, fino alla firma sul supporto.',
       processIntro: [
@@ -598,7 +598,7 @@ export const translations: Record<Locale, Dictionary> = {
   zh: {
     nav: {
       work: '作品',
-      studio: '工作室',
+      studio: '创作过程',
       about: '关于',
       privateView: '私人预览',
       contact: '联系',
@@ -629,11 +629,11 @@ export const translations: Record<Locale, Dictionary> = {
       workTitle: '由光、形态与自然力量\n塑造的黑白摄影作品。',
       workBody:
         'Talmon de l’Armée 的摄影需要时间去观看。在他的作品中，人的存在往往不是被直接宣告，而是若隐若现地置于广阔环境之中，强调时间、距离与克制。图像拒绝即时消费，邀请观者放慢目光、反复观看——这正是黑白艺术摄影传统的核心品质。',
-      studioLabel: '走进工作室',
+      studioLabel: '走进创作过程',
       studioTitle: '图像是构想，\n成品照片是演绎。',
       studioBody:
         '走进暗房，观看墙上的试印，并了解一幅图像最终成形之前所经历的每一次取舍。',
-      studioCta: '参观工作室',
+      studioCta: '探索创作过程',
       collectorsLabel: '致收藏家',
       collectorsTitle: '一场属于您的私人预览，\n按自己的节奏欣赏。',
       collectorsBody:
@@ -657,7 +657,7 @@ export const translations: Record<Locale, Dictionary> = {
       next: '下一幅',
     },
     studio: {
-      title: '走进工作室',
+      title: '走进创作过程',
       intro: '图像是构想，成品照片是演绎。',
       body: '从曝光到最终成品，每幅图像都经历严谨的手工流程：试条、局部遮挡与加光，以及最后在装裱板上的签名。',
       processIntro: [
@@ -711,7 +711,7 @@ export const translations: Record<Locale, Dictionary> = {
   ja: {
     nav: {
       work: '作品',
-      studio: 'スタジオ',
+      studio: '制作プロセス',
       about: 'プロフィール',
       privateView: 'プライベートビュー',
       contact: 'お問い合わせ',
@@ -742,11 +742,11 @@ export const translations: Record<Locale, Dictionary> = {
       workTitle: '光、形、自然の力によって\n形作られたモノクローム作品。',
       workBody:
         'Talmon de l’Arméeの写真は、見る人に時間を求めます。\nその作品では、人間の存在は明示されるよりも暗示されることが多く、時間の持続、距離、抑制を感じさせる広大な環境のなかに置かれています。これらの画像は即時的な受け取り方に抗い、ゆっくりと見つめ、繰り返し向き合うことを促します。それは、美術としての白黒写真の伝統にとって中心となる姿勢です。',
-      studioLabel: 'スタジオの中',
+      studioLabel: '制作プロセスの内側',
       studioTitle: '画像は着想、\nプリントはその表現。',
       studioBody:
         '暗室に入り、壁に貼られたテストプリントをご覧いただき、一枚の画像が最終形態に至るまでの判断をたどってください。',
-      studioCta: 'スタジオを見る',
+      studioCta: '制作プロセスを見る',
       collectorsLabel: 'コレクターの方へ',
       collectorsTitle: 'ご自身のペースで、\nプライベートな観覧を。',
       collectorsBody:
@@ -770,7 +770,7 @@ export const translations: Record<Locale, Dictionary> = {
       next: '次へ',
     },
     studio: {
-      title: 'スタジオの中',
+      title: '制作プロセスの内側',
       intro: '画像は着想、プリントはその表現。',
       body: '露光から最終プリントまで、すべての画像は、意図を持った手作業の工程を経ます。テストストリップ、覆い焼きと焼き込み、そして最後にマウントへ署名を施します。',
       processIntro: [
