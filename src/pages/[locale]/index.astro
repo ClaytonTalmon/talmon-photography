@@ -453,9 +453,14 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     .work-section__title {
       grid-column: 2;
       grid-row: 1 / 4;
+      align-self: center;
       font-size: clamp(2rem, 4.5vw, 3.4rem);
     }
-    .work-section__body { grid-column: 1; grid-row: 3;
+    .work-section__body {
+      grid-column: 1;
+      grid-row: 3;
+      margin-left: 100px;
+      max-width: min(605px, calc(100% - 100px));
     }
 
     .work-section__title span {
