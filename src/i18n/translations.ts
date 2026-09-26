@@ -154,7 +154,7 @@ export const translations: Record<Locale, Dictionary> = {
     footer: {
       tagline: 'Monochrome works shaped by light, form, and the forces of nature.',
       inquiries: 'Inquiries',
-      privateView: 'Private View',
+      privateView: 'Appointments',
       instagram: 'Instagram',
       rights: 'Talmon de l’Armée',
     },
@@ -267,7 +267,7 @@ export const translations: Record<Locale, Dictionary> = {
     footer: {
       tagline: 'Œuvres monochromes façonnées par la lumière, la forme et les forces de la nature.',
       inquiries: 'Demandes',
-      privateView: 'Visite privée',
+      privateView: 'Rendez-vous',
       instagram: 'Instagram',
       rights: 'Talmon de l’Armée',
     },
@@ -380,7 +380,7 @@ export const translations: Record<Locale, Dictionary> = {
     footer: {
       tagline: 'Obras monocromas modeladas por la luz, la forma y las fuerzas de la naturaleza.',
       inquiries: 'Consultas',
-      privateView: 'Visita privada',
+      privateView: 'Citas',
       instagram: 'Instagram',
       rights: 'Talmon de l’Armée',
     },
@@ -493,7 +493,7 @@ export const translations: Record<Locale, Dictionary> = {
     footer: {
       tagline: 'Opere monocromatiche plasmate dalla luce, dalla forma e dalle forze della natura.',
       inquiries: 'Informazioni',
-      privateView: 'Visione privata',
+      privateView: 'Appuntamenti',
       instagram: 'Instagram',
       rights: 'Talmon de l’Armée',
     },
@@ -606,7 +606,7 @@ export const translations: Record<Locale, Dictionary> = {
     footer: {
       tagline: '由光、形态与自然力量塑造的黑白摄影作品。',
       inquiries: '咨询',
-      privateView: '私人预览',
+      privateView: '预约',
       instagram: 'Instagram',
       rights: 'Talmon de l’Armée',
     },
@@ -719,7 +719,7 @@ export const translations: Record<Locale, Dictionary> = {
     footer: {
       tagline: '光、形、自然の力によって形作られたモノクローム作品。',
       inquiries: 'お問い合わせ',
-      privateView: 'プライベートビュー',
+      privateView: 'ご予約',
       instagram: 'Instagram',
       rights: 'Talmon de l’Armée',
     },
