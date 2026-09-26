@@ -95,13 +95,10 @@ function galleryCaption(item: (typeof processImages)[number]) {
                 sizes="(max-width: 760px) 100vw, 50vw"
                 loading="lazy"
               />
-              {galleryCaption(item) && !item.sideCaption && (
+              {galleryCaption(item) && (
                 <figcaption class="process-caption">{galleryCaption(item)}</figcaption>
               )}
             </figure>
-            {item.sideCaption && galleryCaption(item) && (
-              <p class="process-caption process-side-caption">{galleryCaption(item)}</p>
-            )}
           </Fragment>
         ))}
       </div>
@@ -192,7 +189,7 @@ function galleryCaption(item: (typeof processImages)[number]) {
   }
 
   .process-image-item--scale :global(.process-gallery__image) {
-    width: 50%;
+    width: 62.5%;
     margin-inline: auto;
   }
 
@@ -205,10 +202,8 @@ function galleryCaption(item: (typeof processImages)[number]) {
     font-size: 1.62rem;
   }
 
-  .process-side-caption {
-    align-self: center;
-    justify-self: start;
-    margin: 0 0 0 10%;
+  .process-image-item--scale .process-caption {
+    white-space: normal;
   }
 
   .process-note {
@@ -224,6 +219,26 @@ function galleryCaption(item: (typeof processImages)[number]) {
   @media (min-width: 760px) {
     .process-gallery__row {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .process-image-item--scale {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 9.375% 31.25% minmax(0, 1fr);
+      align-items: center;
+    }
+
+    .process-image-item--scale :global(.process-gallery__image) {
+      grid-column: 2;
+      width: 100%;
+      margin: 0;
+    }
+
+    .process-image-item--scale .process-caption {
+      grid-column: 3;
+      margin: 0;
+      padding: 0 24px;
+      text-align: left;
     }
   }
 </style>
