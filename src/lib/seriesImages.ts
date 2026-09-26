@@ -1,7 +1,8 @@
 // Loads images from folders under src/assets/ by eagerly globbing them at
 // build time. Drop new files into the relevant folder (any names) and they
-// appear automatically — nothing else to wire up. Sorted alphabetically, so
-// prefixing files with numbers (01-, 02-, ...) controls display order.
+// appear automatically. Saved collection sequences take priority; new images
+// append alphabetically until placed with the private collection editor.
+import collectionOrder from "../data/collection-order.json";
 
 export interface LoadedImage {
   image: ImageMetadata;
@@ -20,17 +21,17 @@ const allAboutImages = import.meta.glob<{ default: ImageMetadata }>(
   { eager: true }
 );
 
-const worldOrder = ["Timeless Travel.jpg", "Cloth & Wind.jpg", "Extended Thoughts.jpg", "Family Time.jpg", "Human Vibration.jpg", "Mach Girl.jpg", "River of Life.jpg", "Sweet Dreams.jpg", "Shadow Hours.jpg", "Weight of History.jpg", "Space Time.jpg", "Cloud Swept.jpg"];
+const savedOrders: Record<string, string[]> = collectionOrder;
 
 function fromGlob(glob: Record<string, { default: ImageMetadata }>, matchSegment: string): LoadedImage[] {
   return Object.entries(glob)
     .filter(([path]) => path.includes(matchSegment))
     .sort(([a], [b]) => {
-      if (a.includes('/work/world/') && b.includes('/work/world/')) {
-        const ai = worldOrder.indexOf(a.split('/').pop()!);
-        const bi = worldOrder.indexOf(b.split('/').pop()!);
-        if (ai >= 0 && bi >= 0) return ai - bi;
-      }
+      const slug = matchSegment.split('/').filter(Boolean).pop()!;
+      const order = savedOrders[slug] || [];
+      const ai = order.indexOf(a.split(matchSegment)[1]!);
+      const bi = order.indexOf(b.split(matchSegment)[1]!);
+      if (ai >= 0 || bi >= 0) return (ai < 0 ? Infinity : ai) - (bi < 0 ? Infinity : bi);
       return a.localeCompare(b);
     })
     .map(([path, mod]) => ({
