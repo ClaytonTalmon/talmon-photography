@@ -53,6 +53,10 @@
     "SFJ 3.jpg": { "title": "SFJ 3", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Silver Gelatin" },
     "SFO 6.jpg": { "title": "SFO 6", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Silver Gelatin" },
     "SKY 1.jpg": { "title": "SKY 1", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Silver Gelatin" },
-    "SKY 2.jpg": { "title": "SKY 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Silver Gelatin" }
+    "SKY 2.jpg": { "title": "SKY 2", "printSize": "60 x 40 cm (23.62 x 15.75 in)", "printSize2": "120 x 80 cm (47.24 x 31.50 in)", "editionSize": "8", "editionSize2": "5", "printType": "Silver Gelatin" },
+    "CDG 2.jpg": {"title":"CDG 2","printSize":"60 x 40 cm (23.62 x 15.75 in)","printSize2":"120 x 80 cm (47.24 x 31.50 in)","editionSize":"8","editionSize2":"5","printType":"Silver Gelatin"},
+    "SFJ 2.jpg": {"title":"SFJ 2","printSize":"60 x 40 cm (23.62 x 15.75 in)","printSize2":"120 x 80 cm (47.24 x 31.50 in)","editionSize":"8","editionSize2":"5","printType":"Silver Gelatin"},
+    "SFO 1.jpg": {"title":"SFO 1","printSize":"60 x 40 cm (23.62 x 15.75 in)","printSize2":"120 x 80 cm (47.24 x 31.50 in)","editionSize":"8","editionSize2":"5","printType":"Silver Gelatin"},
+    "SFO 5.jpg": {"title":"SFO 5","printSize":"60 x 40 cm (23.62 x 15.75 in)","printSize2":"120 x 80 cm (47.24 x 31.50 in)","editionSize":"8","editionSize2":"5","printType":"Silver Gelatin"}
   }
 }
