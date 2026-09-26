@@ -94,6 +94,12 @@
       "sideCaption": false
     },
     {
+      "id": "gallery-7",
+      "path": "src/assets/about/Process-8.jpg",
+      "captionKey": "scaleCaption",
+      "sideCaption": true
+    },
+    {
       "id": "gallery-3",
       "path": "src/assets/about/Process-3.jpg",
       "captionKey": "",
@@ -112,16 +118,16 @@
       "sideCaption": false
     },
     {
+      "id": "8041a290-691d-4a02-8fd7-159ce14c301a",
+      "path": "src/assets/process-editor/1790440183831-9927baea-47ba-4526-9cd4-b878ebccd413.jpg",
+      "captionKey": "",
+      "sideCaption": false
+    },
+    {
       "id": "gallery-6",
       "path": "src/assets/about/Process-6.jpeg",
       "captionKey": "veniceCaption",
       "sideCaption": false
-    },
-    {
-      "id": "gallery-7",
-      "path": "src/assets/about/Process-8.jpg",
-      "captionKey": "scaleCaption",
-      "sideCaption": true
     }
   ]
 }
