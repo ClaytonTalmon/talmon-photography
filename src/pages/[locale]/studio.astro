@@ -1,4 +1,11 @@
 ---
+import { Image } from 'astro:assets';
+import searchPhoto0 from '../../assets/process-search/Dog.jpg';
+import searchPhoto1 from '../../assets/process-search/Space.jpg';
+import searchPhoto2 from '../../assets/process-search/Camera.jpg';
+import searchPhoto3 from '../../assets/process-search/Location.jpg';
+import searchPhoto4 from '../../assets/process-search/Surf 2.jpg';
+import searchPhoto5 from '../../assets/process-search/Surf 1.jpg';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ResponsivePhoto from '../../components/ResponsivePhoto.astro';
 import { getTranslations } from '../../i18n/translations';
@@ -11,6 +18,65 @@ export function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
+const searchCaptions: Record<Locale, string[]> = {
+  "en": [
+    "Consult with one of these",
+    "Consider our place",
+    "Get one of these",
+    "Look for the elements",
+    "Experiment",
+    "Keep looking"
+  ],
+  "fr": [
+    "Consultez l’un d’eux",
+    "Réfléchissez à notre place",
+    "Procurez-vous un de ces appareils",
+    "Cherchez les éléments",
+    "Expérimentez",
+    "Continuez à regarder"
+  ],
+  "es": [
+    "Consulta con uno de estos",
+    "Reflexiona sobre nuestro lugar",
+    "Consigue uno de estos",
+    "Busca los elementos",
+    "Experimenta",
+    "Sigue mirando"
+  ],
+  "it": [
+    "Consulta uno di loro",
+    "Considera il nostro posto",
+    "Procurati uno di questi",
+    "Cerca gli elementi",
+    "Sperimenta",
+    "Continua a guardare"
+  ],
+  "de": [
+    "Frag einen von ihnen",
+    "Denk über unseren Platz nach",
+    "Besorg dir so eine",
+    "Such nach den Elementen",
+    "Experimentiere",
+    "Schau weiter"
+  ],
+  "ja": [
+    "こんな相棒に相談する",
+    "私たちの居場所を考える",
+    "こんな一台を手に入れる",
+    "自然の要素を探す",
+    "実験する",
+    "見つめ続ける"
+  ],
+  "zh": [
+    "向这样的伙伴请教",
+    "思考我们的位置",
+    "准备一台这样的相机",
+    "寻找自然元素",
+    "尝试",
+    "继续观察"
+  ]
+};
+const searchPhotos = [searchPhoto0, searchPhoto1, searchPhoto2, searchPhoto3, searchPhoto4, searchPhoto5];
 const aboutImages = getAboutImages();
 const processEight = aboutImages.find(({ filename }) => filename === 'Process-8.jpg');
 const processImages = aboutImages
@@ -30,6 +96,17 @@ const processImages = aboutImages
       {t.studio.processIntro.map((paragraph) => <p>{paragraph}</p>)}
     </div>
   </header>
+
+  <div class="search-sequence container">
+    {searchPhotos.map((photo, index) => (
+      <figure class="search-sequence__item">
+        <Image src={photo} alt={searchCaptions[locale][index]} class="search-sequence__image"
+          widths={[320, 640, 960]} sizes="(max-width: 599px) 45vw, (max-width: 1199px) 30vw, 16vw"
+          format="webp" loading="lazy" />
+        <figcaption>{searchCaptions[locale][index]}</figcaption>
+      </figure>
+    ))}
+  </div>
 
   {processImages.length > 0 && (
     <div class="process-gallery">
@@ -83,6 +160,28 @@ const processImages = aboutImages
 </BaseLayout>
 
 <style>
+  .search-sequence {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 20px;
+    margin-block: 48px 64px;
+  }
+  .search-sequence__item { margin: 0; min-width: 0; }
+  .search-sequence :global(.search-sequence__image) {
+    display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover;
+  }
+  .search-sequence figcaption {
+    margin-top: 14px; text-align: center;
+    font-family: var(--font-display); color: var(--color-ink-soft);
+    font-size: 1.1rem; line-height: 1.4;
+  }
+  @media (min-width: 600px) {
+    .search-sequence { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 24px; }
+  }
+  @media (min-width: 1200px) {
+    .search-sequence { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  }
+
   .page-header {
     padding-block: clamp(56px, 10vw, 96px) 0;
     max-width: 680px;
