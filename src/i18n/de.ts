@@ -3,7 +3,7 @@ export const de = {
   nav: { work: 'Werke', studio: 'Prozess', about: 'Über mich', privateView: 'Private Ansicht', contact: 'Kontakt' },
   footer: {
     tagline: 'Monochrome Werke, geprägt von Licht, Form und den Kräften der Natur.',
-    inquiries: 'Anfragen', privateView: 'Private Ansicht', instagram: 'Instagram', rights: 'Talmon de l’Armée',
+    inquiries: 'Anfragen', privateView: 'Termine', instagram: 'Instagram', rights: 'Talmon de l’Armée',
   },
   home: {
     exhibitionLabel: 'Neue Ausstellung', exhibitionTitle: 'FLOW', exhibitionSubtitle: 'Studien des uralten Meeres',
