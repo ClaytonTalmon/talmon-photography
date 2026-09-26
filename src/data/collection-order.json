@@ -32,7 +32,22 @@
     "The Tempest.jpg",
     "Together, We Are Free.jpg"
   ],
-  "flight": [],
+  "flight": [
+    "ATL 1.jpg",
+    "SKY 1.jpg",
+    "SKY 2.jpg",
+    "CDG 1.jpg",
+    "JFK 1.jpg",
+    "JFK 3.jpg",
+    "LXR 1.jpg",
+    "MIA 4.jpg",
+    "NCE 1.jpg",
+    "BUR 2.jpg",
+    "NCE 2.jpg",
+    "SFJ 1.jpg",
+    "SFJ 3.jpg",
+    "SFO 6.jpg"
+  ],
   "world": [
     "Timeless Travel.jpg",
     "Cloth & Wind.jpg",
