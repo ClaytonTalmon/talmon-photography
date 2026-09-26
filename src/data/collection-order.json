@@ -1,5 +1,24 @@
 {
-  "flow": [],
+  "flow": [
+    "FAULT I.jpg",
+    "FAULT II.jpg",
+    "FAULT III.jpg",
+    "COMPRESSION I.jpg",
+    "COMPRESSION II.jpg",
+    "COMPRESSION III.jpg",
+    "COMPRESSION IV.jpg",
+    "DISRUPTION I.jpg",
+    "DISRUPTION II.jpg",
+    "DISRUPTION III.jpg",
+    "DISRUPTION IV.jpg",
+    "RETREAT I.jpg",
+    "RETREAT II.jpg",
+    "RETREAT IV.jpg",
+    "RETREAT III.jpg",
+    "FRICTION I.jpg",
+    "FRICTION II.jpg",
+    "FRICTION III.jpg"
+  ],
   "form": [],
   "flight": [],
   "world": [
