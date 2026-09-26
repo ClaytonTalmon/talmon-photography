@@ -217,7 +217,7 @@ export const translations: Record<Locale, Dictionary> = {
       tonalCaption: 'Working out the tonal values.',
       archivalNote: 'Each photograph is produced as a museum-grade, fibre-based silver-gelatin print, chosen for its deep blacks, luminous highlights, and exceptional tonal range. Archival processing, conservation mounting, and museum-quality framing preserve the print’s tonal integrity and physical presence for generations.',
       mattingCaption: 'Archival matting, backing and framing.',
-      veniceCaption: 'FLOW — Venice, Italy.',
+      veniceCaption: 'Venice, Italy.',
       scaleCaption: 'Testing scale variations.',
     },
     about: {
@@ -330,7 +330,7 @@ export const translations: Record<Locale, Dictionary> = {
       tonalCaption: 'Recherche des valeurs tonales.',
       archivalNote: 'Chaque photographie est réalisée sous la forme d’un tirage argentique sur papier baryté de qualité muséale, choisi pour la profondeur de ses noirs, la luminosité de ses hautes lumières et l’étendue exceptionnelle de ses nuances. Le traitement d’archives, le montage de conservation et l’encadrement de qualité muséale préservent l’intégrité tonale et la présence physique du tirage pour les générations futures.',
       mattingCaption: 'Passe-partout, support et encadrement de conservation.',
-      veniceCaption: 'FLOW — Venise, Italie.',
+      veniceCaption: 'Venise, Italie.',
       scaleCaption: 'Essais de variations d’échelle.',
     },
     about: {
@@ -443,7 +443,7 @@ export const translations: Record<Locale, Dictionary> = {
       tonalCaption: 'Definiendo los valores tonales.',
       archivalNote: 'Cada fotografía se produce como una copia de gelatina de plata sobre papel de fibra de calidad museística, elegida por sus negros profundos, sus altas luces luminosas y su excepcional gama tonal. El procesado de archivo, el montaje de conservación y el enmarcado de calidad museística preservan la integridad tonal y la presencia física de la copia durante generaciones.',
       mattingCaption: 'Paspartú, soporte y enmarcado de conservación.',
-      veniceCaption: 'FLOW — Venecia, Italia.',
+      veniceCaption: 'Venecia, Italia.',
       scaleCaption: 'Pruebas de variaciones de escala.',
     },
     about: {
@@ -556,7 +556,7 @@ export const translations: Record<Locale, Dictionary> = {
       tonalCaption: 'Definizione dei valori tonali.',
       archivalNote: 'Ogni fotografia è realizzata come stampa alla gelatina d’argento su carta baritata di qualità museale, scelta per i neri profondi, le alte luci luminose e l’eccezionale gamma tonale. Il trattamento d’archivio, il montaggio conservativo e la cornice di qualità museale preservano per generazioni l’integrità tonale e la presenza fisica della stampa.',
       mattingCaption: 'Passe-partout, supporto e cornice conservativi.',
-      veniceCaption: 'FLOW — Venezia, Italia.',
+      veniceCaption: 'Venezia, Italia.',
       scaleCaption: 'Prove di variazioni di scala.',
     },
     about: {
@@ -669,7 +669,7 @@ export const translations: Record<Locale, Dictionary> = {
       tonalCaption: '调整影调层次。',
       archivalNote: '每幅作品均采用博物馆级纤维基纸制作银盐照片，以呈现深邃的黑色、明亮的高光与卓越的影调范围。档案级处理、保护性装裱与博物馆级画框可让作品的影调完整性与实体质感世代留存。',
       mattingCaption: '档案级卡纸、背板与装框。',
-      veniceCaption: 'FLOW — 意大利威尼斯。',
+      veniceCaption: '意大利威尼斯。',
       scaleCaption: '测试不同的作品尺寸。',
     },
     about: {
@@ -782,7 +782,7 @@ export const translations: Record<Locale, Dictionary> = {
       tonalCaption: '階調を追い込む。',
       archivalNote: '各作品は、深い黒、輝くハイライト、卓越した階調表現を備えた美術館品質のバライタ印画紙による銀塩プリントとして制作されます。アーカイバル処理、保存仕様のマウント、美術館品質の額装により、プリントの階調と物質的な存在感を世代を超えて守ります。',
       mattingCaption: '保存仕様のマット、裏打ち、額装。',
-      veniceCaption: 'FLOW — イタリア、ヴェネツィア。',
+      veniceCaption: 'イタリア、ヴェネツィア。',
       scaleCaption: 'サイズ違いのテスト。',
     },
     about: {
