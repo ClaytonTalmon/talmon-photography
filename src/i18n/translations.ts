@@ -183,10 +183,10 @@ export const translations: Record<Locale, Dictionary> = {
         'Enter the darkroom, see test prints on the wall, and follow the decisions that bring an image into its final form.',
       studioCta: 'Explore the Process',
       collectorsLabel: 'For Collectors',
-      collectorsTitle: 'Discuss the Collection',
+      collectorsTitle: "Let’s Talk About the Work",
       collectorsBody:
-        'Invited collectors may enter a quiet viewing room for advance work, edition details, price reveals, and artist Q&A invitations.',
-      collectorsCta: 'Discuss the Collection',
+        "If a photograph or collection has caught your eye, I’d love to hear what draws you to it. Join me online to explore the work, hear the stories behind it, and ask any questions. Suggest a time that suits you, and I’ll be in touch to confirm.",
+      collectorsCta: "Request an Appointment",
     },
     work: {
       title: 'The Work',
@@ -296,10 +296,10 @@ export const translations: Record<Locale, Dictionary> = {
         'Entrez dans la chambre noire, découvrez les essais de tirage sur le mur et suivez les décisions qui donnent à une image sa forme finale.',
       studioCta: 'Découvrir le processus',
       collectorsLabel: 'Pour les collectionneurs',
-      collectorsTitle: 'Une visite privée,\nà votre rythme.',
+      collectorsTitle: "Parlons des œuvres",
       collectorsBody:
-        'Les collectionneurs invités peuvent accéder à un espace de visite privé pour découvrir en avant-première les œuvres, les détails d’édition, les prix et les invitations aux questions-réponses avec l’artiste.',
-      collectorsCta: 'Accéder à la visite privée',
+        "Si une photographie ou une collection a retenu votre attention, je serais heureux de savoir ce qui vous touche. Je vous invite à un échange en ligne pour découvrir les œuvres, leur histoire et répondre à vos questions. Proposez un moment qui vous convient, et je vous recontacterai pour confirmer.",
+      collectorsCta: "Demander un rendez-vous",
     },
     work: {
       title: 'L’œuvre',
@@ -409,10 +409,10 @@ export const translations: Record<Locale, Dictionary> = {
         'Entra en el cuarto oscuro, observa las pruebas en la pared y sigue las decisiones que conducen una imagen hasta su forma definitiva.',
       studioCta: 'Explorar el proceso',
       collectorsLabel: 'Para coleccionistas',
-      collectorsTitle: 'Una visita privada,\na tu propio ritmo.',
+      collectorsTitle: "Hablemos de la obra",
       collectorsBody:
-        'Los coleccionistas invitados pueden acceder a una sala de visita discreta con obras en primicia, información sobre ediciones, precios e invitaciones a encuentros con el artista.',
-      collectorsCta: 'Acceder a la visita privada',
+        "Si una fotografía o una colección te ha llamado la atención, me encantará saber qué te atrae de ella. Te invito a conversar conmigo en línea para explorar la obra, conocer las historias que hay detrás y hacerme tus preguntas. Propón un horario que te venga bien y me pondré en contacto contigo para confirmarlo.",
+      collectorsCta: "Solicitar una cita",
     },
     work: {
       title: 'La obra',
@@ -522,10 +522,10 @@ export const translations: Record<Locale, Dictionary> = {
         'Entra in camera oscura, osserva le prove appese alla parete e segui le decisioni che conducono un’immagine alla sua forma definitiva.',
       studioCta: 'Scopri il processo',
       collectorsLabel: 'Per i collezionisti',
-      collectorsTitle: 'Una visione privata,\nsecondo i tuoi tempi.',
+      collectorsTitle: "Parliamo delle opere",
       collectorsBody:
-        'I collezionisti invitati possono accedere a uno spazio riservato per vedere opere in anteprima, conoscere i dettagli delle edizioni e i prezzi e ricevere inviti a incontri con l’artista.',
-      collectorsCta: 'Accedi alla visione privata',
+        "Se una fotografia o una collezione ha attirato la tua attenzione, mi piacerebbe sapere cosa ti colpisce. Ti invito a incontrarmi online per esplorare le opere, scoprire le storie che le accompagnano e rispondere alle tue domande. Proponi un momento comodo per te e ti contatterò per confermare.",
+      collectorsCta: "Richiedi un appuntamento",
     },
     work: {
       title: 'Le opere',
@@ -635,10 +635,10 @@ export const translations: Record<Locale, Dictionary> = {
         '走进暗房，观看墙上的试印，并了解一幅图像最终成形之前所经历的每一次取舍。',
       studioCta: '探索创作过程',
       collectorsLabel: '致收藏家',
-      collectorsTitle: '一场属于您的私人预览，\n按自己的节奏欣赏。',
+      collectorsTitle: "聊聊作品",
       collectorsBody:
-        '受邀收藏家可进入安静的私人预览空间，提前欣赏作品，了解版数与价格，并获得艺术家问答活动邀请。',
-      collectorsCta: '进入私人预览',
+        "如果某幅摄影作品或某个系列吸引了你，我很想听听是什么打动了你。欢迎与我在线交流，一起欣赏作品、了解背后的故事，也聊聊你的疑问。请提出一个方便的时间，我会与你联系确认。",
+      collectorsCta: "预约交流",
     },
     work: {
       title: '作品',
@@ -748,10 +748,10 @@ export const translations: Record<Locale, Dictionary> = {
         '暗室に入り、壁に貼られたテストプリントをご覧いただき、一枚の画像が最終形態に至るまでの判断をたどってください。',
       studioCta: '制作プロセスを見る',
       collectorsLabel: 'コレクターの方へ',
-      collectorsTitle: 'ご自身のペースで、\nプライベートな観覧を。',
+      collectorsTitle: "作品について話しましょう",
       collectorsBody:
-        '招待されたコレクターの方は、先行公開作品やエディション情報、価格発表、作家とのQ&A招待などを静かなビューイングルームでご覧いただけます。',
-      collectorsCta: 'プライベートビューへ',
+        "気になる写真やシリーズがありましたら、どんなところに惹かれたのか、ぜひお聞かせください。オンラインで作品を一緒に眺めながら、背景にある物語やご質問についてお話しできればうれしく思います。ご都合のよい日時をお知らせいただければ、確認のご連絡をいたします。",
+      collectorsCta: "予約を申し込む",
     },
     work: {
       title: '作品',
