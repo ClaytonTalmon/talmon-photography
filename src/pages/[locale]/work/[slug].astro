@@ -58,7 +58,7 @@ function detailsFor(filename: string) {
         - Crop shape: edit `aspect-ratio` on .gallery__image (2/3 = portrait,
           1/1 = square, 4/5 = slightly less tall, etc).
       */}
-      <div class="gallery">
+      <div class:list={["gallery", { "gallery--flow": entry.data.slug === "flow" }]}>
         {images.map(({ image, filename, assetPath }, i) => {
           const details = detailsFor(filename);
           return (
@@ -72,7 +72,7 @@ function detailsFor(filename: string) {
                 assetPath={assetPath}
                 alt={details.title ?? ''}
                 class="gallery__image"
-                sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                sizes={entry.data.slug === 'flow' ? '(max-width: 759px) 100vw, 50vw' : '(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw'}
                 loading={i < 2 ? 'eager' : 'lazy'}
               />
             </a>
@@ -132,6 +132,24 @@ function detailsFor(filename: string) {
     .gallery {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  /* FLOW needs breathing room so adjacent studies remain distinct. */
+  .gallery--flow {
+    gap: clamp(32px, 4vw, 64px);
+    padding-bottom: clamp(32px, 4vw, 64px);
+  }
+
+  @media (min-width: 760px) {
+    .gallery--flow {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .gallery--flow :global(.gallery__image) {
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
   }
 
   .gallery__item {
