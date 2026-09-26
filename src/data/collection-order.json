@@ -33,10 +33,11 @@
     "Together, We Are Free.jpg"
   ],
   "flight": [
-    "ATL 1.jpg",
     "SKY 1.jpg",
+    "ATL 1.jpg",
     "SKY 2.jpg",
     "CDG 1.jpg",
+    "CDG 2.jpg",
     "JFK 1.jpg",
     "JFK 3.jpg",
     "LXR 1.jpg",
@@ -45,7 +46,10 @@
     "BUR 2.jpg",
     "NCE 2.jpg",
     "SFJ 1.jpg",
+    "SFJ 2.jpg",
     "SFJ 3.jpg",
+    "SFO 1.jpg",
+    "SFO 5.jpg",
     "SFO 6.jpg"
   ],
   "world": [
