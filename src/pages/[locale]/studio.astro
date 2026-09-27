@@ -32,7 +32,8 @@ function resolvePhoto(path: string) {
 const searchPhotos = processLayout.squares;
 const processImages = processLayout.gallery;
 function galleryCaption(item: (typeof processImages)[number]) {
-  return item.captionKey ? t.studio[item.captionKey as keyof typeof t.studio] as string : '';
+  const captions = (item as { captions?: Partial<Record<Locale, string>> }).captions;
+  return captions?.[locale] ?? (item.captionKey ? t.studio[item.captionKey as keyof typeof t.studio] as string : '');
 }
 
 ---
@@ -265,3 +266,4 @@ function galleryCaption(item: (typeof processImages)[number]) {
     }
   }
 </style>
+
