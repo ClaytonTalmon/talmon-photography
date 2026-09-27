@@ -32,12 +32,12 @@
       "path": "src/assets/process-search/Location.jpg",
       "captions": {
         "en": "Feel the location",
-        "fr": "Cherchez les éléments",
-        "es": "Busca los elementos",
-        "it": "Cerca gli elementi",
-        "de": "Such nach den Elementen",
-        "ja": "自然の要素を探す",
-        "zh": "寻找自然元素"
+        "fr": "Ressentez le lieu",
+        "es": "Siente el lugar",
+        "it": "Senti il luogo",
+        "de": "Spüre den Ort",
+        "ja": "その場所を感じる",
+        "zh": "感受这片天地"
       }
     },
     {
@@ -45,12 +45,12 @@
       "path": "src/assets/process-search/Camera.jpg",
       "captions": {
         "en": "Choose the tool",
-        "fr": "Prenez le Leica",
-        "es": "Coge la Leica",
-        "it": "Prendi la Leica",
-        "de": "Schnapp dir die Leica",
-        "ja": "ライカを手に取る",
-        "zh": "拿起徕卡"
+        "fr": "Choisissez l’outil",
+        "es": "Elige la herramienta",
+        "it": "Scegli lo strumento",
+        "de": "Wähle das Werkzeug",
+        "ja": "道具を選ぶ",
+        "zh": "选择工具"
       }
     },
     {
@@ -58,12 +58,12 @@
       "path": "src/assets/process-editor/1790500184948-fc324254-42d1-4d76-8da7-d33eed2b8aaf.jpg",
       "captions": {
         "en": "Search, test, experiment",
-        "fr": "Expérimentez",
-        "es": "Experimenta",
-        "it": "Sperimenta",
-        "de": "Experimentiere",
-        "ja": "実験する",
-        "zh": "尝试"
+        "fr": "Cherchez, testez, expérimentez",
+        "es": "Busca, prueba, experimenta",
+        "it": "Cerca, prova, sperimenta",
+        "de": "Suche, teste, experimentiere",
+        "ja": "探し、試し、実験する",
+        "zh": "探索、测试、实验"
       }
     },
     {
@@ -71,12 +71,12 @@
       "path": "src/assets/process-editor/1790500193529-31af4289-23e7-47cf-aba1-10aa292c8829.jpg",
       "captions": {
         "en": "Capture",
-        "fr": "Continuez à regarder",
-        "es": "Sigue mirando",
-        "it": "Continua a guardare",
-        "de": "Schau weiter",
-        "ja": "見つめ続ける",
-        "zh": "继续观察"
+        "fr": "Capturez",
+        "es": "Captura",
+        "it": "Cattura",
+        "de": "Halte den Moment fest",
+        "ja": "捉える",
+        "zh": "捕捉"
       }
     }
   ],
