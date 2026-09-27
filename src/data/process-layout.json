@@ -5,13 +5,13 @@
       "id": "square-1",
       "path": "src/assets/process-search/Dog.jpg",
       "captions": {
-        "en": "Consult with one of these",
-        "fr": "Consultez l’un d’eux",
-        "es": "Consulta con uno de estos",
-        "it": "Consulta uno di loro",
-        "de": "Frag einen von ihnen",
-        "ja": "こんな相棒に相談する",
-        "zh": "向这样的伙伴请教"
+        "en": "Consult with the expert",
+        "fr": "Consultez l’expert",
+        "es": "Consulta con el experto",
+        "it": "Consulta l’esperto",
+        "de": "Frag den Experten",
+        "ja": "専門家に相談する",
+        "zh": "向专家请教"
       }
     },
     {
