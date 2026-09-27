@@ -28,19 +28,6 @@
       }
     },
     {
-      "id": "square-3",
-      "path": "src/assets/process-search/Camera.jpg",
-      "captions": {
-        "en": "Choose the lens",
-        "fr": "Prenez le Leica",
-        "es": "Coge la Leica",
-        "it": "Prendi la Leica",
-        "de": "Schnapp dir die Leica",
-        "ja": "ライカを手に取る",
-        "zh": "拿起徕卡"
-      }
-    },
-    {
       "id": "square-4",
       "path": "src/assets/process-search/Location.jpg",
       "captions": {
@@ -51,6 +38,19 @@
         "de": "Such nach den Elementen",
         "ja": "自然の要素を探す",
         "zh": "寻找自然元素"
+      }
+    },
+    {
+      "id": "square-3",
+      "path": "src/assets/process-search/Camera.jpg",
+      "captions": {
+        "en": "Choose the tool",
+        "fr": "Prenez le Leica",
+        "es": "Coge la Leica",
+        "it": "Prendi la Leica",
+        "de": "Schnapp dir die Leica",
+        "ja": "ライカを手に取る",
+        "zh": "拿起徕卡"
       }
     },
     {
