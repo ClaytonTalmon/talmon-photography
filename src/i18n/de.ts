@@ -35,7 +35,7 @@ export const de = {
     ],
     tonalCaption: 'Die Tonwerte ausarbeiten.',
     archivalNote: 'Jede Fotografie wird als Silbergelatineabzug auf Barytpapier in Museumsqualität gefertigt, das für seine tiefen Schwarztöne, leuchtenden Lichter und außergewöhnlichen Tonwertumfang gewählt wird. Archivfeste Verarbeitung, konservatorische Montage und Rahmung in Museumsqualität bewahren die tonale Integrität und die physische Präsenz des Abzugs über Generationen hinweg.',
-    mattingCaption: 'Archivgerechtes Passepartout, Rückwand und Rahmung.', veniceCaption: 'Venedig, Italien.', scaleCaption: 'Verschiedene Formate erproben.',
+    mattingCaption: '', veniceCaption: 'Debüt - Venedig, Italien - Mai 2026', scaleCaption: 'Verschiedene Formate erproben.',
   },
   about: {
     title: 'Über mich', intro: 'Talmon de l’Armée',
