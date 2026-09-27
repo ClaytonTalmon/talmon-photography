@@ -97,6 +97,17 @@ function galleryCaption(item: (typeof processImages)[number]) {
               {galleryCaption(item) && (
                 <figcaption class="process-caption">{galleryCaption(item)}</figcaption>
               )}
+              {item.captionKey === "scaleCaption" && (
+                <Image
+                  src={resolvePhoto('src/assets/about/Scale-interior.webp')}
+                  alt={t.studio.scaleCaption}
+                  class="scale-companion"
+                  widths={[320, 640, 1000]}
+                  sizes="(min-width: 760px) 15.625vw, 31.25vw"
+                  format="webp"
+                  loading="lazy"
+                />
+              )}
             </figure>
           </Fragment>
         ))}
@@ -185,6 +196,13 @@ function galleryCaption(item: (typeof processImages)[number]) {
     margin-inline: auto;
   }
 
+  .scale-companion {
+    display: block;
+    width: 31.25%;
+    height: auto;
+    margin: 24px auto;
+  }
+
   .process-caption {
     margin-top: 4px;
     text-align: center;
@@ -216,6 +234,7 @@ function galleryCaption(item: (typeof processImages)[number]) {
 
     .process-image-item--scale {
       grid-column: 1 / -1;
+      position: relative;
       display: grid;
       grid-template-columns: 9.375% 31.25% minmax(0, 1fr);
       align-items: center;
@@ -224,6 +243,15 @@ function galleryCaption(item: (typeof processImages)[number]) {
     .process-image-item--scale :global(.process-gallery__image) {
       grid-column: 2;
       width: 100%;
+      margin: 0;
+    }
+
+    .process-image-item--scale .scale-companion {
+      position: absolute;
+      width: 15.625%;
+      right: 9.375%;
+      top: 50%;
+      transform: translateY(-50%);
       margin: 0;
     }
 
