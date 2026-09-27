@@ -259,7 +259,9 @@ function galleryCaption(item: (typeof processImages)[number]) {
       grid-column: 3;
       margin: 0;
       padding: 0 24px;
-      text-align: left;
+      text-align: center;
+      /* Include the companion image's left gutter when centering the caption. */
+      transform: translateX(max(0px, calc((28.125cqw - 100%) / 4)));
     }
   }
 </style>
