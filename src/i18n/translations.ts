@@ -212,7 +212,7 @@ export const translations: Record<Locale, Dictionary> = {
         'My process begins with questions about the life we are living. Why are we here? What am I looking at? Am I truly seeing?',
         'I search for the fraction of time when those questions become visible, when a human figure, a landscape, light, and time briefly come into alignment. The moment passes, but the photograph allows us to remain inside it.',
         'My work is for people who look deeply into that fraction of time, not for an immediate answer, but for what it might reveal about our relationship with nature, the Earth, and the universe we inhabit. Are we the universe trying to understand itself? Perhaps. These collections are an invitation to slow down and observe the moment.',
-        'With that said, let’s tour the studio and my process of getting from idea to the print.',
+        "With that said, let's get into my process of idea to final print.",
       ],
       tonalCaption: 'Working out the tonal values.',
       archivalNote: 'Each photograph is produced as a museum-grade, fibre-based silver-gelatin print, chosen for its deep blacks, luminous highlights, and exceptional tonal range. Archival processing, conservation mounting, and museum-quality framing preserve the print’s tonal integrity and physical presence for generations.',
