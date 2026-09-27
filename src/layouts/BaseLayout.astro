@@ -38,9 +38,9 @@ const alternatePath = (targetLocale: Locale) =>
     <meta name="generator" content={Astro.generator} />
 
     {locales.map((l) => (
-      <link rel="alternate" hreflang={localeHtmlLang[l]} href={`https://www.claytontalmon.com${alternatePath(l)}`} />
+      <link rel="alternate" hreflang={localeHtmlLang[l]} href={`https://talmonphoto.com${alternatePath(l)}`} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={`https://www.claytontalmon.com${alternatePath('en')}`} />
+    <link rel="alternate" hreflang="x-default" href={`https://talmonphoto.com${alternatePath('en')}`} />
 
     <meta property="og:title" content={`${title} — ${siteName}`} />
     {description && <meta property="og:description" content={description} />}

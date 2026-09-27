@@ -9,7 +9,7 @@ import { defineConfig, passthroughImageService } from 'astro/config';
 // than Astro's built-in i18n router, so every route + redirect is explicit
 // and easy to extend with a new language.
 export default defineConfig({
-  site: 'https://www.claytontalmon.com',
+  site: 'https://talmonphoto.com',
   base: '/',
   output: 'static',
 
