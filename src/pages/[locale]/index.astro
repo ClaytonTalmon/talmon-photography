@@ -12,7 +12,7 @@ export function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 const workIntro: Record<Locale, string> = {
-  "en": "My work is for people who look deeply into a fraction of time, not for an immediate answer, but for what it might reveal about our relationship with nature, Earth, and the star dust we are made from.",
+  "en": "My work is for people who look deeply into a fraction of time, not for an immediate answer, but for what it might reveal about our relationship with nature, the Earth, and the star dust we are made of.",
   "fr": "Mon travail s’adresse à celles et ceux qui scrutent une fraction de temps, non pour y trouver une réponse immédiate, mais pour ce qu’elle pourrait révéler de notre relation avec la nature, la Terre et la poussière d’étoiles dont nous sommes faits.",
   "es": "Mi obra se dirige a quienes observan profundamente una fracción de tiempo, no en busca de una respuesta inmediata, sino de lo que podría revelar sobre nuestra relación con la naturaleza, la Tierra y el polvo de estrellas del que estamos hechos.",
   "it": "Il mio lavoro si rivolge a chi osserva in profondità una frazione di tempo, non per trovare una risposta immediata, ma per ciò che potrebbe rivelare sul nostro rapporto con la natura, la Terra e la polvere di stelle di cui siamo fatti.",
