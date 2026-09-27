@@ -40,7 +40,6 @@ function galleryCaption(item: (typeof processImages)[number]) {
 <BaseLayout locale={locale} title={t.studio.title} description={t.studio.intro}>
   <header class="page-header container">
     <h1>{t.studio.title}</h1>
-    <p class="page-header__lede">{t.studio.intro}</p>
     <div class="page-header__body">
       {t.studio.processIntro.map((paragraph) => <p>{paragraph}</p>)}
     </div>
@@ -146,13 +145,6 @@ function galleryCaption(item: (typeof processImages)[number]) {
   .page-header h1 {
     font-size: clamp(2.4rem, 5vw, 3.6rem);
     margin-top: 12px;
-  }
-
-  .page-header__lede {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.1rem;
-    margin-top: 20px;
   }
 
   .page-header__body {
