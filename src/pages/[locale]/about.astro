@@ -17,6 +17,7 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
 <BaseLayout locale={locale} title={t.about.title} description={t.about.body}>
   <header class="page-header container">
     <h1>{t.about.intro}</h1>
+    <p class="artist-details">(American. B. 1960)</p>
   </header>
 
   {portraitPhoto && (
@@ -270,11 +271,19 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
   .page-header {
     padding-block: clamp(56px, 10vw, 96px) 0;
     max-width: 680px;
+    text-align: center;
   }
 
   .page-header h1 {
     font-size: clamp(2.4rem, 5vw, 3.6rem);
     margin-top: 12px;
+  }
+
+  .artist-details {
+    margin-top: 12px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-ink-soft);
   }
 
   .about-content {
