@@ -154,8 +154,16 @@ function galleryCaption(item: (typeof processImages)[number]) {
 </BaseLayout>
 
 <style>
-  .search-reflection {
+  .page-header,
+  .search-reflection,
+  .process-note {
+    width: 100%;
     max-width: calc(850px - clamp(10px, 2.5vw, 32px));
+    margin-inline: auto;
+    padding-inline: clamp(20px, 5vw, 64px);
+  }
+
+  .search-reflection {
     margin-block: 0 64px;
     color: var(--color-ink-soft);
     font-family: var(--font-display);
@@ -200,7 +208,6 @@ function galleryCaption(item: (typeof processImages)[number]) {
 
   .page-header {
     padding-block: clamp(42px, 7.5vw, 72px) 0;
-    max-width: calc(850px - clamp(10px, 2.5vw, 32px));
   }
 
   .page-header h1 {
@@ -291,7 +298,6 @@ function galleryCaption(item: (typeof processImages)[number]) {
   }
 
   .process-note {
-    max-width: calc(850px - clamp(10px, 2.5vw, 32px));
     margin: 0 auto;
     padding-block: 50px;
     color: var(--color-ink-soft);
