@@ -110,9 +110,9 @@ function galleryCaption(item: (typeof processImages)[number]) {
           </figure>
         ))}
       </div>
-      <p class="process-note">
-        {t.studio.archivalNote}
-      </p>
+      <div class="process-note container">
+        <p>{t.studio.archivalNote}</p>
+      </div>
       <div class="process-gallery__row">
         {processImages.slice(2).map((item) => (
           <Fragment>
@@ -163,7 +163,16 @@ function galleryCaption(item: (typeof processImages)[number]) {
     line-height: 1.65;
   }
 
-  .search-reflection p {
+  .page-header__body,
+  .search-reflection,
+  .process-note {
+    font-size: 1rem;
+    line-height: 1.65;
+    text-align: left;
+  }
+
+  .search-reflection p,
+  .process-note p {
     max-width: 60ch;
   }
 
@@ -281,13 +290,11 @@ function galleryCaption(item: (typeof processImages)[number]) {
   }
 
   .process-note {
-    max-width: 900px;
+    max-width: 680px;
     margin: 0 auto;
-    padding: 50px clamp(20px, 5vw, 64px);
+    padding-block: 50px;
     color: var(--color-ink-soft);
     font-family: var(--font-display);
-    font-size: 1.235rem;
-    line-height: 1.26;
   }
 
   @media (min-width: 760px) {
