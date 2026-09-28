@@ -21,6 +21,15 @@ const searchReflection: Record<Locale, string> = {
   "ja": "問い。FLOWの場合は、「宇宙がその壮大なダンスを踊る姿を捉えられるだろうか」という問いでした。海と陸が出会うときの光の歪みと、時間の知覚。シリーズの視覚言語を見つけるには時間がかかり、適切なバランスを見つけるために数百枚の写真を撮る必要があります。何か月もの撮影と選定を経て、シリーズは少しずつ形を成し、やがてここでご覧いただく作品群に辿り着きます。",
   "zh": "问题。对于FLOW，这个问题是：我能否捕捉宇宙跳起它的宇宙之舞的那一刻？海陆相遇时光线的扭曲与时间的感知。我需要一段时间才能找到这一系列的视觉语言，需要拍摄数百张照片才能找到恰当的平衡。经过数月的拍摄与筛选，系列开始逐渐成形，最终成为您在这里看到的作品。"
 };
+const processClosing: Record<Locale, string> = {
+  "en": "That is a brief summary of how I find an answer to the question. It can take various paths as I run into variations and discoveries along the way. If you would like to know more, book an appointment and let's talk.",
+  "fr": "Voilà un bref résumé de la manière dont je trouve une réponse à la question. Le chemin peut prendre différentes directions, au fil des variations et des découvertes. Si vous souhaitez en savoir plus, prenez rendez-vous et parlons-en.",
+  "es": "Este es un breve resumen de cómo encuentro una respuesta a la pregunta. El recorrido puede tomar distintos caminos a medida que surgen variaciones y descubrimientos. Si quiere saber más, reserve una cita y conversemos.",
+  "it": "Questo è un breve riassunto di come trovo una risposta alla domanda. Il percorso può prendere direzioni diverse, tra variazioni e scoperte lungo il cammino. Se desiderate saperne di più, prenotate un appuntamento e parliamone.",
+  "de": "Das ist eine kurze Zusammenfassung davon, wie ich eine Antwort auf die Frage finde. Der Weg kann verschiedene Richtungen nehmen, wenn ich unterwegs auf Variationen und Entdeckungen stoße. Wenn Sie mehr erfahren möchten, vereinbaren Sie einen Termin, und lassen Sie uns darüber sprechen.",
+  "ja": "これは、私が問いへの答えを見つけるまでの過程を簡単にまとめたものです。途中で出会う変化や発見によって、その道筋はさまざまな方向へと広がります。もっと詳しくお知りになりたい方は、ご予約のうえ、ぜひお話ししましょう。",
+  "zh": "这简要概述了我如何寻找问题的答案。随着途中遇到的变化与发现，这个过程可能沿着不同的路径展开。如果您想了解更多，欢迎预约，让我们聊一聊。"
+};
 const processAssets = import.meta.glob<{ default: ImageMetadata }>(
   '/src/assets/**/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}', { eager: true }
 );
@@ -110,6 +119,11 @@ function galleryCaption(item: (typeof processImages)[number]) {
                 />
               )}
             </figure>
+            {item.captionKey === "veniceCaption" && (
+              <div class="process-closing">
+                <p>{processClosing[locale]}</p>
+              </div>
+            )}
           </Fragment>
         ))}
       </div>
@@ -217,6 +231,24 @@ function galleryCaption(item: (typeof processImages)[number]) {
 
   .process-image-item--scale .process-caption {
     white-space: normal;
+  }
+
+  .process-closing {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(32px, 5vw, 80px);
+    text-align: center;
+    color: var(--color-ink-soft);
+    font-family: var(--font-display);
+    font-size: 1.235rem;
+    line-height: 1.6;
+  }
+
+  .process-closing p {
+    max-width: 42ch;
+    margin: 0;
   }
 
   .process-note {
