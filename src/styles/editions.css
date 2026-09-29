@@ -29,7 +29,8 @@
   margin: 16px 0 8px;
 }
 .editions input:not([type="checkbox"]),
-.editions select {
+.editions select,
+.editions textarea {
   display: block;
   width: 100%;
   border: 1px solid #b9b5ac;
@@ -210,3 +211,9 @@
     margin-block: 18px;
   }
 }
+
+.editions .collection-choices { border:0; padding:0; margin:24px 0; display:flex; flex-wrap:wrap; gap:10px; }
+.editions .collection-choices legend { font-size:13px; margin-bottom:10px; }
+.editions .collection-choices .choice { display:flex; align-items:center; gap:8px; border:1px solid #b9b5ac; padding:12px 15px; margin:0; cursor:pointer; }
+.editions .choice:has(input:checked) { background:#e8e4da; border-color:#24231f; }
+.editions textarea { resize:vertical; }

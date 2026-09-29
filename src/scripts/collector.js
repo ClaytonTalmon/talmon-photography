@@ -2,7 +2,14 @@ export {};
 const $ = (id) => document.getElementById(id),
   params = new URLSearchParams(location.search),
   locale = location.pathname.split("/")[1];
+if (["talmonphoto.com", "www.talmonphoto.com"].includes(location.hostname)) {
+  location.replace("https://willowy-pika-c392c9.netlify.app" + location.pathname + location.search + location.hash);
+}
 const publicCatalog = JSON.parse($("public-catalog").textContent);
+const requestedWork = publicCatalog.find(w => w.id === params.get("work"));
+for (const input of document.querySelectorAll('[name="collections"]')) {
+  input.checked = input.value === (requestedWork?.collection || params.get("collection"));
+}
 let works = [],
   active,
   selected = "standard",
@@ -60,19 +67,9 @@ function render() {
   $("work-title").textContent = active.title;
   $("collection-name").textContent = active.collection.toUpperCase();
   $("print-type").textContent = active.printType;
+  $("acquisition-request").hidden = true;
 
   $("view-artwork").href = "/" + locale + "/work/" + active.collection + "/";
-  $("enquire").href =
-    "mailto:ctalmon@gmail.com?subject=" +
-    encodeURIComponent("Acquisition enquiry — " + active.title) +
-    "&body=" +
-    encodeURIComponent(
-      "I would like to enquire about " +
-        active.title +
-        " from " +
-        active.collection.toUpperCase() +
-        ".",
-    );
   if (!active.formats.some((f) => f.key === selected))
     selected = active.formats[0]?.key;
   $("formats").replaceChildren(
@@ -135,19 +132,6 @@ function render() {
     : f.sold === null
       ? "Availability confirmed by the studio."
       : "Next available: " + (f.sold + 1) + " of " + f.edition;
-  $("enquire").href =
-    "mailto:ctalmon@gmail.com?subject=" +
-    encodeURIComponent("Acquisition enquiry — " + active.title) +
-    "&body=" +
-    encodeURIComponent(
-      "I would like to enquire about " +
-        active.title +
-        " from " +
-        active.collection.toUpperCase() +
-        ", " +
-        f.label +
-        ".",
-    );
 }
 async function load() {
   const data = await api("catalog");
@@ -191,6 +175,7 @@ for (const [id, action] of [
       data = Object.fromEntries(new FormData(form));
     data.consent = form.elements.namedItem("consent")?.checked === true;
     data.work = params.get("work") || "";
+    data.collections = new FormData(form).getAll("collections");
     button.disabled = true;
     try {
       await api(action, data);
@@ -245,7 +230,7 @@ load().catch(error => {
     $("subscribe").hidden = true;
     const p = document.createElement("p");
     p.className = "small";
-    p.textContent = "Please email the studio if you would like to receive occasional updates.";
+    p.textContent = "Studio signup is temporarily unavailable. Please try again shortly.";
     $("subscribe").after(p);
   }
 });
@@ -256,3 +241,21 @@ document.addEventListener("visibilitychange", () => {
       notice("Please enter your password again.");
     });
 });
+
+$("enquire").onclick = () => {
+  $("acquisition-request").hidden = false;
+  $("enquiry-work").textContent = active.title + " · " + active.collection.toUpperCase() + " · " + (active.formats.find(f=>f.key===selected)?.label || "Format on enquiry");
+  $("enquiry-notice").textContent = "";
+  $("acquisition-request").scrollIntoView({behavior:"smooth",block:"center"});
+};
+$("acquisition-request").onsubmit = async event => {
+  event.preventDefault();
+  const form = event.currentTarget, button = form.querySelector("button");
+  button.disabled = true;
+  try {
+    await api("enquiry", {...Object.fromEntries(new FormData(form)), work:active.id, format:selected});
+    form.reset();
+    $("enquiry-notice").textContent = "Your enquiry has reached the studio. We’ll be in touch shortly.";
+  } catch(error) { $("enquiry-notice").textContent = error.message; }
+  finally { button.disabled = false; }
+};

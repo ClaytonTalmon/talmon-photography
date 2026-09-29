@@ -15,14 +15,16 @@ const {locale}=Astro.params as {locale:Locale};
  <p class="intro">A closer look at each work: its scale, edition and availability. Request private access to explore current acquisition prices.</p>
  <p id="notice" class="notice" role="status" aria-live="polite"></p>
  <section id="confirmation" class="panel" hidden><h2>Studio updates</h2><p>Confirm that you would like occasional news of new work and exhibitions.</p><button id="confirm-subscription" class="primary">Confirm my subscription</button></section>
- <section id="service-unavailable" class="panel" hidden><h2>Enquire with the studio</h2><p>Private online access is being prepared. Please contact the studio for current editions, availability and acquisition details.</p><a class="action" href="mailto:ctalmon@gmail.com?subject=Collector%20access%20request">Request details by email</a></section>
+ <section id="service-unavailable" class="panel" hidden><h2>Enquire with the studio</h2><p>The request service is temporarily unavailable. Please try again shortly.</p><button type="button" onclick="location.reload()">Try again</button></section>
  <div id="gate" class="columns">
-  <form id="access-request" class="panel"><h2>Request access</h2><p class="small">The studio will review your request and email a personal password. Your access lasts 24 hours from the time the password is issued.</p>
+  <form id="access-request" class="panel"><h2>Request collection details</h2><p class="small">The studio will review your request and email a personal password. Your access lasts 24 hours from the time the password is issued.</p>
    <label>Your name<input name="name" autocomplete="name" required maxlength="120" /></label>
    <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+   <fieldset class="collection-choices"><legend>I’m interested in</legend>{[...new Set(catalog.map(w=>w.collection))].map(c=><label class="choice"><input type="checkbox" name="collections" value={c} /><span>{c.toUpperCase()}</span></label>)}</fieldset>
+   <label>Message <span class="small">(optional)</span><textarea name="message" rows="3" maxlength="2000"></textarea></label>
    <label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
    <label class="check"><input name="consent" type="checkbox" /> <span>I would also like occasional studio news and exhibition invitations. Optional; you can leave the list at any time.</span></label>
-   <button class="primary">Request private access</button>
+   <button class="primary">Send request</button>
   </form>
   <form id="unlock" class="panel"><h2>Your invitation</h2><p class="small">Already received a password? Enter it below to view the editions.</p><label>Personal password<input name="password" type="password" autocomplete="current-password" required /></label><button class="primary">Enter the collection</button></form>
  </div>
@@ -33,7 +35,8 @@ const {locale}=Astro.params as {locale:Locale};
    <div><span class="eyebrow" id="collection-name"></span><h2 id="work-title"></h2><p id="print-type" class="small"></p><div class="formats" id="formats"></div>
     <dl class="dimensions" id="dimensions"></dl><p id="edition-description" class="small"></p><p id="price" class="price"></p><p id="availability" class="small"></p>
     <p class="small">Prices increase as editions are acquired. The price shown applies to the next available print and is confirmed by the studio at acquisition.</p>
-    <a class="action" id="enquire" href="/en/contact/">Enquire about this work</a>
+    <button class="primary" id="enquire" type="button">Enquire about this work</button>
+    <form id="acquisition-request" class="panel" hidden><h2>Enquire with the studio</h2><p id="enquiry-work" class="small"></p><label>Your name<input name="name" autocomplete="name" required maxlength="120" /></label><label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label><label>Message (optional)<textarea name="message" rows="3" maxlength="2000"></textarea></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><button class="primary">Send enquiry</button><p id="enquiry-notice" role="status" aria-live="polite"></p></form>
     <p class="small">Photographic print only. <strong>Framing and shipping are not included.</strong></p>
     <details><summary class="small">About the dimensions</summary><p class="small">All dimensions are width × height. The finished paper includes a 7 cm white margin at the top and sides, and 10 cm at the bottom. The estimated black museum frame allows 3 cm beyond each paper edge, without an additional mat. Your framer will confirm the final size, moulding and glazing.</p></details>
    </div>

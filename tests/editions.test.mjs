@@ -228,3 +228,18 @@ test("catalog respects portrait and landscape FORM sizes", () => {
     [114.45, 167],
   );
 });
+
+test('collection interests reach the studio and acquisition enquiries send directly', async () => {
+  const s = setup(), admin = await auth(s);
+  const data = {name:'Collector',email:'collector@example.com',collections:['form','flow','invalid'],message:'Interested in a pair.'};
+  assert.equal((await s.call('request',data)).status,200);
+  assert.match(s.emails.at(-1).text,/FORM, FLOW/);
+  assert.match(s.emails.at(-1).text,/Interested in a pair/);
+  const requests = (await (await s.call('studio-data',null,admin)).json()).requests;
+  assert.deepEqual(requests[0].collections,['form','flow']);
+  const work = catalog.find(w=>w.formats.length);
+  assert.equal((await s.call('enquiry',{...data,work:work.id,format:work.formats[0].key})).status,200);
+  assert.match(s.emails.at(-1).subject,/Acquisition enquiry/);
+  assert.ok(s.emails.at(-1).text.includes(work.title));
+  assert.equal((await s.call('enquiry',{...data,work:'missing'})).status,400);
+});

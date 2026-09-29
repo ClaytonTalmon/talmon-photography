@@ -136,7 +136,7 @@ export function createHandler({
           }),
         });
       }
-      if (["request", "subscribe"].includes(action) && req.method === "POST") {
+      if (["request", "subscribe", "enquiry"].includes(action) && req.method === "POST") {
         if (p.company) return response({ ok: true });
         const email = String(p.email || "")
             .trim()
@@ -144,30 +144,42 @@ export function createHandler({
           name = String(p.name || "")
             .trim()
             .slice(0, 120);
-        if (!emailOK(email) || (action === "request" && !name))
+        if (!emailOK(email) || (action !== "subscribe" && !name))
           return fail("Please enter your name and a valid email address.");
         if (action === "subscribe" && p.consent !== true)
           return fail(
             "Please confirm that you wish to receive studio updates.",
           );
+        if (action === "enquiry") {
+          const work = catalog.find(w=>w.id === p.work);
+          if (!work) return fail("Please choose a photograph.");
+          const format = work.formats.find(f=>f.key === p.format);
+          await send({to:"ctalmon@gmail.com", reply_to:email,
+            subject:"Acquisition enquiry — " + work.title,
+            text:`${name}\n${email}\n${work.collection.toUpperCase()} — ${work.title}\n${format?.label || "Format on enquiry"}\n\n${String(p.message || "").slice(0,2000)}`});
+          return response({ok:true});
+        }
         if (action === "request") {
           const key = "request/" + hash(email),
             old = await read(key);
+          const collections = Array.isArray(p.collections) ? [...new Set(p.collections.filter(c=>catalog.some(w=>w.collection===c)))] : [];
           const record = {
+            ...old,
             id: hash(email),
             email,
             name,
             work: String(p.work || "").slice(0, 250),
+            collections,
+            message: String(p.message || "").slice(0,2000),
             created: now(),
-            status: "pending",
-            ...old,
+            status: old?.status || "pending",
           };
           await write(key, record);
           await send({
             to: "ctalmon@gmail.com",
             reply_to: email,
             subject: "Collector access request — " + name,
-            text: `${name}\n${email}\nWork: ${record.work || "All collections"}\n\nReview in the Editions Editor:\n${url.origin}/editions-editor/`,
+            text: `${name}\n${email}\nCollections: ${record.collections.join(", ").toUpperCase() || "All collections"}\nWork: ${record.work || "Not specified"}\nMessage: ${record.message || "—"}\n\nReview in the Editions Editor:\n${url.origin}/editions-editor/`,
           });
         }
         if (action === "subscribe" || p.consent === true) {
