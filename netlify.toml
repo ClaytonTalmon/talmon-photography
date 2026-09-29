@@ -4,3 +4,14 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+[[headers]]
+  for = "/editions-editor/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Referrer-Policy = "no-referrer"
+
+[[headers]]
+  for = "/*/editions/*"
+  [headers.values]
+    Referrer-Policy = "no-referrer"

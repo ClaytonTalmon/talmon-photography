@@ -92,6 +92,7 @@ const nextImagePath = nextPath ? `${nextPath}#artwork` : null;
       </figcaption>
     </figure>
 
+    <p style="margin:24px 0;text-align:center"><a class="btn" href={localizedPath(locale, '/editions/') + '?work=' + encodeURIComponent(slug + '/' + loadedImage.filename)}>Editions &amp; acquisition details</a></p>
     <nav class="image-navigation" aria-label={t.work.title}>
       {previousImagePath ? <a href={previousImagePath}>← {t.work.previous}</a> : <span />}
       <a href={seriesPath}>{t.work.backToSeries}</a>

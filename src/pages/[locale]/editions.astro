@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { locales, type Locale } from '../../i18n/utils';
+import '../../styles/editions.css';
+import catalog from '../../data/edition-catalog.mjs';
+export function getStaticPaths() {
+ return locales.map(locale=>({params:{locale}}));
+}
+
+const {locale}=Astro.params as {locale:Locale};
+---
+<BaseLayout locale={locale} title="Editions & Acquisitions" description="Explore photographic editions, print dimensions and private acquisition details.">
+<section class="editions" id="collector-page">
+ <span class="eyebrow">For collectors</span><h1>Editions &amp; Acquisitions</h1>
+ <p class="intro">A closer look at each work: its scale, edition and availability. Request private access to explore current acquisition prices.</p>
+ <p id="notice" class="notice" role="status" aria-live="polite"></p>
+ <section id="confirmation" class="panel" hidden><h2>Studio updates</h2><p>Confirm that you would like occasional news of new work and exhibitions.</p><button id="confirm-subscription" class="primary">Confirm my subscription</button></section>
+ <div id="gate" class="columns">
+  <form id="access-request" class="panel"><h2>Request access</h2><p class="small">The studio will review your request and email a personal password. Your access lasts 24 hours from the time the password is issued.</p>
+   <label>Your name<input name="name" autocomplete="name" required maxlength="120" /></label>
+   <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+   <label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+   <label class="check"><input name="consent" type="checkbox" /> <span>I would also like occasional studio news and exhibition invitations. Optional; you can leave the list at any time.</span></label>
+   <button class="primary">Request private access</button>
+  </form>
+  <form id="unlock" class="panel"><h2>Your invitation</h2><p class="small">Already received a password? Enter it below to view the editions.</p><label>Personal password<input name="password" type="password" autocomplete="current-password" required /></label><button class="primary">Enter the collection</button></form>
+ </div>
+ <section id="collection" hidden>
+  <div class="toolbar"><label>Collection<select id="collection-select"></select></label><label>Photograph<select id="work-select"></select></label><button id="logout">Close private view</button></div>
+  <p id="expires" class="small"></p>
+  <div class="columns"><div><img id="artwork" class="art" alt="" /><a id="view-artwork" class="small" href="#">View photograph in the collection</a></div>
+   <div><span class="eyebrow" id="collection-name"></span><h2 id="work-title"></h2><p id="print-type" class="small"></p><div class="formats" id="formats"></div>
+    <dl class="dimensions" id="dimensions"></dl><p id="edition-description" class="small"></p><p id="price" class="price"></p><p id="availability" class="small"></p>
+    <p class="small">Prices increase as editions are acquired. The price shown applies to the next available print and is confirmed by the studio at acquisition.</p>
+    <a class="action" id="enquire" href="/en/contact/">Enquire about this work</a>
+    <p class="small">Photographic print only. <strong>Framing and shipping are not included.</strong></p>
+    <details><summary class="small">About the dimensions</summary><p class="small">All dimensions are width × height. The finished paper includes a 7 cm white margin at the top and sides, and 10 cm at the bottom. The estimated black museum frame allows 3 cm beyond each paper edge, without an additional mat. Your framer will confirm the final size, moulding and glazing.</p></details>
+   </div>
+  </div>
+ </section>
+ <section class="newsletter"><span class="eyebrow">Stay in touch</span><h2>Notes from the studio</h2><p class="small">Occasional new work and exhibition news.</p><form id="subscribe"><label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><label class="check"><input name="consent" type="checkbox" required /><span>I would like to receive studio updates. To leave the list, email <a href="mailto:ctalmon@gmail.com?subject=Unsubscribe">the studio</a>.</span></label><button>Join the mailing list</button></form></section>
+ <script type="application/json" id="public-catalog" set:html={JSON.stringify(catalog).replace(/</g,'\\u003c')} />
+</section>
+</BaseLayout>
+<script>import '../../scripts/collector.js';</script>

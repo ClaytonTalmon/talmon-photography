@@ -26,6 +26,7 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
       <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
       <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
       <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
+      <a href={localizedPath(locale, '/editions/')}>Editions</a>
       <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
       <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
     </nav>
@@ -45,7 +46,8 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
         <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
         <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
         <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
-        <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
+        <a href={localizedPath(locale, '/editions/')}>Editions</a>
+      <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
         <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
         <div class="mobile-menu__langs">
           {otherLocales(locale).map((l) => (
@@ -113,7 +115,7 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
 
   .site-nav {
     display: flex;
-    gap: 28px;
+    gap: 20px;
     font-size: 0.76rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -217,7 +219,7 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
     border: 0;
   }
 
-  @media (max-width: 1100px) {
+  @media (max-width: 1250px) {
     .wordmark__name {
       font-size: 1.3225rem;
     }
