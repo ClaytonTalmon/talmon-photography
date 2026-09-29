@@ -40,16 +40,93 @@
     "de": "Clayton Talmon de l’Armée"
   },
   "imageDetails": {
-    "Between Ages.jpg": { "title": "Between Ages", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "Current Change.jpg": { "title": "Current Change", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "Flight of Faith.jpg": { "title": "Flight of Faith", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "Her Secret.jpg": { "title": "Her Secret", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "Inspire Me.jpg": { "title": "Inspire Me", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "Inspire You.jpg": { "title": "Inspire You", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "Personal Passage.jpg": { "title": "Personal Passage", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "The Signal.jpg": { "title": "The Signal", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "The Tempest.jpg": { "title": "The Tempest", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "Together, We Are Free.jpg": { "title": "Together, We Are Free", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" },
-    "Truth Is.jpg": { "title": "Truth Is", "printSize": "105 x 75 cm (41.33\" x 29.52\")", "editionSize": "10", "printType": "Silver Gelatin" }
+    "Between Ages.jpg": {
+      "title": "Between Ages",
+      "printSize": "105 x 75 cm (41.33\" x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "Current Change.jpg": {
+      "title": "Current Change",
+      "printSize": "105 x 75 cm (41.33\" x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "Flight of Faith.jpg": {
+      "title": "Flight of Faith",
+      "printSize": "105 x 75 cm (41.33\" x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "Her Secret.jpg": {
+      "title": "Her Secret",
+      "printSize": "105 x 75 cm (41.33\" x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "Inspire Me.jpg": {
+      "title": "Inspire Me",
+      "printSize": "105 x 75 cm (41.33\" x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "Inspire You.jpg": {
+      "title": "Inspire You",
+      "printSize": "105 x 75 cm (41.33\" x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "Personal Passage.jpg": {
+      "title": "Personal Passage",
+      "printSize": "105 x 75 cm (41.33\" x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "The Signal.jpg": {
+      "title": "The Signal",
+      "printSize": "105 x 75 cm (41.33\" x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "The Tempest.jpg": {
+      "title": "The Tempest",
+      "printSize": "75 x 105 cm (29.52\" x 41.33\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "100.45 x 150 cm (39.5\" x 59\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "Together, We Are Free.jpg": {
+      "title": "Together, We Are Free",
+      "printSize": "75 x 105 cm (29.52\" x 41.33\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "100.45 x 150 cm (39.5\" x 59\")",
+      "editionSize2": "5 + 2 AP"
+    },
+    "Truth Is.jpg": {
+      "title": "Truth Is",
+      "printSize": "105 x 75 cm (41.33 x 29.52\")",
+      "editionSize": "10 + 2 AP",
+      "printType": "Silver Gelatin",
+      "printSize2": "150 x 100.45 cm (59 x 39.5\")",
+      "editionSize2": "5 + 2 AP"
+    }
   }
 }
