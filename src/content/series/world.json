@@ -41,7 +41,9 @@
   },
   "imageDetails": {
     "Mach Girl.jpg": {
-      "title": "Mach Girl"
+      "title": "Mach Girl",
+      "printSize": "45 x 100 cm (17.7\" x 39.37)",
+      "editionSize": "8 + 2 AP"
     },
     "Timeless Travel.jpg": {
       "title": "Timeless Travel",
