@@ -18,6 +18,11 @@ async function api(action, data) {
     body: data ? JSON.stringify(data) : undefined,
     cache: "no-store",
   });
+  if (r.status === 404 || r.status === 503) {
+    const error = new Error("Private online access is not available yet. Please contact the studio.");
+    error.unavailable = true;
+    throw error;
+  }
   const result = await r.json();
   if (!r.ok) throw Error(result.error || "Please try again.");
   return result;
@@ -232,7 +237,18 @@ if (params.has("confirm")) {
     }
   };
 }
-load().catch(() => lock());
+load().catch(error => {
+  lock();
+  if (error.unavailable) {
+    $("gate").hidden = true;
+    $("service-unavailable").hidden = false;
+    $("subscribe").hidden = true;
+    const p = document.createElement("p");
+    p.className = "small";
+    p.textContent = "Please email the studio if you would like to receive occasional updates.";
+    $("subscribe").after(p);
+  }
+});
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden && works.length)
     load().catch(() => {

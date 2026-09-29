@@ -16,6 +16,9 @@ async function api(action, data) {
       cache: "no-store",
     },
   );
+  if (r.status === 404 || r.status === 503) {
+    throw new Error("The secure service is not connected on this host. This editor requires a Netlify deployment with Functions enabled.");
+  }
   const result = await r.json();
   if (!r.ok) {
     if (r.status === 401) {
@@ -280,4 +283,4 @@ $("logout").onclick = async () => {
 };
 load()
   .then(formats)
-  .catch(() => {});
+  .catch(e => status(e.message, true));

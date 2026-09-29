@@ -26,7 +26,9 @@ Access requests do not add anyone to the mailing list unless they explicitly opt
 
 ## Hosting
 
-This feature runs on **Netlify**, using the existing `RESEND_API_KEY` environment variable and the already configured sender `studio@updates.claytontalmon.com`. Ensure the key is available to Functions in the production context. No new shared password secret is required.
+The public site currently deploys to **GitHub Pages** at `talmonphoto.com`. The secure collector service must be deployed on **Netlify** before online requests, passwords, prices or subscriptions can operate. Until then, the collector page offers an email enquiry fallback.
+
+The Netlify function uses the existing `RESEND_API_KEY` environment variable and the sender `studio@updates.claytontalmon.com`. Ensure the key is available to Functions in the production context. Confirm the sender is verified in Resend; the existing public contact page currently uses Formspree, so Resend activation must be verified separately. No new shared password secret is required.
 
 Private state is stored with `@netlify/blobs` in a site-wide store named `collector-editions`, using strong consistency and conditional writes for price edits. Preview contexts use separate stores and do not modify production prices or access. Local Astro preview serves the layouts only; use Netlify Dev or a Netlify deploy for the API. GitHub Pages alone cannot run these functions.
 
