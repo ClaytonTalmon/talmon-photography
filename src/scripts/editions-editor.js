@@ -2,6 +2,57 @@ export {};
 const $ = (id) => document.getElementById(id),
   catalog = JSON.parse($("catalog").textContent);
 let state, version;
+let publishingToken = '', frameReady = false, requestedCollection = '';
+let priceDirty = false;
+const frame = $('collection-editor-frame');
+if (['talmonphoto.com','www.talmonphoto.com'].includes(location.hostname)) {
+  location.replace('https://willowy-pika-c392c9.netlify.app' + location.pathname + location.hash);
+}
+function clearPublishingConnection() {
+  publishingToken = '';
+  if (frameReady) frame.contentWindow.postMessage({type:'studio-disconnect'}, location.origin);
+}
+function connectCollectionFrame() {
+  if (!frameReady) return;
+  if (publishingToken) frame.contentWindow.postMessage({type:'studio-connect',token:publishingToken},location.origin);
+  if (requestedCollection) {
+    frame.contentWindow.postMessage({type:'studio-select-collection',collection:requestedCollection},location.origin);
+    requestedCollection='';
+  }
+}
+function showSection(section) {
+  if (!['collections','prices','requests','mailing'].includes(section)) section='collections';
+  document.querySelectorAll('[data-studio-panel]').forEach(panel=>panel.hidden=panel.dataset.studioPanel!==section);
+  document.querySelectorAll('[data-section]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.section===section)));
+  history.replaceState({},'',location.pathname+'#'+section);
+  if (section==='collections') {
+    if (!frame.getAttribute('src')) frame.src='/editor/collections.html';
+    connectCollectionFrame();
+  }
+}
+for (const button of document.querySelectorAll('[data-section]')) button.onclick=()=>showSection(button.dataset.section);
+window.addEventListener('message',event=>{
+  if (event.origin!==location.origin || event.source!==frame.contentWindow) return;
+  const data=event.data;
+  if(data?.type==='studio-collection-ready') {frameReady=true;connectCollectionFrame();}
+  if(data?.type==='studio-collection-height' && Number.isFinite(data.height)) frame.style.height=Math.max(500,Math.min(100000,data.height+10))+'px';
+  if(data?.type==='studio-edit-prices') {
+    const work=catalog.find(w=>w.id===data.work);
+    if(!work) {status('Publish the new photograph first, then reload the Studio Editor after the website rebuild finishes.');return;}
+    if(priceDirty && !confirm('Discard unsaved price edits and open this photograph?')) return;
+    $('price-collection').value=work.collection;
+    populateWorks(work.id);
+    showSection('prices');
+    $('panel-prices').scrollIntoView({block:'start',behavior:'smooth'});
+  }
+});
+$('edit-collection-details').onclick=()=>{
+  requestedCollection=catalog.find(w=>w.id===$('work').value)?.collection || '';
+  showSection('collections');
+};
+window.addEventListener('beforeunload',event=>{
+  if(priceDirty){event.preventDefault();event.returnValue='';}
+});
 const status = (s, error = false) => {
   $("status").textContent = s;
   $("status").classList.toggle("error", error);
@@ -22,6 +73,7 @@ async function api(action, data) {
   const result = await r.json();
   if (!r.ok) {
     if (r.status === 401) {
+      clearPublishingConnection();
       $("studio").hidden = true;
       $("login").hidden = false;
     }
@@ -35,14 +87,26 @@ const option = (value, text) => {
   o.textContent = text;
   return o;
 };
+function populateWorks(selectedId) {
+  const works=catalog.filter(w=>w.collection===$('price-collection').value);
+  $('work').replaceChildren(...works.map(w=>option(w.id,w.title)));
+  if(works.some(w=>w.id===selectedId)) $('work').value=selectedId;
+  formats();
+}
 function formats() {
   const w = catalog.find((w) => w.id === $("work").value);
+  if (!w) return;
   $("format").replaceChildren(...w.formats.map((f) => option(f.key, f.label)));
   pricing();
 }
 function pricing() {
+  if (!state) return;
+  priceDirty=false;
   const w = catalog.find((w) => w.id === $("work").value),
     f = w.formats.find((f) => f.key === $("format").value);
+  $('pricing').dataset.collection=w.collection;
+  $('pricing').dataset.work=w.id;
+  $('pricing').dataset.format=$('format').value;
   $("pricing").hidden = !f;
   $("missing").hidden = !!f;
   if (!f) return;
@@ -188,8 +252,11 @@ $("login").onsubmit = async (e) => {
   button.disabled = true;
   try {
     await api("login", { token });
+    publishingToken=token;
     await load();
-    pricing();
+    populateWorks();
+    showSection(location.hash.slice(1));
+    connectCollectionFrame();
     status("Studio connected.");
   } catch (e) {
     status(e.message, true);
@@ -197,14 +264,18 @@ $("login").onsubmit = async (e) => {
     button.disabled = false;
   }
 };
-$("work").replaceChildren(
-  ...catalog.map((w) =>
-    option(w.id, w.collection.toUpperCase() + " — " + w.title),
-  ),
-);
-$("work").onchange = formats;
-$("format").onchange = pricing;
-$("pricing").oninput = preview;
+$('price-collection').replaceChildren(...[...new Set(catalog.map(w=>w.collection))].map(c=>option(c,c.toUpperCase())));
+function mayChangeSelection() {
+  if(!priceDirty || confirm('Discard unsaved price edits?')) return true;
+  $('price-collection').value=$('pricing').dataset.collection;
+  $('work').value=$('pricing').dataset.work;
+  $('format').value=$('pricing').dataset.format;
+  return false;
+}
+$('price-collection').onchange=()=>{if(mayChangeSelection()) populateWorks();};
+$('work').onchange=()=>{if(mayChangeSelection()) formats();};
+$('format').onchange=()=>{if(mayChangeSelection()) pricing();};
+$('pricing').oninput=()=>{priceDirty=true;preview();};
 $("pricing").onsubmit = async (e) => {
   e.preventDefault();
   const b = e.currentTarget.querySelector("button");
@@ -220,6 +291,7 @@ $("pricing").onsubmit = async (e) => {
       ),
       version,
     });
+    priceDirty=false;
     state.prices = result.prices;
     version = state.prices.version;
     status("Saved. New collector page requests use these prices immediately.");
@@ -232,7 +304,7 @@ $("pricing").onsubmit = async (e) => {
 $("refresh").onclick = async () => {
   try {
     await load();
-    pricing();
+    if(!priceDirty) pricing();
     status("Updated.");
   } catch (e) {
     status(e.message, true);
@@ -270,6 +342,10 @@ $("logout").onclick = async () => {
       body: "{}",
     });
     if (!r.ok) throw Error("Sign-out failed. Please try again.");
+    clearPublishingConnection();
+    frameReady=false;
+    frame.removeAttribute("src");
+    priceDirty=false;
     state = null;
     $("requests").replaceChildren();
     $("subscribers").replaceChildren();
@@ -282,5 +358,5 @@ $("logout").onclick = async () => {
   }
 };
 load()
-  .then(formats)
-  .catch(e => status(e.message, true));
+  .then(()=>{populateWorks();showSection(location.hash.slice(1));})
+  .catch(e => {if(e.message!=="Please sign in to the Editions Editor.") status(e.message,true);});

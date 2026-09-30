@@ -16,7 +16,7 @@ for (const file of files.filter(f=>/\.(jpe?g|png|webp)$/i.test(f))) {
  pipeline=ext==='.png'?pipeline.png():ext==='.webp'?pipeline.webp({quality:88}):pipeline.jpeg({quality:88,mozjpeg:true});
  await writeFile(file,await pipeline.toBuffer()); resized++;
 }
-const urls=files.filter(f=>f.endsWith('/index.html')&&!/\/(editions-editor|editions|mailing-list)\//.test(f)).map(f=>{
+const urls=files.filter(f=>f.endsWith('/index.html')&&!/\/(editor|editions-editor|editions|mailing-list)\//.test(f)).map(f=>{
  const path=f.slice(4,-10);
  const host=/\/(editions|mailing-list)\//.test(path)?'https://willowy-pika-c392c9.netlify.app':'https://talmonphoto.com';
  return `<url><loc>${host}${path}</loc></url>`;

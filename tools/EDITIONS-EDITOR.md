@@ -1,12 +1,14 @@
-# Editions & Acquisitions
+# Studio Editor — Collections & Editions
 
 Collector page: `/en/editions/` (also available under each existing locale).
-Private studio editor: `/editions-editor/`.
+Private combined Studio Editor: `https://willowy-pika-c392c9.netlify.app/editions-editor/`.
+
+The four tabs are **Collections**, **Edition Prices**, **Collector Requests**, and **Mailing List**. Collections also includes the existing Process editor. An **Edit prices** button on each photograph opens that exact work in Edition Prices. **Edit collection details** takes you back to its collection. Existing Collection Editor draft JSON files remain compatible; load them in the Collections tab. Browser-only drafts from the older local file do not migrate automatically: export them from that file and import them here.
 
 ## Adjusting prices
 
-1. Open the Editions Editor. Sign in using a GitHub personal access token belonging to **ClaytonTalmon**, with access to `ClaytonTalmon/talmon-photography`. The existing Collection Editor token can be used. It is sent over HTTPS to the site's function, verified against GitHub, and discarded; it is not saved in browser storage or the server store.
-2. Select the photograph and **Standard Format** or **Large Format**.
+1. Open the Studio Editor and choose **Edition Prices**. Sign in using a GitHub personal access token belonging to **ClaytonTalmon**, with access to `ClaytonTalmon/talmon-photography`. The existing Collection Editor token can be used. The server verifies it against GitHub and discards it. The browser keeps it only in memory for collection publishing, and clears it on sign-out or closing the window; it is never saved with drafts. After a page reload, the eight-hour pricing session may still be active, but collection publishing needs reconnection under Publishing connection.
+2. Select the collection, photograph, and **Standard Format** or **Large Format**.
 3. Enter the currency, number of numbered prints sold, and the price for each pair (1–2, 3–4, etc.; the last bracket can contain one print).
 4. Select **Save prices and availability**. This updates private server storage immediately, without a GitHub commit or a website rebuild. Reload an already-open collector page to see the updated price.
 

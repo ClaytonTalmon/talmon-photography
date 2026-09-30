@@ -3,21 +3,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/editions.css';
 import catalog from '../data/edition-catalog.mjs';
 ---
-<BaseLayout locale="en" title="Private Editions Editor">
+<BaseLayout locale="en" title="Private Studio Editor">
  <section class="editions">
-  <span class="eyebrow">Studio administration</span><h1>Editions Editor</h1><p class="intro">Manage acquisition prices, collector invitations and the studio mailing list.</p><p id="status" class="notice" role="status" aria-live="polite"></p>
-  <form id="login" class="panel"><h2>Studio sign-in</h2><p class="small">Use a GitHub access token belonging to ClaytonTalmon, with access to the website repository. The token is used once to verify your identity, then discarded. Your studio session lasts eight hours.</p><label>GitHub access token<input name="token" type="password" autocomplete="off" required /></label><button class="primary">Open the editor</button></form>
+  <span class="eyebrow">Studio administration</span><h1>Studio Editor</h1><p class="intro">Manage collections, edition prices, collector requests and the mailing list in one place.</p><p id="status" class="notice" role="status" aria-live="polite"></p>
+  <form id="login" class="panel"><h2>Studio sign-in</h2><p class="small">Use a GitHub access token belonging to ClaytonTalmon, with access to the website repository. For collection publishing, choose Contents: Read and write. Your token stays only in this window and is cleared on sign-out; it is never saved with drafts. Your secure studio session lasts eight hours.</p><label>GitHub access token<input name="token" type="password" autocomplete="off" required /></label><button class="primary">Open the editor</button></form>
   <div id="studio" hidden>
-   <button id="logout">Sign out</button>
-   <section class="panel" style="margin-top:30px"><h2>Acquisition prices</h2><p class="small">Select a photograph and format. Prices apply to pairs of numbered prints: 1–2, 3–4, and so on. The next available print’s price updates automatically when you change the number sold. Artist’s proofs remain on enquiry. Blank prices display “Price on enquiry”.</p>
-    <div class="toolbar"><label>Photograph<select id="work"></select></label><label>Format<select id="format"></select></label></div>
-    <form id="pricing"><p id="size-summary" class="small"></p><div class="toolbar"><label>Currency<select id="currency"><option>USD</option><option>EUR</option><option>GBP</option><option>CHF</option></select></label><label>Number sold<input id="sold" type="number" min="0" step="1" required /></label></div><div id="bands"></div><p id="next-price" class="small"></p><button class="primary">Save prices and availability</button></form>
+   <div class="studio-actions"><button id="logout">Sign out</button><a href="https://talmonphoto.com/en/" target="_blank" rel="noopener noreferrer">View website ↗</a></div>
+   <nav class="studio-tabs" aria-label="Studio sections">
+    <button type="button" data-section="collections" aria-pressed="true" aria-controls="panel-collections">Collections</button>
+    <button type="button" data-section="prices" aria-pressed="false" aria-controls="panel-prices">Edition Prices</button>
+    <button type="button" data-section="requests" aria-pressed="false" aria-controls="panel-requests">Collector Requests</button>
+    <button type="button" data-section="mailing" aria-pressed="false" aria-controls="panel-mailing">Mailing List</button>
+   </nav>
+   <section id="panel-collections" data-studio-panel="collections">
+    <h2>Collections &amp; Process</h2><p class="small">Arrange photographs, edit titles and print details, or update the Process page. Save a draft to keep work in progress; Publish updates the website after its rebuild. Existing draft files can be opened with Load draft file.</p>
+    <iframe id="collection-editor-frame" title="Collection and Process editor" referrerpolicy="no-referrer"></iframe>
+   </section>
+   <section id="panel-prices" data-studio-panel="prices" class="panel" hidden><h2>Edition prices</h2><p class="small">Select a photograph and format. Prices apply to pairs of numbered prints: 1–2, 3–4, and so on. The next available print’s price updates automatically when you change the number sold. Artist’s proofs remain on enquiry. Blank prices display “Price on enquiry”.</p>
+    <div class="toolbar"><label>Collection<select id="price-collection"></select></label><label>Photograph<select id="work"></select></label><label>Format<select id="format"></select></label></div>
+    <button type="button" id="edit-collection-details">Edit collection details</button><form id="pricing"><p id="size-summary" class="small"></p><div class="toolbar"><label>Currency<select id="currency"><option>USD</option><option>EUR</option><option>GBP</option><option>CHF</option></select></label><label>Number sold<input id="sold" type="number" min="0" step="1" required /></label></div><div id="bands"></div><p id="next-price" class="small"></p><button class="primary">Save prices and availability</button></form>
     <p id="missing" class="small" hidden>Set this work’s print dimensions and edition count in the Collection Editor first, then publish the collection. Its formats will appear here after the website rebuilds.</p>
    </section>
-   <section class="panel" style="margin-top:40px"><h2>Collector requests</h2><p class="small">“Approve &amp; email password” sends a unique invitation lasting 24 hours from issue. Reissuing invalidates the previous invitation. Revocation also ends existing collector sessions.</p><button id="refresh">Refresh requests</button><div id="requests"></div></section>
-   <section class="panel" style="margin-top:40px"><h2>Mailing list</h2><p class="small">Only confirmed subscribers are included in exports. Remove a subscriber when they ask to leave the list. This editor does not send campaigns.</p><button id="export">Export confirmed subscribers</button><div id="subscribers"></div></section>
+   <section id="panel-requests" data-studio-panel="requests" class="panel" hidden><h2>Collector requests</h2><p class="small">“Approve &amp; email password” sends a unique invitation lasting 24 hours from issue. Reissuing invalidates the previous invitation. Revocation also ends existing collector sessions.</p><button id="refresh">Refresh requests</button><div id="requests"></div></section>
+   <section id="panel-mailing" data-studio-panel="mailing" class="panel" hidden><h2>Mailing list</h2><p class="small">Only confirmed subscribers are included in exports. Remove a subscriber when they ask to leave the list. This editor does not send campaigns.</p><button id="export">Export confirmed subscribers</button><div id="subscribers"></div></section>
   </div>
   <script type="application/json" id="catalog" set:html={JSON.stringify(catalog).replace(/</g,'\\u003c')} />
  </section>
 </BaseLayout>
 <script>import '../scripts/editions-editor.js';</script>
+
+<style>
+ .studio-actions {display:flex;align-items:center;justify-content:space-between;gap:20px}
+ .studio-actions a {font-size:13px}
+ .studio-tabs {display:flex;flex-wrap:wrap;gap:10px;margin:28px 0;border-bottom:1px solid #b9b5ac;padding-bottom:20px}
+ .studio-tabs button[aria-pressed="true"] {background:#24231f;color:#fff}
+ #collection-editor-frame {display:block;width:100%;height:850px;border:0;margin-top:20px}
+ #edit-collection-details {margin-bottom:20px}
+</style>
