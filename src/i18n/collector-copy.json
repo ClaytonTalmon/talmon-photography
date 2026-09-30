@@ -838,5 +838,13 @@
     "de": "Bitte beantragen Sie einen neuen Zugang.",
     "ja": "アクセスを再申請してください。",
     "zh": "请重新申请访问权限。"
+  },
+  "To enquire about acquiring works with matching edition numbers, please contact the studio.": {
+    "fr": "Pour acquérir plusieurs œuvres portant le même numéro d’édition, veuillez contacter le studio.",
+    "es": "Para consultar sobre la adquisición de obras con el mismo número de edición, contacte con el estudio.",
+    "it": "Per informazioni sull’acquisto di opere con lo stesso numero di edizione, contatta lo studio.",
+    "de": "Für den Erwerb mehrerer Werke mit derselben Exemplarnummer wenden Sie sich bitte an das Studio.",
+    "ja": "複数の作品を同じエディション番号で揃えたい場合は、スタジオまでお問い合わせください。",
+    "zh": "如希望收藏多幅相同版号的作品，请联系工作室。"
   }
 }

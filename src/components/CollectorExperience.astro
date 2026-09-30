@@ -1,0 +1,45 @@
+---
+import { collectorText } from '../i18n/collector.mjs';
+import catalog from '../data/edition-catalog.mjs';
+import '../styles/editions.css';
+const {locale='en'}=Astro.props;
+const ct=(text:string)=>collectorText(locale,text);
+---
+<section class="editions" id="collector-page">
+ <span class="eyebrow">{ct("For collectors")}</span><h1>{ct("Editions & Acquisitions")}</h1>
+ <p class="intro">{ct("A closer look at each work: its scale, edition and availability. Request private access to explore current acquisition prices.")}</p>
+ <p id="notice" class="notice" role="status" aria-live="polite"></p>
+ <section id="confirmation" class="panel" hidden><h2>{ct("Studio updates")}</h2><p>{ct("Confirm that you would like occasional news of new work and exhibitions.")}</p><button id="confirm-subscription" class="primary">{ct("Confirm my subscription")}</button></section>
+ <section id="service-unavailable" class="panel" hidden><h2>{ct("Enquire with the studio")}</h2><p>{ct("The request service is temporarily unavailable. Please try again shortly.")}</p><button type="button" onclick="location.reload()">{ct("Try again")}</button></section>
+ <div id="gate" class="columns">
+  <form id="access-request" class="panel"><h2>{ct("Request collection details")}</h2><p class="small">{ct("The studio will review your request and email a personal password. Your access lasts 24 hours from the time the password is issued.")}</p>
+   <label>{ct("Your name")}<input name="name" autocomplete="name" required maxlength="120" /></label>
+   <label>{ct("Email address")}<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+   <fieldset class="collection-choices"><legend>{ct("I’m interested in")}</legend>{[...new Set(catalog.map(w=>w.collection))].map(c=><label class="choice"><input type="checkbox" name="collections" value={c} /><span>{c.toUpperCase()}</span></label>)}</fieldset>
+   <label>{ct("Message")} <span class="small">{ct("(optional)")}</span><textarea name="message" rows="3" maxlength="2000"></textarea></label>
+   <label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+   <label class="check"><input name="consent" type="checkbox" /> <span>{ct("I would also like occasional studio news and exhibition invitations. Optional; you can leave the list at any time.")}</span></label>
+   <button class="primary">{ct("Send request")}</button>
+  </form>
+  <form id="unlock" class="panel"><h2>{ct("Your invitation")}</h2><p class="small">{ct("Already received a password? Enter it below to view the editions.")}</p><label>{ct("Personal password")}<input name="password" type="password" autocomplete="current-password" required /></label><button class="primary">{ct("Enter the collection")}</button></form>
+ </div>
+ <section id="collection" hidden>
+  <div class="toolbar"><label>{ct("Collection")}<select id="collection-select"></select></label><label>{ct("Photograph")}<select id="work-select"></select></label><button id="logout">{ct("Close private view")}</button></div>
+  <p id="expires" class="small"></p>
+  <div class="columns"><div><img id="artwork" class="art" alt="" /><a id="view-artwork" class="small" href="#">{ct("View photograph in the collection")}</a></div>
+   <div><span class="eyebrow" id="collection-name"></span><h2 id="work-title"></h2><p id="print-type" class="small"></p><div class="formats" id="formats"></div>
+    <dl class="dimensions" id="dimensions"></dl><p id="edition-description" class="edition-number"></p><p id="edition-proofs" class="small"></p><p id="price" class="price"></p><p id="availability" class="edition-number"></p>
+    <p class="small">{ct("Prices increase as editions are acquired. The price shown applies to the next available print and is confirmed by the studio at acquisition.")}</p>
+    <p class="small">{ct("To enquire about acquiring works with matching edition numbers, please contact the studio.")}</p>
+    <button class="primary" id="enquire" type="button">{ct("Enquire about this work")}</button>
+    <form id="acquisition-request" class="panel" hidden><h2>{ct("Enquire with the studio")}</h2><p id="enquiry-work" class="small"></p><label>{ct("Your name")}<input name="name" autocomplete="name" required maxlength="120" /></label><label>{ct("Email address")}<input name="email" type="email" autocomplete="email" required maxlength="254" /></label><label>{ct("Message")} {ct("(optional)")}<textarea name="message" rows="3" maxlength="2000"></textarea></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><button class="primary">{ct("Send enquiry")}</button><p id="enquiry-notice" role="status" aria-live="polite"></p></form>
+    <p class="small">{ct("Photographic print only.")} <strong>{ct("Framing and shipping are not included.")}</strong></p>
+    <details><summary class="small">{ct("About the dimensions")}</summary><p class="small">{ct("All dimensions are width × height. The finished paper includes a 7 cm white margin at the top and sides, and 10 cm at the bottom. The estimated black museum frame allows 3 cm beyond each paper edge, without an additional mat. Your framer will confirm the final size, moulding and glazing.")}</p></details>
+   </div>
+  </div>
+ </section>
+ <section class="newsletter" id="mailing-list"><span class="eyebrow">{ct("Stay in touch")}</span><h2>{ct("Notes from the studio")}</h2><p class="small">{ct("Occasional new work and exhibition news.")}</p><form id="subscribe"><label>{ct("Email address")}<input name="email" type="email" autocomplete="email" required maxlength="254" /></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><label class="check"><input name="consent" type="checkbox" required /><span>{ct("I would like to receive studio updates.")} {ct("To unsubscribe from the list, email")} <a href="mailto:ctalmon@gmail.com?subject=Unsubscribe">{ct(" the studio").trim()}</a>.</span></label><button>{ct("Join the mailing list")}</button></form><p class="small"><a href={`/${locale}/mailing-list/#unsubscribe-details`}>{ct("Unsubscribe")}</a></p></section>
+ <script type="application/json" id="public-catalog" set:html={JSON.stringify(catalog).replace(/</g,'\\u003c')} />
+</section>
+
+<script>import '../scripts/collector.js';</script>

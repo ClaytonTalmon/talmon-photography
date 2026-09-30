@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CollectorApproval from '../../../components/CollectorApproval.astro';
+---
+<BaseLayout locale="en" title="Approval preview">
+<p style="padding:12px 24px;margin:0;font-size:12px;border-bottom:1px solid #d8d4c9">Preview only · No emails are sent.</p>
+<CollectorApproval />
+</BaseLayout>
+<script>
+ const params=new URLSearchParams(location.search);
+ for(const [id,key] of [['collector-name','name'],['collector-email','email'],['collector-work','collections'],['collector-message','message']])document.getElementById(id)!.textContent=params.get(key)||'';
+ document.getElementById('approval-status')!.textContent='Review the request below, then send the invitation.';
+ document.getElementById('approval-details')!.hidden=false;
+ document.getElementById('approve-request')!.onclick=()=>parent.postMessage({type:'collector-preview',event:'approved'},location.origin);
+ document.addEventListener('click',event=>{if((event.target as Element).closest('a'))event.preventDefault();},true);
+</script>

@@ -6,6 +6,7 @@ import catalog from '../data/edition-catalog.mjs';
 <BaseLayout locale="en" title="Private Studio Editor">
  <section class="editions">
   <span class="eyebrow">Studio administration</span><h1>Studio Editor</h1><p class="intro">Manage collections, edition prices, collector requests and the mailing list in one place.</p><p id="status" class="notice" role="status" aria-live="polite"></p>
+  <p class="small"><a href="/editions-editor/preview/">Preview the full client experience ↗</a></p>
   <form id="login" class="panel"><h2>Studio sign-in</h2><p class="small">Use a GitHub access token belonging to ClaytonTalmon, with access to the website repository. For collection publishing, choose Contents: Read and write. Your token stays only in this window and is cleared on sign-out; it is never saved with drafts. Your secure studio session lasts eight hours.</p><label>GitHub access token<input name="token" type="password" autocomplete="off" required /></label><button class="primary">Open the editor</button></form>
   <div id="studio" hidden>
    <div class="studio-actions"><button id="logout">Sign out</button><a href="https://talmonphoto.com/en/" target="_blank" rel="noopener noreferrer">View website ↗</a></div>

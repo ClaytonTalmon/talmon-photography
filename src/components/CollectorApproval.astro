@@ -1,0 +1,30 @@
+ <section class="approval">
+  <span class="eyebrow">For the studio</span>
+  <h1>Collector request</h1>
+  <p id="approval-status" role="status" aria-live="polite">Checking your private link…</p>
+  <div id="approval-details" hidden>
+   <h2 id="collector-name"></h2>
+   <p id="collector-email"></p>
+   <p id="collector-work"></p>
+   <p id="collector-message"></p>
+   <p class="note">Send this collector a personal password and a link to the collection. Their access lasts 24 hours from the time the invitation is issued.</p>
+   <button id="approve-request">Approve &amp; send invitation</button>
+  </div>
+  <p class="note"><a href="/editions-editor/#requests">Open Studio Editor</a></p>
+ </section>
+
+<style>
+ .approval {max-width:760px;margin:0 auto;padding:72px 24px 80px;color:#24231f}
+ h1 {font-size:clamp(36px,5vw,60px);line-height:1.1;margin:20px 0 32px}
+ h2 {font-size:30px;margin:28px 0 12px;color:inherit}
+ p {font-size:18px;line-height:1.7;color:inherit;overflow-wrap:anywhere}
+ .eyebrow {font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+ #approval-details {border-top:1px solid #cbc7bd;margin-top:24px;padding-top:8px}
+ #collector-message {white-space:pre-wrap}
+ .note {font-size:15px;color:#55534e;margin-top:28px}
+ button {background:#24231f;color:#fff;border:1px solid #24231f;padding:16px 24px;font:inherit;cursor:pointer}
+ button:disabled {opacity:.6;cursor:wait}
+ a {color:inherit;text-decoration:underline}
+ [hidden] {display:none!important}
+</style>
+

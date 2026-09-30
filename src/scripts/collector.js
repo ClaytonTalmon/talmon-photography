@@ -1,7 +1,7 @@
 import { collectorText } from "../i18n/collector.mjs";
 const $ = (id) => document.getElementById(id),
   params = new URLSearchParams(location.search),
-  locale = location.pathname.split("/")[1];
+  locale = document.documentElement.lang.split("-")[0];
 const t = (text, values) => collectorText(locale, text, values);
 const publicCatalog = JSON.parse($("public-catalog").textContent);
 const requestedWork = publicCatalog.find(w => w.id === params.get("work"));
@@ -16,7 +16,12 @@ const notice = (text, error = false) => {
   $("notice").textContent = text;
   $("notice").classList.toggle("error", error);
 };
+let previewApi;
 async function api(action, data) {
+  if (document.getElementById('collector-preview')) {
+    previewApi ||= import('./collector-preview-api.js').then(module=>module.createPreviewApi());
+    return (await previewApi)(action,data);
+  }
   const r = await fetch("/.netlify/functions/editions?locale=" + locale + "&action=" + action, {
     method: data ? "POST" : "GET",
     headers: data ? { "Content-Type": "application/json" } : {},
