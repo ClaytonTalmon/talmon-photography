@@ -15,13 +15,13 @@
     "ja": "メール配信",
     "zh": "邮件订阅"
   },
-  "Editions & acquisition details": {
-    "fr": "Éditions et acquisition",
-    "es": "Ediciones y adquisición",
-    "it": "Edizioni e acquisto",
-    "de": "Editionen und Erwerb",
-    "ja": "エディション・購入情報",
-    "zh": "版次与收藏详情"
+  "Editions & acquisition request": {
+    "fr": "Demande d’éditions et d’acquisition",
+    "es": "Solicitud de ediciones y adquisición",
+    "it": "Richiesta di edizioni e acquisto",
+    "de": "Anfrage zu Editionen und Erwerb",
+    "ja": "エディション・購入に関するお問い合わせ",
+    "zh": "版次与收藏咨询"
   },
   "Editions & Acquisitions": {
     "fr": "Éditions et acquisitions",
