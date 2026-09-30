@@ -1,9 +1,9 @@
 {
-  "Collect": {
-    "fr": "Acquérir",
-    "es": "Adquirir",
-    "it": "Acquista",
-    "de": "Erwerben",
+  "Acquisition": {
+    "fr": "Acquisition",
+    "es": "Adquisición",
+    "it": "Acquisto",
+    "de": "Erwerb",
     "ja": "作品購入",
     "zh": "收藏"
   },
