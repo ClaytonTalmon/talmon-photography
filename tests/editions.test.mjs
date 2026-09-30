@@ -233,8 +233,8 @@ test('collection interests reach the studio and acquisition enquiries send direc
   const s = setup(), admin = await auth(s);
   const data = {name:'Collector',email:'collector@example.com',collections:['form','flow','invalid'],message:'Interested in a pair.'};
   assert.equal((await s.call('request',data)).status,200);
-  assert.match(s.emails.at(-1).text,/FORM, FLOW/);
-  assert.match(s.emails.at(-1).text,/Interested in a pair/);
+  assert.match(s.emails.find(e=>e.to==='ctalmon@gmail.com').text,/FORM, FLOW/);
+  assert.match(s.emails.find(e=>e.to==='ctalmon@gmail.com').text,/Interested in a pair/);
   const requests = (await (await s.call('studio-data',null,admin)).json()).requests;
   assert.deepEqual(requests[0].collections,['form','flow']);
   const work = catalog.find(w=>w.formats.length);
@@ -316,4 +316,28 @@ test('collection pricing applies atomically to one format and preserves individu
  const untouchedSales=current.works.find(w=>w.id!==first.id&&w.collection===first.collection&&w.formats.some(f=>f.key===format.key)).formats.find(f=>f.key===format.key);
  assert.equal(untouchedSales.sold,null);assert.equal(untouchedSales.price,2000);
  const data=await (await s.call('studio-data',null,admin)).json();assert.equal(data.prices.version,3);
+});
+
+test('studio notices point to requests; collectors receive separate branded receipt and password invitation',async()=>{
+ const s=setup(),admin=await auth(s);
+ const work=catalog.find(w=>w.collection==='flow');
+ await s.call('request',{name:'<script>test</script>',email:'collector@example.com',collections:['flow'],work:work.id});
+ const studio=s.emails.find(e=>e.to==='ctalmon@gmail.com');
+ const receipt=s.emails.find(e=>e.to==='collector@example.com');
+ assert.match(studio.text,/editions-editor\/#requests/);
+ assert.match(studio.text,/no collector password has been issued/);
+ assert.ok(receipt.html.includes('&lt;script&gt;test&lt;/script&gt;'));
+ assert.ok(!receipt.html.includes('<script>'));
+ assert.ok(!receipt.text.includes('editions-editor'));
+ assert.match(receipt.text,/Once approved/);
+ const request=(await (await s.call('studio-data',null,admin)).json()).requests[0];
+ await s.call('studio-approve',{id:request.id},admin);
+ const invitation=s.emails.at(-1);
+ const password=invitation.text.match(/Password: (\S+)/)[1];
+ assert.ok(invitation.html.includes(password));
+ assert.ok(!invitation.html.includes('editions-editor'));
+ assert.ok(!invitation.text.includes('willowy-pika'));
+ const link=invitation.text.match(/https:\/\/\S+/)[0];
+ assert.equal(new URL(link).searchParams.get('work'),work.id);
+ assert.equal((await s.call('unlock',{password})).status,200);
 });

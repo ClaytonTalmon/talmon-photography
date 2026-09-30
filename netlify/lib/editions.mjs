@@ -1,5 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 import { collectorText, validLocale } from "../../src/i18n/collector.mjs";
+import { collectorReceipt, studioNotification, collectorInvitation } from "./collector-emails.mjs";
 import catalog from "../../src/data/edition-catalog.mjs";
 const DAY = 86400000,
   OWNER = "ClaytonTalmon";
@@ -178,12 +179,8 @@ export function createHandler({
             status: old?.status || "pending",
           };
           await write(key, record);
-          await send({
-            to: "ctalmon@gmail.com",
-            reply_to: email,
-            subject: "Collector access request — " + name,
-            text: `${name}\n${email}\nCollections: ${record.collections.join(", ").toUpperCase() || "All collections"}\nWork: ${record.work || "Not specified"}\nMessage: ${record.message || "—"}\n\nReview in the Editions Editor:\n${url.origin}/editions-editor/`,
-          });
+          await send({to: "ctalmon@gmail.com", reply_to: email, ...studioNotification(record,url.origin)});
+          await send({to: email, ...collectorReceipt(record)});
         }
         if (action === "subscribe" || p.consent === true) {
           const key = "subscriber/" + hash(email),
@@ -327,7 +324,6 @@ export function createHandler({
             return fail("Invalid request.");
           const record = await read("request/" + p.id);
           if (!record) return fail("Request not found.", 404);
-          const tr = (text, values) => collectorText(record.locale, text, values);
           const password = token(),
             id = hash(password),
             expires = now() + DAY;
@@ -337,11 +333,7 @@ export function createHandler({
             revoked: false,
           });
           try {
-            await send({
-              to: record.email,
-              subject: tr("Your private editions access — 24 hours"),
-              text: `${record.name},\n\n${tr("You are invited to view editions and acquisition details.")}\n\n${url.origin}/${validLocale(record.locale)}/editions/\n${tr("Password")}: ${password}\n\n${tr("Your private access expires {date}.", {date:new Date(expires).toLocaleString(validLocale(record.locale), {timeZone:"UTC", timeZoneName:"short"})})}\n\n${tr("Framing and shipping are not included.")}\n\nClayton Talmon de l’Armée`,
-            });
+            await send({to:record.email, ...collectorInvitation(record,url.origin,password,expires)});
           } catch (e) {
             await store.delete("grant/" + id);
             throw e;

@@ -16,7 +16,7 @@ Prices start blank; the earlier prototype's illustrative prices are not publishe
 
 ## Collector access
 
-Collectors submit their name and email on the Editions page. The studio receives a request notification at `ctalmon@gmail.com`. Requests are also recorded in the editor.
+Collectors submit their name and email on the Editions page. The studio receives a request notification at `ctalmon@gmail.com`. Requests are also recorded in the editor. The studio notification is explicitly labelled for the studio and opens the Collector Requests tab. The collector receives a separate branded acknowledgement explaining that a password will follow after approval. Approved invitations include a clearly displayed password, an absolute expiry time, and a branded link to the requested photograph or collection. Preview both collector emails from the Collector Requests tab.
 
 **Approve & email password** sends a unique, randomly generated password to that collector. It expires **24 hours from issuance**, not 24 hours from first use. Collector cookies expire at the same deadline, and every private API request checks expiry and revocation. Reissuing removes the old grant. **Revoke access** invalidates the password and all existing sessions for that invitation.
 

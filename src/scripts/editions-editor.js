@@ -202,7 +202,7 @@ function requests() {
     text.textContent = `${r.name} · ${r.email} · ${r.status}${r.expires ? " · expires " + new Date(r.expires).toLocaleString() : ""}`;
     const work = document.createElement("p");
     work.className = "small";
-    work.textContent = [r.collections?.join(", ").toUpperCase(), r.work, r.message].filter(Boolean).join(" · ") || "All collections";
+    work.textContent = [r.collections?.join(", ").toUpperCase(), catalog.find(w=>w.id===r.work)?.title, r.message].filter(Boolean).join(" · ") || "All collections";
     row.append(text, work);
     for (const [label, action] of [
       ["Approve & email password", "approve"],

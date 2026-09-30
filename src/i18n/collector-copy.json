@@ -734,5 +734,61 @@
     "de": "Passwort",
     "ja": "パスワード",
     "zh": "密码"
+  },
+  "Your request has been received": {
+    "fr": "Votre demande a été reçue",
+    "es": "Hemos recibido su solicitud",
+    "it": "La richiesta è stata ricevuta",
+    "de": "Ihre Anfrage ist eingegangen",
+    "ja": "お申し込みを受け付けました",
+    "zh": "您的申请已收到"
+  },
+  "Thank you for your interest in the photographs of Talmon de l’Armée.": {
+    "fr": "Merci de votre intérêt pour les photographies de Talmon de l’Armée.",
+    "es": "Gracias por su interés en las fotografías de Talmon de l’Armée.",
+    "it": "Grazie per l’interesse nelle fotografie di Talmon de l’Armée.",
+    "de": "Vielen Dank für Ihr Interesse an den Fotografien von Talmon de l’Armée.",
+    "ja": "Talmon de l’Arméeの写真にご関心をお寄せいただき、ありがとうございます。",
+    "zh": "感谢您关注Talmon de l’Armée的摄影作品。"
+  },
+  "The studio will review your request. Once approved, a separate invitation will contain your personal password and a link to the collection. Access will be valid for 24 hours from the time that invitation is issued.": {
+    "fr": "Le studio examinera votre demande. Après validation, une invitation distincte vous communiquera votre mot de passe personnel et un lien vers la collection. L’accès sera valable 24 heures à compter de l’émission de cette invitation.",
+    "es": "El estudio revisará su solicitud. Una vez aprobada, recibirá una invitación por separado con su contraseña personal y un enlace a la colección. El acceso será válido durante 24 horas desde la emisión de la invitación.",
+    "it": "Lo studio esaminerà la richiesta. Dopo l’approvazione, riceverà un invito separato con la password personale e il link alla collezione. L’accesso sarà valido per 24 ore dall’emissione dell’invito.",
+    "de": "Das Studio prüft Ihre Anfrage. Nach der Freigabe erhalten Sie eine separate Einladung mit Ihrem persönlichen Passwort und einem Link zur Kollektion. Der Zugang gilt 24 Stunden ab Ausstellung dieser Einladung.",
+    "ja": "スタジオが内容を確認し、承認後に個人用パスワードとコレクションへのリンクを記載した招待メールを別途お送りします。アクセスは招待の発行から24時間有効です。",
+    "zh": "工作室将审核您的申请。批准后，您将另行收到包含个人密码和系列链接的邀请邮件。访问权限自邀请签发起24小时内有效。"
+  },
+  "View the photographs": {
+    "fr": "Voir les photographies",
+    "es": "Ver las fotografías",
+    "it": "Guarda le fotografie",
+    "de": "Fotografien ansehen",
+    "ja": "写真を見る",
+    "zh": "欣赏摄影作品"
+  },
+  "Your private collection access": {
+    "fr": "Votre accès privé à la collection",
+    "es": "Su acceso privado a la colección",
+    "it": "Accesso privato alla collezione",
+    "de": "Ihr privater Zugang zur Kollektion",
+    "ja": "コレクションへのプライベートアクセス",
+    "zh": "您的系列私人访问权限"
+  },
+  "Open the collection and enter the personal password below. Your invitation is valid for 24 hours from issue.": {
+    "fr": "Ouvrez la collection et saisissez le mot de passe personnel ci-dessous. Votre invitation est valable 24 heures à compter de son émission.",
+    "es": "Abra la colección e introduzca la contraseña personal que figura abajo. Su invitación es válida durante 24 horas desde su emisión.",
+    "it": "Apra la collezione e inserisca la password personale qui sotto. L’invito è valido per 24 ore dall’emissione.",
+    "de": "Öffnen Sie die Kollektion und geben Sie das folgende persönliche Passwort ein. Ihre Einladung gilt 24 Stunden ab Ausstellung.",
+    "ja": "コレクションを開き、下記の個人用パスワードを入力してください。招待は発行から24時間有効です。",
+    "zh": "请打开系列并输入下方的个人密码。邀请自签发起24小时内有效。"
+  },
+  "View the collection": {
+    "fr": "Voir la collection",
+    "es": "Ver la colección",
+    "it": "Guarda la collezione",
+    "de": "Kollektion ansehen",
+    "ja": "コレクションを見る",
+    "zh": "查看系列"
   }
 }

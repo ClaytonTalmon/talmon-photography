@@ -146,6 +146,7 @@ async function load() {
   );
   const work = works.find((w) => w.id === params.get("work"));
   if (work) $("collection-select").value = work.collection;
+  else if (works.some(w=>w.collection===params.get("collection"))) $("collection-select").value=params.get("collection");
   populate();
   clearTimeout(timer);
   timer = setTimeout(
