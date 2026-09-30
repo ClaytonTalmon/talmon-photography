@@ -42,7 +42,7 @@ const {locale}=Astro.params as {locale:Locale};
    </div>
   </div>
  </section>
- <section class="newsletter" id="mailing-list"><span class="eyebrow">Stay in touch</span><h2>Notes from the studio</h2><p class="small">Occasional new work and exhibition news.</p><form id="subscribe"><label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><label class="check"><input name="consent" type="checkbox" required /><span>I would like to receive studio updates. To leave the list, email <a href="mailto:ctalmon@gmail.com?subject=Unsubscribe">the studio</a>.</span></label><button>Join the mailing list</button></form></section>
+ <section class="newsletter" id="mailing-list"><span class="eyebrow">Stay in touch</span><h2>Notes from the studio</h2><p class="small">Occasional new work and exhibition news.</p><form id="subscribe"><label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><label class="check"><input name="consent" type="checkbox" required /><span>I would like to receive studio updates. To unsubscribe from the list, email <a href="mailto:ctalmon@gmail.com?subject=Unsubscribe">the studio</a>.</span></label><button>Join the mailing list</button></form></section>
  <script type="application/json" id="public-catalog" set:html={JSON.stringify(catalog).replace(/</g,'\\u003c')} />
 </section>
 </BaseLayout>

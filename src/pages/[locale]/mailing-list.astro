@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { locales, type Locale } from '../../i18n/utils';
+import '../../styles/editions.css';
+export function getStaticPaths() { return locales.map(locale=>({params:{locale}})); }
+const {locale}=Astro.params as {locale:Locale};
+---
+<BaseLayout locale={locale} title="Mailing List" description="Join the mailing list for new photographs, exhibitions and occasional notes from the studio.">
+<section class="editions signup-page">
+ <span class="eyebrow">Notes from the studio</span>
+ <h1>Mailing List</h1>
+ <p class="intro">New work, upcoming exhibitions and occasional notes from the studio. Sign up below to stay in touch.</p>
+ <form id="mailing-signup">
+  <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+  <label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+  <label class="check"><input name="consent" type="checkbox" required /><span>I would like to receive studio updates.</span></label>
+  <button class="primary">Join the mailing list</button>
+  <p id="signup-status" class="notice" role="status" aria-live="polite"></p>
+  <p class="small">To unsubscribe from the list, email <a href="mailto:ctalmon@gmail.com?subject=Unsubscribe">the studio</a>.</p>
+ </form>
+</section>
+</BaseLayout>
+<style>
+ .signup-page { max-width:760px; min-height:60vh; }
+ #mailing-signup { margin-top:28px; }
+</style>
+<script>
+const form = document.querySelector<HTMLFormElement>('#mailing-signup')!;
+const status = document.querySelector<HTMLElement>('#signup-status')!;
+if (['talmonphoto.com','www.talmonphoto.com'].includes(location.hostname)) {
+ location.replace('https://willowy-pika-c392c9.netlify.app'+location.pathname);
+}
+form.addEventListener('submit',async event=>{
+ event.preventDefault();
+ const button=form.querySelector('button')!;
+ button.disabled=true;
+ status.textContent='Sending…';
+ status.classList.remove('error');
+ try {
+  const data=Object.fromEntries(new FormData(form));
+  const response=await fetch('/.netlify/functions/editions?action=subscribe',{
+   method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({...data,consent:form.querySelector<HTMLInputElement>('[name="consent"]')!.checked})
+  });
+  if (![200,400,429].includes(response.status)) throw Error('Signup is temporarily unavailable. Please try again shortly.');
+  const result=await response.json();
+  if(!response.ok) throw Error(result.error || 'Please try again.');
+  form.reset();
+  status.textContent='Thank you. Please check your email and confirm your subscription.';
+ } catch(error) {
+  status.textContent=error instanceof Error?error.message:'Please try again.';
+  status.classList.add('error');
+ } finally {button.disabled=false;}
+});
+</script>
