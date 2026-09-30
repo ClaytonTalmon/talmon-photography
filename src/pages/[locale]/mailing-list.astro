@@ -31,10 +31,6 @@ const ct = (text: string) => collectorText(locale, text);
 </section>
 </BaseLayout>
 <style>
- :global(body:has(#mailing-signup)) { min-height:100vh; min-height:100svh; display:flex; flex-direction:column; }
- :global(body:has(#mailing-signup) > main) { flex:1; }
- :global(body:has(#mailing-signup) > header),
- :global(body:has(#mailing-signup) > footer) { flex-shrink:0; }
  .signup-page { max-width:760px; padding-bottom:40px; }
  #signup-status:empty { display:none; }
  #mailing-signup, #unsubscribe-details { margin-top:28px; }

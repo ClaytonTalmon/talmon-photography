@@ -26,13 +26,28 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Shared page shell: the footer ends every short page at the viewport edge. */
 body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   font-family: var(--font-ui);
   color: var(--color-ink);
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+body > main {
+  flex: 1 0 auto;
+  min-width: 0;
+}
+
+body > header,
+body > footer {
+  flex-shrink: 0;
 }
 
 img {
