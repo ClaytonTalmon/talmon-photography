@@ -217,3 +217,6 @@
 .editions .collection-choices .choice { display:flex; align-items:center; gap:8px; border:1px solid #b9b5ac; padding:12px 15px; margin:0; cursor:pointer; }
 .editions .choice:has(input:checked) { background:#e8e4da; border-color:#24231f; }
 .editions textarea { resize:vertical; }
+
+.editions .format-edition { display:block; font-size:12px; color:#4d4d4d; margin-top:4px; }
+.editions .edition-number { font-size:16px; color:#24231f; line-height:1.6; }

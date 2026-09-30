@@ -29,6 +29,22 @@ export function createHandler({
         ...headers,
       },
     });
+  const selectedCollections = (record) => {
+    const choices = Array.isArray(record?.collections) ? record.collections : [];
+    const valid = [...new Set(choices.filter(c => catalog.some(w => w.collection === c)))];
+    // Older photograph-specific requests may predate the collection checkboxes.
+    if (!valid.length && !choices.length) {
+      const work = catalog.find(w => w.id === record?.work);
+      if (work) valid.push(work.collection);
+    }
+    return valid;
+  };
+  async function grantCollections(grant, id) {
+    if (Array.isArray(grant.collections)) return selectedCollections({collections:grant.collections});
+    const record = await read("request/" + hash(grant.email || ""));
+    // Never infer access from an unrelated or replaced invitation.
+    return record?.grant === id ? selectedCollections(record) : [];
+  }
   async function session(req, kind) {
     const value = req.headers
       .get("cookie")
@@ -41,6 +57,9 @@ export function createHandler({
     if (kind === "collector") {
       const grant = await read("grant/" + s.grant);
       if (!grant || grant.revoked || grant.expires <= now()) return null;
+      const collections = await grantCollections(grant, s.grant);
+      if (!collections.length) return null;
+      return {...s, collections};
     }
     return s;
   }
@@ -55,6 +74,7 @@ export function createHandler({
       expires = now() + DAY;
     await write("grant/" + id, {
       email: record.email,
+      collections: selectedCollections(record),
       expires,
       revoked: false,
     });
@@ -135,6 +155,7 @@ export function createHandler({
           return response({name:record.name,email:record.email,collections:record.collections,
             work:catalog.find(w=>w.id===record.work)?.title || "",message:record.message,expires:record.approvalExpires});
         }
+        if (!selectedCollections(record).length) return fail("Please select at least one collection.");
         // Consume atomically before sending; a double click cannot issue two invitations.
         const claimed = {...record, approvalUsed:true};
         const saved = await store.setJSON("request/" + p.id, claimed, {onlyIfMatch:snapshot.etag});
@@ -171,7 +192,7 @@ export function createHandler({
           return fail("Enter the password from your invitation.");
         const id = hash(p.password.trim()),
           grant = await read("grant/" + id);
-        if (!grant || grant.revoked || grant.expires <= now())
+        if (!grant || grant.revoked || grant.expires <= now() || !(await grantCollections(grant, id)).length)
           return fail(
             "This password is invalid or has expired. Please request new access.",
             401,
@@ -210,13 +231,23 @@ export function createHandler({
             old = await read(key);
           const approvalToken = token();
           const collections = Array.isArray(p.collections) ? [...new Set(p.collections.filter(c=>catalog.some(w=>w.collection===c)))] : [];
+          if (!collections.length) return fail("Please select at least one collection.");
+          // Freeze a legacy grant before a repeat request changes its interests.
+          if (old?.grant) {
+            const snapshot = await store.getWithMetadata("grant/" + old.grant, {type:"json"});
+            if (snapshot && !Array.isArray(snapshot.data.collections)) {
+              const saved = await store.setJSON("grant/" + old.grant,
+                {...snapshot.data, collections:selectedCollections(old)}, {onlyIfMatch:snapshot.etag});
+              if (!saved.modified) return fail("This request has changed. Please try again.", 409);
+            }
+          }
           const record = {
             ...old,
             id: hash(email),
             locale,
             email,
             name,
-            work: String(p.work || "").slice(0, 250),
+            work: catalog.find(w => w.id === p.work && collections.includes(w.collection))?.id || "",
             collections,
             message: String(p.message || "").slice(0,2000),
             approvalHash: hash(approvalToken),
@@ -371,6 +402,7 @@ export function createHandler({
             return fail("Invalid request.");
           const record = await read("request/" + p.id);
           if (!record) return fail("Request not found.", 404);
+          if (!selectedCollections(record).length) return fail("Please select at least one collection.");
           const expires = await issueInvitation(record, url.origin);
           return response({ ok: true, expires });
         }
@@ -396,7 +428,7 @@ export function createHandler({
         // Return only current prices, never the private future tier schedule.
         return response({
           expires: visitor.expires,
-          works: catalog.map((w) => ({
+          works: catalog.filter(w => visitor.collections.includes(w.collection)).map((w) => ({
             ...w,
             formats: w.formats.map((f) => {
               const value = prices[w.id + "::" + f.key];

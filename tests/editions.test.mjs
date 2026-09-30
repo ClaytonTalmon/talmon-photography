@@ -64,6 +64,7 @@ async function invite(s, admin) {
   await s.call("request", {
     name: "Test Collector",
     email: "collector@example.com",
+    collections: ["form", "flow"],
   });
   const data = await (await s.call("studio-data", null, admin)).json();
   const id = data.requests[0].id;
@@ -247,7 +248,7 @@ test('collection interests reach the studio and acquisition enquiries send direc
 test('all collector locales receive localized confirmation and invitation links', async()=>{
  for(const locale of ['en','fr','es','it','de','ja','zh']) {
   const s=setup(), admin=await auth(s);
-  await s.call('request',{name:'Collector',email:'test@example.com',locale,consent:true});
+  await s.call('request',{name:'Collector',email:'test@example.com',collections:['form'],locale,consent:true});
   const confirmation=s.emails.at(-1);
   assert.ok(confirmation.text.includes(`/${locale}/mailing-list/?confirm=`));
   const link=new URL(confirmation.text.match(/https:\/\/\S+/)[0]);
@@ -369,7 +370,7 @@ test('email approval is scoped, expires, and requires an explicit one-use POST w
 });
 test('old email approval links expire or are superseded by a new request or studio approval',async()=>{
  const s=setup();
- const request={name:'Collector',email:'collector@example.com'};
+ const request={name:'Collector',email:'collector@example.com',collections:['form']};
  await s.call('request',request);const old=approvalCredentials(s);
  await s.call('request',request);const current=approvalCredentials(s);
  assert.equal((await s.call('email-review',old)).status,401);
@@ -380,4 +381,47 @@ test('old email approval links expire or are superseded by a new request or stud
  const admin=await auth(s);
  await s.call('studio-approve',{id:next.id},admin);
  assert.equal((await s.call('email-approve',next)).status,401);
+});
+
+
+test('collector catalog is restricted to approved collections, including existing legacy sessions', async()=>{
+ const s=setup(), admin=await auth(s), inv=await invite(s,admin);
+ const view=async()=>await (await s.call('catalog',null,inv.cookie)).json();
+ assert.deepEqual([...new Set((await view()).works.map(w=>w.collection))],['form','flow']);
+ // Simulate an invitation issued before collection scopes were stored.
+ const grant=[...s.values].find(([key])=>key.startsWith('grant/'))[1].data;
+ delete grant.collections;
+ assert.deepEqual([...new Set((await view()).works.map(w=>w.collection))],['form','flow']);
+ // A repeat request cannot expand an already approved invitation.
+ await s.call('request',{name:'Collector',email:'collector@example.com',collections:['world']});
+ assert.deepEqual([...new Set((await view()).works.map(w=>w.collection))],['form','flow']);
+ await s.call('studio-approve',{id:inv.id},admin);
+ assert.equal((await s.call('catalog',null,inv.cookie)).status,401);
+ const password=s.emails.at(-1).text.match(/Password: (\S+)/)[1];
+ const cookie=(await s.call('unlock',{password})).headers.get('set-cookie').split(';')[0];
+ const current=await (await s.call('catalog',null,cookie)).json();
+ assert.deepEqual([...new Set(current.works.map(w=>w.collection))],['world']);
+});
+test('missing or untraceable collection scopes never grant access to the whole catalog',async()=>{
+ const s=setup(), admin=await auth(s);
+ for(const collections of [[],['invalid']]) {
+  assert.equal((await s.call('request',{name:'Collector',email:'collector@example.com',collections})).status,400);
+ }
+ const inv=await invite(s,admin);
+ const grant=[...s.values].find(([key])=>key.startsWith('grant/'))[1].data;
+ delete grant.collections;
+ s.values.delete('request/'+inv.id);
+ assert.equal((await s.call('catalog',null,inv.cookie)).status,401);
+ assert.equal((await s.call('unlock',{password:inv.password})).status,401);
+});
+test('email approval stores only requested collections and ignores an unrelated work URL',async()=>{
+ const s=setup();
+ await s.call('request',{name:'Collector',email:'collector@example.com',collections:['flow','form'],work:catalog.find(w=>w.collection==='world').id});
+ const credentials=approvalCredentials(s);
+ await s.call('email-approve',credentials);
+ const password=s.emails.at(-1).text.match(/Password: (\S+)/)[1];
+ const cookie=(await s.call('unlock',{password})).headers.get('set-cookie').split(';')[0];
+ const result=await (await s.call('catalog',null,cookie)).json();
+ assert.deepEqual([...new Set(result.works.map(w=>w.collection))],['form','flow']);
+ assert.ok(result.works.every(w=>w.formats.every(f=>Number.isInteger(f.edition)&&f.editionLabel)));
 });

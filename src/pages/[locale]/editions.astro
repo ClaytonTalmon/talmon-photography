@@ -35,7 +35,7 @@ const ct = (text: string) => collectorText(locale, text);
   <p id="expires" class="small"></p>
   <div class="columns"><div><img id="artwork" class="art" alt="" /><a id="view-artwork" class="small" href="#">{ct("View photograph in the collection")}</a></div>
    <div><span class="eyebrow" id="collection-name"></span><h2 id="work-title"></h2><p id="print-type" class="small"></p><div class="formats" id="formats"></div>
-    <dl class="dimensions" id="dimensions"></dl><p id="edition-description" class="small"></p><p id="price" class="price"></p><p id="availability" class="small"></p>
+    <dl class="dimensions" id="dimensions"></dl><p id="edition-description" class="edition-number"></p><p id="edition-proofs" class="small"></p><p id="price" class="price"></p><p id="availability" class="edition-number"></p>
     <p class="small">{ct("Prices increase as editions are acquired. The price shown applies to the next available print and is confirmed by the studio at acquisition.")}</p>
     <button class="primary" id="enquire" type="button">{ct("Enquire about this work")}</button>
     <form id="acquisition-request" class="panel" hidden><h2>{ct("Enquire with the studio")}</h2><p id="enquiry-work" class="small"></p><label>{ct("Your name")}<input name="name" autocomplete="name" required maxlength="120" /></label><label>{ct("Email address")}<input name="email" type="email" autocomplete="email" required maxlength="254" /></label><label>{ct("Message")} {ct("(optional)")}<textarea name="message" rows="3" maxlength="2000"></textarea></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><button class="primary">{ct("Send enquiry")}</button><p id="enquiry-notice" role="status" aria-live="polite"></p></form>

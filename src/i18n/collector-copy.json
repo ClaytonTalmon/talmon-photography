@@ -790,5 +790,53 @@
     "de": "Kollektion ansehen",
     "ja": "コレクションを見る",
     "zh": "查看系列"
+  },
+  "Edition of {edition}": {
+    "fr": "Édition de {edition}",
+    "es": "Edición de {edition}",
+    "it": "Edizione di {edition}",
+    "de": "Auflage von {edition}",
+    "ja": "限定{edition}部",
+    "zh": "限量版数：{edition}"
+  },
+  "Artist’s proofs are separate and available on enquiry.": {
+    "fr": "Les épreuves d’artiste sont distinctes et disponibles sur demande.",
+    "es": "Las pruebas de artista son independientes y están disponibles bajo consulta.",
+    "it": "Le prove d’artista sono separate e disponibili su richiesta.",
+    "de": "Künstlerexemplare sind separat und auf Anfrage erhältlich.",
+    "ja": "アーティストプルーフは別枠です。ご希望の場合はお問い合わせください。",
+    "zh": "艺术家试印版另计，详情请咨询。"
+  },
+  "Next available edition: {next} / {total}": {
+    "fr": "Prochain exemplaire disponible : {next} / {total}",
+    "es": "Próximo ejemplar disponible: {next} / {total}",
+    "it": "Prossimo esemplare disponibile: {next} / {total}",
+    "de": "Nächstes verfügbares Exemplar: {next} / {total}",
+    "ja": "次に購入可能なエディション：{next} / {total}",
+    "zh": "下一可购版号：{next} / {total}"
+  },
+  "Edition number to be confirmed by the studio.": {
+    "fr": "Le numéro d’édition sera confirmé par le studio.",
+    "es": "El estudio confirmará el número de edición.",
+    "it": "Il numero di edizione sarà confermato dallo studio.",
+    "de": "Die Exemplarnummer wird vom Studio bestätigt.",
+    "ja": "エディション番号はスタジオが確認いたします。",
+    "zh": "具体版号由工作室确认。"
+  },
+  "Please select at least one collection.": {
+    "fr": "Veuillez sélectionner au moins une collection.",
+    "es": "Seleccione al menos una colección.",
+    "it": "Seleziona almeno una collezione.",
+    "de": "Bitte wählen Sie mindestens eine Kollektion aus.",
+    "ja": "コレクションを少なくとも1つ選択してください。",
+    "zh": "请至少选择一个系列。"
+  },
+  "Please request new access.": {
+    "fr": "Veuillez demander un nouvel accès.",
+    "es": "Solicite un nuevo acceso.",
+    "it": "Richiedi un nuovo accesso.",
+    "de": "Bitte beantragen Sie einen neuen Zugang.",
+    "ja": "アクセスを再申請してください。",
+    "zh": "请重新申请访问权限。"
   }
 }

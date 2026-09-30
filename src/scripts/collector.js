@@ -74,6 +74,10 @@ function render() {
     ...active.formats.map((f) => {
       const b = document.createElement("button");
       b.textContent = t(f.label);
+      const edition = document.createElement("span");
+      edition.className = "format-edition";
+      edition.textContent = t("Edition of {edition}", {edition:f.editionLabel});
+      b.append(edition);
       b.setAttribute("aria-pressed", String(selected === f.key));
       b.onclick = () => {
         selected = f.key;
@@ -89,6 +93,7 @@ function render() {
     $("availability").textContent =
       t("Availability confirmed by the studio.");
     $("edition-description").textContent = "";
+    $("edition-proofs").textContent = "";
     return;
   }
   const fmt = (n) =>
@@ -111,7 +116,8 @@ function render() {
     $("dimensions").append(div);
   }
   $("edition-description").textContent =
-    t("Edition of {edition}. Artist’s proofs are separate and available on enquiry.", {edition:f.editionLabel});
+    t("Edition of {edition}", {edition:f.editionLabel});
+  $("edition-proofs").textContent = t("Artist’s proofs are separate and available on enquiry.");
   $("price").textContent = f.soldOut
     ? t("Edition sold out")
     : f.price === null
@@ -126,12 +132,13 @@ function render() {
   $("availability").textContent = f.soldOut
     ? t("Please enquire about other formats.")
     : f.sold === null
-      ? t("Availability confirmed by the studio.")
-      : t("Next available: {next} of {total}", {next:f.sold+1,total:f.edition});
+      ? t("Edition number to be confirmed by the studio.")
+      : t("Next available edition: {next} / {total}", {next:f.sold+1,total:f.edition});
 }
 async function load() {
   const data = await api("catalog");
   works = data.works;
+  if (!works.length) throw Error(t("Please request new access."));
   $("gate").hidden = true;
   $("collection").hidden = false;
   $("expires").textContent =
@@ -171,6 +178,10 @@ for (const [id, action] of [
     data.consent = form.elements.namedItem("consent")?.checked === true;
     data.work = params.get("work") || "";
     data.collections = new FormData(form).getAll("collections");
+    if (action === "request" && !data.collections.length) {
+      notice(t("Please select at least one collection."), true);
+      return;
+    }
     button.disabled = true;
     try {
       await api(action, data);
