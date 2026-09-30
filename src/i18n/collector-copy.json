@@ -1,0 +1,738 @@
+{
+  "Collect": {
+    "fr": "Acquérir",
+    "es": "Adquirir",
+    "it": "Acquista",
+    "de": "Erwerben",
+    "ja": "作品購入",
+    "zh": "收藏"
+  },
+  "Mailing List": {
+    "fr": "Lettre du studio",
+    "es": "Lista de correo",
+    "it": "Newsletter",
+    "de": "Newsletter",
+    "ja": "メール配信",
+    "zh": "邮件订阅"
+  },
+  "Editions & acquisition details": {
+    "fr": "Éditions et acquisition",
+    "es": "Ediciones y adquisición",
+    "it": "Edizioni e acquisto",
+    "de": "Editionen und Erwerb",
+    "ja": "エディション・購入情報",
+    "zh": "版次与收藏详情"
+  },
+  "Editions & Acquisitions": {
+    "fr": "Éditions et acquisitions",
+    "es": "Ediciones y adquisiciones",
+    "it": "Edizioni e acquisti",
+    "de": "Editionen und Erwerb",
+    "ja": "エディションと作品購入",
+    "zh": "版次与收藏"
+  },
+  "For collectors": {
+    "fr": "Pour les collectionneurs",
+    "es": "Para coleccionistas",
+    "it": "Per i collezionisti",
+    "de": "Für Sammler",
+    "ja": "コレクターの皆様へ",
+    "zh": "致收藏者"
+  },
+  "A closer look at each work: its scale, edition and availability. Request private access to explore current acquisition prices.": {
+    "fr": "Découvrez les dimensions, l’édition et la disponibilité de chaque œuvre. Demandez un accès privé pour consulter les prix actuels.",
+    "es": "Descubra las dimensiones, la edición y la disponibilidad de cada obra. Solicite acceso privado para consultar los precios actuales.",
+    "it": "Scopra le dimensioni, l’edizione e la disponibilità di ogni opera. Richieda un accesso privato per consultare i prezzi attuali.",
+    "de": "Entdecken Sie Maße, Auflage und Verfügbarkeit jedes Werks. Fordern Sie einen privaten Zugang an, um die aktuellen Preise einzusehen.",
+    "ja": "各作品のサイズ、エディション、販売状況をご覧いただけます。現在の価格をご覧になるには、プライベートアクセスをお申し込みください。",
+    "zh": "了解每件作品的尺寸、版次和可售情况。申请私人访问权限，即可查看当前价格。"
+  },
+  "Request collection details": {
+    "fr": "Demander des informations",
+    "es": "Solicitar información",
+    "it": "Richiedi informazioni",
+    "de": "Informationen anfragen",
+    "ja": "コレクションについて問い合わせる",
+    "zh": "索取系列详情"
+  },
+  "The studio will review your request and email a personal password. Your access lasts 24 hours from the time the password is issued.": {
+    "fr": "Le studio examinera votre demande et vous enverra un mot de passe personnel par e-mail. L’accès est valable 24 heures à compter de son émission.",
+    "es": "El estudio revisará su solicitud y le enviará una contraseña personal por correo. El acceso dura 24 horas desde su emisión.",
+    "it": "Lo studio esaminerà la richiesta e invierà una password personale via email. L’accesso dura 24 ore dall’emissione della password.",
+    "de": "Das Studio prüft Ihre Anfrage und sendet Ihnen ein persönliches Passwort per E-Mail. Der Zugang gilt 24 Stunden ab Ausstellung.",
+    "ja": "スタジオがご依頼を確認し、個人用パスワードをメールでお送りします。アクセスはパスワード発行から24時間有効です。",
+    "zh": "工作室审核申请后，将通过邮件发送个人密码。访问权限自密码签发起24小时内有效。"
+  },
+  "Your name": {
+    "fr": "Votre nom",
+    "es": "Su nombre",
+    "it": "Nome",
+    "de": "Ihr Name",
+    "ja": "お名前",
+    "zh": "姓名"
+  },
+  "Email address": {
+    "fr": "Adresse e-mail",
+    "es": "Correo electrónico",
+    "it": "Indirizzo email",
+    "de": "E-Mail-Adresse",
+    "ja": "メールアドレス",
+    "zh": "电子邮箱"
+  },
+  "I’m interested in": {
+    "fr": "Je m’intéresse à",
+    "es": "Me interesa",
+    "it": "Mi interessa",
+    "de": "Ich interessiere mich für",
+    "ja": "ご興味のあるコレクション",
+    "zh": "感兴趣的系列"
+  },
+  "Message": {
+    "fr": "Message",
+    "es": "Mensaje",
+    "it": "Messaggio",
+    "de": "Nachricht",
+    "ja": "メッセージ",
+    "zh": "留言"
+  },
+  "(optional)": {
+    "fr": "(facultatif)",
+    "es": "(opcional)",
+    "it": "(facoltativo)",
+    "de": "(optional)",
+    "ja": "（任意）",
+    "zh": "（选填）"
+  },
+  "I would also like occasional studio news and exhibition invitations. Optional; you can leave the list at any time.": {
+    "fr": "Je souhaite également recevoir les nouvelles du studio et les invitations aux expositions. Facultatif ; désinscription possible à tout moment.",
+    "es": "También deseo recibir noticias ocasionales del estudio e invitaciones a exposiciones. Es opcional y puede darse de baja en cualquier momento.",
+    "it": "Desidero ricevere anche notizie occasionali dallo studio e inviti alle mostre. Facoltativo; è possibile annullare l’iscrizione in qualsiasi momento.",
+    "de": "Ich möchte gelegentlich Neuigkeiten aus dem Studio und Ausstellungseinladungen erhalten. Optional; eine Abmeldung ist jederzeit möglich.",
+    "ja": "スタジオからのお知らせや展覧会のご案内も希望します。任意です。いつでも配信を停止できます。",
+    "zh": "我也希望偶尔收到工作室资讯和展览邀请。此项为可选，可随时取消订阅。"
+  },
+  "Send request": {
+    "fr": "Envoyer la demande",
+    "es": "Enviar solicitud",
+    "it": "Invia richiesta",
+    "de": "Anfrage senden",
+    "ja": "申し込む",
+    "zh": "发送申请"
+  },
+  "Your invitation": {
+    "fr": "Votre invitation",
+    "es": "Su invitación",
+    "it": "Il suo invito",
+    "de": "Ihre Einladung",
+    "ja": "ご招待",
+    "zh": "您的邀请"
+  },
+  "Already received a password? Enter it below to view the editions.": {
+    "fr": "Vous avez reçu un mot de passe ? Saisissez-le ci-dessous pour consulter les éditions.",
+    "es": "¿Ya recibió una contraseña? Introdúzcala para ver las ediciones.",
+    "it": "Ha già ricevuto una password? La inserisca per visualizzare le edizioni.",
+    "de": "Sie haben bereits ein Passwort? Geben Sie es ein, um die Editionen anzusehen.",
+    "ja": "パスワードをお持ちの方は、以下に入力してエディションをご覧ください。",
+    "zh": "已收到密码？请在下方输入以查看版次详情。"
+  },
+  "Personal password": {
+    "fr": "Mot de passe personnel",
+    "es": "Contraseña personal",
+    "it": "Password personale",
+    "de": "Persönliches Passwort",
+    "ja": "個人用パスワード",
+    "zh": "个人密码"
+  },
+  "Enter the collection": {
+    "fr": "Accéder à la collection",
+    "es": "Acceder a la colección",
+    "it": "Accedi alla collezione",
+    "de": "Kollektion öffnen",
+    "ja": "コレクションを見る",
+    "zh": "进入系列"
+  },
+  "Collection": {
+    "fr": "Collection",
+    "es": "Colección",
+    "it": "Collezione",
+    "de": "Kollektion",
+    "ja": "コレクション",
+    "zh": "系列"
+  },
+  "Photograph": {
+    "fr": "Photographie",
+    "es": "Fotografía",
+    "it": "Fotografia",
+    "de": "Fotografie",
+    "ja": "写真",
+    "zh": "照片"
+  },
+  "Close private view": {
+    "fr": "Fermer l’accès privé",
+    "es": "Cerrar acceso privado",
+    "it": "Chiudi accesso privato",
+    "de": "Privaten Zugang schließen",
+    "ja": "閲覧を終了",
+    "zh": "结束私人访问"
+  },
+  "View photograph in the collection": {
+    "fr": "Voir la photographie dans la collection",
+    "es": "Ver la fotografía en la colección",
+    "it": "Vedi la fotografia nella collezione",
+    "de": "Fotografie in der Kollektion ansehen",
+    "ja": "コレクションで写真を見る",
+    "zh": "在系列中查看照片"
+  },
+  "Prices increase as editions are acquired. The price shown applies to the next available print and is confirmed by the studio at acquisition.": {
+    "fr": "Les prix augmentent au fil des acquisitions. Le prix affiché concerne le prochain tirage disponible et sera confirmé par le studio lors de l’acquisition.",
+    "es": "Los precios aumentan a medida que se adquieren los ejemplares. El precio indicado corresponde a la siguiente copia disponible y el estudio lo confirma al adquirirla.",
+    "it": "I prezzi aumentano con l’acquisto degli esemplari. Il prezzo indicato si riferisce alla prossima stampa disponibile e viene confermato dallo studio al momento dell’acquisto.",
+    "de": "Die Preise steigen mit dem Verkauf der Auflage. Der angezeigte Preis gilt für den nächsten verfügbaren Abzug und wird beim Erwerb vom Studio bestätigt.",
+    "ja": "販売が進むにつれ価格が上がります。表示価格は次に購入可能なプリントに適用され、購入時にスタジオが確定します。",
+    "zh": "价格随版次售出而递增。所示价格适用于下一张可售作品，并由工作室在购买时确认。"
+  },
+  "Enquire about this work": {
+    "fr": "Se renseigner sur cette œuvre",
+    "es": "Consultar sobre esta obra",
+    "it": "Informazioni su quest’opera",
+    "de": "Zu diesem Werk anfragen",
+    "ja": "この作品について問い合わせる",
+    "zh": "咨询此作品"
+  },
+  "Enquire with the studio": {
+    "fr": "Contacter le studio",
+    "es": "Consultar al estudio",
+    "it": "Contatta lo studio",
+    "de": "Beim Studio anfragen",
+    "ja": "スタジオに問い合わせる",
+    "zh": "联系工作室"
+  },
+  "Send enquiry": {
+    "fr": "Envoyer",
+    "es": "Enviar consulta",
+    "it": "Invia richiesta",
+    "de": "Anfrage senden",
+    "ja": "問い合わせを送信",
+    "zh": "发送咨询"
+  },
+  "Photographic print only.": {
+    "fr": "Tirage photographique seul.",
+    "es": "Solo la copia fotográfica.",
+    "it": "Solo stampa fotografica.",
+    "de": "Nur der fotografische Abzug.",
+    "ja": "写真プリントのみ。",
+    "zh": "仅包含摄影作品纸本。"
+  },
+  "Framing and shipping are not included.": {
+    "fr": "Encadrement et livraison non inclus.",
+    "es": "Marco y envío no incluidos.",
+    "it": "Cornice e spedizione escluse.",
+    "de": "Rahmung und Versand sind nicht enthalten.",
+    "ja": "額装・送料は含まれません。",
+    "zh": "不含装裱和运费。"
+  },
+  "About the dimensions": {
+    "fr": "À propos des dimensions",
+    "es": "Sobre las dimensiones",
+    "it": "Informazioni sulle dimensioni",
+    "de": "Zu den Maßen",
+    "ja": "寸法について",
+    "zh": "尺寸说明"
+  },
+  "All dimensions are width × height. The finished paper includes a 7 cm white margin at the top and sides, and 10 cm at the bottom. The estimated black museum frame allows 3 cm beyond each paper edge, without an additional mat. Your framer will confirm the final size, moulding and glazing.": {
+    "fr": "Toutes les dimensions sont indiquées en largeur × hauteur. Le papier comprend une marge blanche de 7 cm en haut et sur les côtés, et de 10 cm en bas. L’estimation du cadre noir de type musée ajoute 3 cm à chaque bord du papier, sans passe-partout supplémentaire. L’encadreur confirmera les dimensions finales, la moulure et le vitrage.",
+    "es": "Las medidas son ancho × alto. El papel incluye márgenes blancos de 7 cm arriba y a los lados, y de 10 cm abajo. La estimación del marco negro de estilo museo añade 3 cm por cada borde, sin paspartú adicional. El enmarcador confirmará las medidas finales, la moldura y el acristalamiento.",
+    "it": "Le dimensioni sono larghezza × altezza. Il foglio include margini bianchi di 7 cm in alto e ai lati e di 10 cm in basso. La stima della cornice nera da museo aggiunge 3 cm per lato, senza passe-partout aggiuntivo. Il corniciaio confermerà dimensioni finali, profilo e vetro.",
+    "de": "Alle Maße sind Breite × Höhe. Das Papier umfasst oben und seitlich einen weißen Rand von 7 cm, unten von 10 cm. Die Schätzung für den schwarzen Museumsrahmen rechnet mit 3 cm über jeden Papierrand hinaus, ohne zusätzliches Passepartout. Die endgültigen Maße, das Profil und die Verglasung bestätigt Ihr Rahmenbauer.",
+    "ja": "寸法はすべて幅×高さです。用紙には上と左右に7 cm、下に10 cmの白い余白を含みます。黒のミュージアムフレームの概算は、追加のマットなしで用紙の各辺に3 cmを加えています。最終寸法、額縁、表面材は額装業者にご確認ください。",
+    "zh": "所有尺寸均为宽×高。纸张上方及左右各含7厘米白边，底部含10厘米白边。黑色博物馆式画框的估算尺寸为纸张每边外加3厘米，不含额外卡纸。最终尺寸、框条和玻璃由装裱师确认。"
+  },
+  "Stay in touch": {
+    "fr": "Gardons le contact",
+    "es": "Manténgase en contacto",
+    "it": "Restiamo in contatto",
+    "de": "In Verbindung bleiben",
+    "ja": "最新情報をお届け",
+    "zh": "保持联系"
+  },
+  "Notes from the studio": {
+    "fr": "Nouvelles du studio",
+    "es": "Notas del estudio",
+    "it": "Notizie dallo studio",
+    "de": "Neues aus dem Studio",
+    "ja": "スタジオ便り",
+    "zh": "工作室来信"
+  },
+  "Occasional new work and exhibition news.": {
+    "fr": "Nouvelles œuvres et actualités des expositions, de temps à autre.",
+    "es": "Nuevas obras y noticias de exposiciones ocasionales.",
+    "it": "Nuove opere e notizie occasionali sulle mostre.",
+    "de": "Gelegentlich neue Werke und Ausstellungsnachrichten.",
+    "ja": "新作や展覧会の情報を時折お届けします。",
+    "zh": "不定期分享新作与展览资讯。"
+  },
+  "New work, upcoming exhibitions and occasional notes from the studio. Sign up below to stay in touch.": {
+    "fr": "Nouvelles œuvres, prochaines expositions et nouvelles du studio. Inscrivez-vous ci-dessous pour rester en contact.",
+    "es": "Nuevas obras, próximas exposiciones y notas ocasionales del estudio. Suscríbase para estar al tanto.",
+    "it": "Nuove opere, prossime mostre e notizie occasionali dallo studio. Si iscriva qui sotto per restare in contatto.",
+    "de": "Neue Werke, kommende Ausstellungen und gelegentliche Nachrichten aus dem Studio. Melden Sie sich unten an.",
+    "ja": "新作、今後の展覧会、スタジオからのお便りをお届けします。下のフォームからご登録ください。",
+    "zh": "新作、近期展览和工作室的不定期来信。请在下方订阅。"
+  },
+  "I would like to receive studio updates.": {
+    "fr": "Je souhaite recevoir les nouvelles du studio.",
+    "es": "Deseo recibir noticias del estudio.",
+    "it": "Desidero ricevere notizie dallo studio.",
+    "de": "Ich möchte Neuigkeiten aus dem Studio erhalten.",
+    "ja": "スタジオからのお知らせを希望します。",
+    "zh": "我希望收到工作室资讯。"
+  },
+  "To unsubscribe from the list, email": {
+    "fr": "Pour vous désinscrire de la liste, écrivez au",
+    "es": "Para darse de baja de la lista, escriba al",
+    "it": "Per annullare l’iscrizione, scriva allo",
+    "de": "Zur Abmeldung schreiben Sie bitte an das",
+    "ja": "配信停止をご希望の場合は、こちらにメールをお送りください：",
+    "zh": "如需取消订阅，请发送邮件至"
+  },
+  " the studio": {
+    "fr": " studio",
+    "es": " estudio",
+    "it": " studio",
+    "de": " Studio",
+    "ja": " スタジオ",
+    "zh": " 工作室"
+  },
+  "Join the mailing list": {
+    "fr": "S’inscrire à la lettre du studio",
+    "es": "Suscribirse",
+    "it": "Iscriviti alla newsletter",
+    "de": "Zum Newsletter anmelden",
+    "ja": "メール配信に登録",
+    "zh": "订阅邮件"
+  },
+  "Sending…": {
+    "fr": "Envoi…",
+    "es": "Enviando…",
+    "it": "Invio…",
+    "de": "Wird gesendet…",
+    "ja": "送信中…",
+    "zh": "正在发送…"
+  },
+  "Please try again.": {
+    "fr": "Veuillez réessayer.",
+    "es": "Inténtelo de nuevo.",
+    "it": "Riprovi.",
+    "de": "Bitte versuchen Sie es erneut.",
+    "ja": "もう一度お試しください。",
+    "zh": "请重试。"
+  },
+  "The request service is temporarily unavailable. Please try again shortly.": {
+    "fr": "Le service est momentanément indisponible. Veuillez réessayer dans quelques instants.",
+    "es": "El servicio no está disponible temporalmente. Inténtelo de nuevo en unos momentos.",
+    "it": "Il servizio è temporaneamente non disponibile. Riprovi tra poco.",
+    "de": "Der Dienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es in Kürze erneut.",
+    "ja": "現在サービスをご利用いただけません。しばらくしてからお試しください。",
+    "zh": "服务暂时不可用，请稍后重试。"
+  },
+  "Try again": {
+    "fr": "Réessayer",
+    "es": "Reintentar",
+    "it": "Riprova",
+    "de": "Erneut versuchen",
+    "ja": "再試行",
+    "zh": "重试"
+  },
+  "Studio updates": {
+    "fr": "Nouvelles du studio",
+    "es": "Noticias del estudio",
+    "it": "Notizie dallo studio",
+    "de": "Neuigkeiten aus dem Studio",
+    "ja": "スタジオからのお知らせ",
+    "zh": "工作室资讯"
+  },
+  "Confirm that you would like occasional news of new work and exhibitions.": {
+    "fr": "Confirmez votre souhait de recevoir des nouvelles des œuvres et des expositions.",
+    "es": "Confirme que desea recibir noticias ocasionales de nuevas obras y exposiciones.",
+    "it": "Confermi di voler ricevere notizie occasionali su nuove opere e mostre.",
+    "de": "Bestätigen Sie, dass Sie gelegentlich Neuigkeiten zu neuen Werken und Ausstellungen erhalten möchten.",
+    "ja": "新作や展覧会のお知らせを受け取ることをご確認ください。",
+    "zh": "请确认您希望偶尔收到新作和展览资讯。"
+  },
+  "Confirm my subscription": {
+    "fr": "Confirmer mon inscription",
+    "es": "Confirmar mi suscripción",
+    "it": "Conferma iscrizione",
+    "de": "Anmeldung bestätigen",
+    "ja": "登録を確認",
+    "zh": "确认订阅"
+  },
+  "Please check your email to confirm your subscription.": {
+    "fr": "Consultez votre messagerie pour confirmer votre inscription.",
+    "es": "Revise su correo para confirmar su suscripción.",
+    "it": "Controlli la posta per confermare l’iscrizione.",
+    "de": "Bitte bestätigen Sie die Anmeldung über die E-Mail in Ihrem Postfach.",
+    "ja": "メールをご確認のうえ、登録を完了してください。",
+    "zh": "请查看邮件并确认订阅。"
+  },
+  "You are on the studio mailing list. Thank you.": {
+    "fr": "Votre inscription est confirmée. Merci.",
+    "es": "Su suscripción está confirmada. Gracias.",
+    "it": "L’iscrizione è confermata. Grazie.",
+    "de": "Ihre Anmeldung ist bestätigt. Vielen Dank.",
+    "ja": "メール配信への登録が完了しました。ありがとうございます。",
+    "zh": "订阅已确认，谢谢。"
+  },
+  "Standard Format": {
+    "fr": "Format standard",
+    "es": "Formato estándar",
+    "it": "Formato standard",
+    "de": "Standardformat",
+    "ja": "スタンダードサイズ",
+    "zh": "标准尺寸"
+  },
+  "Large Format": {
+    "fr": "Grand format",
+    "es": "Gran formato",
+    "it": "Grande formato",
+    "de": "Großformat",
+    "ja": "ラージサイズ",
+    "zh": "大幅尺寸"
+  },
+  "Image": {
+    "fr": "Image",
+    "es": "Imagen",
+    "it": "Immagine",
+    "de": "Bild",
+    "ja": "画像",
+    "zh": "画面"
+  },
+  "Finished paper": {
+    "fr": "Papier fini",
+    "es": "Papel acabado",
+    "it": "Foglio finito",
+    "de": "Papiermaß",
+    "ja": "用紙全体",
+    "zh": "成品纸张"
+  },
+  "Framed · estimated": {
+    "fr": "Encadré · estimation",
+    "es": "Enmarcado · estimación",
+    "it": "Incorniciato · stima",
+    "de": "Gerahmt · geschätzt",
+    "ja": "額装時・概算",
+    "zh": "含框 · 估算"
+  },
+  "Price on enquiry": {
+    "fr": "Prix sur demande",
+    "es": "Precio bajo consulta",
+    "it": "Prezzo su richiesta",
+    "de": "Preis auf Anfrage",
+    "ja": "価格はお問い合わせください",
+    "zh": "价格请咨询"
+  },
+  "Edition sold out": {
+    "fr": "Édition épuisée",
+    "es": "Edición agotada",
+    "it": "Edizione esaurita",
+    "de": "Auflage ausverkauft",
+    "ja": "完売",
+    "zh": "本版已售罄"
+  },
+  "Please enquire about other formats.": {
+    "fr": "Renseignez-vous sur les autres formats.",
+    "es": "Consulte por otros formatos.",
+    "it": "Si informi sugli altri formati.",
+    "de": "Bitte fragen Sie nach anderen Formaten.",
+    "ja": "他のサイズについてお問い合わせください。",
+    "zh": "请咨询其他尺寸。"
+  },
+  "Availability confirmed by the studio.": {
+    "fr": "Disponibilité confirmée par le studio.",
+    "es": "Disponibilidad confirmada por el estudio.",
+    "it": "Disponibilità confermata dallo studio.",
+    "de": "Verfügbarkeit wird vom Studio bestätigt.",
+    "ja": "販売状況はスタジオが確認いたします。",
+    "zh": "可售情况由工作室确认。"
+  },
+  "Next available: {next} of {total}": {
+    "fr": "Prochain disponible : {next} sur {total}",
+    "es": "Siguiente disponible: {next} de {total}",
+    "it": "Prossimo disponibile: {next} di {total}",
+    "de": "Nächster verfügbarer Abzug: {next} von {total}",
+    "ja": "次の販売番号：{total}点中{next}番",
+    "zh": "下一张可售：第{next}张，共{total}张"
+  },
+  "Edition of {edition}. Artist’s proofs are separate and available on enquiry.": {
+    "fr": "Édition de {edition}. Les épreuves d’artiste sont distinctes et disponibles sur demande.",
+    "es": "Edición de {edition}. Las pruebas de artista son independientes y están disponibles bajo consulta.",
+    "it": "Edizione di {edition}. Le prove d’artista sono separate e disponibili su richiesta.",
+    "de": "Auflage: {edition}. Künstlerexemplare sind separat und auf Anfrage erhältlich.",
+    "ja": "エディション：{edition}。アーティストプルーフは別枠です。詳細はお問い合わせください。",
+    "zh": "版数：{edition}。艺术家自留版另计，详情请咨询。"
+  },
+  "Your private access expires {date}.": {
+    "fr": "Votre accès privé expire le {date}.",
+    "es": "Su acceso privado vence el {date}.",
+    "it": "L’accesso privato scade il {date}.",
+    "de": "Ihr privater Zugang endet am {date}.",
+    "ja": "アクセス有効期限：{date}。",
+    "zh": "您的私人访问权限于{date}到期。"
+  },
+  "Your 24-hour access has expired. You may request a new invitation.": {
+    "fr": "Votre accès de 24 heures a expiré. Vous pouvez demander une nouvelle invitation.",
+    "es": "Su acceso de 24 horas ha caducado. Puede solicitar otra invitación.",
+    "it": "L’accesso di 24 ore è scaduto. Può richiedere un nuovo invito.",
+    "de": "Ihr 24-Stunden-Zugang ist abgelaufen. Sie können eine neue Einladung anfordern.",
+    "ja": "24時間のアクセス期限が切れました。新たな招待をお申し込みいただけます。",
+    "zh": "您的24小时访问权限已到期，可申请新的邀请。"
+  },
+  "Welcome to the editions.": {
+    "fr": "Bienvenue dans les éditions.",
+    "es": "Bienvenido a las ediciones.",
+    "it": "Benvenuto nelle edizioni.",
+    "de": "Willkommen bei den Editionen.",
+    "ja": "エディションページへようこそ。",
+    "zh": "欢迎浏览版次详情。"
+  },
+  "Your request has reached the studio. If you selected studio updates, look for a separate confirmation email.": {
+    "fr": "Votre demande est parvenue au studio. Si vous avez choisi les nouvelles du studio, vous recevrez un e-mail de confirmation distinct.",
+    "es": "El estudio ha recibido su solicitud. Si seleccionó las noticias del estudio, recibirá otro correo de confirmación.",
+    "it": "Lo studio ha ricevuto la richiesta. Se ha scelto le notizie dello studio, riceverà un’email di conferma separata.",
+    "de": "Ihre Anfrage ist im Studio eingegangen. Falls Sie den Newsletter gewählt haben, erhalten Sie eine separate Bestätigungs-E-Mail.",
+    "ja": "ご依頼を受け付けました。メール配信をご希望の場合は、別途届く確認メールをご覧ください。",
+    "zh": "工作室已收到申请。如果您选择了邮件资讯，请留意另一封确认邮件。"
+  },
+  "Your private view is closed.": {
+    "fr": "Votre accès privé est fermé.",
+    "es": "Su acceso privado se ha cerrado.",
+    "it": "L’accesso privato è chiuso.",
+    "de": "Ihr privater Zugang ist geschlossen.",
+    "ja": "閲覧を終了しました。",
+    "zh": "私人访问已结束。"
+  },
+  "Your enquiry has reached the studio. We’ll be in touch shortly.": {
+    "fr": "Votre demande est parvenue au studio. Nous vous contacterons prochainement.",
+    "es": "El estudio ha recibido su consulta. Le responderemos pronto.",
+    "it": "Lo studio ha ricevuto la richiesta. La contatteremo a breve.",
+    "de": "Ihre Anfrage ist im Studio eingegangen. Wir melden uns in Kürze.",
+    "ja": "お問い合わせを受け付けました。近日中にご連絡いたします。",
+    "zh": "工作室已收到咨询，将尽快联系您。"
+  },
+  "Please enter your password again.": {
+    "fr": "Veuillez saisir à nouveau votre mot de passe.",
+    "es": "Introduzca de nuevo su contraseña.",
+    "it": "Inserisca nuovamente la password.",
+    "de": "Bitte geben Sie Ihr Passwort erneut ein.",
+    "ja": "パスワードを再入力してください。",
+    "zh": "请重新输入密码。"
+  },
+  "Format on enquiry": {
+    "fr": "Format sur demande",
+    "es": "Formato bajo consulta",
+    "it": "Formato su richiesta",
+    "de": "Format auf Anfrage",
+    "ja": "サイズはお問い合わせください",
+    "zh": "尺寸请咨询"
+  },
+  "Silver Gelatin": {
+    "fr": "Tirage gélatino-argentique",
+    "es": "Gelatina de plata",
+    "it": "Gelatina ai sali d’argento",
+    "de": "Silbergelatine",
+    "ja": "ゼラチンシルバープリント",
+    "zh": "银盐明胶印相"
+  },
+  "Pigment": {
+    "fr": "Tirage pigmentaire",
+    "es": "Impresión pigmentaria",
+    "it": "Stampa a pigmenti",
+    "de": "Pigmentdruck",
+    "ja": "顔料プリント",
+    "zh": "颜料打印"
+  },
+  "Your email is used for studio updates. Subscription requires email confirmation; you can unsubscribe at any time.": {
+    "fr": "Votre e-mail sert à l’envoi des nouvelles du studio. L’inscription nécessite une confirmation par e-mail ; vous pouvez vous désinscrire à tout moment.",
+    "es": "Su correo se usa para las noticias del estudio. La suscripción requiere confirmación por correo y puede cancelarse en cualquier momento.",
+    "it": "L’email viene usata per le notizie dello studio. L’iscrizione richiede conferma via email; può annullarla in qualsiasi momento.",
+    "de": "Ihre E-Mail-Adresse wird für Studio-Nachrichten verwendet. Die Anmeldung erfordert eine Bestätigung per E-Mail; Sie können sich jederzeit abmelden.",
+    "ja": "メールアドレスはスタジオのお知らせに使用します。登録にはメールでの確認が必要です。いつでも配信停止できます。",
+    "zh": "您的邮箱用于发送工作室资讯。订阅需通过邮件确认，您可随时取消。"
+  },
+  "Unsubscribe": {
+    "fr": "Se désinscrire",
+    "es": "Darse de baja",
+    "it": "Annulla iscrizione",
+    "de": "Abmelden",
+    "ja": "配信停止",
+    "zh": "取消订阅"
+  },
+  "Send an unsubscribe link": {
+    "fr": "Recevoir un lien de désinscription",
+    "es": "Enviar enlace de baja",
+    "it": "Invia link di disiscrizione",
+    "de": "Abmeldelink senden",
+    "ja": "配信停止リンクを送信",
+    "zh": "发送退订链接"
+  },
+  "If this email is subscribed, an unsubscribe link will arrive shortly.": {
+    "fr": "Si cette adresse est inscrite, un lien de désinscription sera envoyé prochainement.",
+    "es": "Si esta dirección está suscrita, recibirá un enlace para darse de baja.",
+    "it": "Se l’indirizzo è iscritto, riceverà un link per annullare l’iscrizione.",
+    "de": "Falls diese Adresse angemeldet ist, erhalten Sie in Kürze einen Abmeldelink.",
+    "ja": "登録されている場合、まもなく配信停止リンクが届きます。",
+    "zh": "如果此邮箱已订阅，您将很快收到退订链接。"
+  },
+  "Your subscription has been removed.": {
+    "fr": "Votre inscription a été supprimée.",
+    "es": "Su suscripción se ha eliminado.",
+    "it": "L’iscrizione è stata rimossa.",
+    "de": "Ihre Anmeldung wurde entfernt.",
+    "ja": "配信を停止しました。",
+    "zh": "您的订阅已取消。"
+  },
+  "This link expires in 48 hours. If you did not request this, no action is needed.": {
+    "fr": "Ce lien expire dans 48 heures. Si vous n’êtes pas à l’origine de cette demande, ignorez ce message.",
+    "es": "El enlace vence en 48 horas. Si no lo solicitó, no necesita hacer nada.",
+    "it": "Il link scade tra 48 ore. Se non ha fatto la richiesta, ignori il messaggio.",
+    "de": "Dieser Link läuft nach 48 Stunden ab. Wenn Sie dies nicht angefordert haben, ist keine Aktion erforderlich.",
+    "ja": "リンクは48時間有効です。お心当たりがない場合は、何もする必要はありません。",
+    "zh": "链接48小时内有效。如果您未提出此请求，无需采取任何操作。"
+  },
+  "Your private editions access — 24 hours": {
+    "fr": "Votre accès privé aux éditions — 24 heures",
+    "es": "Su acceso privado a las ediciones — 24 horas",
+    "it": "Accesso privato alle edizioni — 24 ore",
+    "de": "Ihr privater Zugang zu den Editionen — 24 Stunden",
+    "ja": "エディションへのプライベートアクセス — 24時間",
+    "zh": "您的版次私人访问权限 — 24小时"
+  },
+  "You are invited to view editions and acquisition details.": {
+    "fr": "Vous êtes invité à découvrir les éditions et les conditions d’acquisition.",
+    "es": "Le invitamos a consultar las ediciones y los detalles de adquisición.",
+    "it": "La invitiamo a consultare le edizioni e le informazioni per l’acquisto.",
+    "de": "Sie sind eingeladen, Editionen und Erwerbsdetails einzusehen.",
+    "ja": "エディションと購入情報をご覧いただけます。",
+    "zh": "诚邀您查看版次与收藏详情。"
+  },
+  "Skip to content": {
+    "fr": "Aller au contenu",
+    "es": "Ir al contenido",
+    "it": "Vai al contenuto",
+    "de": "Zum Inhalt",
+    "ja": "本文へ移動",
+    "zh": "跳至正文"
+  },
+  "Too many attempts. Please try again in an hour.": {
+    "fr": "Trop de tentatives. Réessayez dans une heure.",
+    "es": "Demasiados intentos. Inténtelo en una hora.",
+    "it": "Troppi tentativi. Riprovi tra un’ora.",
+    "de": "Zu viele Versuche. Bitte versuchen Sie es in einer Stunde erneut.",
+    "ja": "試行回数が多すぎます。1時間後にお試しください。",
+    "zh": "尝试次数过多，请一小时后重试。"
+  },
+  "Enter the password from your invitation.": {
+    "fr": "Saisissez le mot de passe de votre invitation.",
+    "es": "Introduzca la contraseña de su invitación.",
+    "it": "Inserisca la password dell’invito.",
+    "de": "Geben Sie das Passwort aus Ihrer Einladung ein.",
+    "ja": "招待メールのパスワードを入力してください。",
+    "zh": "请输入邀请邮件中的密码。"
+  },
+  "This password is invalid or has expired. Please request new access.": {
+    "fr": "Ce mot de passe est invalide ou a expiré. Demandez un nouvel accès.",
+    "es": "La contraseña no es válida o ha caducado. Solicite un nuevo acceso.",
+    "it": "La password non è valida o è scaduta. Richieda un nuovo accesso.",
+    "de": "Dieses Passwort ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Zugang an.",
+    "ja": "パスワードが無効または期限切れです。アクセスを再申請してください。",
+    "zh": "密码无效或已过期，请重新申请访问权限。"
+  },
+  "Please enter your name and a valid email address.": {
+    "fr": "Indiquez votre nom et une adresse e-mail valide.",
+    "es": "Introduzca su nombre y un correo válido.",
+    "it": "Inserisca il nome e un indirizzo email valido.",
+    "de": "Bitte geben Sie Ihren Namen und eine gültige E-Mail-Adresse ein.",
+    "ja": "お名前と有効なメールアドレスを入力してください。",
+    "zh": "请输入姓名及有效邮箱。"
+  },
+  "Please enter a valid email address.": {
+    "fr": "Indiquez une adresse e-mail valide.",
+    "es": "Introduzca un correo válido.",
+    "it": "Inserisca un indirizzo email valido.",
+    "de": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "ja": "有効なメールアドレスを入力してください。",
+    "zh": "请输入有效邮箱。"
+  },
+  "Please confirm that you wish to receive studio updates.": {
+    "fr": "Confirmez votre souhait de recevoir les nouvelles du studio.",
+    "es": "Confirme que desea recibir noticias del estudio.",
+    "it": "Confermi di voler ricevere notizie dallo studio.",
+    "de": "Bitte bestätigen Sie, dass Sie Studio-Nachrichten erhalten möchten.",
+    "ja": "お知らせの配信を希望することをご確認ください。",
+    "zh": "请确认您希望收到工作室资讯。"
+  },
+  "Please choose a photograph.": {
+    "fr": "Choisissez une photographie.",
+    "es": "Elija una fotografía.",
+    "it": "Scelga una fotografia.",
+    "de": "Bitte wählen Sie eine Fotografie.",
+    "ja": "写真を選択してください。",
+    "zh": "请选择照片。"
+  },
+  "Invalid confirmation link.": {
+    "fr": "Lien de confirmation invalide.",
+    "es": "Enlace de confirmación no válido.",
+    "it": "Link di conferma non valido.",
+    "de": "Ungültiger Bestätigungslink.",
+    "ja": "確認リンクが無効です。",
+    "zh": "确认链接无效。"
+  },
+  "This confirmation link has expired. Please sign up again.": {
+    "fr": "Ce lien a expiré. Veuillez vous inscrire à nouveau.",
+    "es": "El enlace ha caducado. Suscríbase de nuevo.",
+    "it": "Il link è scaduto. Si iscriva di nuovo.",
+    "de": "Dieser Link ist abgelaufen. Bitte melden Sie sich erneut an.",
+    "ja": "確認リンクの期限が切れました。再度ご登録ください。",
+    "zh": "确认链接已过期，请重新订阅。"
+  },
+  "This link is invalid or has expired. Please request a new link.": {
+    "fr": "Ce lien est invalide ou a expiré. Demandez un nouveau lien.",
+    "es": "El enlace no es válido o ha caducado. Solicite otro.",
+    "it": "Il link non è valido o è scaduto. Ne richieda uno nuovo.",
+    "de": "Dieser Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an.",
+    "ja": "リンクが無効または期限切れです。新しいリンクをお申し込みください。",
+    "zh": "链接无效或已过期，请申请新链接。"
+  },
+  "Private access is required.": {
+    "fr": "Un accès privé est nécessaire.",
+    "es": "Se requiere acceso privado.",
+    "it": "È necessario un accesso privato.",
+    "de": "Ein privater Zugang ist erforderlich.",
+    "ja": "プライベートアクセスが必要です。",
+    "zh": "需要私人访问权限。"
+  },
+  "The service is temporarily unavailable. Please try again or contact the studio.": {
+    "fr": "Le service est momentanément indisponible. Réessayez ou contactez le studio.",
+    "es": "El servicio no está disponible temporalmente. Inténtelo de nuevo o contacte al estudio.",
+    "it": "Il servizio è temporaneamente non disponibile. Riprovi o contatti lo studio.",
+    "de": "Der Dienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es erneut oder kontaktieren Sie das Studio.",
+    "ja": "現在サービスをご利用いただけません。再試行するか、スタジオにお問い合わせください。",
+    "zh": "服务暂时不可用。请重试或联系工作室。"
+  },
+  "Confirm your studio updates subscription": {
+    "fr": "Confirmez votre inscription aux nouvelles du studio",
+    "es": "Confirme su suscripción a las noticias del estudio",
+    "it": "Confermi l’iscrizione alle notizie dello studio",
+    "de": "Bestätigen Sie Ihre Anmeldung zum Studio-Newsletter",
+    "ja": "スタジオ便りの登録をご確認ください",
+    "zh": "请确认订阅工作室资讯"
+  },
+  "Password": {
+    "fr": "Mot de passe",
+    "es": "Contraseña",
+    "it": "Password",
+    "de": "Passwort",
+    "ja": "パスワード",
+    "zh": "密码"
+  }
+}

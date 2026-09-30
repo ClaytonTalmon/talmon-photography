@@ -1,23 +1,33 @@
 ---
+import { collectorText } from '../../i18n/collector.mjs';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { locales, type Locale } from '../../i18n/utils';
 import '../../styles/editions.css';
 export function getStaticPaths() { return locales.map(locale=>({params:{locale}})); }
 const {locale}=Astro.params as {locale:Locale};
+const ct = (text: string) => collectorText(locale, text);
 ---
-<BaseLayout locale={locale} title="Mailing List" description="Join the mailing list for new photographs, exhibitions and occasional notes from the studio.">
+<BaseLayout locale={locale} title={ct("Mailing List")} description={ct("New work, upcoming exhibitions and occasional notes from the studio. Sign up below to stay in touch.")}>
 <section class="editions signup-page">
- <span class="eyebrow">Notes from the studio</span>
- <h1>Mailing List</h1>
- <p class="intro">New work, upcoming exhibitions and occasional notes from the studio. Sign up below to stay in touch.</p>
+ <span class="eyebrow">{ct("Notes from the studio")}</span>
+ <h1>{ct("Mailing List")}</h1>
+ <p class="intro">{ct("New work, upcoming exhibitions and occasional notes from the studio. Sign up below to stay in touch.")}</p>
+ <section id="subscription-confirmation" hidden>
+  <p id="confirmation-description">{ct("Confirm that you would like occasional news of new work and exhibitions.")}</p>
+  <button id="subscription-confirm" class="primary">{ct("Confirm my subscription")}</button>
+ </section>
  <form id="mailing-signup">
-  <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+  <label>{ct("Email address")}<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
   <label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
-  <label class="check"><input name="consent" type="checkbox" required /><span>I would like to receive studio updates.</span></label>
-  <button class="primary">Join the mailing list</button>
-  <p id="signup-status" class="notice" role="status" aria-live="polite"></p>
-  <p class="small">To unsubscribe from the list, email <a href="mailto:ctalmon@gmail.com?subject=Unsubscribe">the studio</a>.</p>
+  <label class="check"><input name="consent" type="checkbox" required /><span>{ct("I would like to receive studio updates.")}</span></label>
+  <button class="primary">{ct("Join the mailing list")}</button>
+  <p class="small">{ct("Your email is used for studio updates. Subscription requires email confirmation; you can unsubscribe at any time.")}</p>
+  <p class="small">{ct("To unsubscribe from the list, email")} <a href="mailto:ctalmon@gmail.com?subject=Unsubscribe">{ct(" the studio").trim()}</a>.</p>
  </form>
+ <details id="unsubscribe-details"><summary class="small">{ct("Unsubscribe")}</summary>
+  <form id="unsubscribe-form"><label>{ct("Email address")}<input type="email" name="email" autocomplete="email" required maxlength="254" /></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><button>{ct("Send an unsubscribe link")}</button></form>
+ </details>
+ <p id="signup-status" class="notice" role="status" aria-live="polite"></p>
 </section>
 </BaseLayout>
 <style>
@@ -27,34 +37,8 @@ const {locale}=Astro.params as {locale:Locale};
  :global(body:has(#mailing-signup) > footer) { flex-shrink:0; }
  .signup-page { max-width:760px; padding-bottom:40px; }
  #signup-status:empty { display:none; }
- #mailing-signup { margin-top:28px; }
+ #mailing-signup, #unsubscribe-details { margin-top:28px; }
+ #unsubscribe-form { display:grid; gap:16px; margin-top:16px; }
+ #unsubscribe-form button { justify-self:start; }
 </style>
-<script>
-const form = document.querySelector<HTMLFormElement>('#mailing-signup')!;
-const status = document.querySelector<HTMLElement>('#signup-status')!;
-if (['talmonphoto.com','www.talmonphoto.com'].includes(location.hostname)) {
- location.replace('https://willowy-pika-c392c9.netlify.app'+location.pathname);
-}
-form.addEventListener('submit',async event=>{
- event.preventDefault();
- const button=form.querySelector('button')!;
- button.disabled=true;
- status.textContent='Sending…';
- status.classList.remove('error');
- try {
-  const data=Object.fromEntries(new FormData(form));
-  const response=await fetch('/.netlify/functions/editions?action=subscribe',{
-   method:'POST',headers:{'Content-Type':'application/json'},
-   body:JSON.stringify({...data,consent:form.querySelector<HTMLInputElement>('[name="consent"]')!.checked})
-  });
-  if (![200,400,429].includes(response.status)) throw Error('Signup is temporarily unavailable. Please try again shortly.');
-  const result=await response.json();
-  if(!response.ok) throw Error(result.error || 'Please try again.');
-  form.reset();
-  status.textContent='Thank you. Please check your email and confirm your subscription.';
- } catch(error) {
-  status.textContent=error instanceof Error?error.message:'Please try again.';
-  status.classList.add('error');
- } finally {button.disabled=false;}
-});
-</script>
+<script>import '../../scripts/mailing-list.js';</script>

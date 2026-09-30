@@ -1,11 +1,11 @@
 import { cpus } from 'node:os';
-import { readdir, mkdir, stat } from 'node:fs/promises';
+import { readdir, mkdir, stat, rm } from 'node:fs/promises';
 import { extname, join, relative } from 'node:path';
 import sharp from 'sharp';
 
 const sourceRoot = new URL('../src/assets/', import.meta.url);
 const outputRoot = new URL('../public/_images/', import.meta.url);
-const widths = [640, 1200, 1800, 2400];
+const widths = [640, 1200, 1800, 2000];
 const supported = new Set(['.jpg', '.jpeg', '.png']);
 const restoredFromCache = process.env.RESPONSIVE_CACHE_HIT === 'true';
 
@@ -20,6 +20,8 @@ async function walk(directory) {
 
 const files = (await walk(sourceRoot.pathname)).filter((path) => supported.has(extname(path).toLowerCase()));
 const jobs = [];
+// Discard derivatives from older image policies so oversized files cannot linger.
+await rm(outputRoot, {recursive:true, force:true});
 
 for (const input of files) {
   const metadata = await sharp(input).metadata();
@@ -30,7 +32,7 @@ for (const input of files) {
   await mkdir(join(outputBase, '..'), { recursive: true });
 
   for (const requestedWidth of widths) {
-    const width = Math.min(requestedWidth, metadata.width);
+    const width = Math.min(requestedWidth, metadata.width, Math.floor(2000 * metadata.width / Math.max(metadata.width, metadata.height)));
     const output = `${outputBase}-${width}.webp`;
     if (jobs.some((job) => job.output === output)) continue;
     try {

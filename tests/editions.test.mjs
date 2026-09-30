@@ -243,3 +243,43 @@ test('collection interests reach the studio and acquisition enquiries send direc
   assert.ok(s.emails.at(-1).text.includes(work.title));
   assert.equal((await s.call('enquiry',{...data,work:'missing'})).status,400);
 });
+
+test('all collector locales receive localized confirmation and invitation links', async()=>{
+ for(const locale of ['en','fr','es','it','de','ja','zh']) {
+  const s=setup(), admin=await auth(s);
+  await s.call('request',{name:'Collector',email:'test@example.com',locale,consent:true});
+  const confirmation=s.emails.at(-1);
+  assert.ok(confirmation.text.includes(`/${locale}/mailing-list/?confirm=`));
+  const link=new URL(confirmation.text.match(/https:\/\/\S+/)[0]);
+  assert.equal((await s.call('confirm-subscription',{subscriber:link.searchParams.get('subscriber'),token:link.searchParams.get('confirm')})).status,200);
+  const data=await (await s.call('studio-data',null,admin)).json();
+  assert.equal(data.subscribers[0].locale,locale);
+  await s.call('studio-approve',{id:data.requests[0].id},admin);
+  assert.ok(s.emails.at(-1).text.includes(`/${locale}/editions/`));
+  if(locale!=='en') assert.notEqual(confirmation.subject,'Confirm your studio updates subscription');
+ }
+});
+test('unsubscribe requires an emailed valid token, preserves collector access, and expires after 48 hours',async()=>{
+ const s=setup(), admin=await auth(s), invitation=await invite(s,admin);
+ await s.call('subscribe',{email:'collector@example.com',consent:true,locale:'fr'});
+ const confirm=new URL(s.emails.at(-1).text.match(/https:\/\/\S+/)[0]);
+ const subscriber=confirm.searchParams.get('subscriber');
+ await s.call('confirm-subscription',{subscriber,token:confirm.searchParams.get('confirm')});
+ const before=s.emails.length;
+ assert.equal((await s.call('request-unsubscribe',{email:'unknown@example.com'})).status,200);
+ assert.equal(s.emails.length,before);
+ await s.call('request-unsubscribe',{email:'collector@example.com',locale:'fr'});
+ const url=new URL(s.emails.at(-1).text.match(/https:\/\/\S+/)[0]), token=url.searchParams.get('unsubscribe');
+ assert.ok(url.pathname.startsWith('/fr/mailing-list/'));
+ assert.equal((await s.call('unsubscribe',{subscriber,token:'wrong'})).status,400);
+ assert.equal((await s.call('unsubscribe',{subscriber,token})).status,200);
+ assert.equal(s.values.has('subscriber/'+subscriber),false);
+ assert.equal((await s.call('catalog',null,invitation.cookie)).status,200);
+ assert.equal((await s.call('unsubscribe',{subscriber,token})).status,400);
+ await s.call('subscribe',{email:'collector@example.com',consent:true});
+ await s.call('request-unsubscribe',{email:'collector@example.com'});
+ const expired=new URL(s.emails.at(-1).text.match(/https:\/\/\S+/)[0]);
+ s.advance(2*86400000);
+ assert.equal((await s.call('unsubscribe',{subscriber,token:expired.searchParams.get('unsubscribe')})).status,400);
+ assert.equal(s.values.has('subscriber/'+subscriber),true);
+});

@@ -1,7 +1,4 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://talmondelarmee.com/sitemap.xml
-
 Disallow: /editions-editor/
-Disallow: /.netlify/functions/editions
+Sitemap: https://talmonphoto.com/sitemap.xml

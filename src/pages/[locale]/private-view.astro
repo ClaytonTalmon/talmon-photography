@@ -17,19 +17,6 @@ const timeOptions = Array.from({ length: 96 }, (_, index) => {
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : 'https://formspree.io/f/mdekzkeb';
 
-// The password is never stored in the page as plain text — only its
-// SHA-256 hash is baked into the build, and the browser hashes whatever
-// the visitor types before comparing. This keeps a casual "view source"
-// from revealing the password, but it is NOT real security: this is a
-// static site with no server, so a determined visitor could still find
-// it. Treat this the way a gallery treats a shared viewing-room code —
-// a courtesy barrier for invited collectors, not a vault.
-//
-// To set the password:
-//   1. Pick a password, e.g. "midnight-tide"
-//   2. Generate its hash:  echo -n "midnight-tide" | shasum -a 256
-//   3. Put the hash in .env as: PUBLIC_PRIVATE_VIEW_HASH=<the hash>
-const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
 ---
 
 <BaseLayout locale={locale} title={t.privateView.title} description={t.privateView.intro}>
@@ -38,26 +25,6 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
       <h1>{t.privateView.title}</h1>
       <p>{t.privateView.intro}</p>
     </header>
-
-    {passwordHash ? (
-      <>
-        <form id="pv-gate" class="pv-gate" data-hash={passwordHash}>
-          <label>
-            {t.privateView.passwordLabel}
-            <input type="password" name="password" required autocomplete="off" />
-          </label>
-          <button class="btn" type="submit">{t.privateView.submit}</button>
-          <p class="pv-error" hidden>{t.privateView.error}</p>
-        </form>
-
-        <div id="pv-content" class="pv-content" hidden>
-          <h2>{t.privateView.welcomeTitle}</h2>
-          <p>{t.privateView.welcomeBody}</p>
-        </div>
-      </>
-    ) : (
-      null
-    )}
 
     <form
       id="pv-request-form"
@@ -103,6 +70,7 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
         {t.privateView.requestMessageLabel}
         <textarea name="message" rows="5"></textarea>
       </label>
+      <label>{({en:'Time zone',fr:'Fuseau horaire',ja:'タイムゾーン',es:'Zona horaria',it:'Fuso orario',zh:'时区',de:'Zeitzone'})[locale]}<input name="timezone" id="appointment-timezone" required maxlength="100" placeholder="Europe/Paris" /></label>
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="subject" value="Private viewing request" />
       <button class="btn" type="submit">{t.privateView.requestSubmit}</button>
@@ -113,51 +81,17 @@ const passwordHash = import.meta.env.PUBLIC_PRIVATE_VIEW_HASH;
 </BaseLayout>
 
 <script>
-  const form = document.getElementById('pv-gate') as HTMLFormElement | null;
-  const content = document.getElementById('pv-content');
-  const errorEl = form?.querySelector('.pv-error') as HTMLElement | null;
-  const STORAGE_KEY = 'pv-unlocked';
-
-  async function sha256Hex(text: string): Promise<string> {
-    const data = new TextEncoder().encode(text);
-    const digest = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(digest))
-      .map((b) => b.toString(16).padStart(2, '0'))
-      .join('');
-  }
-
-  function unlock() {
-    form?.setAttribute('hidden', '');
-    content?.removeAttribute('hidden');
-  }
-
-  if (form && content) {
-    const expectedHash = form.dataset.hash;
-
-    if (sessionStorage.getItem(STORAGE_KEY) === expectedHash) {
-      unlock();
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const input = form.querySelector<HTMLInputElement>('input[name="password"]');
-      const value = input?.value ?? '';
-      const hash = await sha256Hex(value);
-
-      if (hash === expectedHash) {
-        sessionStorage.setItem(STORAGE_KEY, hash);
-        errorEl?.setAttribute('hidden', '');
-        unlock();
-      } else {
-        errorEl?.removeAttribute('hidden');
-      }
-    });
-  }
-
   const requestForm = document.getElementById('pv-request-form') as HTMLFormElement | null;
   const submitButton = requestForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const formStatus = requestForm?.querySelector<HTMLElement>('.pv-status');
   let sending = false;
+  const timezone = document.querySelector<HTMLInputElement>('#appointment-timezone');
+  if (timezone) timezone.defaultValue = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+  const date = document.querySelector<HTMLInputElement>('[name="date"]');
+  if (date) {
+    const now = new Date();
+    date.min = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  }
 
   if (requestForm && submitButton && formStatus) {
     requestForm.addEventListener('submit', async (event) => {

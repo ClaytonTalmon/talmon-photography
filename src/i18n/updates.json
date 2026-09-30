@@ -1,0 +1,113 @@
+{
+  "fr": {
+    "nav": {
+      "privateView": "Rendez-vous"
+    },
+    "footer": {
+      "privateView": "Rendez-vous"
+    },
+    "home": {
+      "exhibitionLabel": "Nouvelle collection",
+      "collectorsBody": "Les rendez-vous privés en ligne permettent d’explorer une photographie ou une collection, de découvrir le travail et son histoire, et d’échanger avec l’artiste. Indiquez le créneau qui vous convient ; le studio vous contactera pour le confirmer.",
+      "collectorsCta": "Demander un rendez-vous",
+      "exhibitionSubtitle": "Études de la mer ancienne",
+      "formSubtitle": "La figure humaine et les forces élémentaires du désert.",
+      "flightSubtitle": "La distance simplifie. L’altitude épure."
+    },
+    "privateView": {
+      "title": "Demander un rendez-vous",
+      "intro": "Les rendez-vous privés en ligne permettent d’explorer une photographie ou une collection, de découvrir le travail et son histoire, et d’échanger avec l’artiste. Indiquez le créneau qui vous convient ; le studio vous contactera pour le confirmer.",
+      "requestSubmit": "Demander un rendez-vous"
+    }
+  },
+  "es": {
+    "nav": {
+      "privateView": "Citas"
+    },
+    "footer": {
+      "privateView": "Citas"
+    },
+    "home": {
+      "exhibitionLabel": "Nueva colección",
+      "collectorsBody": "Las citas privadas en línea ofrecen la oportunidad de explorar una fotografía o colección, conocer la obra y su contexto y conversar con el artista. Indique el horario que prefiera y el estudio se pondrá en contacto para confirmarlo.",
+      "collectorsCta": "Solicitar una cita"
+    },
+    "privateView": {
+      "title": "Solicitar una cita",
+      "intro": "Las citas privadas en línea ofrecen la oportunidad de explorar una fotografía o colección, conocer la obra y su contexto y conversar con el artista. Indique el horario que prefiera y el estudio se pondrá en contacto para confirmarlo.",
+      "requestSubmit": "Solicitar una cita"
+    }
+  },
+  "it": {
+    "nav": {
+      "privateView": "Appuntamenti"
+    },
+    "footer": {
+      "privateView": "Appuntamenti"
+    },
+    "home": {
+      "exhibitionLabel": "Nuova collezione",
+      "collectorsBody": "Gli appuntamenti privati online offrono l’opportunità di esplorare una fotografia o una collezione, conoscere il lavoro e la sua storia e rivolgere domande all’artista. Indichi l’orario che preferisce: lo studio la contatterà per confermarlo.",
+      "collectorsCta": "Richiedi un appuntamento"
+    },
+    "privateView": {
+      "title": "Richiedi un appuntamento",
+      "intro": "Gli appuntamenti privati online offrono l’opportunità di esplorare una fotografia o una collezione, conoscere il lavoro e la sua storia e rivolgere domande all’artista. Indichi l’orario che preferisce: lo studio la contatterà per confermarlo.",
+      "requestSubmit": "Richiedi un appuntamento"
+    }
+  },
+  "de": {
+    "nav": {
+      "privateView": "Termine"
+    },
+    "footer": {
+      "privateView": "Termine"
+    },
+    "home": {
+      "exhibitionLabel": "Neue Kollektion",
+      "collectorsBody": "Private Online-Termine bieten Gelegenheit, eine Fotografie oder eine Kollektion zu entdecken, mehr über die Werke und ihre Hintergründe zu erfahren und Fragen mit dem Künstler zu besprechen. Bitte nennen Sie einen passenden Termin; das Studio wird ihn anschließend mit Ihnen bestätigen.",
+      "collectorsCta": "Termin anfragen"
+    },
+    "privateView": {
+      "title": "Termin anfragen",
+      "intro": "Private Online-Termine bieten Gelegenheit, eine Fotografie oder eine Kollektion zu entdecken, mehr über die Werke und ihre Hintergründe zu erfahren und Fragen mit dem Künstler zu besprechen. Bitte nennen Sie einen passenden Termin; das Studio wird ihn anschließend mit Ihnen bestätigen.",
+      "requestSubmit": "Termin anfragen"
+    }
+  },
+  "ja": {
+    "nav": {
+      "privateView": "ご予約"
+    },
+    "footer": {
+      "privateView": "ご予約"
+    },
+    "home": {
+      "exhibitionLabel": "新しいコレクション",
+      "collectorsBody": "プライベートなオンライン面談では、写真やコレクションを鑑賞し、作品の背景を知り、作家に質問することができます。ご希望の日時をお知らせください。スタジオより確認のご連絡を差し上げます。",
+      "collectorsCta": "オンライン面談のご予約"
+    },
+    "privateView": {
+      "title": "オンライン面談のご予約",
+      "intro": "プライベートなオンライン面談では、写真やコレクションを鑑賞し、作品の背景を知り、作家に質問することができます。ご希望の日時をお知らせください。スタジオより確認のご連絡を差し上げます。",
+      "requestSubmit": "オンライン面談のご予約"
+    }
+  },
+  "zh": {
+    "nav": {
+      "privateView": "预约"
+    },
+    "footer": {
+      "privateView": "预约"
+    },
+    "home": {
+      "exhibitionLabel": "新系列",
+      "collectorsBody": "私人线上会面为您提供深入欣赏照片或系列作品、了解创作背景并与艺术家交流的机会。请提出您方便的时间，工作室将与您联系确认。",
+      "collectorsCta": "申请预约"
+    },
+    "privateView": {
+      "title": "申请预约",
+      "intro": "私人线上会面为您提供深入欣赏照片或系列作品、了解创作背景并与艺术家交流的机会。请提出您方便的时间，工作室将与您联系确认。",
+      "requestSubmit": "申请预约"
+    }
+  }
+}

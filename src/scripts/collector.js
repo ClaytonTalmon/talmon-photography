@@ -1,10 +1,11 @@
-export {};
+import { collectorText } from "../i18n/collector.mjs";
 const $ = (id) => document.getElementById(id),
   params = new URLSearchParams(location.search),
   locale = location.pathname.split("/")[1];
 if (["talmonphoto.com", "www.talmonphoto.com"].includes(location.hostname)) {
   location.replace("https://willowy-pika-c392c9.netlify.app" + location.pathname + location.search + location.hash);
 }
+const t = (text, values) => collectorText(locale, text, values);
 const publicCatalog = JSON.parse($("public-catalog").textContent);
 const requestedWork = publicCatalog.find(w => w.id === params.get("work"));
 for (const input of document.querySelectorAll('[name="collections"]')) {
@@ -19,19 +20,19 @@ const notice = (text, error = false) => {
   $("notice").classList.toggle("error", error);
 };
 async function api(action, data) {
-  const r = await fetch("/.netlify/functions/editions?action=" + action, {
+  const r = await fetch("/.netlify/functions/editions?locale=" + locale + "&action=" + action, {
     method: data ? "POST" : "GET",
     headers: data ? { "Content-Type": "application/json" } : {},
-    body: data ? JSON.stringify(data) : undefined,
+    body: data ? JSON.stringify({...data,locale}) : undefined,
     cache: "no-store",
   });
-  if (r.status === 404 || r.status === 503) {
-    const error = new Error("Private online access is not available yet. Please contact the studio.");
+  if (r.status === 404 || r.status >= 500) {
+    const error = new Error(t("The request service is temporarily unavailable. Please try again shortly."));
     error.unavailable = true;
     throw error;
   }
   const result = await r.json();
-  if (!r.ok) throw Error(result.error || "Please try again.");
+  if (!r.ok) throw Error(t(result.error || t("Please try again.")));
   return result;
 }
 function lock() {
@@ -66,7 +67,7 @@ function render() {
   $("artwork").alt = active.title;
   $("work-title").textContent = active.title;
   $("collection-name").textContent = active.collection.toUpperCase();
-  $("print-type").textContent = active.printType;
+  $("print-type").textContent = t(active.printType);
   $("acquisition-request").hidden = true;
 
   $("view-artwork").href = "/" + locale + "/work/" + active.collection + "/";
@@ -75,7 +76,7 @@ function render() {
   $("formats").replaceChildren(
     ...active.formats.map((f) => {
       const b = document.createElement("button");
-      b.textContent = f.label;
+      b.textContent = t(f.label);
       b.setAttribute("aria-pressed", String(selected === f.key));
       b.onclick = () => {
         selected = f.key;
@@ -87,18 +88,18 @@ function render() {
   const f = active.formats.find((f) => f.key === selected);
   $("dimensions").replaceChildren();
   if (!f) {
-    $("price").textContent = "On enquiry";
+    $("price").textContent = t("Price on enquiry");
     $("availability").textContent =
-      "Please contact the studio for sizes and availability.";
+      t("Availability confirmed by the studio.");
     $("edition-description").textContent = "";
     return;
   }
   const fmt = (n) =>
-    new Intl.NumberFormat("en", { maximumFractionDigits: 2 }).format(n);
+    new Intl.NumberFormat(locale, { maximumFractionDigits: 2 }).format(n);
   for (const [label, w, h] of [
-    ["Image", f.width, f.height],
-    ["Finished paper", f.width + 14, f.height + 17],
-    ["Framed · estimated", f.width + 20, f.height + 23],
+    [t("Image"), f.width, f.height],
+    [t("Finished paper"), f.width + 14, f.height + 17],
+    [t("Framed · estimated"), f.width + 20, f.height + 23],
   ]) {
     const div = document.createElement("div"),
       dt = document.createElement("dt"),
@@ -113,14 +114,12 @@ function render() {
     $("dimensions").append(div);
   }
   $("edition-description").textContent =
-    "Edition of " +
-    f.editionLabel +
-    ". Artist’s proofs are separate and available on enquiry.";
+    t("Edition of {edition}. Artist’s proofs are separate and available on enquiry.", {edition:f.editionLabel});
   $("price").textContent = f.soldOut
-    ? "Edition sold out"
+    ? t("Edition sold out")
     : f.price === null
-      ? "Price on enquiry"
-      : new Intl.NumberFormat("en", {
+      ? t("Price on enquiry")
+      : new Intl.NumberFormat(locale, {
           style: "currency",
           currency: f.currency,
           maximumFractionDigits: 0,
@@ -128,10 +127,10 @@ function render() {
         " " +
         f.currency;
   $("availability").textContent = f.soldOut
-    ? "Please enquire about other formats."
+    ? t("Please enquire about other formats.")
     : f.sold === null
-      ? "Availability confirmed by the studio."
-      : "Next available: " + (f.sold + 1) + " of " + f.edition;
+      ? t("Availability confirmed by the studio.")
+      : t("Next available: {next} of {total}", {next:f.sold+1,total:f.edition});
 }
 async function load() {
   const data = await api("catalog");
@@ -139,9 +138,7 @@ async function load() {
   $("gate").hidden = true;
   $("collection").hidden = false;
   $("expires").textContent =
-    "Your private access expires " +
-    new Date(data.expires).toLocaleString() +
-    ".";
+    t("Your private access expires {date}.", {date:new Date(data.expires).toLocaleString(locale)});
   $("collection-select").replaceChildren(
     ...[...new Set(works.map((w) => w.collection))].map((c) =>
       option(c, c.toUpperCase()),
@@ -155,7 +152,7 @@ async function load() {
     () => {
       lock();
       notice(
-        "Your 24-hour access has expired. You may request a new invitation.",
+        t("Your 24-hour access has expired. You may request a new invitation."),
       );
     },
     Math.max(0, data.expires - Date.now()),
@@ -182,13 +179,13 @@ for (const [id, action] of [
       if (action === "unlock") {
         await load();
         form.reset();
-        notice("Welcome to the editions.");
+        notice(t("Welcome to the editions."));
       } else {
         form.reset();
         notice(
           action === "request"
-            ? "Your request has reached the studio. If you selected studio updates, look for a separate confirmation email."
-            : "Please check your email to confirm your subscription.",
+            ? t("Your request has reached the studio. If you selected studio updates, look for a separate confirmation email.")
+            : t("Please check your email to confirm your subscription."),
         );
       }
     } catch (e) {
@@ -201,7 +198,7 @@ $("logout").onclick = async () => {
   try {
     await api("logout", {});
     lock();
-    notice("Your private view is closed.");
+    notice(t("Your private view is closed."));
   } catch (e) {
     notice(e.message, true);
   }
@@ -216,7 +213,7 @@ if (params.has("confirm")) {
       });
       $("confirmation").hidden = true;
       history.replaceState({}, "", location.pathname);
-      notice("You are on the studio mailing list. Thank you.");
+      notice(t("You are on the studio mailing list. Thank you."));
     } catch (e) {
       notice(e.message, true);
     }
@@ -230,7 +227,7 @@ load().catch(error => {
     $("subscribe").hidden = true;
     const p = document.createElement("p");
     p.className = "small";
-    p.textContent = "Studio signup is temporarily unavailable. Please try again shortly.";
+    p.textContent = t("The request service is temporarily unavailable. Please try again shortly.");
     $("subscribe").after(p);
   }
 });
@@ -238,13 +235,13 @@ document.addEventListener("visibilitychange", () => {
   if (!document.hidden && works.length)
     load().catch(() => {
       lock();
-      notice("Please enter your password again.");
+      notice(t("Please enter your password again."));
     });
 });
 
 $("enquire").onclick = () => {
   $("acquisition-request").hidden = false;
-  $("enquiry-work").textContent = active.title + " · " + active.collection.toUpperCase() + " · " + (active.formats.find(f=>f.key===selected)?.label || "Format on enquiry");
+  $("enquiry-work").textContent = active.title + " · " + active.collection.toUpperCase() + " · " + t(active.formats.find(f=>f.key===selected)?.label || "Format on enquiry");
   $("enquiry-notice").textContent = "";
   $("acquisition-request").scrollIntoView({behavior:"smooth",block:"center"});
 };
@@ -255,7 +252,7 @@ $("acquisition-request").onsubmit = async event => {
   try {
     await api("enquiry", {...Object.fromEntries(new FormData(form)), work:active.id, format:selected});
     form.reset();
-    $("enquiry-notice").textContent = "Your enquiry has reached the studio. We’ll be in touch shortly.";
+    $("enquiry-notice").textContent = t("Your enquiry has reached the studio. We’ll be in touch shortly.");
   } catch(error) { $("enquiry-notice").textContent = error.message; }
   finally { button.disabled = false; }
 };

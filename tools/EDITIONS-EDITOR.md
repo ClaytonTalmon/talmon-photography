@@ -22,11 +22,11 @@ The editor's own session lasts eight hours. Sign out when finished, especially o
 
 ## Mailing list
 
-Access requests do not add anyone to the mailing list unless they explicitly opt in. Standalone signup is available on the Editions page. Subscribers receive a confirmation link valid for 48 hours. Only confirmed subscribers are exported. The editor lets you export CSV and remove people who email the studio asking to unsubscribe. It does not send campaigns; include an unsubscribe option when using the exported list with your mailing provider.
+Access requests do not add anyone to the mailing list unless they explicitly opt in. Standalone signup is available from the footer at `/[locale]/mailing-list/`, and on the Editions page. Subscribers receive a confirmation link valid for 48 hours. Only confirmed subscribers are exported. The signup page also offers self-service unsubscribe: it emails a 48-hour link and requires explicit confirmation before removing a subscription. Email links preserve the subscriber’s language. The editor lets you export CSV and remove people who email the studio asking to unsubscribe. It does not send campaigns; include an unsubscribe option when using the exported list with your mailing provider.
 
 ## Hosting
 
-The public site currently deploys to **GitHub Pages** at `talmonphoto.com`. The secure collector service must be deployed on **Netlify** before online requests, passwords, prices or subscriptions can operate. Until then, the collector page offers an email enquiry fallback.
+The public site currently deploys to **GitHub Pages** at `talmonphoto.com`. The secure collector service runs on **Netlify** at `https://willowy-pika-c392c9.netlify.app`. Public Collect and Mailing List links lead there. Requests submit directly; no mail application opens.
 
 The Netlify function uses the existing `RESEND_API_KEY` environment variable and the sender `studio@updates.claytontalmon.com`. Ensure the key is available to Functions in the production context. Confirm the sender is verified in Resend; the existing public contact page currently uses Formspree, so Resend activation must be verified separately. No new shared password secret is required.
 
@@ -35,5 +35,7 @@ Private state is stored with `@netlify/blobs` in a site-wide store named `collec
 The generated `src/data/edition-catalog.mjs` contains public titles and dimensions, never prices. It is regenerated at build time from Collection Editor metadata and image orientation. All dimensions are width × height: paper = image +14 cm width / +17 cm height; estimated framing = paper +6 cm in both directions. Unknown dimensions or editions remain on enquiry.
 
 After the initial production deployment, confirm that the API rejects unauthenticated catalog requests, sign into the editor, enter actual prices, and use a collector email you control to test delivery and unlock. The automated tests mock email delivery and never send real messages.
+
+Builds require Node 22.12 or later (hosting uses Node 24). All deployed photo files are capped at 2,000 pixels on the longest edge. Right-click and image dragging are deterred only on photographs, without disabling text selection or forms. This is not download protection. Source assets and Git history are separate from the display files; a public repository can still expose source images.
 
 Run `npm run test:editions` for access, expiry, revocation, pricing and consent tests; `npm run build` checks and builds all site pages.

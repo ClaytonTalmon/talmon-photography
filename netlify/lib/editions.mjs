@@ -1,4 +1,5 @@
 import { createHash, randomBytes } from "node:crypto";
+import { collectorText, validLocale } from "../../src/i18n/collector.mjs";
 import catalog from "../../src/data/edition-catalog.mjs";
 const DAY = 86400000,
   OWNER = "ClaytonTalmon";
@@ -66,8 +67,9 @@ export function createHandler({
           return response({ error: "Invalid request." }, 400);
         }
       }
-      const fail = (message, status = 400) =>
-        response({ error: message }, status);
+      const locale = validLocale(p.locale || url.searchParams.get("locale"));
+      const t = (text, values) => collectorText(locale, text, values);
+      const fail = (message, status = 400) => response({ error: t(message) }, status);
       if (action === "logout" && req.method === "POST") {
         for (const kind of ["collector", "studio"]) {
           const value = req.headers
@@ -166,6 +168,7 @@ export function createHandler({
           const record = {
             ...old,
             id: hash(email),
+            locale,
             email,
             name,
             work: String(p.work || "").slice(0, 250),
@@ -190,6 +193,7 @@ export function createHandler({
             await write(key, {
               email,
               name,
+              locale,
               status: "pending",
               requested: now(),
               confirmation: hash(confirmation),
@@ -197,12 +201,32 @@ export function createHandler({
             });
             await send({
               to: email,
-              subject: "Confirm your studio updates subscription",
-              text: `Please confirm that you would like occasional news of new work and exhibitions:\n${url.origin}/en/editions/?confirm=${confirmation}&subscriber=${hash(email)}\n\nThis link expires in 48 hours. If you did not request this, no action is needed.`,
+              subject: t("Confirm your studio updates subscription"),
+              text: `${t("Confirm that you would like occasional news of new work and exhibitions.")}\n${url.origin}/${locale}/mailing-list/?confirm=${confirmation}&subscriber=${hash(email)}\n\n${t("This link expires in 48 hours. If you did not request this, no action is needed.")}`,
             });
           }
         }
         return response({ ok: true });
+      }
+      if (action === "request-unsubscribe" && req.method === "POST") {
+        if (p.company) return response({ok:true});
+        const email = String(p.email || "").trim().toLowerCase();
+        if (!emailOK(email)) return fail("Please enter a valid email address.");
+        const id=hash(email), key="subscriber/"+id, subscriber=await read(key);
+        if (subscriber) {
+          const value=token();
+          await write("unsubscribe/"+id, {token:hash(value), expires:now()+2*DAY});
+          await send({to:email, subject:t("Unsubscribe"), text:`${t("Unsubscribe")}\n${url.origin}/${locale}/mailing-list/?unsubscribe=${value}&subscriber=${id}\n\n${t("This link expires in 48 hours. If you did not request this, no action is needed.")}`});
+        }
+        return response({ok:true});
+      }
+      if (action === "unsubscribe" && req.method === "POST") {
+        if (!/^[a-f0-9]{64}$/.test(p.subscriber||"") || typeof p.token!=="string") return fail("Invalid confirmation link.");
+        const key="unsubscribe/"+p.subscriber, record=await read(key);
+        if (!record || record.expires<=now() || record.token!==hash(p.token)) return fail("This link is invalid or has expired. Please request a new link.");
+        await store.delete("subscriber/"+p.subscriber);
+        await store.delete(key);
+        return response({ok:true});
       }
       if (action === "confirm-subscription" && req.method === "POST") {
         if (
@@ -219,6 +243,7 @@ export function createHandler({
         await write(key, {
           email: s.email,
           name: s.name,
+          locale: s.locale || "en",
           status: "confirmed",
           confirmed: now(),
           consent: "Occasional studio news and exhibitions",
@@ -299,6 +324,7 @@ export function createHandler({
             return fail("Invalid request.");
           const record = await read("request/" + p.id);
           if (!record) return fail("Request not found.", 404);
+          const tr = (text, values) => collectorText(record.locale, text, values);
           const password = token(),
             id = hash(password),
             expires = now() + DAY;
@@ -310,8 +336,8 @@ export function createHandler({
           try {
             await send({
               to: record.email,
-              subject: "Your private editions access — 24 hours",
-              text: `Dear ${record.name},\n\nYou are invited to view editions and acquisition details.\n\n${url.origin}/en/editions/\nPassword: ${password}\n\nAccess expires ${new Date(expires).toUTCString()}, 24 hours from issue.\n\nFraming and shipping are not included in print prices.\n\nClayton Talmon de l’Armée`,
+              subject: tr("Your private editions access — 24 hours"),
+              text: `${record.name},\n\n${tr("You are invited to view editions and acquisition details.")}\n\n${url.origin}/${validLocale(record.locale)}/editions/\n${tr("Password")}: ${password}\n\n${tr("Your private access expires {date}.", {date:new Date(expires).toLocaleString(validLocale(record.locale), {timeZone:"UTC", timeZoneName:"short"})})}\n\n${tr("Framing and shipping are not included.")}\n\nClayton Talmon de l’Armée`,
             });
           } catch (e) {
             await store.delete("grant/" + id);

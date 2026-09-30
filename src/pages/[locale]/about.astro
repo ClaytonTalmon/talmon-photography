@@ -17,7 +17,7 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
 <BaseLayout locale={locale} title={t.about.title} description={t.about.body}>
   <header class="page-header container">
     <h1>{t.about.intro}</h1>
-    <p class="artist-details">(American. B. 1960)</p>
+    <p class="artist-details">{({en:'(American. B. 1960)',fr:'(Américain. Né en 1960)',es:'(Estadounidense. Nacido en 1960)',it:'(Americano. Nato nel 1960)',de:'(Amerikaner. Geboren 1960)',ja:'（アメリカ出身、1960年生まれ）',zh:'（美国人，生于1960年）'})[locale]}</p>
   </header>
 
   {portraitPhoto && (
@@ -71,8 +71,8 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
   ) : locale === 'de' ? (
     <article class="about-content container">
       <section>
-        <h2>Fünfunddreißig Jahre des Sehens.</h2>
-        <p>Clayton Talmon de l’Armée ist ein amerikanischer Fotograf, der in Südfrankreich lebt. Seit mehr als fünfunddreißig Jahren arbeitet er in Fotografie und Film und entwickelt eine monochrome Bildsprache, die in Licht, Struktur, Landschaft und der Flüchtigkeit menschlicher Präsenz verwurzelt ist.</p>
+        <h2>Fünfundvierzig Jahre des Sehens.</h2>
+        <p>Clayton Talmon de l’Armée ist ein amerikanischer Fotograf, der in Südfrankreich lebt. Seit mehr als fünfundvierzig Jahren arbeitet er in Fotografie und Film und entwickelt eine monochrome Bildsprache, die in Licht, Struktur, Landschaft und der Flüchtigkeit menschlicher Präsenz verwurzelt ist.</p>
         <p>Seine Ausbildung begann in der Werbefotografie und setzte sich mit einem Studium der Filmgestaltung im Bereich Kamera an der UCLA fort. Seine internationale Tätigkeit als Fotograf, Kameramann, Regisseur und Produzent vertiefte sein Verständnis für Bildfolgen, Maßstab und visuelles Erzählen. Parallel zu dieser beruflichen Laufbahn entwickelte sich seine künstlerische Fotografie still und unabhängig in umfangreichen Werkgruppen, die über viele Jahre entstanden.</p>
         <p>Im Zentrum seiner Arbeit steht ein beharrliches Beobachten: das Warten auf jenes kurze Zusammentreffen von Licht, Form, Bewegung und Ort, das ein Bild entstehen lässt.</p>
       </section>
@@ -103,8 +103,8 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
   ) : locale === 'ja' ? (
     <article class="about-content container">
       <section>
-        <h2>35年以上にわたる、見るという営み。</h2>
-        <p>Clayton Talmon de l’Arméeは、南フランスを拠点とするアメリカ人写真家です。35年以上にわたり写真と映画の分野で活動し、光、構造、風景、そして人間の存在の儚さに根ざしたモノクロームの表現を追求してきました。</p>
+        <h2>45年以上にわたる、見るという営み。</h2>
+        <p>Clayton Talmon de l’Arméeは、南フランスを拠点とするアメリカ人写真家です。45年以上にわたり写真と映画の分野で活動し、光、構造、風景、そして人間の存在の儚さに根ざしたモノクロームの表現を追求してきました。</p>
         <p>広告写真から学び始め、その後UCLAで映画撮影を学びました。写真家、撮影監督、監督、プロデューサーとして国際的に活動するなかで、連続性、スケール、映像による物語への理解を深めてきました。その職業的な歩みと並行して、長年にわたるシリーズ制作を通じ、独立した美術写真の実践を静かに育んできました。</p>
         <p>制作の中心にあるのは、観察を続けることです。光、形、動き、場所が束の間ひとつに重なり、一枚の写真が生まれる、その瞬間を待つのです。</p>
       </section>
@@ -135,8 +135,8 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
   ) : locale === 'fr' ? (
     <article class="about-content container">
       <section>
-        <h2>Trente-cinq ans à regarder.</h2>
-        <p>Clayton Talmon de l’Armée est un photographe américain installé dans le sud de la France. Depuis plus de trente-cinq ans, il travaille dans la photographie et le cinéma, développant une pratique monochrome ancrée dans la lumière, la structure, le paysage et le caractère éphémère de la présence humaine.</p>
+        <h2>Quarante-cinq ans à regarder.</h2>
+        <p>Clayton Talmon de l’Armée est un photographe américain installé dans le sud de la France. Depuis plus de quarante-cinq ans, il travaille dans la photographie et le cinéma, développant une pratique monochrome ancrée dans la lumière, la structure, le paysage et le caractère éphémère de la présence humaine.</p>
         <p>Sa formation a commencé par la photographie publicitaire, puis s’est poursuivie par des études de prise de vues cinématographique à UCLA. Son activité internationale de photographe, directeur de la photographie, réalisateur et producteur a enrichi sa compréhension de la séquence, de l’échelle et du récit visuel. Parallèlement à cette carrière, sa pratique artistique s’est développée discrètement et indépendamment, à travers des ensembles d’œuvres élaborés sur de nombreuses années.</p>
         <p>Au cœur de son travail se trouve une observation soutenue : attendre cette brève convergence de lumière, de forme, de mouvement et de lieu qui permet à une image d’exister.</p>
       </section>
@@ -167,8 +167,8 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
   ) : locale === 'es' ? (
     <article class="about-content container">
       <section>
-        <h2>Treinta y cinco años de observación.</h2>
-        <p>Clayton Talmon de l’Armée es un fotógrafo estadounidense afincado en el sur de Francia. Durante más de treinta y cinco años ha trabajado en fotografía y cine, desarrollando una práctica monocroma basada en la luz, la estructura, el paisaje y la naturaleza fugaz de la presencia humana.</p>
+        <h2>Cuarenta y cinco años de observación.</h2>
+        <p>Clayton Talmon de l’Armée es un fotógrafo estadounidense afincado en el sur de Francia. Durante más de cuarenta y cinco años ha trabajado en fotografía y cine, desarrollando una práctica monocroma basada en la luz, la estructura, el paisaje y la naturaleza fugaz de la presencia humana.</p>
         <p>Su formación comenzó en la fotografía publicitaria y continuó con estudios de cinematografía en UCLA. Su trabajo internacional como fotógrafo, director de fotografía, director y productor amplió su comprensión de la secuencia, la escala y la narrativa visual. Paralelamente a esa carrera profesional, su práctica artística se desarrolló de forma discreta e independiente mediante extensos conjuntos de obras realizados a lo largo de muchos años.</p>
         <p>En el centro de su obra hay un acto sostenido de observación: esperar la breve convergencia de luz, forma, movimiento y lugar que permite que una imagen exista.</p>
       </section>
@@ -199,8 +199,8 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
   ) : locale === 'it' ? (
     <article class="about-content container">
       <section>
-        <h2>Trentacinque anni di osservazione.</h2>
-        <p>Clayton Talmon de l’Armée è un fotografo americano che vive nel sud della Francia. Da oltre trentacinque anni lavora nella fotografia e nel cinema, sviluppando una pratica monocromatica radicata nella luce, nella struttura, nel paesaggio e nella natura fugace della presenza umana.</p>
+        <h2>Quarantacinque anni di osservazione.</h2>
+        <p>Clayton Talmon de l’Armée è un fotografo americano che vive nel sud della Francia. Da oltre quarantacinque anni lavora nella fotografia e nel cinema, sviluppando una pratica monocromatica radicata nella luce, nella struttura, nel paesaggio e nella natura fugace della presenza umana.</p>
         <p>La sua formazione è iniziata nella fotografia pubblicitaria ed è proseguita con studi di cinematografia alla UCLA. Il lavoro internazionale come fotografo, direttore della fotografia, regista e produttore ha ampliato la sua comprensione della sequenza, della scala e della narrazione visiva. Parallelamente a questa carriera professionale, la sua ricerca artistica si è sviluppata in modo discreto e indipendente attraverso ampi cicli di opere realizzati nel corso di molti anni.</p>
         <p>Al centro del suo lavoro vi è un atto costante di osservazione: attendere quella breve convergenza di luce, forma, movimento e luogo che permette a un’immagine di esistere.</p>
       </section>
@@ -231,8 +231,8 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
   ) : locale === 'zh' ? (
     <article class="about-content container">
       <section>
-        <h2>三十五年的凝视。</h2>
-        <p>Clayton Talmon de l’Armée 是一位定居法国南部的美国摄影师。三十五年多来，他一直从事摄影与电影创作，发展出以光线、结构、风景以及人类存在的短暂性为根基的黑白影像实践。</p>
+        <h2>四十五年的凝视。</h2>
+        <p>Clayton Talmon de l’Armée 是一位定居法国南部的美国摄影师。四十五年多来，他一直从事摄影与电影创作，发展出以光线、结构、风景以及人类存在的短暂性为根基的黑白影像实践。</p>
         <p>他的专业学习始于广告摄影，之后在加州大学洛杉矶分校（UCLA）学习电影摄影。作为摄影师、电影摄影指导、导演和制片人，他在国际范围内的工作加深了他对影像序列、尺度和视觉叙事的理解。与职业生涯并行，他通过历时多年的系列创作，静静地、独立地发展着自己的艺术摄影实践。</p>
         <p>作品的核心是持续的观察：等待光、形态、运动与地点短暂交汇，使一幅影像得以诞生。</p>
       </section>

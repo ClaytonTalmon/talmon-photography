@@ -1,4 +1,5 @@
 ---
+import { collectorText } from '../i18n/collector.mjs';
 import { getTranslations } from '../i18n/translations';
 import { localizedPath, otherLocales, type Locale } from '../i18n/utils';
 import { localeNames } from '../i18n/translations';
@@ -13,6 +14,7 @@ const { locale, currentPath, variant = 'light' } = Astro.props;
 const t = getTranslations(locale);
 const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
 
+const ct = (text: string) => collectorText(locale, text);
 ---
 
 <header class:list={['site-header', { 'site-header--dark': variant === 'dark', 'site-header--home': isHomePage }]}>
@@ -26,13 +28,13 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
       <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
       <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
       <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
-      <a href={'https://willowy-pika-c392c9.netlify.app' + localizedPath(locale, '/editions/')}>Collect</a>
+      <a href={'https://willowy-pika-c392c9.netlify.app' + localizedPath(locale, '/editions/')}>{ct("Collect")}</a>
       <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
       <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
     </nav>
 
     <div class="lang-switch" aria-label={locale === 'de' ? 'Sprache' : 'Language'}>
-      {otherLocales(locale).map((l) => (
+      {(currentPath.includes("editions-editor") ? [] : otherLocales(locale)).map((l) => (
         <a href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
       ))}
       <span class="lang-switch__current">{localeNames[locale]}</span>
@@ -46,11 +48,11 @@ const isHomePage = currentPath.replace(/\/$/, '').endsWith(`/${locale}`);
         <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
         <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
         <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
-        <a href={'https://willowy-pika-c392c9.netlify.app' + localizedPath(locale, '/editions/')}>Collect</a>
+        <a href={'https://willowy-pika-c392c9.netlify.app' + localizedPath(locale, '/editions/')}>{ct("Collect")}</a>
       <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
         <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
         <div class="mobile-menu__langs">
-          {otherLocales(locale).map((l) => (
+          {(currentPath.includes("editions-editor") ? [] : otherLocales(locale)).map((l) => (
             <a href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
           ))}
           <span>{localeNames[locale]}</span>

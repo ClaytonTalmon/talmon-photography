@@ -1,4 +1,5 @@
 import { de } from './de';
+import updates from './updates.json';
 
 // Central translation dictionary.
 //
@@ -824,7 +825,11 @@ export const translations: Record<Locale, Dictionary> = {
 };
 
 export function getTranslations(locale: string): Dictionary {
-  return translations[(locale as Locale) in translations ? (locale as Locale) : defaultLocale];
+  const key = (locale as Locale) in translations ? (locale as Locale) : defaultLocale;
+  const base = translations[key];
+  const update = updates[key as keyof typeof updates];
+  if (!update) return base;
+  return { ...base, nav: {...base.nav,...update.nav}, footer:{...base.footer,...update.footer}, home:{...base.home,...update.home}, privateView:{...base.privateView,...update.privateView} };
 }
 
 export function isLocale(value: string): value is Locale {

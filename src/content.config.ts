@@ -1,4 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';
 
 // Each entry in this collection is one exhibition/series (e.g. "FLOW").
 // Title/description are localized objects so the Work pages can render
@@ -33,7 +35,7 @@ const imageDetail = z.object({
 });
 
 const series = defineCollection({
-  type: 'data',
+  loader: glob({ pattern: '*.json', base: './src/content/series' }),
   schema: z.object({
     slug: z.string(), // must match the folder name under src/assets/work/
     year: z.string(),
@@ -43,7 +45,7 @@ const series = defineCollection({
     descriptionCredit: localizedString.optional(),
     featured: z.boolean().default(false), // shown as the homepage hero exhibition
     order: z.number().default(0), // lower = appears first on the Work index
-    imageDetails: z.record(imageDetail).default({}),
+    imageDetails: z.record(z.string(), imageDetail).default({}),
   }),
 });
 

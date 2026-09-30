@@ -1,4 +1,5 @@
 ---
+import { collectorText } from '../../../../i18n/collector.mjs';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import ResponsivePhoto from '../../../../components/ResponsivePhoto.astro';
@@ -43,6 +44,7 @@ const previousPath = index > 0 ? localizedPath(locale, `/work/${slug}/${index - 
 const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/${index + 1}/`) : null;
 const previousImagePath = previousPath ? `${previousPath}#artwork` : null;
 const nextImagePath = nextPath ? `${nextPath}#artwork` : null;
+const ct = (text: string) => collectorText(locale, text);
 ---
 
 <BaseLayout
@@ -87,12 +89,12 @@ const nextImagePath = nextPath ? `${nextPath}#artwork` : null;
         </div>
         <div>
           <dt>{t.work.printType}</dt>
-          <dd>{locale === 'de' && details.printType === 'Silver Gelatin' ? 'Silbergelatineabzug' : locale === 'ja' && details.printType === 'Silver Gelatin' ? 'ゼラチン・シルバー・プリント' : (details.printType ?? t.work.notSpecified)}</dd>
+          <dd>{ct(details.printType ?? t.work.notSpecified)}</dd>
         </div>
       </figcaption>
     </figure>
 
-    <p style="margin:24px 0;text-align:center"><a class="btn" href={'https://willowy-pika-c392c9.netlify.app' + localizedPath(locale, '/editions/') + '?work=' + encodeURIComponent(slug + '/' + loadedImage.filename)}>Editions &amp; acquisition details</a></p>
+    <p style="margin:24px 0;text-align:center"><a class="btn" href={'https://willowy-pika-c392c9.netlify.app' + localizedPath(locale, '/editions/') + '?work=' + encodeURIComponent(slug + '/' + loadedImage.filename)}>{ct("Editions & acquisition details")}</a></p>
     <nav class="image-navigation" aria-label={t.work.title}>
       {previousImagePath ? <a href={previousImagePath}>← {t.work.previous}</a> : <span />}
       <a href={seriesPath}>{t.work.backToSeries}</a>

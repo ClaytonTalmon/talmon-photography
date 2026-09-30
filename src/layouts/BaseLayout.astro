@@ -1,4 +1,5 @@
 ---
+import { collectorText } from '../i18n/collector.mjs';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Analytics from '../components/Analytics.astro';
@@ -22,9 +23,12 @@ const canonicalPath =
     ? currentPath.slice(basePath.length) || '/'
     : currentPath;
 const localePrefixPattern = new RegExp(`^/(${locales.join('|')})`);
+const isEditor = canonicalPath.includes('editions-editor');
+const canonicalOrigin = /\/(editions|mailing-list)\//.test(canonicalPath) ? 'https://willowy-pika-c392c9.netlify.app' : 'https://talmonphoto.com';
 const faviconPath = `${basePath}/favicon.svg`;
 const alternatePath = (targetLocale: Locale) =>
   canonicalPath.replace(localePrefixPattern, `/${targetLocale}`);
+const ct = (text: string) => collectorText(locale, text);
 ---
 
 <!doctype html>
@@ -37,10 +41,13 @@ const alternatePath = (targetLocale: Locale) =>
     {description && <meta name="description" content={description} />}
     <meta name="generator" content={Astro.generator} />
 
-    {locales.map((l) => (
-      <link rel="alternate" hreflang={localeHtmlLang[l]} href={`https://talmonphoto.com${alternatePath(l)}`} />
+    {!isEditor && locales.map((l) => (
+      <link rel="alternate" hreflang={localeHtmlLang[l]} href={`${canonicalOrigin}${alternatePath(l)}`} />
     ))}
-    <link rel="alternate" hreflang="x-default" href={`https://talmonphoto.com${alternatePath('en')}`} />
+    {!isEditor && <link rel="alternate" hreflang="x-default" href={`${canonicalOrigin}${alternatePath('en')}`} />}
+    <link rel="canonical" href={`${canonicalOrigin}${canonicalPath}`} />
+    {isEditor && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:url" content={`${canonicalOrigin}${canonicalPath}`} />
 
     <meta property="og:title" content={`${title} — ${siteName}`} />
     {description && <meta property="og:description" content={description} />}
@@ -49,11 +56,19 @@ const alternatePath = (targetLocale: Locale) =>
     <Analytics />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">{ct("Skip to content")}</a>
     <Header locale={locale} currentPath={currentPath} variant={headerVariant} />
     <main id="main">
       <slot />
     </main>
     <Footer locale={locale} />
+  <script>
+      // A courtesy deterrent for photographs; text, links and forms remain usable.
+      for (const name of ['contextmenu', 'dragstart']) {
+        document.addEventListener(name, event => {
+          if (event.target instanceof HTMLImageElement && event.target.closest('main')) event.preventDefault();
+        });
+      }
+    </script>
   </body>
 </html>

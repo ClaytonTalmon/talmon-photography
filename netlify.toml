@@ -3,7 +3,7 @@
   publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "24"
 
 [[headers]]
   for = "/editions-editor/*"
@@ -13,5 +13,10 @@
 
 [[headers]]
   for = "/*/editions/*"
+  [headers.values]
+    Referrer-Policy = "no-referrer"
+
+[[headers]]
+  for = "/*/mailing-list/*"
   [headers.values]
     Referrer-Policy = "no-referrer"
