@@ -8,9 +8,9 @@ The four tabs are **Collections**, **Edition Prices**, **Collector Requests**, a
 ## Adjusting prices
 
 1. Open the Studio Editor and choose **Edition Prices**. Sign in using a GitHub personal access token belonging to **ClaytonTalmon**, with access to `ClaytonTalmon/talmon-photography`. The existing Collection Editor token can be used. The server verifies it against GitHub and discards it. The browser keeps it only in memory for collection publishing, and clears it on sign-out or closing the window; it is never saved with drafts. After a page reload, the eight-hour pricing session may still be active, but collection publishing needs reconnection under Publishing connection.
-2. Select the collection, photograph, and **Standard Format** or **Large Format**.
-3. Enter the currency, number of numbered prints sold, and the price for each pair (1–2, 3–4, etc.; the last bracket can contain one print).
-4. Select **Save prices and availability**. This updates private server storage immediately, without a GitHub commit or a website rebuild. Reload an already-open collector page to see the updated price.
+2. Select a collection, **Entire collection** or **Individual photograph**, and **Standard Format** or **Large Format**. Entire collection is the default.
+3. Enter the currency and the price for each pair (1–2, 3–4, etc.; the last bracket can contain one print).
+4. For a collection, select **Apply prices to entire collection** and confirm the number of photographs affected. This replaces prices for the selected format on all existing photographs, preserves their individual sales counts, and leaves the other format and collections unchanged. Shorter editions use only the applicable brackets. If existing schedules differ, the form starts blank and explains that blank brackets become price on enquiry. Reapply after adding new photographs. To change sales counts or make an exception, choose **Individual photograph** and **Save prices and availability**. This updates private server storage immediately, without a GitHub commit or a website rebuild. Reload an already-open collector page to see the updated price.
 
 Prices start blank; the earlier prototype's illustrative prices are not published. A blank price is “Price on enquiry”. Unsaved sales counts are not presented as confirmed availability. Artist's proofs are excluded from numbered edition counts and remain on enquiry. Changes to edition counts and print dimensions still belong in the Collection Editor and require its normal publish/rebuild.
 

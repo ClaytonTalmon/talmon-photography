@@ -264,21 +264,21 @@ export function createHandler({
             subscribers: await rows("subscriber/"),
           });
         }
-        if (action === "studio-save" && req.method === "POST") {
-          const work = catalog.find((w) => w.id === p.id),
-            format = work?.formats.find((f) => f.key === p.format);
-          if (!format) return fail("Unknown work or format.");
-          if (
-            !Number.isInteger(p.sold) ||
-            p.sold < 0 ||
-            p.sold > format.edition
-          )
+        if (["studio-save", "studio-save-collection"].includes(action) && req.method === "POST") {
+          const collectionWide = action === "studio-save-collection";
+          const targets = catalog.filter(w => collectionWide ? w.collection === p.collection : w.id === p.id)
+            .flatMap(w => w.formats.filter(f => f.key === p.format).map(f => ({id:w.id, format:f})));
+          if (!targets.length) return fail("Unknown collection, work or format.");
+          const edition = Math.max(...targets.map(t => t.format.edition));
+          if (!collectionWide && (
+            !Number.isInteger(p.sold) || p.sold < 0 || p.sold > edition
+          ))
             return fail("Invalid edition sales count.");
           if (!["USD", "EUR", "GBP", "CHF"].includes(p.currency))
             return fail("Choose a supported currency.");
           if (
             !Array.isArray(p.bands) ||
-            p.bands.length !== Math.ceil(format.edition / 2) ||
+            p.bands.length !== Math.ceil(edition / 2) ||
             p.bands.some(
               (x) =>
                 x !== null && (!Number.isFinite(x) || x <= 0 || x > 10000000),
@@ -301,11 +301,14 @@ export function createHandler({
               "Prices changed in another session. Reload before saving.",
               409,
             );
-          current.items[p.id + "::" + p.format] = {
-            sold: p.sold,
-            currency: p.currency,
-            bands: p.bands,
-          };
+          for (const target of targets) {
+            const key = target.id + "::" + p.format;
+            current.items[key] = {
+              sold: collectionWide ? (current.items[key]?.sold ?? null) : p.sold,
+              currency: p.currency,
+              bands: p.bands.slice(0, Math.ceil(target.format.edition / 2)),
+            };
+          }
           current.version++;
           const saved = await store.setJSON(
             "prices",
@@ -317,7 +320,7 @@ export function createHandler({
               "Prices changed in another session. Reload before saving.",
               409,
             );
-          return response({ ok: true, prices: current });
+          return response({ ok: true, prices: current, updated: targets.length });
         }
         if (action === "studio-approve" && req.method === "POST") {
           if (!/^[a-f0-9]{64}$/.test(p.id || ""))
@@ -381,7 +384,7 @@ export function createHandler({
               const sold = value?.sold ?? 0;
               return {
                 ...f,
-                sold: value ? sold : null,
+                sold: value?.sold ?? null,
                 soldOut: sold >= f.edition,
                 currency: value?.currency || "USD",
                 price:

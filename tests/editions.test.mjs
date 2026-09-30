@@ -283,3 +283,37 @@ test('unsubscribe requires an emailed valid token, preserves collector access, a
  assert.equal((await s.call('unsubscribe',{subscriber,token:expired.searchParams.get('unsubscribe')})).status,400);
  assert.equal(s.values.has('subscriber/'+subscriber),true);
 });
+
+test('collection pricing applies atomically to one format and preserves individual sales and other collections',async()=>{
+ const s=setup(), admin=await auth(s), inv=await invite(s,admin);
+ const first=catalog.find(w=>w.formats.length>1), format=first.formats[0];
+ const targets=catalog.filter(w=>w.collection===first.collection&&w.formats.some(f=>f.key===format.key));
+ const max=Math.max(...targets.map(w=>w.formats.find(f=>f.key===format.key).edition));
+ const original=Array.from({length:Math.ceil(format.edition/2)},()=>1000);
+ await s.call('studio-save',{id:first.id,format:format.key,sold:2,currency:'USD',bands:original,version:0},admin);
+ const otherFormat=first.formats[1];
+ await s.call('studio-save',{id:first.id,format:otherFormat.key,sold:1,currency:'USD',bands:Array.from({length:Math.ceil(otherFormat.edition/2)},()=>9000),version:1},admin);
+ const bands=Array.from({length:Math.ceil(max/2)},(_,i)=>2000+i*500);
+ const payload={collection:first.collection,format:format.key,currency:'EUR',bands,version:2,sold:0};
+ assert.equal((await s.call('studio-save-collection',payload)).status,401);
+ const result=await (await s.call('studio-save-collection',payload,admin)).json();
+ assert.equal(result.updated,targets.length);
+ assert.equal(result.prices.version,3);
+ for(const work of targets){
+  const value=result.prices.items[work.id+'::'+format.key],f=work.formats.find(f=>f.key===format.key);
+  assert.deepEqual(value.bands,bands.slice(0,Math.ceil(f.edition/2)));
+  assert.equal(value.currency,'EUR');
+  assert.equal(value.sold,work.id===first.id?2:null);
+ }
+ assert.equal(result.prices.items[first.id+'::'+otherFormat.key].bands[0],9000);
+ assert.ok(Object.keys(result.prices.items).every(k=>k.startsWith(first.collection+'/')));
+ assert.equal((await s.call('studio-save-collection',payload,admin)).status,409);
+ assert.equal((await s.call('studio-save-collection',{...payload,version:3,bands:[-1]},admin)).status,400);
+ assert.equal((await s.call('studio-save-collection',{...payload,version:3,collection:'missing'},admin)).status,400);
+ const current=await (await s.call('catalog',null,inv.cookie)).json();
+ const priced=current.works.find(w=>w.id===first.id).formats.find(f=>f.key===format.key);
+ assert.equal(priced.sold,2);assert.equal(priced.price,2500);
+ const untouchedSales=current.works.find(w=>w.id!==first.id&&w.collection===first.collection&&w.formats.some(f=>f.key===format.key)).formats.find(f=>f.key===format.key);
+ assert.equal(untouchedSales.sold,null);assert.equal(untouchedSales.price,2000);
+ const data=await (await s.call('studio-data',null,admin)).json();assert.equal(data.prices.version,3);
+});

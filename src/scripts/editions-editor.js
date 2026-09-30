@@ -40,6 +40,7 @@ window.addEventListener('message',event=>{
     const work=catalog.find(w=>w.id===data.work);
     if(!work) {status('Publish the new photograph first, then reload the Studio Editor after the website rebuild finishes.');return;}
     if(priceDirty && !confirm('Discard unsaved price edits and open this photograph?')) return;
+    $('price-scope').value='individual';
     $('price-collection').value=work.collection;
     populateWorks(work.id);
     showSection('prices');
@@ -47,7 +48,7 @@ window.addEventListener('message',event=>{
   }
 });
 $('edit-collection-details').onclick=()=>{
-  requestedCollection=catalog.find(w=>w.id===$('work').value)?.collection || '';
+  requestedCollection=$('price-collection').value;
   showSection('collections');
 };
 window.addEventListener('beforeunload',event=>{
@@ -93,30 +94,54 @@ function populateWorks(selectedId) {
   if(works.some(w=>w.id===selectedId)) $('work').value=selectedId;
   formats();
 }
+function collectionPricing() { return $('price-scope').value === 'collection'; }
+function priceTargets() {
+  return catalog.filter(w=>w.collection===$('price-collection').value)
+    .flatMap(w=>w.formats.filter(f=>f.key===$('format').value).map(f=>({work:w,format:f})));
+}
 function formats() {
-  const w = catalog.find((w) => w.id === $("work").value);
-  if (!w) return;
-  $("format").replaceChildren(...w.formats.map((f) => option(f.key, f.label)));
+  const previous=$('format').value;
+  const works=collectionPricing()?catalog.filter(w=>w.collection===$('price-collection').value):catalog.filter(w=>w.id===$('work').value);
+  const available=[...new Map(works.flatMap(w=>w.formats).map(f=>[f.key,f])).values()];
+  $('format').replaceChildren(...available.map(f=>option(f.key,f.label)));
+  if(available.some(f=>f.key===previous)) $('format').value=previous;
   pricing();
 }
 function pricing() {
   if (!state) return;
   priceDirty=false;
-  const w = catalog.find((w) => w.id === $("work").value),
-    f = w.formats.find((f) => f.key === $("format").value);
-  $('pricing').dataset.collection=w.collection;
-  $('pricing').dataset.work=w.id;
+  const bulk=collectionPricing(), targets=priceTargets();
+  const w=catalog.find(w=>w.id===$('work').value);
+  const f=bulk?(targets.length ? {...targets[0].format,edition:Math.max(...targets.map(t=>t.format.edition))}:null):w?.formats.find(f=>f.key===$('format').value);
+  $('pricing').dataset.collection=$('price-collection').value;
+  $('pricing').dataset.work=$('work').value;
   $('pricing').dataset.format=$('format').value;
-  $("pricing").hidden = !f;
-  $("missing").hidden = !!f;
-  if (!f) return;
-  const p = state.prices.items[w.id + "::" + f.key];
-  version = state.prices.version;
-  $("currency").value = p?.currency || "USD";
-  $("sold").value = p?.sold ?? 0;
-  $("sold").max = f.edition;
-  $("size-summary").textContent =
-    `${f.width} × ${f.height} cm image · ${f.width + 14} × ${f.height + 17} cm paper · Edition ${f.editionLabel}`;
+  $('pricing').dataset.scope=$('price-scope').value;
+  $('work-field').hidden=bulk;
+  $('sold-field').hidden=bulk;
+  $('sold').disabled=bulk;
+  $('pricing').hidden=!f;
+  $('missing').hidden=!!f;
+  if(!f) return;
+  let p=state.prices.items[w.id+'::'+f.key];
+  const note=$('collection-price-note');
+  note.hidden=!bulk;
+  if(bulk) {
+    const values=targets.map(t=>state.prices.items[t.work.id+'::'+f.key]);
+    const currencies=[...new Set(values.map(v=>v?.currency||'USD'))];
+    const mixed=currencies.length>1 || Array.from({length:Math.ceil(f.edition/2)},(_,i)=>{
+      const bands=targets.flatMap((t,j)=>i<Math.ceil(t.format.edition/2)?[values[j]?.bands[i]??null]:[]);
+      return new Set(bands).size>1;
+    }).some(Boolean);
+    p={currency:currencies.length===1?currencies[0]:'USD',bands:Array.from({length:Math.ceil(f.edition/2)},(_,i)=>mixed?null:(values.find(v=>v?.bands.length>i)?.bands[i]??null))};
+    note.textContent=mixed?'Existing prices differ between photographs. Enter a complete schedule below to replace them. Blank brackets will become “Price on enquiry”.':'This schedule applies to all existing photographs with this format. Shorter editions use only the brackets they need.';
+  }
+  version=state.prices.version;
+  $('currency').value=p?.currency||'USD';
+  $('sold').value=p?.sold??0;
+  $('sold').max=f.edition;
+  $('size-summary').textContent=bulk?`${$('price-collection').value.toUpperCase()} · ${f.label} · ${targets.length} photographs. Dimensions and sales counts stay individual.`:`${f.width} × ${f.height} cm image · ${f.width+14} × ${f.height+17} cm paper · Edition ${f.editionLabel}`;
+  $('pricing').querySelector('button').textContent=bulk?'Apply prices to entire collection':'Save prices and availability';
   $("bands").replaceChildren(
     ...Array.from({ length: Math.ceil(f.edition / 2) }, (_, i) => {
       const label = document.createElement("label"),
@@ -141,6 +166,10 @@ function pricing() {
   preview();
 }
 function preview() {
+  if(collectionPricing()) {
+    $('next-price').textContent=`Applies to ${priceTargets().length} photographs. Each photograph’s current price follows its own edition sales.`;
+    return;
+  }
   const f = catalog
     .find((w) => w.id === $("work").value)
     ?.formats.find((f) => f.key === $("format").value);
@@ -267,21 +296,26 @@ $("login").onsubmit = async (e) => {
 $('price-collection').replaceChildren(...[...new Set(catalog.map(w=>w.collection))].map(c=>option(c,c.toUpperCase())));
 function mayChangeSelection() {
   if(!priceDirty || confirm('Discard unsaved price edits?')) return true;
+  $('price-scope').value=$('pricing').dataset.scope;
   $('price-collection').value=$('pricing').dataset.collection;
   $('work').value=$('pricing').dataset.work;
   $('format').value=$('pricing').dataset.format;
   return false;
 }
 $('price-collection').onchange=()=>{if(mayChangeSelection()) populateWorks();};
+$('price-scope').onchange=()=>{if(mayChangeSelection()) formats();};
 $('work').onchange=()=>{if(mayChangeSelection()) formats();};
 $('format').onchange=()=>{if(mayChangeSelection()) pricing();};
 $('pricing').oninput=()=>{priceDirty=true;preview();};
 $("pricing").onsubmit = async (e) => {
   e.preventDefault();
   const b = e.currentTarget.querySelector("button");
+  const bulk=collectionPricing();
+  if(bulk && !confirm(`Apply these ${$('format').selectedOptions[0].textContent} prices to all ${priceTargets().length} photographs in ${$('price-collection').value.toUpperCase()}? Existing prices for this format will be replaced. Sales counts will be preserved.`)) return;
   b.disabled = true;
   try {
-    const result = await api("save", {
+    const result = await api(bulk ? "save-collection" : "save", {
+      collection: $("price-collection").value,
       id: $("work").value,
       format: $("format").value,
       currency: $("currency").value,
@@ -294,7 +328,7 @@ $("pricing").onsubmit = async (e) => {
     priceDirty=false;
     state.prices = result.prices;
     version = state.prices.version;
-    status("Saved. New collector page requests use these prices immediately.");
+    status(bulk?`Saved prices for ${result.updated} photographs. Collector prices update immediately; sales counts are unchanged.`:"Saved. New collector page requests use these prices immediately.");
   } catch (e) {
     status(e.message, true);
   } finally {
