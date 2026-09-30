@@ -751,13 +751,13 @@
     "ja": "Talmon de l’Arméeの写真にご関心をお寄せいただき、ありがとうございます。",
     "zh": "感谢您关注Talmon de l’Armée的摄影作品。"
   },
-  "The studio will review your request. Once approved, a separate invitation will contain your personal password and a link to the collection. Access will be valid for 24 hours from the time that invitation is issued.": {
-    "fr": "Le studio examinera votre demande. Après validation, une invitation distincte vous communiquera votre mot de passe personnel et un lien vers la collection. L’accès sera valable 24 heures à compter de l’émission de cette invitation.",
-    "es": "El estudio revisará su solicitud. Una vez aprobada, recibirá una invitación por separado con su contraseña personal y un enlace a la colección. El acceso será válido durante 24 horas desde la emisión de la invitación.",
-    "it": "Lo studio esaminerà la richiesta. Dopo l’approvazione, riceverà un invito separato con la password personale e il link alla collezione. L’accesso sarà valido per 24 ore dall’emissione dell’invito.",
-    "de": "Das Studio prüft Ihre Anfrage. Nach der Freigabe erhalten Sie eine separate Einladung mit Ihrem persönlichen Passwort und einem Link zur Kollektion. Der Zugang gilt 24 Stunden ab Ausstellung dieser Einladung.",
-    "ja": "スタジオが内容を確認し、承認後に個人用パスワードとコレクションへのリンクを記載した招待メールを別途お送りします。アクセスは招待の発行から24時間有効です。",
-    "zh": "工作室将审核您的申请。批准后，您将另行收到包含个人密码和系列链接的邀请邮件。访问权限自邀请签发起24小时内有效。"
+  "The studio will review your request. Once reviewed, a separate invitation will contain your personal password and a link to the collection. Access will be valid for 24 hours from the time that invitation is issued.": {
+    "fr": "Le studio examinera votre demande. Après examen, une invitation distincte vous communiquera votre mot de passe personnel et un lien vers la collection. L’accès sera valable 24 heures à compter de l’émission de cette invitation.",
+    "es": "El estudio revisará su solicitud. Una vez revisada, recibirá una invitación por separado con su contraseña personal y un enlace a la colección. El acceso será válido durante 24 horas desde la emisión de la invitación.",
+    "it": "Lo studio esaminerà la richiesta. Dopo la verifica, riceverà un invito separato con la password personale e il link alla collezione. L’accesso sarà valido per 24 ore dall’emissione dell’invito.",
+    "de": "Das Studio prüft Ihre Anfrage. Nach der Prüfung erhalten Sie eine separate Einladung mit Ihrem persönlichen Passwort und einem Link zur Kollektion. Der Zugang gilt 24 Stunden ab Ausstellung dieser Einladung.",
+    "ja": "スタジオが内容を確認した後、個人用パスワードとコレクションへのリンクを記載した招待メールを別途お送りします。アクセスは招待の発行から24時間有効です。",
+    "zh": "工作室将审核您的申请。审核后，您将另行收到包含个人密码和系列链接的邀请邮件。访问权限自邀请签发起24小时内有效。"
   },
   "View the photographs": {
     "fr": "Voir les photographies",

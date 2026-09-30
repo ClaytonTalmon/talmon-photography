@@ -13,7 +13,7 @@ export function collectorReceipt(record) {
  const t=text=>collectorText(record.locale,text),{summary}=details(record);
  const title=t('Your request has been received');
  const intro=t('Thank you for your interest in the photographs of Talmon de l’Armée.');
- const next=t('The studio will review your request. Once approved, a separate invitation will contain your personal password and a link to the collection. Access will be valid for 24 hours from the time that invitation is issued.');
+ const next=t('The studio will review your request. Once reviewed, a separate invitation will contain your personal password and a link to the collection. Access will be valid for 24 hours from the time that invitation is issued.');
  return {subject:title+' — Talmon de l’Armée',text:`${record.name},\n\n${intro}\n${summary}\n\n${next}\n\nTalmon de l’Armée Photography\nhttps://talmonphoto.com`,html:shell({locale:record.locale,title,intro,body:p(record.name)+p(summary)+p(next),label:t('View the photographs'),url:'https://talmonphoto.com/'+validLocale(record.locale)+'/work/'})};
 }
 export function studioNotification(record,origin) {
