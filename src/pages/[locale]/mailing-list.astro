@@ -21,6 +21,10 @@ const {locale}=Astro.params as {locale:Locale};
 </section>
 </BaseLayout>
 <style>
+ :global(body:has(#mailing-signup)) { min-height:100vh; min-height:100svh; display:flex; flex-direction:column; }
+ :global(body:has(#mailing-signup) > main) { flex:1; }
+ :global(body:has(#mailing-signup) > header),
+ :global(body:has(#mailing-signup) > footer) { flex-shrink:0; }
  .signup-page { max-width:760px; padding-bottom:40px; }
  #signup-status:empty { display:none; }
  #mailing-signup { margin-top:28px; }
