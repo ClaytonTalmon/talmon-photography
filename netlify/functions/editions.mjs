@@ -25,6 +25,7 @@ export default async (request, runtime) => {
         },
         body: JSON.stringify({
           from: "Talmon de l’Armée Photography <studio@updates.claytontalmon.com>",
+          reply_to: "ctalmon@gmail.com",
           ...message,
         }),
       });
