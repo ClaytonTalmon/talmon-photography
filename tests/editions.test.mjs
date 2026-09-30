@@ -324,7 +324,7 @@ test('studio notices point to requests; collectors receive separate branded rece
  await s.call('request',{name:'<script>test</script>',email:'collector@example.com',collections:['flow'],work:work.id});
  const studio=s.emails.find(e=>e.to==='ctalmon@gmail.com');
  const receipt=s.emails.find(e=>e.to==='collector@example.com');
- assert.match(studio.text,/editions-editor\/#requests/);
+ assert.match(studio.text,/editions-editor\/approve\/#id=/);
  assert.match(studio.text,/no collector password has been issued/);
  assert.ok(receipt.html.includes('&lt;script&gt;test&lt;/script&gt;'));
  assert.ok(!receipt.html.includes('<script>'));
@@ -340,4 +340,44 @@ test('studio notices point to requests; collectors receive separate branded rece
  const link=invitation.text.match(/https:\/\/\S+/)[0];
  assert.equal(new URL(link).searchParams.get('work'),work.id);
  assert.equal((await s.call('unlock',{password})).status,200);
+});
+
+const approvalCredentials = s => {
+ const mail=s.emails.filter(e=>e.to==='ctalmon@gmail.com').at(-1);
+ const link=mail.text.match(/https:\/\/\S+\/editions-editor\/approve\/#[^\s]+/)[0];
+ return Object.fromEntries(new URLSearchParams(new URL(link).hash.slice(1)));
+};
+test('email approval is scoped, expires, and requires an explicit one-use POST without granting studio access',async()=>{
+ const s=setup();
+ await s.call('request',{name:'Collector',email:'collector@example.com',collections:['flow']});
+ const credentials=approvalCredentials(s),count=s.emails.length;
+ assert.equal((await s.call('email-approve')).status,404);
+ for(let i=0;i<2;i++) assert.equal((await s.call('email-review',credentials)).status,200);
+ assert.equal(s.emails.length,count);
+ assert.equal((await s.call('email-review',{...credentials,id:'a'.repeat(64)})).status,401);
+ assert.equal((await s.call('email-approve',credentials,'','https://evil.example')).status,403);
+ assert.equal((await s.call('studio-data')).status,401);
+ const results=await Promise.all([s.call('email-approve',credentials),s.call('email-approve',credentials)]);
+ assert.equal(results.filter(r=>r.status===200).length,1);
+ assert.equal(s.emails.length,count+1);
+ assert.equal((await s.call('email-approve',credentials)).status,401);
+ const password=s.emails.at(-1).text.match(/Password: (\S+)/)[1];
+ assert.equal((await s.call('unlock',{password})).status,200);
+ assert.equal((await s.call('studio-data')).status,401);
+ s.advance(86400001);
+ assert.equal((await s.call('unlock',{password})).status,401);
+});
+test('old email approval links expire or are superseded by a new request or studio approval',async()=>{
+ const s=setup();
+ const request={name:'Collector',email:'collector@example.com'};
+ await s.call('request',request);const old=approvalCredentials(s);
+ await s.call('request',request);const current=approvalCredentials(s);
+ assert.equal((await s.call('email-review',old)).status,401);
+ assert.equal((await s.call('email-review',current)).status,200);
+ s.advance(2*86400000+1);
+ assert.equal((await s.call('email-approve',current)).status,401);
+ await s.call('request',request);const next=approvalCredentials(s);
+ const admin=await auth(s);
+ await s.call('studio-approve',{id:next.id},admin);
+ assert.equal((await s.call('email-approve',next)).status,401);
 });

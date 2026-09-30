@@ -41,3 +41,6 @@ After the initial production deployment, confirm that the API rejects unauthenti
 Builds require Node 22.12 or later (hosting uses Node 24). All deployed photo files are capped at 2,000 pixels on the longest edge. Right-click and image dragging are deterred only on photographs, without disabling text selection or forms. This is not download protection. Source assets and Git history are separate from the display files; a public repository can still expose source images.
 
 Run `npm run test:editions` for access, expiry, revocation, pricing and consent tests; `npm run build` checks and builds all site pages.
+
+### Approve from the studio email
+New studio notifications include a private Review & approve request link. It opens a dedicated review page without GitHub sign-in. Click Approve & send invitation to issue the collector’s 24-hour password. The link expires after 48 hours, works once, and grants no access to prices, subscribers, or collection editing. A newer request or approval from the Studio Editor invalidates the old link. Old emails sent before this feature still require the Studio Editor. If sending fails after approval is claimed, use the Studio Editor to review and reissue; the email link cannot be reused.

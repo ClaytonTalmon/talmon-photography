@@ -49,6 +49,31 @@ export function createHandler({
     await write("session/" + hash(value), { kind, expires, ...extra });
     return cookie(kind, value, Math.floor((expires - now()) / 1000));
   }
+  async function issueInvitation(record, origin) {
+    const password = token(),
+      id = hash(password),
+      expires = now() + DAY;
+    await write("grant/" + id, {
+      email: record.email,
+      expires,
+      revoked: false,
+    });
+    try {
+      await send({to:record.email, ...collectorInvitation(record,origin,password,expires)});
+    } catch (e) {
+      await store.delete("grant/" + id);
+      throw e;
+    }
+    if (record.grant) await store.delete("grant/" + record.grant);
+    await write("request/" + record.id, {
+      ...record,
+      status: "approved",
+      approvalHash: null,
+      grant: id,
+      expires,
+    });
+    return expires;
+  }
   return async (req) => {
     try {
       const url = new URL(req.url),
@@ -98,6 +123,24 @@ export function createHandler({
           if (saved.modified) { limited = false; break; }
         }
         if (limited) return fail("Too many attempts. Please try again in an hour.", 429);
+      }
+      if (["email-review", "email-approve"].includes(action) && req.method === "POST") {
+        if (typeof p.token !== "string" || !/^[A-Za-z0-9_-]{32}$/.test(p.token) || !/^[a-f0-9]{64}$/.test(p.id || ""))
+          return fail("This approval link is invalid or has expired. Please use the Studio Editor.", 401);
+        const snapshot = await store.getWithMetadata("request/" + p.id, {type:"json"});
+        const record = snapshot?.data;
+        if (!record || record.approvalHash !== hash(p.token) || record.approvalExpires <= now() || record.approvalUsed)
+          return fail("This approval link has expired, was replaced, or has already been used. Please use the Studio Editor.", 401);
+        if (action === "email-review") {
+          return response({name:record.name,email:record.email,collections:record.collections,
+            work:catalog.find(w=>w.id===record.work)?.title || "",message:record.message,expires:record.approvalExpires});
+        }
+        // Consume atomically before sending; a double click cannot issue two invitations.
+        const claimed = {...record, approvalUsed:true};
+        const saved = await store.setJSON("request/" + p.id, claimed, {onlyIfMatch:snapshot.etag});
+        if (!saved.modified) return fail("This request has changed. Please reopen the latest studio email.", 409);
+        const expires = await issueInvitation(claimed, url.origin);
+        return response({ok:true,expires});
       }
       if (action === "studio-login" && req.method === "POST") {
         if (typeof p.token !== "string" || p.token.length > 300)
@@ -165,6 +208,7 @@ export function createHandler({
         if (action === "request") {
           const key = "request/" + hash(email),
             old = await read(key);
+          const approvalToken = token();
           const collections = Array.isArray(p.collections) ? [...new Set(p.collections.filter(c=>catalog.some(w=>w.collection===c)))] : [];
           const record = {
             ...old,
@@ -175,11 +219,14 @@ export function createHandler({
             work: String(p.work || "").slice(0, 250),
             collections,
             message: String(p.message || "").slice(0,2000),
+            approvalHash: hash(approvalToken),
+            approvalExpires: now() + 2 * DAY,
+            approvalUsed: false,
             created: now(),
             status: old?.status || "pending",
           };
           await write(key, record);
-          await send({to: "ctalmon@gmail.com", reply_to: email, ...studioNotification(record,url.origin)});
+          await send({to: "ctalmon@gmail.com", reply_to: email, ...studioNotification(record,url.origin,approvalToken)});
           await send({to: email, ...collectorReceipt(record)});
         }
         if (action === "subscribe" || p.consent === true) {
@@ -324,34 +371,14 @@ export function createHandler({
             return fail("Invalid request.");
           const record = await read("request/" + p.id);
           if (!record) return fail("Request not found.", 404);
-          const password = token(),
-            id = hash(password),
-            expires = now() + DAY;
-          await write("grant/" + id, {
-            email: record.email,
-            expires,
-            revoked: false,
-          });
-          try {
-            await send({to:record.email, ...collectorInvitation(record,url.origin,password,expires)});
-          } catch (e) {
-            await store.delete("grant/" + id);
-            throw e;
-          }
-          if (record.grant) await store.delete("grant/" + record.grant);
-          await write("request/" + p.id, {
-            ...record,
-            status: "approved",
-            grant: id,
-            expires,
-          });
+          const expires = await issueInvitation(record, url.origin);
           return response({ ok: true, expires });
         }
         if (action === "studio-revoke" && req.method === "POST") {
           const record = await read("request/" + String(p.id));
           if (!record) return fail("Request not found.", 404);
           if (record.grant) await store.delete("grant/" + record.grant);
-          await write("request/" + p.id, { ...record, status: "revoked" });
+          await write("request/" + p.id, { ...record, status: "revoked", approvalHash: null });
           return response({ ok: true });
         }
         if (action === "studio-remove-subscriber" && req.method === "POST") {

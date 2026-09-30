@@ -16,10 +16,10 @@ export function collectorReceipt(record) {
  const next=t('The studio will review your request. Once reviewed, a separate invitation will contain your personal password and a link to the collection. Access will be valid for 24 hours from the time that invitation is issued.');
  return {subject:title+' — Talmon de l’Armée',text:`${record.name},\n\n${intro}\n${summary}\n\n${next}\n\nTalmon de l’Armée Photography\nhttps://talmonphoto.com`,html:shell({locale:record.locale,title,intro,body:p(record.name)+p(summary)+p(next),label:t('View the photographs'),url:'https://talmonphoto.com/'+validLocale(record.locale)+'/work/'})};
 }
-export function studioNotification(record,origin) {
- const {summary}=details(record), url=origin+'/editions-editor/#requests';
- const next='Studio notification only — no collector password has been issued for this request. Open Collector Requests and choose “Approve & email password” to send the collector their invitation.';
- return {subject:'Studio action required — '+record.name,text:`STUDIO NOTIFICATION\n\n${record.name}\n${record.email}\n${summary}\n${record.message||'—'}\n\n${next}\n\nReview collector requests:\n${url}`,html:shell({title:'Collector request',intro:next,body:p(record.name)+p(record.email)+p(summary)+p(record.message||'—'),label:'Review collector requests',url})};
+export function studioNotification(record,origin,approvalToken) {
+ const {summary}=details(record), url=approvalToken ? origin+'/editions-editor/approve/#id='+record.id+'&token='+approvalToken : origin+'/editions-editor/#requests';
+ const next='Studio notification only — no collector password has been issued for this request. Use the secure button below to review this request and send the collector their invitation. No GitHub sign-in is needed. This private link expires in 48 hours and can approve only this request. Do not forward it.';
+ return {subject:'Studio action required — '+record.name,text:`STUDIO NOTIFICATION\n\n${record.name}\n${record.email}\n${summary}\n${record.message||'—'}\n\n${next}\n\nReview this request:\n${url}`,html:shell({title:'Collector request',intro:next,body:p(record.name)+p(record.email)+p(summary)+p(record.message||'—'),label:approvalToken ? 'Review & approve request' : 'Review collector requests',url})};
 }
 export function collectorInvitation(record,origin,password,expires) {
  const t=(text,values)=>collectorText(record.locale,text,values),locale=validLocale(record.locale),{work,summary}=details(record);
