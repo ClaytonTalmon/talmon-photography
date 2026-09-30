@@ -5,9 +5,6 @@ let state, version;
 let publishingToken = '', frameReady = false, requestedCollection = '';
 let priceDirty = false;
 const frame = $('collection-editor-frame');
-if (['talmonphoto.com','www.talmonphoto.com'].includes(location.hostname)) {
-  location.replace('https://willowy-pika-c392c9.netlify.app' + location.pathname + location.hash);
-}
 function clearPublishingConnection() {
   publishingToken = '';
   if (frameReady) frame.contentWindow.postMessage({type:'studio-disconnect'}, location.origin);

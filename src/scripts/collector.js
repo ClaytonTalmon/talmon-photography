@@ -2,9 +2,6 @@ import { collectorText } from "../i18n/collector.mjs";
 const $ = (id) => document.getElementById(id),
   params = new URLSearchParams(location.search),
   locale = location.pathname.split("/")[1];
-if (["talmonphoto.com", "www.talmonphoto.com"].includes(location.hostname)) {
-  location.replace("https://willowy-pika-c392c9.netlify.app" + location.pathname + location.search + location.hash);
-}
 const t = (text, values) => collectorText(locale, text, values);
 const publicCatalog = JSON.parse($("public-catalog").textContent);
 const requestedWork = publicCatalog.find(w => w.id === params.get("work"));

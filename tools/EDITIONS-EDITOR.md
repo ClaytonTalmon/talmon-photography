@@ -1,7 +1,7 @@
 # Studio Editor — Collections & Editions
 
 Collector page: `/en/editions/` (also available under each existing locale).
-Private combined Studio Editor: `https://willowy-pika-c392c9.netlify.app/editions-editor/`.
+Private combined Studio Editor: `https://talmonphoto.com/editions-editor/`.
 
 The four tabs are **Collections**, **Edition Prices**, **Collector Requests**, and **Mailing List**. Collections also includes the existing Process editor. An **Edit prices** button on each photograph opens that exact work in Edition Prices. **Edit collection details** takes you back to its collection. Existing Collection Editor draft JSON files remain compatible; load them in the Collections tab. Browser-only drafts from the older local file do not migrate automatically: export them from that file and import them here.
 
@@ -28,7 +28,7 @@ Access requests do not add anyone to the mailing list unless they explicitly opt
 
 ## Hosting
 
-The public site currently deploys to **GitHub Pages** at `talmonphoto.com`. The secure collector service runs on **Netlify** at `https://willowy-pika-c392c9.netlify.app`. Public Collect and Mailing List links lead there. Requests submit directly; no mail application opens.
+The public site and secure collector service run together on **Netlify** at `https://talmonphoto.com`, with DNS managed by GoDaddy. Collect, Mailing List, and Studio Editor links stay on the current domain. Requests submit directly; no mail application opens.
 
 The Netlify function uses the existing `RESEND_API_KEY` environment variable and the sender `studio@updates.claytontalmon.com`. Ensure the key is available to Functions in the production context. Confirm the sender is verified in Resend; the existing public contact page currently uses Formspree, so Resend activation must be verified separately. No new shared password secret is required.
 

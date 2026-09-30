@@ -1,9 +1,6 @@
 import { collectorText } from '../i18n/collector.mjs';
 const locale=location.pathname.split('/')[1], t=(text)=>collectorText(locale,text);
 const $=id=>document.getElementById(id), params=new URLSearchParams(location.search);
-if (['talmonphoto.com','www.talmonphoto.com'].includes(location.hostname)) {
- location.replace('https://willowy-pika-c392c9.netlify.app'+location.pathname+location.search+location.hash);
-}
 const status=$('signup-status');
 function notice(message,error=false) { status.textContent=t(message); status.classList.toggle('error',error); }
 async function api(action,data) {

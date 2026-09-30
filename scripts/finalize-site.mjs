@@ -18,7 +18,7 @@ for (const file of files.filter(f=>/\.(jpe?g|png|webp)$/i.test(f))) {
 }
 const urls=files.filter(f=>f.endsWith('/index.html')&&!/\/(editor|editions-editor|editions|mailing-list)\//.test(f)).map(f=>{
  const path=f.slice(4,-10);
- const host=/\/(editions|mailing-list)\//.test(path)?'https://willowy-pika-c392c9.netlify.app':'https://talmonphoto.com';
+ const host='https://talmonphoto.com';
  return `<url><loc>${host}${path}</loc></url>`;
 });
 await writeFile('dist/sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+urls.join('')+'</urlset>\n');

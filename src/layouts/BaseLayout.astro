@@ -24,7 +24,7 @@ const canonicalPath =
     : currentPath;
 const localePrefixPattern = new RegExp(`^/(${locales.join('|')})`);
 const isEditor = canonicalPath.includes('editions-editor');
-const canonicalOrigin = /\/(editions|mailing-list)\//.test(canonicalPath) ? 'https://willowy-pika-c392c9.netlify.app' : 'https://talmonphoto.com';
+const canonicalOrigin = 'https://talmonphoto.com';
 const faviconPath = `${basePath}/favicon.svg`;
 const alternatePath = (targetLocale: Locale) =>
   canonicalPath.replace(localePrefixPattern, `/${targetLocale}`);
