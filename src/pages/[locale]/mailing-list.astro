@@ -21,7 +21,8 @@ const {locale}=Astro.params as {locale:Locale};
 </section>
 </BaseLayout>
 <style>
- .signup-page { max-width:760px; min-height:60vh; }
+ .signup-page { max-width:760px; padding-bottom:40px; }
+ #signup-status:empty { display:none; }
  #mailing-signup { margin-top:28px; }
 </style>
 <script>
