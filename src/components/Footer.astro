@@ -23,6 +23,7 @@ const year = '2026';
     <nav class="footer-links" aria-label={locale === 'de' ? 'Fußzeile' : 'Footer'}>
       <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
       <a href={localizedPath(locale, '/private-view')}>{t.footer.privateView}</a>
+      <a href={'https://willowy-pika-c392c9.netlify.app' + localizedPath(locale, '/editions/') + '#mailing-list'}>Join the mailing list</a>
       <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">{t.footer.instagram}</a>
     </nav>
   </div>
@@ -71,6 +72,7 @@ const year = '2026';
 
   .footer-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px;
     font-size: 0.76rem;
     letter-spacing: 0.1em;
