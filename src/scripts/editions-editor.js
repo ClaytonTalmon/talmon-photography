@@ -58,7 +58,7 @@ function showSection(section) {
   document.querySelectorAll('[data-section]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.section===section)));
   history.replaceState({},'',location.pathname+location.search+'#'+section);
   if (section==='collections') {
-    if (!frame.getAttribute('src')) frame.src='/editor/collections.html';
+    if (!frame.getAttribute('src')) frame.src='/editor/collections.html?studioChild=1';
     connectCollectionFrame();
   }
 }

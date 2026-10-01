@@ -10,7 +10,7 @@ function setup() {
  const element=id=>{if(!elements.has(id))elements.set(id,{value:'',textContent:''});return elements.get(id);};
  const context=vm.createContext({
   window:{parent,addEventListener:(name,fn)=>listeners[name]=fn},
-  location:{origin:'https://studio.example.com'},
+  URLSearchParams,location:{origin:'https://studio.example.com',search:'?studioChild=1'},
   document:{createElement:()=>({}),head:{append(){}},body:{scrollHeight:1200},querySelector:selector=>selector.includes('button[data-slug=')?{click:()=>selected=selector}:element(selector),querySelectorAll:()=>[]},
   $:element,render:()=>{},ready:false,token:'',slugs:['form','flow','flight','world'],
   ResizeObserver:class {observe(){}},requestAnimationFrame:fn=>fn(),

@@ -1,6 +1,6 @@
 // This script runs only in the hosted copy of the existing Collection Editor.
 // Draft files and standalone editor behavior remain compatible.
-if (window.parent !== window && location.origin !== 'null') {
+if (window.parent !== window && location.origin !== 'null' && new URLSearchParams(location.search).get('studioChild') === '1') {
   const origin = location.origin;
   const notify = data => window.parent.postMessage(data, origin);
   const css = document.createElement('style');
