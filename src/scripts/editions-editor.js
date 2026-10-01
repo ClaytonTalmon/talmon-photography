@@ -2,6 +2,15 @@ export {};
 const $ = (id) => document.getElementById(id),
   catalog = JSON.parse($("catalog").textContent);
 let state, version;
+const embedded = window.parent !== window && new URLSearchParams(location.search).get('embedded') === '1';
+let embeddedSession = '';
+if (embedded) {
+ document.body.classList.add('embedded-studio');
+ window.addEventListener('message',event=>{
+  if(event.source!==window.parent || event.data?.type!=='studio-show-section')return;
+  if(['prices','requests','mailing'].includes(event.data.section))showSection(event.data.section);
+ });
+}
 let publishingToken = '', frameReady = false, requestedCollection = '';
 let priceDirty = false;
 const frame = $('collection-editor-frame');
@@ -21,7 +30,7 @@ function showSection(section) {
   if (!['collections','prices','requests','mailing'].includes(section)) section='collections';
   document.querySelectorAll('[data-studio-panel]').forEach(panel=>panel.hidden=panel.dataset.studioPanel!==section);
   document.querySelectorAll('[data-section]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.section===section)));
-  history.replaceState({},'',location.pathname+'#'+section);
+  history.replaceState({},'',location.pathname+location.search+'#'+section);
   if (section==='collections') {
     if (!frame.getAttribute('src')) frame.src='/editor/collections.html';
     connectCollectionFrame();
@@ -60,7 +69,7 @@ async function api(action, data) {
     "/.netlify/functions/editions?action=studio-" + action,
     {
       method: data ? "POST" : "GET",
-      headers: data ? { "Content-Type": "application/json" } : {},
+      headers: { ...(data ? { "Content-Type": "application/json" } : {}), ...(embeddedSession ? {"X-Studio-Session":embeddedSession} : {}) },
       body: data ? JSON.stringify(data) : undefined,
       cache: "no-store",
     },
@@ -277,7 +286,8 @@ $("login").onsubmit = async (e) => {
   input.value = "";
   button.disabled = true;
   try {
-    await api("login", { token });
+    const login = await api("login", { token, embedded });
+    embeddedSession = login.session || "";
     publishingToken=token;
     await load();
     populateWorks();
@@ -369,11 +379,12 @@ $("logout").onclick = async () => {
   try {
     const r = await fetch("/.netlify/functions/editions?action=logout", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...(embeddedSession ? {"X-Studio-Session":embeddedSession} : {}) },
       body: "{}",
     });
     if (!r.ok) throw Error("Sign-out failed. Please try again.");
     clearPublishingConnection();
+    embeddedSession="";
     frameReady=false;
     frame.removeAttribute("src");
     priceDirty=false;

@@ -7,7 +7,7 @@ import catalog from '../data/edition-catalog.mjs';
  <section class="editions">
   <span class="eyebrow">Studio administration</span><h1>Studio Editor</h1><p class="intro">Manage collections, edition prices, collector requests and the mailing list in one place.</p><p id="status" class="notice" role="status" aria-live="polite"></p>
   <p class="small"><a href="/editions-editor/preview/">Preview the full client experience ↗</a></p>
-  <form id="login" class="panel"><h2>Studio sign-in</h2><p class="small">Use a GitHub access token belonging to ClaytonTalmon, with access to the website repository. For collection publishing, choose Contents: Read and write. Your token stays only in this window and is cleared on sign-out; it is never saved with drafts. Your secure studio session lasts eight hours.</p><label>GitHub access token<input name="token" type="password" autocomplete="off" required /></label><button class="primary">Open the editor</button></form>
+  <form id="login" class="panel"><h2>Studio sign-in</h2><p class="small">Connect here to edit live prices and requests. Use a GitHub access token belonging to ClaytonTalmon, with access to the website repository. For collection publishing, choose Contents: Read and write. Your token stays only in this window and is cleared on sign-out; it is never saved with drafts. Your secure studio session lasts eight hours.</p><label>GitHub access token<input name="token" type="password" autocomplete="off" required /></label><button class="primary">Open the editor</button></form>
   <div id="studio" hidden>
    <div class="studio-actions"><button id="logout">Sign out</button><a href="https://talmonphoto.com/en/" target="_blank" rel="noopener noreferrer">View website ↗</a></div>
    <nav class="studio-tabs" aria-label="Studio sections">
@@ -40,4 +40,6 @@ import catalog from '../data/edition-catalog.mjs';
  .studio-tabs button[aria-pressed="true"] {background:#24231f;color:#fff}
  #collection-editor-frame {display:block;width:100%;height:850px;border:0;margin-top:20px}
  #edit-collection-details {margin-bottom:20px}
+ :global(body.embedded-studio > header), :global(body.embedded-studio > footer), :global(body.embedded-studio .skip-link), :global(body.embedded-studio .studio-tabs), :global(body.embedded-studio .studio-actions a), :global(body.embedded-studio #edit-collection-details) {display:none}
+ :global(body.embedded-studio .editions){padding:24px;max-width:none}
 </style>

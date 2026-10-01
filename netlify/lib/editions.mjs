@@ -46,7 +46,7 @@ export function createHandler({
     return record?.grant === id ? selectedCollections(record) : [];
   }
   async function session(req, kind) {
-    const value = req.headers
+    const value = (kind === "studio" && req.headers.get("X-Studio-Session")) || req.headers
       .get("cookie")
       ?.split("; ")
       .find((v) => v.startsWith(kind + "="))
@@ -117,6 +117,8 @@ export function createHandler({
       const t = (text, values) => collectorText(locale, text, values);
       const fail = (message, status = 400) => response({ error: t(message) }, status);
       if (action === "logout" && req.method === "POST") {
+        const embedded = req.headers.get("X-Studio-Session");
+        if (embedded && embedded.length <= 100) await store.delete("session/" + hash(embedded));
         for (const kind of ["collector", "studio"]) {
           const value = req.headers
             .get("cookie")
@@ -183,8 +185,11 @@ export function createHandler({
         );
         if (!repo.ok)
           return fail("This token cannot access the website repository.", 403);
-        return response({ ok: true }, 200, {
-          "Set-Cookie": await newSession("studio", now() + 8 * 3600000),
+        const studioCookie = await newSession("studio", now() + 8 * 3600000);
+        // Embedded editors cannot rely on third-party cookies. Keep this short-lived
+        // session only in the hosted frame's memory, never in its parent or storage.
+        return response({ ok: true, ...(p.embedded === true ? {session:studioCookie.split(";")[0].slice(7)} : {}) }, 200, {
+          "Set-Cookie": studioCookie,
         });
       }
       if (action === "unlock" && req.method === "POST") {

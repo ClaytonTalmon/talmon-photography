@@ -38,7 +38,7 @@ function setup() {
           : { full_name: "ClaytonTalmon/talmon-photography" },
       ),
   });
-  const call = (action, data, cookie = "", origin = "https://example.com") =>
+  const call = (action, data, cookie = "", origin = "https://example.com", extraHeaders = {}) =>
     handler(
       new Request(
         "https://example.com/.netlify/functions/editions?action=" + action,
@@ -49,6 +49,7 @@ function setup() {
             cookie,
             "Content-Type": "application/json",
             "x-nf-client-connection-ip": "127.0.0.1",
+            ...extraHeaders,
           },
           body: data ? JSON.stringify(data) : undefined,
         },
@@ -424,4 +425,22 @@ test('email approval stores only requested collections and ignores an unrelated 
  const result=await (await s.call('catalog',null,cookie)).json();
  assert.deepEqual([...new Set(result.works.map(w=>w.collection))],['form','flow']);
  assert.ok(result.works.every(w=>w.formats.every(f=>Number.isInteger(f.edition)&&f.editionLabel)));
+});
+
+
+test('embedded studio sessions work without cookies, retain origin checks, expire and revoke',async()=>{
+ const s=setup();
+ const normal=await (await s.call('studio-login',{token:'owner-token'})).json();
+ assert.equal(normal.session,undefined);
+ const login=await (await s.call('studio-login',{token:'owner-token',embedded:true})).json();
+ assert.match(login.session,/^[A-Za-z0-9_-]{32}$/);
+ const headers={'X-Studio-Session':login.session};
+ assert.equal((await s.call('studio-data',null,'','https://example.com',headers)).status,200);
+ assert.equal((await s.call('studio-data',null,'','https://example.com',{'X-Studio-Session':'invalid'})).status,401);
+ assert.equal((await s.call('studio-save',{},'','null',headers)).status,403);
+ assert.equal((await s.call('logout',{},'','https://example.com',headers)).status,200);
+ assert.equal((await s.call('studio-data',null,'','https://example.com',headers)).status,401);
+ const second=await (await s.call('studio-login',{token:'owner-token',embedded:true})).json();
+ s.advance(8*3600000);
+ assert.equal((await s.call('studio-data',null,'','https://example.com',{'X-Studio-Session':second.session})).status,401);
 });
