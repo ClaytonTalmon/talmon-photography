@@ -3,12 +3,30 @@ const $ = (id) => document.getElementById(id),
   catalog = JSON.parse($("catalog").textContent);
 let state, version;
 const embedded = window.parent !== window && new URLSearchParams(location.search).get('embedded') === '1';
-let embeddedSession = '';
+let embeddedSession = '', pendingPricing = null;
+function selectRequestedPricing() {
+ if(!state || !pendingPricing)return;
+ const selection=pendingPricing;
+ if(!catalog.some(w=>w.collection===selection.collection)){pendingPricing=null;return;}
+ if(priceDirty && !confirm('Discard unsaved price edits and open the selected pricing table?')){pendingPricing=null;return;}
+ if(selection.scope==='individual' && !catalog.some(w=>w.id===selection.work && w.collection===selection.collection)){
+  status('Publish this photograph first, then reopen the editor after the website rebuild finishes.',true);pendingPricing=null;return;
+ }
+ priceDirty=false;
+ $('price-scope').value=selection.scope==='individual'?'individual':'collection';
+ $('price-collection').value=selection.collection;
+ populateWorks(selection.work);
+ showSection('prices');pendingPricing=null;
+}
 if (embedded) {
  document.body.classList.add('embedded-studio');
  window.addEventListener('message',event=>{
-  if(event.source!==window.parent || event.data?.type!=='studio-show-section')return;
-  if(['prices','requests','mailing'].includes(event.data.section))showSection(event.data.section);
+  if(event.source!==window.parent)return;
+  if(event.data?.type==='studio-show-section' && ['prices','requests','mailing'].includes(event.data.section))showSection(event.data.section);
+  if(event.data?.type==='studio-select-pricing'){
+   pendingPricing={collection:event.data.collection,scope:event.data.scope,work:event.data.work};
+   showSection('prices');selectRequestedPricing();
+  }
  });
 }
 let publishingToken = '', frameReady = false, requestedCollection = '';
@@ -292,6 +310,7 @@ $("login").onsubmit = async (e) => {
     await load();
     populateWorks();
     showSection(location.hash.slice(1));
+    selectRequestedPricing();
     connectCollectionFrame();
     status("Studio connected.");
   } catch (e) {
@@ -400,5 +419,5 @@ $("logout").onclick = async () => {
   }
 };
 load()
-  .then(()=>{populateWorks();showSection(location.hash.slice(1));})
+  .then(()=>{populateWorks();showSection(location.hash.slice(1));selectRequestedPricing();})
   .catch(e => {if(e.message!=="Please sign in to the Editions Editor.") status(e.message,true);});

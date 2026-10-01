@@ -127,10 +127,20 @@ if (window.parent === window) {
  for(const f of [secureFrame,previewFrame]){f.style.cssText='display:block;width:100%;height:1100px;border:1px solid #bbb;background:#f2f0e9';f.referrerPolicy='no-referrer';}
  const note=document.createElement('p');note.className='small';note.textContent='Live studio controls. Connect once inside this panel for prices, requests and the mailing list. Your connection stays in this window; switching tabs keeps it open. Collection publishing uses the Publishing connection in Collections & Process.';
  secure.append(note,secureFrame);preview.append(previewFrame);
- let selectedSection='prices';
+ let selectedSection='prices', priceSelection=null;
+ const sendPriceSelection=()=>{if(priceSelection)secureFrame.contentWindow.postMessage({type:'studio-select-pricing',...priceSelection},'https://talmonphoto.com');};
+ const openPricing=selection=>{priceSelection=selection;nav.querySelector('[data-workspace="prices"]').click();sendPriceSelection();};
+ secureFrame.addEventListener('load',sendPriceSelection);
+ const collectionPrices=document.createElement('button');collectionPrices.type='button';collectionPrices.textContent='Collection pricing';collectionPrices.onclick=()=>openPricing({collection:active,scope:'collection'});
+ document.querySelector('#collection-editor .toolbar').append(collectionPrices);
+ const pricingHelp=document.createElement('p');pricingHelp.className='small';pricingHelp.textContent='Pricing tables: use Collection pricing to apply a schedule to every image, or Edit prices beneath a photograph to change only that image. Prices are saved directly to the private acquisition pages.';
+ document.querySelector('#collection-editor .toolbar').after(pricingHelp);
+ const renderWithPricing=render;
+ render=function(){renderWithPricing();document.querySelectorAll('#grid article').forEach((card,index)=>{const collection=active,work=collection+'/'+orders[collection][index];const button=document.createElement('button');button.type='button';button.textContent='Edit prices';button.onclick=()=>openPricing({collection,work,scope:'individual'});card.querySelector('.actions').append(button);});};
+ if(ready)render();
  secureFrame.addEventListener('load',()=>secureFrame.contentWindow.postMessage({type:'studio-show-section',section:selectedSection},'https://talmonphoto.com'));
- for(const [key,label] of [['collections','Collections & Process'],['prices','Edition Prices'],['requests','Collector Requests'],['mailing','Mailing List'],['preview','Client Walkthrough']]){
-  const b=document.createElement('button');b.type='button';b.textContent=label;b.setAttribute('aria-pressed',String(key==='collections'));
+ for(const [key,label] of [['collections','Collections & Process'],['prices','Pricing Tables'],['requests','Collector Requests'],['mailing','Mailing List'],['preview','Client Walkthrough']]){
+  const b=document.createElement('button');b.type='button';b.dataset.workspace=key;b.textContent=label;b.setAttribute('aria-pressed',String(key==='collections'));
   b.onclick=()=>{
    for(const button of nav.children)button.setAttribute('aria-pressed',String(button===b));
    collections.hidden=key!=='collections';secure.hidden=!['prices','requests','mailing'].includes(key);preview.hidden=key!=='preview';
