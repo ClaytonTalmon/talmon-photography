@@ -94,12 +94,12 @@ const ct = (text: string) => collectorText(locale, text);
       </figcaption>
     </figure>
 
-    <p style="margin:24px 0;text-align:center"><a class="btn" href={localizedPath(locale, '/editions/') + '?work=' + encodeURIComponent(slug + '/' + loadedImage.filename)}>{ct("Editions & acquisition request")}</a></p>
     <nav class="image-navigation" aria-label={t.work.title}>
       {previousImagePath ? <a href={previousImagePath}>← {t.work.previous}</a> : <span />}
       <a href={seriesPath}>{t.work.backToSeries}</a>
       {nextImagePath ? <a href={nextImagePath}>{t.work.next} →</a> : <span />}
     </nav>
+    <p style="margin:24px 0;text-align:center"><a class="btn" href={localizedPath(locale, '/editions/') + '?work=' + encodeURIComponent(slug + '/' + loadedImage.filename)}>{ct("Editions & acquisition request")}</a></p>
   </div>
 </BaseLayout>
 
