@@ -29,6 +29,7 @@ if (embedded) {
  window.addEventListener('message',event=>{
   if(event.source!==window.parent || ![location.origin,'null'].includes(event.origin))return;
   workspaceOrigin=event.origin;
+  if(event.data?.type==='studio-refresh-prices')void refreshSavedPrices();
   publishPriceSummaries();
   if(event.data?.type==='studio-show-section' && ['prices','requests','mailing'].includes(event.data.section))showSection(event.data.section);
   if(event.data?.type==='studio-select-pricing'){
@@ -38,7 +39,20 @@ if (embedded) {
  });
 }
 let publishingToken = '', frameReady = false, requestedCollection = '';
-let priceDirty = false;
+let priceDirty = false, priceRefreshPending=false, lastPriceRefresh=0;
+async function refreshSavedPrices(){
+ if(!state || priceDirty || priceRefreshPending || Date.now()-lastPriceRefresh<2000)return;
+ const currentState=state;
+ priceRefreshPending=true;lastPriceRefresh=Date.now();
+ try{
+  const fresh=await api('data');
+  if(state!==currentState || priceDirty)return;
+  if(fresh.prices.version>=state.prices.version){state.prices=fresh.prices;publishPriceSummaries();pricing();}
+ }catch(error){status(error.message,true);}
+ finally{priceRefreshPending=false;}
+}
+window.addEventListener('focus',()=>{if(!embedded)refreshSavedPrices();});
+
 const frame = $('collection-editor-frame');
 function clearPublishingConnection() {
   publishingToken = '';
@@ -58,6 +72,7 @@ function showSection(section) {
   document.querySelectorAll('[data-section]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.section===section)));
   history.replaceState({},'',location.pathname+location.search+'#'+section);
   if (section==='collections') {
+    void refreshSavedPrices();
     if (!frame.getAttribute('src')) frame.src='/editor/collections.html?studioChild=1';
     connectCollectionFrame();
   }
