@@ -27,3 +27,18 @@
     X-Robots-Tag = "noindex, nofollow"
     Referrer-Policy = "no-referrer"
     X-Frame-Options = "SAMEORIGIN"
+
+# Apply baseline browser protections without blocking the local Collection Editor.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "base-uri 'self'; object-src 'none'"
+
+[[headers]]
+  for = "/editions-editor/approve/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    Content-Security-Policy = "base-uri 'self'; object-src 'none'; frame-ancestors 'self'"

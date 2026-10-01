@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { createHandler } from "../netlify/lib/editions.mjs";
 import catalog from "../src/data/edition-catalog.mjs";
-function setup() {
+function setup(options = {}) {
   let clock = 1000000;
   const values = new Map(),
     emails = [];
@@ -30,7 +30,7 @@ function setup() {
   const handler = createHandler({
     store,
     now: () => clock,
-    send: async (message) => emails.push(message),
+    send: async (message) => {emails.push(message);await options.onSend?.(message);},
     github: async (url) =>
       Response.json(
         url.endsWith("/user")
@@ -240,10 +240,11 @@ test('collection interests reach the studio and acquisition enquiries send direc
   const requests = (await (await s.call('studio-data',null,admin)).json()).requests;
   assert.deepEqual(requests[0].collections,['form','flow']);
   const work = catalog.find(w=>w.formats.length);
-  assert.equal((await s.call('enquiry',{...data,work:work.id,format:work.formats[0].key})).status,200);
+  const visitor = await invite(s,admin);
+  assert.equal((await s.call('enquiry',{...data,work:work.id,format:work.formats[0].key},visitor.cookie)).status,200);
   assert.match(s.emails.at(-1).subject,/Acquisition enquiry/);
   assert.ok(s.emails.at(-1).text.includes(work.title));
-  assert.equal((await s.call('enquiry',{...data,work:'missing'})).status,400);
+  assert.equal((await s.call('enquiry',{...data,work:'missing'},visitor.cookie)).status,400);
 });
 
 test('all collector locales receive localized confirmation and invitation links', async()=>{
@@ -496,4 +497,49 @@ test('collector catalog resolves separate price brackets and sales counts for ea
  assert.equal(formats.find(f=>f.key==='standard').sold,2);
  assert.equal(formats.find(f=>f.key==='large').price,4250);
  assert.equal(formats.find(f=>f.key==='large').sold,0);
+});
+
+test('acquisition enquiries require live access to the requested collection and valid format',async()=>{
+ const s=setup(),admin=await auth(s),visitor=await invite(s,admin);
+ const data={name:'Collector',email:'collector@example.com',work:catalog.find(w=>w.collection==='form').id,format:'standard'};
+ const count=s.emails.length;
+ assert.equal((await s.call('enquiry',data)).status,401);
+ assert.equal((await s.call('enquiry',{...data,work:catalog.find(w=>w.collection==='world').id},visitor.cookie)).status,400);
+ assert.equal((await s.call('enquiry',{...data,format:'invalid'},visitor.cookie)).status,400);
+ assert.equal(s.emails.length,count);
+ await s.call('studio-revoke',{id:visitor.id},admin);
+ assert.equal((await s.call('enquiry',data,visitor.cookie)).status,401);
+});
+
+test('an orphaned scoped invitation cannot unlock or retain a collector session',async()=>{
+ const s=setup(),admin=await auth(s),visitor=await invite(s,admin);
+ s.values.get('request/'+visitor.id).data.grant='superseded';
+ assert.equal((await s.call('catalog',null,visitor.cookie)).status,401);
+ assert.equal((await s.call('unlock',{password:visitor.password})).status,401);
+});
+
+test('revocation during email delivery cannot be overwritten by an in-flight approval',async()=>{
+ let pause=false, entered, release;
+ const started=new Promise(resolve=>entered=resolve), resume=new Promise(resolve=>release=resolve);
+ const s=setup({onSend:async message=>{if(pause&&message.text.includes('Password:')){entered();await resume;}}});
+ const admin=await auth(s),visitor=await invite(s,admin);
+ pause=true;
+ const approval=s.call('studio-approve',{id:visitor.id},admin);
+ await started;
+ await s.call('studio-revoke',{id:visitor.id},admin);
+ release();
+ assert.equal((await approval).status,503);
+ const password=s.emails.at(-1).text.match(/Password: (\S+)/)[1];
+ assert.equal((await s.call('unlock',{password})).status,401);
+ assert.equal((await s.call('catalog',null,visitor.cookie)).status,401);
+ assert.equal(s.values.get('request/'+visitor.id).data.status,'revoked');
+});
+
+test('malformed bodies, foreign origins and concurrent submissions fail safely',async()=>{
+ const s=setup();
+ assert.equal((await s.call('request',[])).status,400);
+ assert.equal((await s.call('request',{} ,'','https://other.example')).status,403);
+ const results=await Promise.all(Array.from({length:25},()=>s.call('unlock',{password:'not-an-invitation'})));
+ assert.ok(results.some(r=>r.status===429));
+ assert.ok(results.every(r=>[401,429].includes(r.status)));
 });

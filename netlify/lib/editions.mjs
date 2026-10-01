@@ -40,8 +40,10 @@ export function createHandler({
     return valid;
   };
   async function grantCollections(grant, id) {
-    if (Array.isArray(grant.collections)) return selectedCollections({collections:grant.collections});
     const record = await read("request/" + hash(grant.email || ""));
+    // Only the current invitation can unlock access, including after concurrent reissues.
+    if (record?.grant !== id || record.status === "revoked") return [];
+    if (Array.isArray(grant.collections)) return selectedCollections({collections:grant.collections});
     // Never infer access from an unrelated or replaced invitation.
     return record?.grant === id ? selectedCollections(record) : [];
   }
@@ -68,7 +70,7 @@ export function createHandler({
     await write("session/" + hash(value), { kind, expires, ...extra });
     return cookie(kind, value, Math.floor((expires - now()) / 1000));
   }
-  async function issueInvitation(record, origin) {
+  async function issueInvitation(record, origin, expectedEtag) {
     const password = token(),
       id = hash(password),
       expires = now() + DAY;
@@ -84,17 +86,22 @@ export function createHandler({
       await store.delete("grant/" + id);
       throw e;
     }
-    if (record.grant) await store.delete("grant/" + record.grant);
-    await write("request/" + record.id, {
+    const saved = await store.setJSON("request/" + record.id, {
       ...record,
       status: "approved",
       approvalHash: null,
       grant: id,
       expires,
-    });
+    }, {onlyIfMatch:expectedEtag});
+    if (!saved.modified) {
+      await store.delete("grant/" + id);
+      throw Error("Invitation superseded while sending; review the current request.");
+    }
+    if (record.grant) await store.delete("grant/" + record.grant);
     return expires;
   }
   return async (req) => {
+    let responseLocale = "en";
     try {
       const url = new URL(req.url),
         action = url.searchParams.get("action") || "catalog";
@@ -109,11 +116,13 @@ export function createHandler({
           return response({ error: "Request too large." }, 413);
         try {
           p = JSON.parse(text);
+          if (!p || typeof p !== "object" || Array.isArray(p)) return response({error:"Invalid request."},400);
         } catch {
           return response({ error: "Invalid request." }, 400);
         }
       }
       const locale = validLocale(p.locale || url.searchParams.get("locale"));
+      responseLocale = locale;
       const t = (text, values) => collectorText(locale, text, values);
       const fail = (message, status = 400) => response({ error: t(message) }, status);
       if (action === "logout" && req.method === "POST") {
@@ -162,7 +171,9 @@ export function createHandler({
         const claimed = {...record, approvalUsed:true};
         const saved = await store.setJSON("request/" + p.id, claimed, {onlyIfMatch:snapshot.etag});
         if (!saved.modified) return fail("This request has changed. Please reopen the latest studio email.", 409);
-        const expires = await issueInvitation(claimed, url.origin);
+        const current = await store.getWithMetadata("request/" + p.id, {type:"json"});
+        if (!current || current.data.approvalHash !== claimed.approvalHash || current.data.status === "revoked") return fail("This request has changed. Please reopen the latest studio email.",409);
+        const expires = await issueInvitation(claimed, url.origin, current.etag);
         return response({ok:true,expires});
       }
       if (action === "studio-login" && req.method === "POST") {
@@ -223,9 +234,12 @@ export function createHandler({
             "Please confirm that you wish to receive studio updates.",
           );
         if (action === "enquiry") {
-          const work = catalog.find(w=>w.id === p.work);
+          const visitor = await session(req, "collector");
+          if (!visitor) return fail("Private access is required.",401);
+          const work = catalog.find(w=>w.id === p.work && visitor.collections.includes(w.collection));
           if (!work) return fail("Please choose a photograph.");
           const format = work.formats.find(f=>f.key === p.format);
+          if (!format) return fail("Please choose a format.");
           await send({to:"ctalmon@gmail.com", reply_to:email,
             subject:"Acquisition enquiry — " + work.title,
             text:`${name}\n${email}\n${work.collection.toUpperCase()} — ${work.title}\n${format?.label || "Format on enquiry"}\n\n${String(p.message || "").slice(0,2000)}`});
@@ -440,10 +454,11 @@ export function createHandler({
         if (action === "studio-approve" && req.method === "POST") {
           if (!/^[a-f0-9]{64}$/.test(p.id || ""))
             return fail("Invalid request.");
-          const record = await read("request/" + p.id);
+          const snapshot = await store.getWithMetadata("request/" + p.id, {type:"json"});
+          const record = snapshot?.data;
           if (!record) return fail("Request not found.", 404);
           if (!selectedCollections(record).length) return fail("Please select at least one collection.");
-          const expires = await issueInvitation(record, url.origin);
+          const expires = await issueInvitation(record, url.origin, snapshot.etag);
           return response({ ok: true, expires });
         }
         if (action === "studio-revoke" && req.method === "POST") {
@@ -493,7 +508,7 @@ export function createHandler({
       return response(
         {
           error:
-            "The service is temporarily unavailable. Please try again or contact the studio.",
+            collectorText(responseLocale, "The service is temporarily unavailable. Please try again or contact the studio."),
         },
         503,
       );

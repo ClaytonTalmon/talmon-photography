@@ -53,7 +53,8 @@ const ct = (text: string) => collectorText(locale, text);
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
 
-    <Analytics />
+    <meta name="referrer" content="no-referrer" />
+    {!isEditor && !/\/(editions|mailing-list)\//.test(canonicalPath) && <Analytics />}
   </head>
   <body>
     <a class="skip-link" href="#main">{ct("Skip to content")}</a>

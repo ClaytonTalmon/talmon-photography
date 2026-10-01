@@ -24,7 +24,7 @@ const ct = (text: string) => collectorText(locale, text);
       <span class="wordmark__sub eyebrow">{locale === 'de' ? 'Fotografie' : 'Photography'}</span>
     </a>
 
-    <nav class="site-nav" aria-label={locale === 'de' ? 'Hauptnavigation' : 'Primary'}>
+    <nav class="site-nav" aria-label={ct("Primary")}>
       <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
       <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
       <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
@@ -33,18 +33,18 @@ const ct = (text: string) => collectorText(locale, text);
       <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
     </nav>
 
-    <div class="lang-switch" aria-label={locale === 'de' ? 'Sprache' : 'Language'}>
+    <div class="lang-switch" aria-label={ct("Language")}>
       {(currentPath.includes("editions-editor") ? [] : otherLocales(locale)).map((l) => (
-        <a href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
+        <a data-language-link href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
       ))}
       <span class="lang-switch__current">{localeNames[locale]}</span>
     </div>
 
     <details class="mobile-menu">
-      <summary aria-label={locale === 'de' ? 'Menü' : 'Menu'}>
+      <summary aria-label={ct("Menu")}>
         <span></span><span></span><span></span>
       </summary>
-      <nav class="mobile-menu__nav" aria-label={locale === 'de' ? 'Hauptnavigation (mobil)' : 'Primary (mobile)'}>
+      <nav class="mobile-menu__nav" aria-label={ct("Primary (mobile)")}>
         <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
         <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
         <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
@@ -53,7 +53,7 @@ const ct = (text: string) => collectorText(locale, text);
         <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
         <div class="mobile-menu__langs">
           {(currentPath.includes("editions-editor") ? [] : otherLocales(locale)).map((l) => (
-            <a href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
+            <a data-language-link href={localizedPath(l, currentPath)}>{localeNames[l]}</a>
           ))}
           <span>{localeNames[locale]}</span>
         </div>
@@ -248,3 +248,5 @@ const ct = (text: string) => collectorText(locale, text);
     }
   }
 </style>
+
+<script>import "../scripts/language-links.js";</script>

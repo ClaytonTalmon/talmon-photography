@@ -1,6 +1,8 @@
 import { collectorText } from '../i18n/collector.mjs';
 const locale=location.pathname.split('/')[1], t=(text)=>collectorText(locale,text);
 const $=id=>document.getElementById(id), params=new URLSearchParams(location.search);
+// Keep emailed capabilities in memory only after the page opens.
+if(params.has('confirm') || params.has('unsubscribe'))history.replaceState({},'',location.pathname);
 const status=$('signup-status');
 function notice(message,error=false) { status.textContent=t(message); status.classList.toggle('error',error); }
 async function api(action,data) {

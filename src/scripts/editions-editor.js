@@ -2,7 +2,7 @@ import { editionSummaries } from './edition-summary.js';
 const $ = (id) => document.getElementById(id),
   catalog = JSON.parse($("catalog").textContent);
 let state, version, pricesSyncedAt=0;
-const embedded = window.parent !== window && new URLSearchParams(location.search).get('embedded') === '1';
+const embedded = window.parent !== window; // Every framed studio requires its own explicit sign-in.
 let embeddedSession = '', pendingPricing = null, workspaceOrigin = null;
 function publishPriceSummaries(connected=true) {
  const message={type:'studio-price-summaries',summaries:state?editionSummaries(catalog,state.prices):null,syncedAt:pricesSyncedAt,connected:connected&&!!state};
@@ -110,6 +110,7 @@ async function api(action, data) {
     "/.netlify/functions/editions?action=studio-" + action,
     {
       method: data ? "POST" : "GET",
+      credentials: embedded ? "omit" : "same-origin",
       headers: { ...(data ? { "Content-Type": "application/json" } : {}), ...(embeddedSession ? {"X-Studio-Session":embeddedSession} : {}) },
       body: data ? JSON.stringify(data) : undefined,
       cache: "no-store",
@@ -454,6 +455,7 @@ $("logout").onclick = async () => {
   try {
     const r = await fetch("/.netlify/functions/editions?action=logout", {
       method: "POST",
+      credentials: embedded ? "omit" : "same-origin",
       headers: { "Content-Type": "application/json", ...(embeddedSession ? {"X-Studio-Session":embeddedSession} : {}) },
       body: "{}",
     });
@@ -476,6 +478,7 @@ $("logout").onclick = async () => {
     status(e.message, true);
   }
 };
-load()
+// A locally embedded editor requires an explicit sign-in; never reuse ambient studio cookies.
+if (!embedded) load()
   .then(()=>{populateWorks();showSection(location.hash.slice(1));selectRequestedPricing();})
   .catch(e => {if(e.message!=="Please sign in to the Editions Editor.") status(e.message,true);});

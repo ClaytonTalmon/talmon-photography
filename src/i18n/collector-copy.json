@@ -712,12 +712,12 @@
     "zh": "需要私人访问权限。"
   },
   "The service is temporarily unavailable. Please try again or contact the studio.": {
-    "fr": "Le service est momentanément indisponible. Réessayez ou contactez le studio.",
-    "es": "El servicio no está disponible temporalmente. Inténtelo de nuevo o contacte al estudio.",
-    "it": "Il servizio è temporaneamente non disponibile. Riprovi o contatti lo studio.",
+    "fr": "Le service est temporairement indisponible. Veuillez réessayer ou contacter le studio.",
+    "es": "El servicio no está disponible temporalmente. Inténtelo de nuevo o contacte con el estudio.",
+    "it": "Il servizio è temporaneamente non disponibile. Riprova o contatta lo studio.",
     "de": "Der Dienst ist vorübergehend nicht verfügbar. Bitte versuchen Sie es erneut oder kontaktieren Sie das Studio.",
-    "ja": "現在サービスをご利用いただけません。再試行するか、スタジオにお問い合わせください。",
-    "zh": "服务暂时不可用。请重试或联系工作室。"
+    "ja": "サービスは一時的に利用できません。もう一度お試しいただくか、スタジオまでお問い合わせください。",
+    "zh": "服务暂时不可用，请重试或联系工作室。"
   },
   "Confirm your studio updates subscription": {
     "fr": "Confirmez votre inscription aux nouvelles du studio",
@@ -846,5 +846,61 @@
     "de": "Für den Erwerb mehrerer Werke mit derselben Exemplarnummer wenden Sie sich bitte an das Studio.",
     "ja": "複数の作品を同じエディション番号で揃えたい場合は、スタジオまでお問い合わせください。",
     "zh": "如希望收藏多幅相同版号的作品，请联系工作室。"
+  },
+  "Home": {
+    "fr": "Accueil",
+    "es": "Inicio",
+    "it": "Home",
+    "de": "Startseite",
+    "ja": "ホーム",
+    "zh": "首页"
+  },
+  "Primary": {
+    "fr": "Navigation principale",
+    "es": "Navegación principal",
+    "it": "Navigazione principale",
+    "de": "Hauptnavigation",
+    "ja": "メインナビゲーション",
+    "zh": "主导航"
+  },
+  "Primary (mobile)": {
+    "fr": "Navigation principale (mobile)",
+    "es": "Navegación principal (móvil)",
+    "it": "Navigazione principale (mobile)",
+    "de": "Hauptnavigation (mobil)",
+    "ja": "メインナビゲーション（モバイル）",
+    "zh": "主导航（移动版）"
+  },
+  "Language": {
+    "fr": "Langue",
+    "es": "Idioma",
+    "it": "Lingua",
+    "de": "Sprache",
+    "ja": "言語",
+    "zh": "语言"
+  },
+  "Menu": {
+    "fr": "Menu",
+    "es": "Menú",
+    "it": "Menu",
+    "de": "Menü",
+    "ja": "メニュー",
+    "zh": "菜单"
+  },
+  "Please choose a format.": {
+    "fr": "Veuillez choisir un format.",
+    "es": "Seleccione un formato.",
+    "it": "Seleziona un formato.",
+    "de": "Bitte wählen Sie ein Format.",
+    "ja": "サイズを選択してください。",
+    "zh": "请选择尺寸。"
+  },
+  "This request has changed. Please try again.": {
+    "fr": "Cette demande a été modifiée. Veuillez réessayer.",
+    "es": "Esta solicitud ha cambiado. Inténtelo de nuevo.",
+    "it": "Questa richiesta è stata modificata. Riprova.",
+    "de": "Diese Anfrage wurde geändert. Bitte versuchen Sie es erneut.",
+    "ja": "申請内容が変更されました。もう一度お試しください。",
+    "zh": "此申请已更改，请重试。"
   }
 }
