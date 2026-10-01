@@ -902,5 +902,13 @@
     "de": "Diese Anfrage wurde geändert. Bitte versuchen Sie es erneut.",
     "ja": "申請内容が変更されました。もう一度お試しください。",
     "zh": "此申请已更改，请重试。"
+  },
+  "Availability or pricing has changed. Please refresh the page and review your selection.": {
+    "fr": "La disponibilité ou le prix a changé. Veuillez actualiser la page et vérifier votre sélection.",
+    "es": "La disponibilidad o el precio ha cambiado. Actualice la página y revise su selección.",
+    "it": "La disponibilità o il prezzo è cambiato. Aggiorni la pagina e verifichi la selezione.",
+    "de": "Verfügbarkeit oder Preis haben sich geändert. Bitte laden Sie die Seite neu und prüfen Sie Ihre Auswahl.",
+    "ja": "在庫状況または価格が変更されました。ページを更新して選択内容をご確認ください。",
+    "zh": "供应情况或价格已发生变化。请刷新页面并确认您的选择。"
   }
 }

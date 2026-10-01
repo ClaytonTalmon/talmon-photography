@@ -543,3 +543,24 @@ test('malformed bodies, foreign origins and concurrent submissions fail safely',
  assert.ok(results.some(r=>r.status===429));
  assert.ok(results.every(r=>[401,429].includes(r.status)));
 });
+
+test('enquiry uses approved identity and server format pricing in a branded print summary',async()=>{
+ const s=setup(),admin=await auth(s),visitor=await invite(s,admin);
+ const work=catalog.find(w=>w.collection==='form'),format=work.formats.find(f=>f.key==='large');
+ s.values.set('prices',{data:{items:{[work.id+'::'+format.key]:{sold:2,currency:'EUR',bands:[3000,4500,6000]}}},etag:'quote'});
+ const identity=await (await s.call('catalog',null,visitor.cookie)).json();
+ assert.deepEqual(identity.collector,{name:'Test Collector',email:'collector@example.com'});
+ const data={work:work.id,format:format.key,name:'Forged',email:'fake@example.com',price:1,message:'<script>alert(1)</script>',quote:{sold:2,price:4500,currency:'EUR'}};
+ assert.equal((await s.call('enquiry',data,visitor.cookie)).status,200);
+ const mail=s.emails.at(-1);
+ assert.equal(mail.reply_to,'collector@example.com');
+ assert.match(mail.text,/Test Collector/);assert.doesNotMatch(mail.text,/Forged|fake@example/);
+ assert.match(mail.text,/#3\/5/);assert.match(mail.text,/4,500/);
+ assert.match(mail.text,/Finished paper/);assert.match(mail.text,/no edition has been reserved/);
+ assert.match(mail.html,/<img src="https:\/\/talmonphoto.com\/_images/);
+ assert.match(mail.html,/background:#f2f0e9/);assert.doesNotMatch(mail.html,/<script>/);
+ const count=s.emails.length;
+ assert.equal((await s.call('enquiry',{...data,quote:{sold:1,price:3000,currency:'EUR'}},visitor.cookie)).status,409);
+ assert.equal(s.emails.length,count);
+ assert.equal((await s.call('enquiry',{work:work.id,format:format.key},visitor.cookie)).status,200);
+});

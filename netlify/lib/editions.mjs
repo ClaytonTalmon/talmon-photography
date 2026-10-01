@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 import { collectorText, validLocale } from "../../src/i18n/collector.mjs";
-import { collectorReceipt, studioNotification, collectorInvitation } from "./collector-emails.mjs";
+import { collectorReceipt, studioNotification, collectorInvitation, acquisitionEnquiry } from "./collector-emails.mjs";
 import catalog from "../../src/data/edition-catalog.mjs";
 const DAY = 86400000,
   OWNER = "ClaytonTalmon";
@@ -61,7 +61,8 @@ export function createHandler({
       if (!grant || grant.revoked || grant.expires <= now()) return null;
       const collections = await grantCollections(grant, s.grant);
       if (!collections.length) return null;
-      return {...s, collections};
+      const record = await read("request/" + hash(grant.email));
+      return {...s, collections, collector: {name:record.name, email:grant.email}};
     }
     return s;
   }
@@ -221,10 +222,12 @@ export function createHandler({
       }
       if (["request", "subscribe", "enquiry"].includes(action) && req.method === "POST") {
         if (p.company) return response({ ok: true });
-        const email = String(p.email || "")
+        const visitor = action === "enquiry" ? await session(req, "collector") : null;
+        if (action === "enquiry" && !visitor) return fail("Private access is required.",401);
+        const email = String(visitor?.collector.email || p.email || "")
             .trim()
             .toLowerCase(),
-          name = String(p.name || "")
+          name = String(visitor?.collector.name || p.name || "")
             .trim()
             .slice(0, 120);
         if (!emailOK(email) || (action !== "subscribe" && !name))
@@ -234,15 +237,19 @@ export function createHandler({
             "Please confirm that you wish to receive studio updates.",
           );
         if (action === "enquiry") {
-          const visitor = await session(req, "collector");
-          if (!visitor) return fail("Private access is required.",401);
           const work = catalog.find(w=>w.id === p.work && visitor.collections.includes(w.collection));
           if (!work) return fail("Please choose a photograph.");
           const format = work.formats.find(f=>f.key === p.format);
           if (!format) return fail("Please choose a format.");
+          const value = (await read("prices"))?.items?.[work.id + "::" + format.key];
+          const sold = value?.sold ?? null;
+          const soldOut = sold !== null && sold >= format.edition;
+          const price = soldOut ? null : (value?.bands?.[Math.floor((sold ?? 0) / 2)] ?? null);
+          const currency = value?.currency || "USD";
+          if (p.quote && (p.quote.price !== price || p.quote.sold !== sold || p.quote.currency !== currency))
+            return fail("Availability or pricing has changed. Please refresh the page and review your selection.",409);
           await send({to:"ctalmon@gmail.com", reply_to:email,
-            subject:"Acquisition enquiry — " + work.title,
-            text:`${name}\n${email}\n${work.collection.toUpperCase()} — ${work.title}\n${format?.label || "Format on enquiry"}\n\n${String(p.message || "").slice(0,2000)}`});
+            ...acquisitionEnquiry({name,email,work,format,sold,soldOut,price,currency,message:String(p.message || "").slice(0,2000),issued:new Date(now()).toISOString()})});
           return response({ok:true});
         }
         if (action === "request") {
@@ -483,6 +490,7 @@ export function createHandler({
         // Return only current prices, never the private future tier schedule.
         return response({
           expires: visitor.expires,
+          collector: visitor.collector,
           works: catalog.filter(w => visitor.collections.includes(w.collection)).map((w) => ({
             ...w,
             formats: w.formats.map((f) => {

@@ -143,6 +143,7 @@ function render() {
 async function load() {
   const data = await api("catalog");
   works = data.works;
+  $("enquiry-identity").textContent = [data.collector?.name, data.collector?.email].filter(Boolean).join(" · ");
   if (!works.length) throw Error(t("Please request new access."));
   $("gate").hidden = true;
   $("collection").hidden = false;
@@ -264,7 +265,8 @@ $("acquisition-request").onsubmit = async event => {
   const form = event.currentTarget, button = form.querySelector("button");
   button.disabled = true;
   try {
-    await api("enquiry", {...Object.fromEntries(new FormData(form)), work:active.id, format:selected});
+    const format = active.formats.find(f => f.key === selected);
+    await api("enquiry", {...Object.fromEntries(new FormData(form)), work:active.id, format:selected, quote:{price:format.price,sold:format.sold,currency:format.currency}});
     form.reset();
     $("enquiry-notice").textContent = t("Your enquiry has reached the studio. We’ll be in touch shortly.");
   } catch(error) { $("enquiry-notice").textContent = error.message; }
