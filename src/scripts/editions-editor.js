@@ -1,9 +1,15 @@
-export {};
+import { editionSummaries } from './edition-summary.js';
 const $ = (id) => document.getElementById(id),
   catalog = JSON.parse($("catalog").textContent);
 let state, version;
 const embedded = window.parent !== window && new URLSearchParams(location.search).get('embedded') === '1';
-let embeddedSession = '', pendingPricing = null;
+let embeddedSession = '', pendingPricing = null, workspaceOrigin = null;
+function publishPriceSummaries() {
+ const message={type:'studio-price-summaries',summaries:state?editionSummaries(catalog,state.prices):null};
+ if(frameReady)frame.contentWindow.postMessage(message,location.origin);
+ if(embedded && workspaceOrigin && (workspaceOrigin===location.origin || (workspaceOrigin==='null' && embeddedSession)))
+  window.parent.postMessage(message,workspaceOrigin==='null'?'*':workspaceOrigin);
+}
 function selectRequestedPricing() {
  if(!state || !pendingPricing)return;
  const selection=pendingPricing;
@@ -21,7 +27,9 @@ function selectRequestedPricing() {
 if (embedded) {
  document.body.classList.add('embedded-studio');
  window.addEventListener('message',event=>{
-  if(event.source!==window.parent)return;
+  if(event.source!==window.parent || ![location.origin,'null'].includes(event.origin))return;
+  workspaceOrigin=event.origin;
+  publishPriceSummaries();
   if(event.data?.type==='studio-show-section' && ['prices','requests','mailing'].includes(event.data.section))showSection(event.data.section);
   if(event.data?.type==='studio-select-pricing'){
    pendingPricing={collection:event.data.collection,scope:event.data.scope,work:event.data.work};
@@ -58,7 +66,7 @@ for (const button of document.querySelectorAll('[data-section]')) button.onclick
 window.addEventListener('message',event=>{
   if (event.origin!==location.origin || event.source!==frame.contentWindow) return;
   const data=event.data;
-  if(data?.type==='studio-collection-ready') {frameReady=true;connectCollectionFrame();}
+  if(data?.type==='studio-collection-ready') {frameReady=true;connectCollectionFrame();publishPriceSummaries();}
   if(data?.type==='studio-collection-height' && Number.isFinite(data.height)) frame.style.height=Math.max(500,Math.min(100000,data.height+10))+'px';
   if(data?.type==='studio-edit-prices') {
     const work=catalog.find(w=>w.id===data.work);
@@ -98,6 +106,7 @@ async function api(action, data) {
   const result = await r.json();
   if (!r.ok) {
     if (r.status === 401) {
+      state=null;publishPriceSummaries();
       clearPublishingConnection();
       $("studio").hidden = true;
       $("login").hidden = false;
@@ -212,6 +221,7 @@ function preview() {
 }
 async function load() {
   state = await api("data");
+  publishPriceSummaries();
   $("studio").hidden = false;
   $("login").hidden = true;
   requests();
@@ -353,6 +363,7 @@ $("pricing").onsubmit = async (e) => {
     });
     priceDirty=false;
     state.prices = result.prices;
+    publishPriceSummaries();
     version = state.prices.version;
     status(bulk?`Saved prices for ${result.updated} photographs. Collector prices update immediately; sales counts are unchanged.`:"Saved. New collector page requests use these prices immediately.");
   } catch (e) {
@@ -403,11 +414,13 @@ $("logout").onclick = async () => {
     });
     if (!r.ok) throw Error("Sign-out failed. Please try again.");
     clearPublishingConnection();
+    state=null;publishPriceSummaries();
     embeddedSession="";
     frameReady=false;
     frame.removeAttribute("src");
     priceDirty=false;
     state = null;
+    publishPriceSummaries();
     $("requests").replaceChildren();
     $("subscribers").replaceChildren();
     $("bands").replaceChildren();

@@ -16,10 +16,12 @@ if (window.parent !== window && location.origin !== 'null') {
       button.onclick = () => notify({ type: 'studio-edit-prices', work: active + '/' + orders[active][index] });
       card.querySelector('.actions').append(button);
     });
+    displayStudioPrices();
   };
   window.addEventListener('message', event => {
     if (event.origin !== origin || event.source !== window.parent) return;
     const data = event.data;
+    if(data?.type==='studio-price-summaries'){studioPriceSummaries=data.summaries;displayStudioPrices();}
     if (data?.type === 'studio-connect' && typeof data.token === 'string') {
       token = data.token;
       $('token').value = '';
