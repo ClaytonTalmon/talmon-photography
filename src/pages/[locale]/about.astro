@@ -66,7 +66,6 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
         <p>He continues to develop new photographic series from his studio in the South of France.</p>
       </section>
 
-      <p class="about-content__closing"><strong>Selected works, exhibition proposals, and private studio viewings are available by inquiry.</strong></p>
     </article>
   ) : locale === 'de' ? (
     <article class="about-content container">
@@ -98,7 +97,6 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
         <p>2026 wurden vier Werke aus FLOW in Venedig im Rahmen von ANIMA MUNDI gezeigt, einer unabhängigen internationalen Gruppenausstellung, die zeitgleich mit der Biennale von Venedig stattfand.</p>
         <p>In seinem Atelier in Südfrankreich entwickelt er weiterhin neue fotografische Serien.</p>
       </section>
-      <p class="about-content__closing"><strong>Informationen zu ausgewählten Werken, Ausstellungsvorschlägen und privaten Atelierbesuchen erhalten Sie auf Anfrage.</strong></p>
     </article>
   ) : locale === 'ja' ? (
     <article class="about-content container">
@@ -130,7 +128,6 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
         <p>2026年には、FLOWの4作品がヴェネツィアで開催されたANIMA MUNDIに出展されました。これはヴェネツィア・ビエンナーレと同時期に開催された、独立した国際グループ展です。</p>
         <p>現在も南フランスのスタジオで、新たな写真シリーズの制作を続けています。</p>
       </section>
-      <p class="about-content__closing"><strong>作品のご案内、展覧会のご提案、プライベートなスタジオ訪問については、お問い合わせください。</strong></p>
     </article>
   ) : locale === 'fr' ? (
     <article class="about-content container">
@@ -162,7 +159,6 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
         <p>En 2026, quatre œuvres de FLOW ont été présentées à Venise dans le cadre d’ANIMA MUNDI, une exposition collective internationale indépendante organisée en même temps que la Biennale de Venise.</p>
         <p>Il poursuit la création de nouvelles séries photographiques depuis son atelier dans le sud de la France.</p>
       </section>
-      <p class="about-content__closing"><strong>Une sélection d’œuvres, des propositions d’exposition et des visites privées de l’atelier sont disponibles sur demande.</strong></p>
     </article>
   ) : locale === 'es' ? (
     <article class="about-content container">
@@ -194,7 +190,6 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
         <p>En 2026, cuatro obras de FLOW se presentaron en Venecia como parte de ANIMA MUNDI, una exposición colectiva internacional independiente celebrada al mismo tiempo que la Bienal de Venecia.</p>
         <p>Continúa desarrollando nuevas series fotográficas desde su estudio en el sur de Francia.</p>
       </section>
-      <p class="about-content__closing"><strong>Puede solicitar información sobre obras seleccionadas, propuestas de exposición y visitas privadas al estudio.</strong></p>
     </article>
   ) : locale === 'it' ? (
     <article class="about-content container">
@@ -226,7 +221,6 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
         <p>Nel 2026, quattro opere di FLOW sono state presentate a Venezia nell’ambito di ANIMA MUNDI, una mostra collettiva internazionale indipendente tenutasi in concomitanza con la Biennale di Venezia.</p>
         <p>Continua a sviluppare nuove serie fotografiche dal suo studio nel sud della Francia.</p>
       </section>
-      <p class="about-content__closing"><strong>Informazioni su opere selezionate, proposte espositive e visite private allo studio sono disponibili su richiesta.</strong></p>
     </article>
   ) : locale === 'zh' ? (
     <article class="about-content container">
@@ -258,7 +252,6 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
         <p>2026年，FLOW 系列的四幅作品在威尼斯 ANIMA MUNDI 展览中展出。这是一场与威尼斯双年展同期举办的独立国际群展。</p>
         <p>他继续在法国南部的工作室中创作新的摄影系列。</p>
       </section>
-      <p class="about-content__closing"><strong>如需了解精选作品、洽谈展览方案或预约私人工作室参观，欢迎垂询。</strong></p>
     </article>
   ) : (
     <div class="about-content about-content--translated container">
@@ -320,15 +313,6 @@ const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On L
 
   .about-content p + p {
     margin-top: 18px;
-  }
-
-  .about-content__closing {
-    margin-top: clamp(48px, 7vw, 80px);
-  }
-
-  .about-content__closing strong {
-    color: var(--color-ink);
-    font-weight: 500;
   }
 
   .about-content--translated {
