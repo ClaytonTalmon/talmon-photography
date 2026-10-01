@@ -118,7 +118,7 @@ const ct = (text: string) => collectorText(locale, text);
   .site-nav {
     display: flex;
     gap: 20px;
-    font-size: 0.76rem;
+    font-size: 0.836rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
@@ -135,7 +135,7 @@ const ct = (text: string) => collectorText(locale, text);
   .lang-switch {
     display: flex;
     gap: 10px;
-    font-size: 0.936rem;
+    font-size: 1.0296rem;
     letter-spacing: 0.08em;
   }
 
@@ -152,13 +152,19 @@ const ct = (text: string) => collectorText(locale, text);
     font-weight: 600;
   }
 
-  .site-header--dark .lang-switch {
+  /* White overlay navigation: brighter type with a soft, local shadow. */
+  .site-header--dark .site-nav,
+  .site-header--dark .lang-switch,
+  .site-header--dark .wordmark,
+  .site-header--dark .wordmark__sub {
     color: #fff;
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.65), 0 0 10px rgba(0, 0, 0, 0.35);
   }
 
+  /* The requested 25% opacity increase is capped at fully opaque white. */
+  .site-header--dark .site-nav a,
   .site-header--dark .lang-switch a {
-    opacity: 0.92;
+    opacity: 1;
   }
 
   .mobile-menu {
@@ -195,7 +201,7 @@ const ct = (text: string) => collectorText(locale, text);
     display: flex;
     flex-direction: column;
     padding: 8px clamp(20px, 5vw, 64px) 24px;
-    font-size: 0.95rem;
+    font-size: 1.045rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
@@ -211,7 +217,7 @@ const ct = (text: string) => collectorText(locale, text);
     gap: 16px;
     padding-top: 16px;
     flex-wrap: wrap;
-    font-size: 1.014rem;
+    font-size: 1.1154rem;
     letter-spacing: 0.08em;
   }
 
