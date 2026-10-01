@@ -344,6 +344,23 @@ export function createHandler({
             subscribers: await rows("subscriber/"),
           });
         }
+        if (action === "studio-confirm-unsold" && req.method === "POST") {
+          if(p.confirmUnsold!==true)return fail("Explicit confirmation is required.");
+          const targets=catalog.filter(w=>w.collection===p.collection).flatMap(w=>w.formats.filter(f=>f.key===p.format).map(f=>({id:w.id,format:f})));
+          if(!targets.length)return fail("Unknown collection or format.");
+          const snapshot=await store.getWithMetadata("prices",{type:"json"});
+          const current=snapshot?.data||{version:0,items:{}};
+          if(p.version!==current.version)return fail("Availability changed. Refresh and review before confirming.",409);
+          let updated=0;
+          for(const target of targets){
+            const key=target.id+"::"+p.format,item=current.items[key];
+            if(Number.isInteger(item?.sold))continue;
+            if(item?.sales?.length)return fail("A sale record requires review before availability can be initialized.",409);
+            current.items[key]={currency:"USD",bands:Array(Math.ceil(target.format.edition/2)).fill(null),...item,sold:0};updated++;
+          }
+          if(updated){current.version++;const saved=await store.setJSON("prices",current,snapshot?{onlyIfMatch:snapshot.etag}:{onlyIfNew:true});if(!saved.modified)return fail("Availability changed. Refresh and review before confirming.",409);}
+          return response({ok:true,prices:current,updated});
+        }
         if (action === "studio-record-sale" && req.method === "POST") {
           const work=catalog.find(w=>w.id===p.id), format=work?.formats.find(f=>f.key===p.format);
           if(!format)return fail("Unknown work or format.");

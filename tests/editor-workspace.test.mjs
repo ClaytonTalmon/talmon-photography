@@ -15,6 +15,6 @@ test('full controls appear in standalone and preview frames; only Studio child h
  assert.equal(hasWorkspace(false,'?studioChild=1'),true);
 });
 test('numbered downloadable release matches the hosted editor source',()=>{
- assert.equal(readFileSync(new URL('../tools/Collection_Editor_v004.html',import.meta.url),'utf8'),source);
- assert.match(source,/<h1>Collection &amp; Studio Editor · v004<\/h1>/);
+ assert.equal(readFileSync(new URL('../tools/Collection_Editor_v005.html',import.meta.url),'utf8'),source);
+ assert.match(source,/<h1>Collection &amp; Studio Editor · v005<\/h1>/);
 });

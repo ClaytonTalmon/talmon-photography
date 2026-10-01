@@ -463,3 +463,22 @@ test('recording a sale is atomic, rejects repeated editions, and preserves sale 
  assert.equal(updated.status,200);
  prices=(await updated.json()).prices;assert.equal(prices.items[key].sales.length,1);assert.equal(prices.items[key].sold,1);
 });
+
+test('explicit collection initialization fills only missing sales counts and preserves prices, sales and other formats',async()=>{
+ const s=setup(), admin=await auth(s),work=catalog.find(w=>w.collection==='flow'),f=work.formats[0];
+ const bands=Array(Math.ceil(f.edition/2)).fill(2750);
+ await s.call('studio-save-collection',{collection:'flow',format:f.key,currency:'EUR',bands,version:0},admin);
+ await s.call('studio-save',{id:work.id,format:f.key,sold:2,currency:'EUR',bands,version:1},admin);
+ const before=(await (await s.call('studio-data',null,admin)).json()).prices;
+ const payload={collection:'flow',format:f.key,version:before.version};
+ assert.equal((await s.call('studio-confirm-unsold',payload,admin)).status,400);
+ assert.equal((await s.call('studio-confirm-unsold',{...payload,confirmUnsold:true})).status,401);
+ assert.equal((await s.call('studio-confirm-unsold',{...payload,version:0,confirmUnsold:true},admin)).status,409);
+ const res=await s.call('studio-confirm-unsold',{...payload,confirmUnsold:true},admin);assert.equal(res.status,200);
+ const result=await res.json();assert.ok(result.updated>0);
+ for(const [key,value] of Object.entries(before.items)){
+  assert.equal(result.prices.items[key].sold,key===work.id+'::'+f.key?2:0);
+  assert.deepEqual(result.prices.items[key].bands,value.bands);assert.equal(result.prices.items[key].currency,value.currency);
+ }
+ assert.equal(Object.keys(result.prices.items).length,Object.keys(before.items).length);
+});

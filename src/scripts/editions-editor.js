@@ -170,6 +170,11 @@ function pricing() {
   $('sold').disabled=bulk;
   $('pricing').hidden=!f;
   $('record-sale').hidden=bulk||!f;
+  const unrecorded=targets.filter(t=>!Number.isInteger(state.prices.items[t.work.id+'::'+t.format.key]?.sold)).length;
+  $('confirm-unsold').hidden=!bulk||!f||!unrecorded;
+  $('confirm-unsold').disabled=false;
+  $('availability-note').textContent=bulk&&f?`${unrecorded} photographs have no recorded sales count for this format. If none of those photographs have sold, confirm them as unsold below. Existing sales counts and prices are preserved.`:'';
+
   $('record-sale').disabled=bulk||!f;
   $('missing').hidden=!!f;
   if(!f) return;
@@ -391,6 +396,15 @@ $("pricing").onsubmit = async (e) => {
   } finally {
     b.disabled = false;
   }
+};
+$('confirm-unsold').onclick=async()=>{
+ if(priceDirty){status('Save your pricing table first, then confirm availability.',true);return;}
+ const collection=$('price-collection').value,format=$('format').value;
+ const count=priceTargets().filter(t=>!Number.isInteger(state.prices.items[t.work.id+'::'+format]?.sold)).length;
+ if(!count || !confirm(`Confirm that all ${count} photographs with unrecorded sales counts in ${collection.toUpperCase()} (${format}) have sold zero prints? Do not continue if any have prior sales. Recorded counts and prices will be preserved.`))return;
+ $('confirm-unsold').disabled=true;
+ try{const result=await api('confirm-unsold',{collection,format,version:state.prices.version,confirmUnsold:true});state.prices=result.prices;pricesSyncedAt=Date.now();publishPriceSummaries();pricing();status(`Confirmed ${result.updated} photographs as unsold. Their next edition is now #1.`);}
+ catch(error){status(error.message,true);$('confirm-unsold').disabled=false;}
 };
 $('record-sale').onclick=async()=>{
  if(priceDirty){status('Save or discard your price edits before recording a sale.',true);return;}

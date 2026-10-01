@@ -13,3 +13,7 @@ test('unknown, enquiry and sold-out availability never fabricate an edition',()=
  assert.match(summarize({sold:8,bands:[2000]}),/Sold out.*Edition complete/);
  assert.match(summarize({sold:3,bands:[2000,null]}),/Price on enquiry.*#4\/8/);
 });
+test('unrecorded sales still show saved starting price without claiming edition one',()=>{
+ const text=summarize({sold:null,currency:'EUR',bands:[2750,3000]});
+ assert.match(text,/Starting price: €2,750/);assert.match(text,/confirm availability/);assert.doesNotMatch(text,/#1\/8/);
+});
