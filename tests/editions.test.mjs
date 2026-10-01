@@ -482,3 +482,18 @@ test('explicit collection initialization fills only missing sales counts and pre
  }
  assert.equal(Object.keys(result.prices.items).length,Object.keys(before.items).length);
 });
+
+test('collector catalog resolves separate price brackets and sales counts for each format',async()=>{
+ const s=setup(), admin=await auth(s), visitor=await invite(s,admin);
+ const w=catalog.find(w=>w.collection==='form'&&w.formats.length===2);
+ s.values.set('prices',{data:{version:1,items:{
+  [w.id+'::standard']:{sold:2,currency:'EUR',bands:[2500,2750,3000,3250,3500]},
+  [w.id+'::large']:{sold:0,currency:'EUR',bands:[4250,4750,5250]}
+ }},etag:'test'});
+ const data=await(await s.call('catalog',null,visitor.cookie)).json();
+ const formats=data.works.find(item=>item.id===w.id).formats;
+ assert.equal(formats.find(f=>f.key==='standard').price,2750);
+ assert.equal(formats.find(f=>f.key==='standard').sold,2);
+ assert.equal(formats.find(f=>f.key==='large').price,4250);
+ assert.equal(formats.find(f=>f.key==='large').sold,0);
+});

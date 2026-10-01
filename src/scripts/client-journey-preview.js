@@ -10,7 +10,7 @@ const steps=[
  ['Approval','The studio approves access','Preview the approval action. Clicking the button here advances to the invitation; it sends nothing.'],
  ['Invitation','The collector receives a password','The actual invitation email template. PREVIEW-ONLY is a demonstration password and grants no real access.'],
  ['Password','The collector opens their invitation','Enter PREVIEW-ONLY to open the sample private view. Only the requested collections will appear.'],
- ['Acquisition','The collector views editions and prices','Illustrative example: next available edition 3, with a sample price of €2,500. Change photographs or formats and try “Enquire about this work”. Matching numbers are arranged with the studio.'],
+ ['Acquisition','The collector views editions and prices','Illustrative example: next available edition 3, with sample prices of €2,500 for Standard Format and €4,250 for Large Format. Change photographs or formats and try “Enquire about this work”. Matching numbers are arranged with the studio.'],
  ['Expiry','Access ends after 24 hours','The private view closes and the collector can request a new invitation. This preview shows that return to the access form.']
 ];
 function show(i){

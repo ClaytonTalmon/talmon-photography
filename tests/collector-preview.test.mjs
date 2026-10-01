@@ -16,7 +16,7 @@ test('client preview uses only fixtures, restricts collections, and never calls 
   const data=await api('catalog');
   assert.ok(data.works.length>0);
   assert.ok(data.works.every(w=>w.collection==='flow'));
-  assert.ok(data.works.every(w=>w.formats.every(f=>f.sold===2&&f.price===2500)));
+  assert.ok(data.works.every(w=>w.formats.every(f=>f.sold===2&&f.price===(f.key==='large'?4250:2500))));
   await api('request',{name:'Sample',email:'sample@example.com',collections:['flow']});
   await api('enquiry');await api('subscribe');
   assert.deepEqual(events.map(e=>e.event),['unlocked','requested','enquired']);

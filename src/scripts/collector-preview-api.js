@@ -14,7 +14,7 @@ export function createPreviewApi() {
  return async (action,data={})=>{
   if(action==='catalog') {
    if(!unlocked) throw Error('Private access is required.');
-   return {expires:Date.now()+86400000,works:catalog.filter(w=>collections.includes(w.collection)).map(w=>({...w,formats:w.formats.map(f=>({...f,sold:2,soldOut:false,price:2500,currency:'EUR'}))}))};
+   return {expires:Date.now()+86400000,works:catalog.filter(w=>collections.includes(w.collection)).map(w=>({...w,formats:w.formats.map(f=>({...f,sold:2,soldOut:false,price:f.key==='large'?4250:2500,currency:'EUR'}))}))};
   }
   if(action==='unlock') {
    if(data.password!=='PREVIEW-ONLY') throw Error('For this preview, enter PREVIEW-ONLY. This is not a real access password.');
