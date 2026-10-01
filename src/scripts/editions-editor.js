@@ -1,11 +1,11 @@
 import { editionSummaries } from './edition-summary.js';
 const $ = (id) => document.getElementById(id),
   catalog = JSON.parse($("catalog").textContent);
-let state, version;
+let state, version, pricesSyncedAt=0;
 const embedded = window.parent !== window && new URLSearchParams(location.search).get('embedded') === '1';
 let embeddedSession = '', pendingPricing = null, workspaceOrigin = null;
-function publishPriceSummaries() {
- const message={type:'studio-price-summaries',summaries:state?editionSummaries(catalog,state.prices):null};
+function publishPriceSummaries(connected=true) {
+ const message={type:'studio-price-summaries',summaries:state?editionSummaries(catalog,state.prices):null,syncedAt:pricesSyncedAt,connected:connected&&!!state};
  if(frameReady)frame.contentWindow.postMessage(message,location.origin);
  if(embedded && workspaceOrigin && (workspaceOrigin===location.origin || (workspaceOrigin==='null' && embeddedSession)))
   window.parent.postMessage(message,workspaceOrigin==='null'?'*':workspaceOrigin);
@@ -47,8 +47,8 @@ async function refreshSavedPrices(){
  try{
   const fresh=await api('data');
   if(state!==currentState || priceDirty)return;
-  if(fresh.prices.version>=state.prices.version){state.prices=fresh.prices;publishPriceSummaries();pricing();}
- }catch(error){status(error.message,true);}
+  if(fresh.prices.version>=state.prices.version){state.prices=fresh.prices;pricesSyncedAt=Date.now();publishPriceSummaries();pricing();}
+ }catch(error){publishPriceSummaries(false);status(error.message,true);}
  finally{priceRefreshPending=false;}
 }
 window.addEventListener('focus',()=>{if(!embedded)refreshSavedPrices();});
@@ -169,6 +169,8 @@ function pricing() {
   $('sold-field').hidden=bulk;
   $('sold').disabled=bulk;
   $('pricing').hidden=!f;
+  $('record-sale').hidden=bulk||!f;
+  $('record-sale').disabled=bulk||!f;
   $('missing').hidden=!!f;
   if(!f) return;
   let p=state.prices.items[w.id+'::'+f.key];
@@ -211,6 +213,7 @@ function pricing() {
       return label;
     }),
   );
+  if(!bulk && f){const saved=state.prices.items[w.id+'::'+f.key];$('record-sale').disabled=!Number.isInteger(saved?.sold)||saved.sold>=f.edition;$('record-sale').textContent=Number.isInteger(saved?.sold)&&saved.sold<f.edition?'Record edition #'+(saved.sold+1)+'/'+f.edition+' sold':'Record next edition sold';}
   preview();
 }
 function preview() {
@@ -236,6 +239,7 @@ function preview() {
 }
 async function load() {
   state = await api("data");
+  pricesSyncedAt=Date.now();
   publishPriceSummaries();
   $("studio").hidden = false;
   $("login").hidden = true;
@@ -378,6 +382,7 @@ $("pricing").onsubmit = async (e) => {
     });
     priceDirty=false;
     state.prices = result.prices;
+    pricesSyncedAt=Date.now();
     publishPriceSummaries();
     version = state.prices.version;
     status(bulk?`Saved prices for ${result.updated} photographs. Collector prices update immediately; sales counts are unchanged.`:"Saved. New collector page requests use these prices immediately.");
@@ -386,6 +391,17 @@ $("pricing").onsubmit = async (e) => {
   } finally {
     b.disabled = false;
   }
+};
+$('record-sale').onclick=async()=>{
+ if(priceDirty){status('Save or discard your price edits before recording a sale.',true);return;}
+ const id=$('work').value,format=$('format').value;
+ const saved=state?.prices.items[id+'::'+format];
+ if(!Number.isInteger(saved?.sold))return;
+ const edition=saved.sold+1;
+ if(!confirm('Record edition #'+edition+' of '+catalog.find(w=>w.id===id).title+' ('+format+') as sold? Only confirm a completed sale.'))return;
+ $('record-sale').disabled=true;
+ try{const result=await api('record-sale',{id,format,edition,version:state.prices.version});state.prices=result.prices;pricesSyncedAt=Date.now();publishPriceSummaries();pricing();status('Edition #'+edition+' recorded as sold. Website availability is updated.');}
+ catch(error){status(error.message,true);lastPriceRefresh=0;await refreshSavedPrices();}
 };
 $("refresh").onclick = async () => {
   try {

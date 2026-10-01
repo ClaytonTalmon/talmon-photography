@@ -21,7 +21,7 @@ if (window.parent !== window && location.origin !== 'null' && new URLSearchParam
   window.addEventListener('message', event => {
     if (event.origin !== origin || event.source !== window.parent) return;
     const data = event.data;
-    if(data?.type==='studio-price-summaries'){studioPriceSummaries=data.summaries;displayStudioPrices();}
+    if(data?.type==='studio-price-summaries'){receiveStudioPrices(data.summaries,data.syncedAt,data.connected);}
     if (data?.type === 'studio-connect' && typeof data.token === 'string') {
       token = data.token;
       $('token').value = '';

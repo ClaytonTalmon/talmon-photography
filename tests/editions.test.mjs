@@ -444,3 +444,22 @@ test('embedded studio sessions work without cookies, retain origin checks, expir
  s.advance(8*3600000);
  assert.equal((await s.call('studio-data',null,'','https://example.com',{'X-Studio-Session':second.session})).status,401);
 });
+
+test('recording a sale is atomic, rejects repeated editions, and preserves sale history during repricing',async()=>{
+ const s=setup(), admin=await auth(s), work=catalog[0], format=work.formats[0];
+ const bands=Array(Math.ceil(format.edition/2)).fill(2500);
+ await s.call('studio-save',{id:work.id,format:format.key,sold:0,currency:'EUR',bands,version:0},admin);
+ const payload={id:work.id,format:format.key,edition:1,version:1};
+ assert.equal((await s.call('studio-record-sale',payload)).status,401);
+ const results=await Promise.all([s.call('studio-record-sale',payload,admin),s.call('studio-record-sale',payload,admin)]);
+ assert.deepEqual(results.map(r=>r.status).sort(),[200,409]);
+ let prices=(await (await s.call('studio-data',null,admin)).json()).prices;
+ const key=work.id+'::'+format.key;
+ assert.equal(prices.items[key].sold,1);assert.equal(prices.items[key].sales.length,1);
+ assert.equal(prices.items[key].sales[0].edition,1);
+ assert.equal((await s.call('studio-record-sale',{...payload,version:prices.version},admin)).status,409);
+ assert.equal((await s.call('studio-save',{id:work.id,format:format.key,sold:0,currency:'EUR',bands,version:prices.version},admin)).status,409);
+ const updated=await s.call('studio-save-collection',{collection:work.collection,format:format.key,currency:'EUR',bands,version:prices.version},admin);
+ assert.equal(updated.status,200);
+ prices=(await updated.json()).prices;assert.equal(prices.items[key].sales.length,1);assert.equal(prices.items[key].sold,1);
+});

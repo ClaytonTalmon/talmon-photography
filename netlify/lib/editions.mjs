@@ -344,6 +344,21 @@ export function createHandler({
             subscribers: await rows("subscriber/"),
           });
         }
+        if (action === "studio-record-sale" && req.method === "POST") {
+          const work=catalog.find(w=>w.id===p.id), format=work?.formats.find(f=>f.key===p.format);
+          if(!format)return fail("Unknown work or format.");
+          const snapshot=await store.getWithMetadata("prices",{type:"json"});
+          const current=snapshot?.data, key=p.id+"::"+p.format, item=current?.items[key];
+          if(!Number.isInteger(item?.sold))return fail("Confirm the existing number sold first.");
+          if(p.version!==current.version || p.edition!==item.sold+1)return fail("Availability changed. Refresh before recording the sale.",409);
+          if(item.sold>=format.edition)return fail("This edition is sold out.",409);
+          item.sales||=[];
+          item.sales.push({edition:p.edition,recordedAt:now(),currency:item.currency,price:item.bands[Math.floor(item.sold/2)]??null});
+          item.sold++;current.version++;
+          const saved=await store.setJSON("prices",current,{onlyIfMatch:snapshot.etag});
+          if(!saved.modified)return fail("Availability changed. Refresh before recording the sale.",409);
+          return response({ok:true,prices:current,edition:p.edition});
+        }
         if (["studio-save", "studio-save-collection"].includes(action) && req.method === "POST") {
           const collectionWide = action === "studio-save-collection";
           const targets = catalog.filter(w => collectionWide ? w.collection === p.collection : w.id === p.id)
@@ -381,9 +396,12 @@ export function createHandler({
               "Prices changed in another session. Reload before saving.",
               409,
             );
+          if(!collectionWide && Number.isInteger(current.items[targets[0].id+"::"+p.format]?.sold) && p.sold<current.items[targets[0].id+"::"+p.format].sold)
+            return fail("A sold edition cannot be reopened by lowering the sales count.",409);
           for (const target of targets) {
             const key = target.id + "::" + p.format;
             current.items[key] = {
+              ...current.items[key],
               sold: collectionWide ? (current.items[key]?.sold ?? null) : p.sold,
               currency: p.currency,
               bands: p.bands.slice(0, Math.ceil(target.format.edition / 2)),

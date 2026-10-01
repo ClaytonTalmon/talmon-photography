@@ -6,7 +6,7 @@ const source=readFileSync(new URL('../src/scripts/editions-editor.js',import.met
 const fn=source.slice(source.indexOf('async function refreshSavedPrices(){'),source.indexOf("window.addEventListener('focus'"));
 function setup(){
  let resolve,calls=0,published=0;
- const context=vm.createContext({state:{prices:{version:1}},priceDirty:false,priceRefreshPending:false,lastPriceRefresh:0,Date,
+ const context=vm.createContext({state:{prices:{version:1}},priceDirty:false,priceRefreshPending:false,lastPriceRefresh:0,pricesSyncedAt:0,Date,
  api:()=>{calls++;return new Promise(r=>resolve=r)},publishPriceSummaries:()=>published++,pricing:()=>{},status:()=>{}});
  vm.runInContext(fn,context);
  return {context,run:()=>vm.runInContext('refreshSavedPrices()',context),complete:version=>resolve({prices:{version}}),calls:()=>calls,published:()=>published};
