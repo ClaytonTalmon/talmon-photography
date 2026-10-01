@@ -132,12 +132,11 @@ if (window.parent === window) {
  const openPricing=selection=>{priceSelection=selection;nav.querySelector('[data-workspace="prices"]').click();sendPriceSelection();};
  secureFrame.addEventListener('load',sendPriceSelection);
  const collectionPrices=document.createElement('button');collectionPrices.type='button';collectionPrices.textContent='Collection pricing';collectionPrices.onclick=()=>openPricing({collection:active,scope:'collection'});
- document.querySelector('#collection-editor .toolbar').append(collectionPrices);
+ collections.querySelector('#collection-editor .toolbar').append(collectionPrices);
  const pricingHelp=document.createElement('p');pricingHelp.className='small';pricingHelp.textContent='Pricing tables: use Collection pricing to apply a schedule to every image, or Edit prices beneath a photograph to change only that image. Prices are saved directly to the private acquisition pages.';
- document.querySelector('#collection-editor .toolbar').after(pricingHelp);
+ collections.querySelector('#collection-editor .toolbar').after(pricingHelp);
  const renderWithPricing=render;
  render=function(){renderWithPricing();document.querySelectorAll('#grid article').forEach((card,index)=>{const collection=active,work=collection+'/'+orders[collection][index];const button=document.createElement('button');button.type='button';button.textContent='Edit prices';button.onclick=()=>openPricing({collection,work,scope:'individual'});card.querySelector('.actions').append(button);});};
- if(ready)render();
  secureFrame.addEventListener('load',()=>secureFrame.contentWindow.postMessage({type:'studio-show-section',section:selectedSection},'https://talmonphoto.com'));
  for(const [key,label] of [['collections','Collections & Process'],['prices','Pricing Tables'],['requests','Collector Requests'],['mailing','Mailing List'],['preview','Client Walkthrough']]){
   const b=document.createElement('button');b.type='button';b.dataset.workspace=key;b.textContent=label;b.setAttribute('aria-pressed',String(key==='collections'));
@@ -149,6 +148,7 @@ if (window.parent === window) {
   };nav.append(b);
  }
  main.append(nav,collections,secure,preview);
+ if(ready)render();
  document.querySelector('header h1').textContent='Collection & Studio Editor';
  document.querySelector('header p').textContent='Collections, Process, edition pricing, collector requests, mailing list and the complete client walkthrough.';
 }
