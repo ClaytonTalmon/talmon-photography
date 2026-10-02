@@ -192,7 +192,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: 'The Work',
       titleLabel: 'Title',
-      intro: 'Collections, presented in full.',
+      intro: 'Selected works from each series.',
       viewSeries: 'View Series',
       viewImage: 'View larger',
       backToSeries: 'Back to series',
@@ -305,7 +305,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: 'L’œuvre',
       titleLabel: 'Titre',
-      intro: 'Collections, présentées intégralement.',
+      intro: 'Une sélection d’œuvres de chaque série.',
       viewSeries: 'Voir la série',
       viewImage: 'Agrandir',
       backToSeries: 'Retour à la série',
@@ -418,7 +418,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: 'La obra',
       titleLabel: 'Título',
-      intro: 'Las colecciones, presentadas en su totalidad.',
+      intro: 'Una selección de obras de cada serie.',
       viewSeries: 'Ver la serie',
       viewImage: 'Ampliar',
       backToSeries: 'Volver a la serie',
@@ -531,7 +531,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: 'Le opere',
       titleLabel: 'Titolo',
-      intro: 'Le collezioni, presentate integralmente.',
+      intro: 'Una selezione di opere da ogni serie.',
       viewSeries: 'Vedi la serie',
       viewImage: 'Ingrandisci',
       backToSeries: 'Torna alla serie',
@@ -644,7 +644,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: '作品',
       titleLabel: '作品名',
-      intro: '完整呈现各个系列。',
+      intro: '各系列精选作品。',
       viewSeries: '查看系列',
       viewImage: '放大查看',
       backToSeries: '返回系列',
@@ -757,7 +757,7 @@ export const translations: Record<Locale, Dictionary> = {
     work: {
       title: '作品',
       titleLabel: 'タイトル',
-      intro: '各コレクションの全作品をご覧いただけます。',
+      intro: '各シリーズから選んだ作品をご覧いただけます。',
       viewSeries: 'シリーズを見る',
       viewImage: '拡大表示',
       backToSeries: 'シリーズに戻る',

@@ -20,7 +20,7 @@ export const de = {
     collectorsCta: "Termin anfragen",
   },
   work: {
-    title: 'Die Werke', titleLabel: 'Titel', intro: 'Die Sammlungen in ihrer Gesamtheit.', viewSeries: 'Serie ansehen', viewImage: 'Vergrößern',
+    title: 'Die Werke', titleLabel: 'Titel', intro: 'Ausgewählte Werke aus jeder Serie.', viewSeries: 'Serie ansehen', viewImage: 'Vergrößern',
     backToSeries: 'Zurück zur Serie', dimensions: 'Bildformat(e)', edition: 'Auflagenhöhe(n)', printType: 'Druckverfahren', imageCount: 'Bild {current} von {total}',
     notSpecified: 'Nicht angegeben', close: 'Schließen', previous: 'Zurück', next: 'Weiter',
   },
