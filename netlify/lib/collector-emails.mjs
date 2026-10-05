@@ -38,11 +38,21 @@ export function collectorInvitation(record,origin,password,expires) {
  if(work) url.searchParams.set('work',work.id);
  else if(record.collections?.length===1) url.searchParams.set('collection',record.collections[0]);
  const title=t('Your private collection access');
- const intro=t('You are invited to view editions and acquisition details.');
+ const copy = {
+  en: ['Hello {name},', 'Please find your invitation password and paste it into the Personal Password box found on the Acquisition page.', 'If you would like to discuss a specific print or collection do not hesitate to reach out to our team.', 'Best regards,', 'The Talmon Studio Team'],
+  fr: ['Bonjour {name},', 'Vous trouverez ci-dessous votre mot de passe d’invitation. Copiez-le dans le champ « Mot de passe personnel » de la page Acquisition.', 'Si vous souhaitez discuter d’un tirage ou d’une collection en particulier, n’hésitez pas à contacter notre équipe.', 'Bien cordialement,', 'L’équipe du studio Talmon'],
+  de: ['Hallo {name},', 'Unten finden Sie Ihr Einladungspasswort. Kopieren Sie es in das Feld „Persönliches Passwort“ auf der Seite Erwerb.', 'Wenn Sie einen bestimmten Abzug oder eine Kollektion besprechen möchten, wenden Sie sich gerne an unser Team.', 'Mit freundlichen Grüßen', 'Das Talmon Studio Team'],
+  es: ['Hola {name},', 'A continuación encontrará su contraseña de invitación. Péguela en el campo «Contraseña personal» de la página Adquisición.', 'Si desea hablar sobre una copia o colección en particular, no dude en ponerse en contacto con nuestro equipo.', 'Un cordial saludo,', 'El equipo de Talmon Studio'],
+  it: ['Buongiorno {name},', 'Di seguito trova la sua password di invito. La incolli nel campo «Password personale» della pagina Acquisizione.', 'Se desidera parlare di una stampa o di una collezione in particolare, non esiti a contattare il nostro team.', 'Cordiali saluti,', 'Il team di Talmon Studio'],
+  ja: ['{name}様', '以下の招待パスワードを、購入ページの「個人パスワード」欄に貼り付けてください。', '特定のプリントやコレクションについてご相談をご希望の場合は、お気軽にチームまでお問い合わせください。', 'どうぞよろしくお願いいたします。', 'Talmon Studio チーム'],
+  zh: ['{name}，您好！', '请将下方的邀请密码复制并粘贴到购藏页面的“个人密码”栏中。', '如果您想了解某幅摄影作品或某个系列，欢迎随时与我们的团队联系。', '谨致问候，', 'Talmon Studio 团队'],
+ };
+ const [greeting, message, discussion, closing, team] = copy[locale] || copy.en;
+ const intro=greeting.replace('{name}',String(record.name || '').trim().split(/\s+/u)[0]);
+ const signature=`<p style="font:16px/1.7 Arial,sans-serif;margin:0 0 22px;color:#45443f">${escape(closing)}<br>${escape(team)}<br><a href="mailto:studio@talmonphoto.com" style="color:#45443f">studio@talmonphoto.com</a></p>`;
  const expiresText=t('Your private access expires {date}.',{date:new Date(expires).toLocaleString(locale,{timeZone:'UTC',timeZoneName:'short'})});
- const instructions=t('Open the collection and enter the personal password below. Your invitation is valid for 24 hours from issue.');
  const passwordHtml=`<div style="background:#faf9f5;border:1px solid #cbc7bd;padding:20px;margin:22px 0"><div style="font:12px Arial,sans-serif;margin-bottom:12px">${escape(t('Personal password'))}</div><div style="font:18px/1.6 monospace;color:#24231f;word-break:break-all;overflow-wrap:anywhere">${escape(password)}</div></div>`;
- return {subject:t('Your private editions access — 24 hours'),text:`${record.name},\n\n${intro}\n${summary}\n\n${instructions}\n\n${t('Password')}: ${password}\n\n${t('View the collection')}:\n${url.href}\n\n${expiresText}\n\n${t('Framing and shipping are not included.')}\n\nTalmon de l’Armée Photography`,html:shell({locale,title,intro,body:p(record.name)+p(summary)+p(instructions)+passwordHtml+p(expiresText)+p(t('Framing and shipping are not included.')),label:t('View the collection'),url:url.href})};
+ return {subject:t('Your private editions access — 24 hours'),text:`${intro}\n\n${message}\n\n${t('Password')}: ${password}\n\n${t('View the collection')}:\n${url.href}\n${summary}\n\n${expiresText}\n\n${discussion}\n\n${closing}\n${team}\nstudio@talmonphoto.com\n\n${t('Framing and shipping are not included.')}`,html:shell({locale,title,intro,body:p(message)+passwordHtml+p(summary)+p(expiresText)+p(discussion)+signature+p(t('Framing and shipping are not included.')),label:t('View the collection'),url:url.href})};
 }
 
 export function acquisitionEnquiry({name,email,work,format,sold,soldOut,price,currency,message,issued}) {
