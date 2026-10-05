@@ -332,7 +332,7 @@ test('studio notices point to requests; collectors receive separate branded rece
  assert.ok(receipt.html.includes('&lt;script&gt;test&lt;/script&gt;'));
  assert.ok(!receipt.html.includes('<script>'));
  assert.ok(!receipt.text.includes('editions-editor'));
- assert.match(receipt.text,/Once reviewed/);
+ assert.match(receipt.text,/24 hour password after our team reviews your request/);
  const request=(await (await s.call('studio-data',null,admin)).json()).requests[0];
  await s.call('studio-approve',{id:request.id},admin);
  const invitation=s.emails.at(-1);
