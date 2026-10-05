@@ -573,7 +573,7 @@ test('contact sends studio notification and localized receipt, rejects invalid a
  assert.equal(s.emails[0].to,'studio@talmonphoto.com');
  assert.equal(s.emails[0].reply_to,data.email);
  assert.equal(s.emails[1].to,data.email);
- assert.match(s.emails[1].subject,/Votre message/);
+ assert.match(s.emails[1].subject,/Merci de nous avoir contactés/);
  assert.equal(s.values.size,1); // Rate limit only; no access grant or mailing subscription.
  for (const invalid of [{...data,email:'invalid'},{...data,message:''},{...data,message:'x'.repeat(10001)}]) {
   assert.equal((await s.call('contact',invalid)).status,400);
