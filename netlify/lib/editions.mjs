@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 import { collectorText, validLocale } from "../../src/i18n/collector.mjs";
-import { collectorReceipt, studioNotification, collectorInvitation, acquisitionEnquiry } from "./collector-emails.mjs";
+import { collectorReceipt, studioNotification, collectorInvitation, acquisitionEnquiry, contactReceipt } from "./collector-emails.mjs";
 import catalog from "../../src/data/edition-catalog.mjs";
 const DAY = 86400000,
   OWNER = "ClaytonTalmon";
@@ -220,7 +220,7 @@ export function createHandler({
           }),
         });
       }
-      if (["request", "subscribe", "enquiry"].includes(action) && req.method === "POST") {
+      if (["request", "subscribe", "enquiry", "contact"].includes(action) && req.method === "POST") {
         if (p.company) return response({ ok: true });
         const visitor = action === "enquiry" ? await session(req, "collector") : null;
         if (action === "enquiry" && !visitor) return fail("Private access is required.",401);
@@ -236,6 +236,15 @@ export function createHandler({
           return fail(
             "Please confirm that you wish to receive studio updates.",
           );
+        if (action === "contact") {
+          const message = String(p.message || "").trim();
+          if (!message || message.length > 10000) return fail("Please enter a message of up to 10,000 characters.");
+          await send({to: "studio@talmonphoto.com", reply_to: email,
+            subject: "Website contact — " + name.replace(/[\r\n]/g, " "),
+            text: `${name}\n${email}\n\n${message}`});
+          await send({to: email, ...contactReceipt({name, locale})});
+          return response({ok: true});
+        }
         if (action === "enquiry") {
           const work = catalog.find(w=>w.id === p.work && visitor.collections.includes(w.collection));
           if (!work) return fail("Please choose a photograph.");
@@ -248,7 +257,7 @@ export function createHandler({
           const currency = value?.currency || "USD";
           if (p.quote && (p.quote.price !== price || p.quote.sold !== sold || p.quote.currency !== currency))
             return fail("Availability or pricing has changed. Please refresh the page and review your selection.",409);
-          await send({to:"ctalmon@gmail.com", reply_to:email,
+          await send({to:"studio@talmonphoto.com", reply_to:email,
             ...acquisitionEnquiry({name,email,work,format,sold,soldOut,price,currency,message:String(p.message || "").slice(0,2000),issued:new Date(now()).toISOString()})});
           return response({ok:true});
         }
@@ -283,7 +292,7 @@ export function createHandler({
             status: old?.status || "pending",
           };
           await write(key, record);
-          await send({to: "ctalmon@gmail.com", reply_to: email, ...studioNotification(record,url.origin,approvalToken)});
+          await send({to: "studio@talmonphoto.com", reply_to: email, ...studioNotification(record,url.origin,approvalToken)});
           await send({to: email, ...collectorReceipt(record)});
         }
         if (action === "subscribe" || p.consent === true) {

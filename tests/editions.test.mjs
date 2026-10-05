@@ -235,8 +235,8 @@ test('collection interests reach the studio and acquisition enquiries send direc
   const s = setup(), admin = await auth(s);
   const data = {name:'Collector',email:'collector@example.com',collections:['form','flow','invalid'],message:'Interested in a pair.'};
   assert.equal((await s.call('request',data)).status,200);
-  assert.match(s.emails.find(e=>e.to==='ctalmon@gmail.com').text,/FORM, FLOW/);
-  assert.match(s.emails.find(e=>e.to==='ctalmon@gmail.com').text,/Interested in a pair/);
+  assert.match(s.emails.find(e=>e.to==='studio@talmonphoto.com').text,/FORM, FLOW/);
+  assert.match(s.emails.find(e=>e.to==='studio@talmonphoto.com').text,/Interested in a pair/);
   const requests = (await (await s.call('studio-data',null,admin)).json()).requests;
   assert.deepEqual(requests[0].collections,['form','flow']);
   const work = catalog.find(w=>w.formats.length);
@@ -325,7 +325,7 @@ test('studio notices point to requests; collectors receive separate branded rece
  const s=setup(),admin=await auth(s);
  const work=catalog.find(w=>w.collection==='flow');
  await s.call('request',{name:'<script>test</script>',email:'collector@example.com',collections:['flow'],work:work.id});
- const studio=s.emails.find(e=>e.to==='ctalmon@gmail.com');
+ const studio=s.emails.find(e=>e.to==='studio@talmonphoto.com');
  const receipt=s.emails.find(e=>e.to==='collector@example.com');
  assert.match(studio.text,/editions-editor\/approve\/#id=/);
  assert.match(studio.text,/no collector password has been issued/);
@@ -346,7 +346,7 @@ test('studio notices point to requests; collectors receive separate branded rece
 });
 
 const approvalCredentials = s => {
- const mail=s.emails.filter(e=>e.to==='ctalmon@gmail.com').at(-1);
+ const mail=s.emails.filter(e=>e.to==='studio@talmonphoto.com').at(-1);
  const link=mail.text.match(/https:\/\/\S+\/editions-editor\/approve\/#[^\s]+/)[0];
  return Object.fromEntries(new URLSearchParams(new URL(link).hash.slice(1)));
 };
@@ -563,4 +563,22 @@ test('enquiry uses approved identity and server format pricing in a branded prin
  assert.equal((await s.call('enquiry',{...data,quote:{sold:1,price:3000,currency:'EUR'}},visitor.cookie)).status,409);
  assert.equal(s.emails.length,count);
  assert.equal((await s.call('enquiry',{work:work.id,format:format.key},visitor.cookie)).status,200);
+});
+
+test('contact sends studio notification and localized receipt, rejects invalid and foreign submissions', async () => {
+ const s=setup();
+ const data={name:'Collector', email:'collector@example.com', message:'I would like to discuss a print.', locale:'fr'};
+ assert.equal((await s.call('contact',data)).status,200);
+ assert.equal(s.emails.length,2);
+ assert.equal(s.emails[0].to,'studio@talmonphoto.com');
+ assert.equal(s.emails[0].reply_to,data.email);
+ assert.equal(s.emails[1].to,data.email);
+ assert.match(s.emails[1].subject,/Votre message/);
+ assert.equal(s.values.size,1); // Rate limit only; no access grant or mailing subscription.
+ for (const invalid of [{...data,email:'invalid'},{...data,message:''},{...data,message:'x'.repeat(10001)}]) {
+  assert.equal((await s.call('contact',invalid)).status,400);
+ }
+ assert.equal((await s.call('contact',data,'','https://foreign.example')).status,403);
+ assert.equal((await s.call('contact',{...data,company:'bot'})).status,200);
+ assert.equal(s.emails.length,2);
 });
