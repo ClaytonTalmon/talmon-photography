@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 import { collectorText, validLocale } from "../../src/i18n/collector.mjs";
-import { collectorReceipt, studioNotification, collectorInvitation, acquisitionEnquiry, contactReceipt } from "./collector-emails.mjs";
+import { collectorReceipt, studioNotification, collectorInvitation, acquisitionEnquiry, contactReceipt, mailingListConfirmation } from "./collector-emails.mjs";
 import catalog from "../../src/data/edition-catalog.mjs";
 const DAY = 86400000,
   OWNER = "ClaytonTalmon";
@@ -311,8 +311,7 @@ export function createHandler({
             });
             await send({
               to: email,
-              subject: t("Confirm your studio updates subscription"),
-              text: `${t("Confirm that you would like occasional news of new work and exhibitions.")}\n${url.origin}/${locale}/mailing-list/?confirm=${confirmation}&subscriber=${hash(email)}\n\n${t("This link expires in 48 hours. If you did not request this, no action is needed.")}`,
+              ...mailingListConfirmation({name,locale,url:`https://talmonphoto.com/${locale}/mailing-list/?confirm=${confirmation}&subscriber=${hash(email)}`}),
             });
           }
         }

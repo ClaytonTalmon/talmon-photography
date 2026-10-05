@@ -85,3 +85,22 @@ export function contactReceipt({name, locale}) {
   text: `${intro}\n\n${message}\n\n${closing}\n${team}\nstudio@talmonphoto.com\nhttps://talmonphoto.com`,
   html:shell({locale,title,intro,body:p(message)+signature,label,url:'https://talmonphoto.com/'+validLocale(locale)+'/work/'})};
 }
+
+export function mailingListConfirmation({name,locale,url}) {
+ const t=text=>collectorText(locale,text);
+ const copy={
+  en:['Hello {name},','Thank you for your interest in Talmon Photo. Please confirm your email address below to receive occasional news of new work and exhibitions.','Confirm subscription','Best regards,','The Talmon Studio Team'],
+  fr:['Bonjour {name},','Merci de votre intérêt pour Talmon Photo. Veuillez confirmer votre adresse e-mail ci-dessous pour recevoir occasionnellement des nouvelles des œuvres et des expositions.','Confirmer mon inscription','Bien cordialement,','L’équipe du studio Talmon'],
+  de:['Hallo {name},','Vielen Dank für Ihr Interesse an Talmon Photo. Bitte bestätigen Sie unten Ihre E-Mail-Adresse, um gelegentlich Neuigkeiten zu neuen Arbeiten und Ausstellungen zu erhalten.','Anmeldung bestätigen','Mit freundlichen Grüßen','Das Talmon Studio Team'],
+  es:['Hola {name},','Gracias por su interés en Talmon Photo. Confirme su dirección de correo electrónico a continuación para recibir noticias ocasionales sobre nuevas obras y exposiciones.','Confirmar suscripción','Un cordial saludo,','El equipo de Talmon Studio'],
+  it:['Buongiorno {name},','Grazie per il suo interesse per Talmon Photo. Confermi il suo indirizzo e-mail qui sotto per ricevere occasionalmente notizie su nuove opere e mostre.','Conferma iscrizione','Cordiali saluti,','Il team di Talmon Studio'],
+  ja:['{name}様','Talmon Photoにご関心をお寄せいただきありがとうございます。新作や展覧会のお知らせを受け取るには、下のボタンからメールアドレスをご確認ください。','登録を確認','どうぞよろしくお願いいたします。','Talmon Studio チーム'],
+  zh:['{name}，您好！','感谢您关注 Talmon Photo。请点击下方按钮确认您的电子邮箱，以便偶尔收到新作与展览的消息。','确认订阅','谨致问候，','Talmon Studio 团队'],
+ };
+ const [greeting,message,label,closing,team]=copy[validLocale(locale)]||copy.en;
+ const intro=greeting.replace('{name}',String(name||'').trim().split(/\s+/u)[0]);
+ const title=t('Confirm your studio updates subscription');
+ const notice=t('This link expires in 48 hours. If you did not request this, no action is needed.');
+ const signature=`<p style="font:16px/1.7 Arial,sans-serif;margin:0 0 22px;color:#45443f">${escape(closing)}<br>${escape(team)}<br><a href="mailto:studio@talmonphoto.com" style="color:#45443f">studio@talmonphoto.com</a></p>`;
+ return {subject:title,text:`${intro}\n\n${message}\n\n${label}:\n${url}\n\n${notice}\n\n${closing}\n${team}\nstudio@talmonphoto.com`,html:shell({locale,title,intro,body:p(message)+p(notice)+signature,label,url})};
+}
