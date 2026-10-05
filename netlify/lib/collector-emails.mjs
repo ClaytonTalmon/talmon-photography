@@ -48,16 +48,19 @@ export function acquisitionEnquiry({name,email,work,format,sold,soldOut,price,cu
 
 export function contactReceipt({name, locale}) {
  const copy = {
-  en: ['Your message has been received', 'Thank you for contacting the studio. We will reply as soon as possible.', 'View the photographs'],
-  fr: ['Votre message a bien été reçu', 'Merci de contacter le studio. Nous vous répondrons dès que possible.', 'Voir les photographies'],
-  de: ['Ihre Nachricht ist eingegangen', 'Vielen Dank für Ihre Nachricht an das Studio. Wir antworten Ihnen so bald wie möglich.', 'Fotografien ansehen'],
-  es: ['Hemos recibido su mensaje', 'Gracias por contactar con el estudio. Le responderemos lo antes posible.', 'Ver las fotografías'],
-  it: ['Il suo messaggio è stato ricevuto', 'Grazie per aver contattato lo studio. Le risponderemo il prima possibile.', 'Guarda le fotografie'],
-  ja: ['メッセージを受け付けました', 'スタジオにお問い合わせいただきありがとうございます。できるだけ早くお返事いたします。', '写真を見る'],
-  zh: ['您的留言已收到', '感谢您联系工作室。我们会尽快回复。', '查看摄影作品'],
+  en: ['Thank you for getting in touch', 'Hello {name},', "Thank you for contacting Talmon Photo. Your message has been received, and we'll be in touch soon.", 'Best regards,', 'The Talmon Studio Team', 'View the photographs'],
+  fr: ['Merci de nous avoir contactés', 'Bonjour {name},', 'Merci de contacter Talmon Photo. Nous avons bien reçu votre message et vous répondrons prochainement.', 'Bien cordialement,', 'L’équipe du studio Talmon', 'Voir les photographies'],
+  de: ['Vielen Dank für Ihre Nachricht', 'Hallo {name},', 'Vielen Dank, dass Sie Talmon Photo kontaktiert haben. Wir haben Ihre Nachricht erhalten und melden uns bald bei Ihnen.', 'Mit freundlichen Grüßen', 'Das Talmon Studio Team', 'Fotografien ansehen'],
+  es: ['Gracias por ponerse en contacto', 'Hola {name},', 'Gracias por contactar con Talmon Photo. Hemos recibido su mensaje y nos pondremos en contacto con usted pronto.', 'Un cordial saludo,', 'El equipo de Talmon Studio', 'Ver las fotografías'],
+  it: ['Grazie per averci contattato', 'Buongiorno {name},', 'Grazie per aver contattato Talmon Photo. Abbiamo ricevuto il suo messaggio e le risponderemo presto.', 'Cordiali saluti,', 'Il team di Talmon Studio', 'Guarda le fotografie'],
+  ja: ['お問い合わせありがとうございます', '{name}様', 'Talmon Photoにお問い合わせいただきありがとうございます。メッセージを受け付けました。近日中にご連絡いたします。', 'どうぞよろしくお願いいたします。', 'Talmon Studio チーム', '写真を見る'],
+  zh: ['感谢您的联系', '{name}，您好！', '感谢您联系 Talmon Photo。我们已收到您的留言，并将尽快与您联系。', '谨致问候，', 'Talmon Studio 团队', '查看摄影作品'],
  };
- const [title, intro, label] = copy[validLocale(locale)] || copy.en;
+ const [title, greeting, message, closing, team, label] = copy[validLocale(locale)] || copy.en;
+ const firstName = String(name || '').trim().split(/\s+/u)[0];
+ const intro = greeting.replace('{name}', firstName);
+ const signature = `<p style="font:16px/1.7 Arial,sans-serif;margin:0 0 22px;color:#45443f">${escape(closing)}<br>${escape(team)}<br><a href="mailto:studio@talmonphoto.com" style="color:#45443f">studio@talmonphoto.com</a></p>`;
  return {subject:title + ' — Talmon de l’Armée',
-  text: `${name},\n\n${intro}\n\nstudio@talmonphoto.com\nhttps://talmonphoto.com`,
-  html:shell({locale,title,intro,body:p(name),label,url:'https://talmonphoto.com/'+validLocale(locale)+'/work/'})};
+  text: `${intro}\n\n${message}\n\n${closing}\n${team}\nstudio@talmonphoto.com\nhttps://talmonphoto.com`,
+  html:shell({locale,title,intro,body:p(message)+signature,label,url:'https://talmonphoto.com/'+validLocale(locale)+'/work/'})};
 }
