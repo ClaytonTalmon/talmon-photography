@@ -22,7 +22,7 @@ const ct = (text: string) => collectorText(locale, text);
   <label class="check"><input name="consent" type="checkbox" required /><span>{ct("I would like to receive studio updates.")}</span></label>
   <button class="primary">{ct("Join the mailing list")}</button>
   <p class="small">{ct("Your email is used for studio updates. Subscription requires email confirmation; you can unsubscribe at any time.")}</p>
-  <p class="small">{ct("To unsubscribe from the list, email")} <a href="mailto:ctalmon@gmail.com?subject=Unsubscribe">{ct(" the studio").trim()}</a>.</p>
+  <p class="small">{ct("To unsubscribe from the list, email")} <a href="mailto:studio@talmonphoto.com?subject=Unsubscribe">{ct(" the studio").trim()}</a>.</p>
  </form>
  <details id="unsubscribe-details"><summary class="small">{ct("Unsubscribe")}</summary>
   <form id="unsubscribe-form"><label>{ct("Email address")}<input type="email" name="email" autocomplete="email" required maxlength="254" /></label><label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label><button>{ct("Send an unsubscribe link")}</button></form>

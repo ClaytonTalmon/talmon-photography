@@ -45,3 +45,19 @@ export function acquisitionEnquiry({name,email,work,format,sold,soldOut,price,cu
  const table='<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:24px 0">'+rows.map(([label,value])=>`<tr><td style="padding:10px 8px;border-bottom:1px solid #cbc7bd;font:12px Arial,sans-serif;vertical-align:top;color:#64625b">${escape(label)}</td><td style="padding:10px 8px;border-bottom:1px solid #cbc7bd;font:15px/1.5 Arial,sans-serif;color:#24231f">${escape(value)}</td></tr>`).join('')+'</table>';
  return {subject:'Acquisition enquiry — '+work.title+' — '+format.label+' — '+edition,text:rows.map(([k,v])=>`${k}: ${v}`).join('\n')+`\n\nPhotograph: ${image}\n\nCollector message: ${message||'—'}\n\n${note}\n\n${url}`,html:shell({title:'Acquisition enquiry',intro:'A collector has selected the following photograph.',body:`<img src="${escape(image)}" alt="${escape(work.title)}" width="560" style="display:block;width:100%;max-width:560px;height:auto" />`+table+p('Collector message')+p(message||'—')+p(note),label:'View photograph details',url})};
 }
+
+export function contactReceipt({name, locale}) {
+ const copy = {
+  en: ['Your message has been received', 'Thank you for contacting the studio. We will reply as soon as possible.', 'View the photographs'],
+  fr: ['Votre message a bien été reçu', 'Merci de contacter le studio. Nous vous répondrons dès que possible.', 'Voir les photographies'],
+  de: ['Ihre Nachricht ist eingegangen', 'Vielen Dank für Ihre Nachricht an das Studio. Wir antworten Ihnen so bald wie möglich.', 'Fotografien ansehen'],
+  es: ['Hemos recibido su mensaje', 'Gracias por contactar con el estudio. Le responderemos lo antes posible.', 'Ver las fotografías'],
+  it: ['Il suo messaggio è stato ricevuto', 'Grazie per aver contattato lo studio. Le risponderemo il prima possibile.', 'Guarda le fotografie'],
+  ja: ['メッセージを受け付けました', 'スタジオにお問い合わせいただきありがとうございます。できるだけ早くお返事いたします。', '写真を見る'],
+  zh: ['您的留言已收到', '感谢您联系工作室。我们会尽快回复。', '查看摄影作品'],
+ };
+ const [title, intro, label] = copy[validLocale(locale)] || copy.en;
+ return {subject:title + ' — Talmon de l’Armée',
+  text: `${name},\n\n${intro}\n\nstudio@talmonphoto.com\nhttps://talmonphoto.com`,
+  html:shell({locale,title,intro,body:p(name),label,url:'https://talmonphoto.com/'+validLocale(locale)+'/work/'})};
+}
