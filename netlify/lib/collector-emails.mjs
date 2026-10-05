@@ -12,9 +12,20 @@ function details(record) {
 export function collectorReceipt(record) {
  const t=text=>collectorText(record.locale,text),{summary}=details(record);
  const title=t('Your request has been received');
- const intro=t('Thank you for your interest in the photographs of Talmon de l’Armée.');
- const next=t('The studio will review your request. Once reviewed, a separate invitation will contain your personal password and a link to the collection. Access will be valid for 24 hours from the time that invitation is issued.');
- return {subject:title+' — Talmon de l’Armée',text:`${record.name},\n\n${intro}\n${summary}\n\n${next}\n\nTalmon de l’Armée Photography\nhttps://talmonphoto.com`,html:shell({locale:record.locale,title,intro,body:p(record.name)+p(summary)+p(next),label:t('View the photographs'),url:'https://talmonphoto.com/'+validLocale(record.locale)+'/work/'})};
+ const copy = {
+  en: ['Hello {name},', 'Thank you for your interest in the collections. Your message has been received.', 'You will receive a 24 hour password after our team reviews your request.', 'Best regards,', 'The Talmon Studio Team'],
+  fr: ['Bonjour {name},', 'Merci de votre intérêt pour les collections. Nous avons bien reçu votre message.', 'Vous recevrez un mot de passe valable 24 heures après examen de votre demande par notre équipe.', 'Bien cordialement,', 'L’équipe du studio Talmon'],
+  de: ['Hallo {name},', 'Vielen Dank für Ihr Interesse an den Kollektionen. Wir haben Ihre Nachricht erhalten.', 'Nachdem unser Team Ihre Anfrage geprüft hat, erhalten Sie ein Passwort, das 24 Stunden gültig ist.', 'Mit freundlichen Grüßen', 'Das Talmon Studio Team'],
+  es: ['Hola {name},', 'Gracias por su interés en las colecciones. Hemos recibido su mensaje.', 'Recibirá una contraseña válida durante 24 horas después de que nuestro equipo revise su solicitud.', 'Un cordial saludo,', 'El equipo de Talmon Studio'],
+  it: ['Buongiorno {name},', 'Grazie per il suo interesse per le collezioni. Abbiamo ricevuto il suo messaggio.', 'Riceverà una password valida per 24 ore dopo che il nostro team avrà esaminato la sua richiesta.', 'Cordiali saluti,', 'Il team di Talmon Studio'],
+  ja: ['{name}様', 'コレクションにご関心をお寄せいただきありがとうございます。メッセージを受け付けました。', 'チームがリクエストを確認した後、24時間有効なパスワードをお送りします。', 'どうぞよろしくお願いいたします。', 'Talmon Studio チーム'],
+  zh: ['{name}，您好！', '感谢您对摄影系列的关注。我们已收到您的留言。', '团队审核您的申请后，您将收到一个有效期为24小时的密码。', '谨致问候，', 'Talmon Studio 团队'],
+ };
+ const [greeting, message, next, closing, team] = copy[validLocale(record.locale)] || copy.en;
+ const firstName=String(record.name || '').trim().split(/\s+/u)[0];
+ const intro=greeting.replace('{name}',firstName);
+ const signature=`<p style="font:16px/1.7 Arial,sans-serif;margin:0 0 22px;color:#45443f">${escape(closing)}<br>${escape(team)}<br><a href="mailto:studio@talmonphoto.com" style="color:#45443f">studio@talmonphoto.com</a></p>`;
+ return {subject:title+' — Talmon de l’Armée',text:`${intro}\n\n${message}\n${next}\n\n${closing}\n${team}\nstudio@talmonphoto.com\n\n${summary}\nhttps://talmonphoto.com`,html:shell({locale:record.locale,title,intro,body:p(message)+p(next)+signature+p(summary),label:t('View the photographs'),url:'https://talmonphoto.com/'+validLocale(record.locale)+'/work/'})};
 }
 export function studioNotification(record,origin,approvalToken) {
  const {summary}=details(record), url=approvalToken ? origin+'/editions-editor/approve/#id='+record.id+'&token='+approvalToken : origin+'/editions-editor/#requests';
