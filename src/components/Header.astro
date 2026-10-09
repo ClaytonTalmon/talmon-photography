@@ -20,8 +20,12 @@ const ct = (text: string) => collectorText(locale, text);
 <header class:list={['site-header', { 'site-header--dark': variant === 'dark', 'site-header--home': isHomePage }]}>
   <div class="site-header__inner container">
     <a class="wordmark" href={localizedPath(locale, '/')}>
-      <span class="wordmark__name">Talmon de l’Armée</span>
-      <span class="wordmark__sub eyebrow">{locale === 'de' ? 'Fotografie' : 'Photography'}</span>
+      <span class="wordmark__name wordmark__lockup-line" aria-label="Talmon">
+        <span aria-hidden="true">T</span><span aria-hidden="true">a</span><span aria-hidden="true">l</span><span aria-hidden="true">m</span><span aria-hidden="true">o</span><span aria-hidden="true">n</span>
+      </span>
+      <span class="wordmark__sub eyebrow wordmark__lockup-line" aria-label="Limited Editions">
+        <span aria-hidden="true">L</span><span aria-hidden="true">i</span><span aria-hidden="true">m</span><span aria-hidden="true">i</span><span aria-hidden="true">t</span><span aria-hidden="true">e</span><span aria-hidden="true">d</span><span aria-hidden="true">&nbsp;</span><span aria-hidden="true">E</span><span aria-hidden="true">d</span><span aria-hidden="true">i</span><span aria-hidden="true">t</span><span aria-hidden="true">i</span><span aria-hidden="true">o</span><span aria-hidden="true">n</span><span aria-hidden="true">s</span>
+      </span>
     </a>
 
     <nav class="site-nav" aria-label={ct("Primary")}>
@@ -86,6 +90,17 @@ const ct = (text: string) => collectorText(locale, text);
     min-height: var(--nav-height);
   }
 
+  .site-header--home {
+    position: relative;
+    color: var(--color-ink);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .site-header--home .site-header__inner {
+    min-height: 150px;
+  }
+
   .wordmark {
     text-decoration: none;
     color: inherit;
@@ -103,12 +118,43 @@ const ct = (text: string) => collectorText(locale, text);
     margin-top: 2px;
   }
 
+  .site-header--home .wordmark {
+    width: 11.25rem;
+  }
+
+  .site-header:not(.site-header--home) .wordmark {
+    width: 6.25rem;
+  }
+
+  .site-header:not(.site-header--home) .wordmark__sub {
+    width: 90%;
+    margin-inline: 0 auto;
+  }
+
+  .wordmark__lockup-line {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .site-header--home .wordmark__name {
-    font-size: 1.38rem;
+    font-size: 3.105rem;
+    font-weight: 400;
   }
 
   .site-header--home .wordmark__sub {
-    font-size: 0.72rem;
+    font-size: 1.02rem;
+    letter-spacing: 0;
+  }
+
+  @media (min-width: 1251px) {
+    .site-header--home .site-header__inner {
+      transform: translateY(25px);
+    }
+
+    .site-header--home .wordmark {
+      transform: translateY(-1.9rem);
+    }
   }
 
   .site-header--dark .wordmark__sub {
@@ -236,12 +282,16 @@ const ct = (text: string) => collectorText(locale, text);
       font-size: 0.828rem;
     }
 
+    .site-header:not(.site-header--home) .wordmark {
+      width: 7rem;
+    }
+
     .site-header--home .wordmark__name {
-      font-size: 1.587rem;
+      font-size: 3.57075rem;
     }
 
     .site-header--home .wordmark__sub {
-      font-size: 0.994rem;
+      font-size: 1.02rem;
     }
 
     .site-nav,
@@ -251,6 +301,20 @@ const ct = (text: string) => collectorText(locale, text);
 
     .mobile-menu {
       display: block;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .site-header--home .site-header__inner {
+      min-height: 110px;
+    }
+
+    .site-header--home .wordmark {
+      width: 9.5625rem;
+    }
+
+    .site-header--home .wordmark__name {
+      font-size: 2.55rem;
     }
   }
 </style>
