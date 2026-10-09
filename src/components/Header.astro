@@ -20,7 +20,7 @@ const ct = (text: string) => collectorText(locale, text);
 <header class:list={['site-header', { 'site-header--dark': variant === 'dark', 'site-header--home': isHomePage }]}>
   <div class="site-header__inner container">
     <a class="wordmark" href={localizedPath(locale, '/')}>
-      <span class="wordmark__name">{isHomePage ? 'Clayton Talmon' : 'Talmon de l’Armée'}</span>
+      <span class="wordmark__name">Talmon de l’Armée</span>
       <span class="wordmark__sub eyebrow">{locale === 'de' ? 'Fotografie' : 'Photography'}</span>
     </a>
 
@@ -97,6 +97,11 @@ const ct = (text: string) => collectorText(locale, text);
     min-height: 300px;
   }
 
+  .site-header--home .site-nav,
+  .site-header--home .lang-switch {
+    transform: translateY(-38px);
+  }
+
   .wordmark {
     text-decoration: none;
     color: inherit;
@@ -115,7 +120,7 @@ const ct = (text: string) => collectorText(locale, text);
   }
 
   .site-header--home .wordmark__name {
-    font-size: 1.38rem;
+    font-size: 2.07rem;
   }
 
   .site-header--home .wordmark__sub {
@@ -248,7 +253,7 @@ const ct = (text: string) => collectorText(locale, text);
     }
 
     .site-header--home .wordmark__name {
-      font-size: 1.587rem;
+      font-size: 2.3805rem;
     }
 
     .site-header--home .wordmark__sub {
@@ -268,6 +273,10 @@ const ct = (text: string) => collectorText(locale, text);
   @media (max-width: 640px) {
     .site-header--home .site-header__inner {
       min-height: 220px;
+    }
+
+    .site-header--home .wordmark__name {
+      font-size: 2rem;
     }
   }
 </style>
