@@ -20,7 +20,7 @@ const ct = (text: string) => collectorText(locale, text);
 <header class:list={['site-header', { 'site-header--dark': variant === 'dark', 'site-header--home': isHomePage }]}>
   <div class="site-header__inner container">
     <a class="wordmark" href={localizedPath(locale, '/')}>
-      <span class="wordmark__name">Talmon de l’Armée</span>
+      <span class="wordmark__name">{isHomePage ? 'Clayton Talmon' : 'Talmon de l’Armée'}</span>
       <span class="wordmark__sub eyebrow">{locale === 'de' ? 'Fotografie' : 'Photography'}</span>
     </a>
 
@@ -84,6 +84,17 @@ const ct = (text: string) => collectorText(locale, text);
     justify-content: space-between;
     gap: 24px;
     min-height: var(--nav-height);
+  }
+
+  .site-header--home {
+    position: relative;
+    color: var(--color-ink);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .site-header--home .site-header__inner {
+    min-height: 300px;
   }
 
   .wordmark {
@@ -251,6 +262,12 @@ const ct = (text: string) => collectorText(locale, text);
 
     .mobile-menu {
       display: block;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .site-header--home .site-header__inner {
+      min-height: 220px;
     }
   }
 </style>
