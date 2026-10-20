@@ -20,7 +20,7 @@ const {
 } = Astro.props;
 
 const maxWidth = Math.min(src.width, Math.floor(2000 * src.width / Math.max(src.width, src.height)));
-const displayWidths = [...new Set([640, 1200, 1800, 2000].map(width => Math.min(width, maxWidth)))].sort((a,b)=>a-b);
+const displayWidths = [...new Set([640, 800, 1200, 1800, 2000].map(width => Math.min(width, maxWidth)))].sort((a,b)=>a-b);
 const encodedPath = assetPath.split('/').map(encodeURIComponent).join('/');
 const displayUrl = (width: number) => `/_images/${encodedPath}-${width}.webp`;
 const srcset = displayWidths.map(width => `${displayUrl(width)} ${width}w`).join(', ');

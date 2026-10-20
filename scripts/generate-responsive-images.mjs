@@ -5,7 +5,7 @@ import sharp from 'sharp';
 
 const sourceRoot = new URL('../src/assets/', import.meta.url);
 const outputRoot = new URL('../public/_images/', import.meta.url);
-const widths = [640, 1200, 1800, 2000];
+const widths = [640, 800, 1200, 1800, 2000];
 const supported = new Set(['.jpg', '.jpeg', '.png']);
 const restoredFromCache = process.env.RESPONSIVE_CACHE_HIT === 'true';
 

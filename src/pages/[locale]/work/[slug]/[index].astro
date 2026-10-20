@@ -45,12 +45,13 @@ const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/$
 const previousImagePath = previousPath ? `${previousPath}#artwork` : null;
 const nextImagePath = nextPath ? `${nextPath}#artwork` : null;
 const ct = (text: string) => collectorText(locale, text);
+const metaDescription = entry.data.subtitle[locale] || entry.data.description[locale].split('\n')[0];
 ---
 
 <BaseLayout
   locale={locale}
   title={details.title ?? entry.data.title[locale]}
-  description={entry.data.subtitle[locale]}
+  description={metaDescription}
 >
   <div class="image-page container">
     <a class="back-link" href={seriesPath}>← {t.work.backToSeries}</a>
@@ -68,29 +69,31 @@ const ct = (text: string) => collectorText(locale, text);
         sizes="(max-width: 900px) 92vw, 78vw"
         loading="eager"
       />
-      <figcaption class="image-details">
-        <div>
-          <dt>{t.work.titleLabel}</dt>
-          <dd>{details.title ?? t.work.notSpecified}</dd>
-        </div>
-        <div>
-          <dt>{t.work.dimensions}</dt>
-          <dd>
-            <span>{dimensions}</span>
-            {details.printSize2 && <span>{details.printSize2}</span>}
-          </dd>
-        </div>
-        <div>
-          <dt>{t.work.edition}</dt>
-          <dd>
-            <span>{details.editionSize ?? t.work.notSpecified}</span>
-            {details.editionSize2 && <span>{details.editionSize2}</span>}
-          </dd>
-        </div>
-        <div>
-          <dt>{t.work.printType}</dt>
-          <dd>{ct(details.printType ?? t.work.notSpecified)}</dd>
-        </div>
+      <figcaption>
+        <dl class="image-details">
+          <div>
+            <dt>{t.work.titleLabel}</dt>
+            <dd>{details.title ?? t.work.notSpecified}</dd>
+          </div>
+          <div>
+            <dt>{t.work.dimensions}</dt>
+            <dd>
+              <span>{dimensions}</span>
+              {details.printSize2 && <span>{details.printSize2}</span>}
+            </dd>
+          </div>
+          <div>
+            <dt>{t.work.edition}</dt>
+            <dd>
+              <span>{details.editionSize ?? t.work.notSpecified}</span>
+              {details.editionSize2 && <span>{details.editionSize2}</span>}
+            </dd>
+          </div>
+          <div>
+            <dt>{t.work.printType}</dt>
+            <dd>{ct(details.printType ?? t.work.notSpecified)}</dd>
+          </div>
+        </dl>
       </figcaption>
     </figure>
 
@@ -149,6 +152,7 @@ const ct = (text: string) => collectorText(locale, text);
     display: flex;
     align-items: flex-start;
     width: 100%;
+    margin: 0;
     padding-block: 20px;
     border-bottom: 1px solid var(--color-line);
     text-align: center;
@@ -161,6 +165,21 @@ const ct = (text: string) => collectorText(locale, text);
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+
+  .image-details dt {
+    color: var(--color-ink-soft);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .image-details dd {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 6px;
+    transform: translateX(-25px);
   }
 
   @media (max-width: 700px) {
@@ -198,21 +217,6 @@ const ct = (text: string) => collectorText(locale, text);
     .image-details div:nth-child(2) dd span {
       white-space: nowrap;
     }
-  }
-
-  .image-details dt {
-    color: var(--color-ink-soft);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .image-details dd {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-top: 6px;
-    transform: translateX(-25px);
   }
 
   .image-navigation {
