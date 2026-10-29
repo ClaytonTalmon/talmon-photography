@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from "node:crypto";
 import { collectorText, validLocale } from "../../src/i18n/collector.mjs";
-import { collectorReceipt, studioNotification, collectorInvitation, acquisitionEnquiry, contactReceipt, mailingListConfirmation } from "./collector-emails.mjs";
+import { collectorReceipt, studioNotification, collectorInvitation, acquisitionEnquiry, contactReceipt, appointmentEmails, mailingListConfirmation } from "./collector-emails.mjs";
 import catalog from "../../src/data/edition-catalog.mjs";
 const DAY = 86400000,
   OWNER = "ClaytonTalmon";
@@ -220,7 +220,7 @@ export function createHandler({
           }),
         });
       }
-      if (["request", "subscribe", "enquiry", "contact"].includes(action) && req.method === "POST") {
+      if (["request", "subscribe", "enquiry", "contact", "appointment"].includes(action) && req.method === "POST") {
         if (p.company) return response({ ok: true });
         const visitor = action === "enquiry" ? await session(req, "collector") : null;
         if (action === "enquiry" && !visitor) return fail("Private access is required.",401);
@@ -236,14 +236,64 @@ export function createHandler({
           return fail(
             "Please confirm that you wish to receive studio updates.",
           );
-        if (action === "contact") {
+        if (action === "contact" || action === "appointment") {
           const message = String(p.message || "").trim();
-          if (!message || message.length > 10000) return fail("Please enter a message of up to 10,000 characters.");
-          await send({to: "studio@talmonphoto.com", reply_to: email,
-            subject: "Website contact — " + name.replace(/[\r\n]/g, " "),
-            text: `${name}\n${email}\n\n${message}`});
-          await send({to: email, ...contactReceipt({name, locale})});
-          return response({ok: true});
+          if (message.length > 10000 || (action === "contact" && !message))
+            return fail("Please enter a message of up to 10,000 characters.");
+          const appointment = {};
+          if (action === "appointment") {
+            const collection = String(p.collection || "").toUpperCase();
+            const date = String(p.date || ""), time = String(p.time || ""), timezone = String(p.timezone || "");
+            if (!["FORM", "FLOW", "FLIGHT", "WORLD"].includes(collection) ||
+                !/^\d{4}-\d{2}-\d{2}$/.test(date) ||
+                !Number.isFinite(Date.parse(date + "T00:00:00Z")) ||
+                new Date(date + "T00:00:00Z").toISOString().slice(0,10) !== date ||
+                !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(time) || timezone.length > 100)
+              return fail("Please enter valid appointment details.");
+            try { new Intl.DateTimeFormat("en", {timeZone:timezone}).format(); }
+            catch { return fail("Please enter a valid time zone."); }
+            Object.assign(appointment, {collection, date, time, timezone});
+          }
+          // A stable browser-generated ID keeps retries on the same saved inquiry.
+          const submission = typeof p.submissionId === "string" && /^[a-zA-Z0-9_-]{16,80}$/.test(p.submissionId)
+            ? p.submissionId : token();
+          const id = hash(JSON.stringify({submission,action,name,email,message,locale,...appointment}));
+          const key = "inquiry/" + id;
+          let record = await read(key);
+          if (!record) {
+            record = {id, type:action, name, email, message, locale, ...appointment,
+              created:now(), notificationStatus:"pending", receiptStatus:"pending"};
+            await store.setJSON(key, record, {onlyIfNew:true});
+            record = await read(key);
+          }
+          const mails = action === "appointment" ? appointmentEmails(record) : {
+            notification:{subject:"Website contact — " + name.replace(/[\r\n]/g," "), text:`${name}\n${email}\n\n${message}`},
+            receipt:contactReceipt({name,locale})
+          };
+          if (record.notificationStatus !== "sent") {
+            try {
+              await send({to:"ctalmon@gmail.com", reply_to:email, ...mails.notification}, "inquiry-" + id + "-studio");
+              record.notificationStatus = "sent";
+              record.notifiedAt = now();
+              await write(key,record);
+            } catch (error) {
+              record.notificationStatus = "failed";
+              await write(key,record);
+              throw error;
+            }
+          }
+          if (record.receiptStatus !== "sent") {
+            try {
+              await send({to:email, ...mails.receipt}, "inquiry-" + id + "-receipt");
+              record.receiptStatus = "sent";
+            } catch {
+              // The studio has the inquiry; a failed courtesy receipt must not ask
+              // the visitor to resubmit or lose the recorded message.
+              record.receiptStatus = "failed";
+            }
+            await write(key,record);
+          }
+          return response({ok:true});
         }
         if (action === "enquiry") {
           const work = catalog.find(w=>w.id === p.work && visitor.collections.includes(w.collection));
@@ -371,6 +421,7 @@ export function createHandler({
             prices: (await read("prices")) || { version: 0, items: {} },
             requests: await rows("request/"),
             subscribers: await rows("subscriber/"),
+            inquiries: await rows("inquiry/"),
           });
         }
         if (action === "studio-confirm-unsold" && req.method === "POST") {
