@@ -104,3 +104,28 @@ export function mailingListConfirmation({name,locale,url}) {
  const signature=`<p style="font:16px/1.7 Arial,sans-serif;margin:0 0 22px;color:#45443f">${escape(closing)}<br>${escape(team)}<br><a href="mailto:studio@talmonphoto.com" style="color:#45443f">studio@talmonphoto.com</a></p>`;
  return {subject:title,text:`${intro}\n\n${message}\n\n${label}:\n${url}\n\n${notice}\n\n${closing}\n${team}\nstudio@talmonphoto.com`,html:shell({locale,title,intro,body:p(message)+p(notice)+signature,label,url})};
 }
+
+export function appointmentEmails(record) {
+ const copy = {
+  en:['Appointment request received','Hello {name},','Thank you for requesting a private online appointment. We have received the details below. The studio will email you to confirm the time; this request is not yet a confirmed appointment.','Best regards,','The Talmon Studio Team','View the photographs'],
+  fr:['Demande de rendez-vous reçue','Bonjour {name},','Merci pour votre demande de rendez-vous privé en ligne. Nous avons bien reçu les informations ci-dessous. Le studio vous confirmera l’horaire par e-mail ; le rendez-vous n’est pas encore confirmé.','Bien cordialement,','L’équipe du studio Talmon','Voir les photographies'],
+  de:['Terminanfrage erhalten','Hallo {name},','Vielen Dank für Ihre Anfrage für einen privaten Online-Termin. Ihre Angaben sind unten aufgeführt. Das Studio bestätigt die Uhrzeit per E-Mail; der Termin ist noch nicht bestätigt.','Mit freundlichen Grüßen','Das Talmon Studio Team','Fotografien ansehen'],
+  es:['Solicitud de cita recibida','Hola {name},','Gracias por solicitar una cita privada en línea. Hemos recibido los datos que figuran a continuación. El estudio confirmará la hora por correo electrónico; la cita aún no está confirmada.','Un cordial saludo,','El equipo de Talmon Studio','Ver las fotografías'],
+  it:['Richiesta di appuntamento ricevuta','Buongiorno {name},','Grazie per aver richiesto un appuntamento privato online. Abbiamo ricevuto i dati riportati di seguito. Lo studio confermerà l’orario via e-mail; l’appuntamento non è ancora confermato.','Cordiali saluti,','Il team di Talmon Studio','Guarda le fotografie'],
+  ja:['オンライン面談のリクエストを受け付けました','{name}様','プライベートオンライン面談をお申し込みいただきありがとうございます。以下の内容で受け付けました。スタジオからメールで日時をご連絡します。現時点では予約は確定していません。','どうぞよろしくお願いいたします。','Talmon Studio チーム','写真を見る'],
+  zh:['已收到预约申请','{name}，您好！','感谢您申请私人线上会面。我们已收到以下信息。工作室将通过电子邮件确认时间；目前预约尚未确认。','谨致问候，','Talmon Studio 团队','查看摄影作品']
+ };
+ const locale=validLocale(record.locale);
+ const [title,greeting,message,closing,team,label]=copy[locale]||copy.en;
+ const intro=greeting.replace('{name}',String(record.name).trim().split(/\s+/u)[0]);
+ const labels={en:['Collection','Requested date','Requested time','Time zone','Message'],fr:['Collection','Date souhaitée','Heure souhaitée','Fuseau horaire','Message'],de:['Kollektion','Gewünschtes Datum','Gewünschte Uhrzeit','Zeitzone','Nachricht'],es:['Colección','Fecha solicitada','Hora solicitada','Zona horaria','Mensaje'],it:['Collezione','Data richiesta','Ora richiesta','Fuso orario','Messaggio'],ja:['コレクション','希望日','希望時刻','タイムゾーン','メッセージ'],zh:['系列','希望日期','希望时间','时区','留言']};
+ const values=[record.collection,record.date,record.time,record.timezone,record.message||'—'];
+ const rows=labels[locale].map((label,i)=>[label,values[i]]);
+ const table='<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:24px 0">'+rows.map(([k,v])=>`<tr><td style="padding:10px 8px;border-bottom:1px solid #cbc7bd;font:12px Arial,sans-serif;vertical-align:top">${escape(k)}</td><td style="padding:10px 8px;border-bottom:1px solid #cbc7bd;font:15px/1.5 Arial,sans-serif">${escape(v)}</td></tr>`).join('')+'</table>';
+ const summary=rows.map(([k,v])=>`${k}: ${v}`).join('\n');
+ const signature=p(closing+' '+team)+p('studio@talmonphoto.com');
+ return {
+  notification:{subject:'Private viewing request — '+record.name.replace(/[\r\n]/g,' '),text:`${record.name}\n${record.email}\n\nCollection: ${record.collection}\nRequested date: ${record.date}\nRequested time: ${record.time}\nTime zone: ${record.timezone}\n\n${record.message||'—'}\n\nAppointment pending studio confirmation.`,html:shell({title:'Private viewing request',intro:'An appointment request is awaiting your confirmation.',body:p(record.name)+p(record.email)+table,label:'Reply to the collector',url:'mailto:'+record.email})},
+  receipt:{subject:title+' — Talmon de l’Armée',text:`${intro}\n\n${message}\n\n${summary}\n\n${closing}\n${team}\nstudio@talmonphoto.com`,html:shell({locale,title,intro,body:p(message)+table+signature,label,url:'https://talmonphoto.com/'+locale+'/work/'})}
+ };
+}
