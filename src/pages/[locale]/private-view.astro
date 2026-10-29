@@ -14,8 +14,7 @@ const timeOptions = Array.from({ length: 96 }, (_, index) => {
   const minutes = String((index % 4) * 15).padStart(2, '0');
   return `${hours}:${minutes}`;
 });
-const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
-const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : 'https://formspree.io/f/mdekzkeb';
+const formAction = '/.netlify/functions/editions?action=appointment';
 
 ---
 
@@ -68,11 +67,13 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : 'http
       </div>
       <label>
         {t.privateView.requestMessageLabel}
-        <textarea name="message" rows="5"></textarea>
+        <textarea name="message" rows="5" maxlength="10000"></textarea>
       </label>
       <label>{({en:'Time zone',fr:'Fuseau horaire',ja:'タイムゾーン',es:'Zona horaria',it:'Fuso orario',zh:'时区',de:'Zeitzone'})[locale]}<input name="timezone" id="appointment-timezone" required maxlength="100" placeholder="Europe/Paris" /></label>
       <input type="hidden" name="locale" value={locale} />
-      <input type="hidden" name="subject" value="Private viewing request" />
+      <div class="pv-request-form__trap" aria-hidden="true">
+        <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
       <button class="btn" type="submit">{t.privateView.requestSubmit}</button>
       <p class="pv-status" role="status" aria-live="polite" hidden></p>
       <p class="pv-request-note">{t.privateView.requestNote}</p>
@@ -85,6 +86,7 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : 'http
   const submitButton = requestForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const formStatus = requestForm?.querySelector<HTMLElement>('.pv-status');
   let sending = false;
+  let submissionId = crypto.randomUUID();
   const timezone = document.querySelector<HTMLInputElement>('#appointment-timezone');
   if (timezone) timezone.defaultValue = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
   const date = document.querySelector<HTMLInputElement>('[name="date"]');
@@ -108,14 +110,16 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : 'http
 
       try {
         const formData = new FormData(requestForm);
+        formData.set("submissionId", submissionId);
         const response = await fetch(requestForm.action, {
           method: 'POST',
-          headers: { Accept: 'application/json' },
-          body: formData,
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(formData)),
         });
         if (!response.ok) throw new Error('Submission failed');
 
         requestForm.reset();
+        submissionId = crypto.randomUUID();
         formStatus.textContent = requestForm.dataset.success ?? 'Thank you. Your request has been sent.';
       } catch {
         formStatus.textContent = requestForm.dataset.error ?? 'Your request could not be sent. Please try again.';
@@ -216,6 +220,14 @@ const formAction = formspreeId ? `https://formspree.io/f/${formspreeId}` : 'http
     margin-top: 32px;
     display: grid;
     gap: 20px;
+  }
+
+  .pv-request-form__trap {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 
   .pv-request-form__row {
