@@ -14,7 +14,7 @@ export default async (request, runtime) => {
   });
   return createHandler({
     store,
-    send: async (message) => {
+    send: async (message, idempotencyKey) => {
       if (!process.env.RESEND_API_KEY)
         throw Error("RESEND_API_KEY is not configured");
       const res = await fetch("https://api.resend.com/emails", {
@@ -22,6 +22,7 @@ export default async (request, runtime) => {
         headers: {
           Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
           "Content-Type": "application/json",
+          ...(idempotencyKey ? {"Idempotency-Key":idempotencyKey} : {}),
         },
         body: JSON.stringify({
           from: "Talmon de l’Armée Photography <studio@talmonphoto.com>",
