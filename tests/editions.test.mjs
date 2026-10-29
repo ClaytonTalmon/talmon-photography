@@ -570,15 +570,72 @@ test('contact sends studio notification and localized receipt, rejects invalid a
  const data={name:'Collector', email:'collector@example.com', message:'I would like to discuss a print.', locale:'fr'};
  assert.equal((await s.call('contact',data)).status,200);
  assert.equal(s.emails.length,2);
- assert.equal(s.emails[0].to,'studio@talmonphoto.com');
+ assert.equal(s.emails[0].to,'ctalmon@gmail.com');
  assert.equal(s.emails[0].reply_to,data.email);
  assert.equal(s.emails[1].to,data.email);
  assert.match(s.emails[1].subject,/Merci de nous avoir contactés/);
- assert.equal(s.values.size,1); // Rate limit only; no access grant or mailing subscription.
+ assert.equal([...s.values.keys()].filter(k=>k.startsWith("inquiry/")).length,1);
+ assert.equal([...s.values.keys()].some(k=>/^(grant|request|subscriber)\//.test(k)),false);
  for (const invalid of [{...data,email:'invalid'},{...data,message:''},{...data,message:'x'.repeat(10001)}]) {
   assert.equal((await s.call('contact',invalid)).status,400);
  }
  assert.equal((await s.call('contact',data,'','https://foreign.example')).status,403);
  assert.equal((await s.call('contact',{...data,company:'bot'})).status,200);
  assert.equal(s.emails.length,2);
+});
+
+test('appointments save all details and notify the direct recipient with a localized, unconfirmed receipt', async () => {
+ const s=setup();
+ const data={name:'Collector',email:'collector@example.com',collection:'FORM',date:'2026-11-12',time:'14:30',timezone:'Europe/Paris',message:'Discuss Inspire Me',locale:'fr',submissionId:'appointment-test-0001'};
+ assert.equal((await s.call('appointment',data)).status,200);
+ assert.equal(s.emails[0].to,'ctalmon@gmail.com');
+ assert.equal(s.emails[0].reply_to,data.email);
+ assert.match(s.emails[0].text,/2026-11-12/);
+ assert.match(s.emails[0].text,/14:30/);
+ assert.match(s.emails[0].text,/Europe\/Paris/);
+ assert.equal(s.emails[1].to,data.email);
+ assert.match(s.emails[1].text,/n’est pas encore confirmé/);
+ assert.match(s.emails[1].html,/background:#f2f0e9/);
+ const saved=[...s.values.entries()].find(([k])=>k.startsWith('inquiry/'))[1].data;
+ assert.equal(saved.notificationStatus,'sent');assert.equal(saved.receiptStatus,'sent');
+ assert.equal(saved.type,'appointment');assert.equal(saved.collection,'FORM');
+ assert.equal((await s.call('studio-data')).status,401);
+ const admin=await auth(s),records=await (await s.call('studio-data',null,admin)).json();
+ assert.equal(records.inquiries[0].message,data.message);
+ assert.equal((await s.call('appointment',data)).status,200);
+ assert.equal(s.emails.length,2);
+ for(const invalid of [{...data,date:'2026-02-30'},{...data,time:'25:00'},{...data,timezone:'invalid'},{...data,collection:'unknown'},{...data,message:'x'.repeat(10001)}]) {
+  assert.equal((await s.call('appointment',invalid)).status,400);
+ }
+ assert.equal((await s.call('appointment',data,'','https://foreign.example')).status,403);
+ assert.equal((await s.call('appointment',{...data,company:'bot'})).status,200);
+ assert.equal(s.emails.length,2);
+});
+test('an inquiry is saved before notification delivery and retries reuse the record', async () => {
+ let fail=true,s;
+ s=setup({onSend:async message=>{
+  assert.equal([...s.values.keys()].filter(k=>k.startsWith('inquiry/')).length,1);
+  if(fail&&message.to==='ctalmon@gmail.com')throw Error('Provider unavailable');
+ }});
+ const data={name:'Collector',email:'collector@example.com',message:'Recover this inquiry',submissionId:'contact-failure-0001'};
+ assert.equal((await s.call('contact',data)).status,503);
+ let saved=[...s.values.entries()].find(([k])=>k.startsWith('inquiry/'))[1].data;
+ assert.equal(saved.message,data.message);assert.equal(saved.notificationStatus,'failed');
+ fail=false;
+ assert.equal((await s.call('contact',data)).status,200);
+ assert.equal([...s.values.keys()].filter(k=>k.startsWith('inquiry/')).length,1);
+ assert.equal(s.emails.length,3);
+ assert.equal((await s.call('contact',data)).status,200);assert.equal(s.emails.length,3);
+});
+test('receipt failure preserves the inquiry and does not resend the studio notification',async()=>{
+ let fail=true;
+ const s=setup({onSend:async message=>{if(fail&&message.to==='collector@example.com')throw Error('Receipt unavailable');}});
+ const data={name:'Collector',email:'collector@example.com',message:'Receipt failure',submissionId:'receipt-failure-0001'};
+ assert.equal((await s.call('contact',data)).status,200);
+ const saved=[...s.values.entries()].find(([k])=>k.startsWith('inquiry/'))[1].data;
+ assert.equal(saved.notificationStatus,'sent');assert.equal(saved.receiptStatus,'failed');
+ fail=false;
+ assert.equal((await s.call('contact',data)).status,200);
+ assert.equal(s.emails.filter(m=>m.to==='ctalmon@gmail.com').length,1);
+ assert.equal(s.emails.filter(m=>m.to==='collector@example.com').length,2);
 });
