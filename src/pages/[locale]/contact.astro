@@ -59,11 +59,15 @@ const contactEndpoint = '/.netlify/functions/editions?action=contact';
   const submitButton = contactForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const formStatus = contactForm?.querySelector<HTMLElement>('.form-status');
 
+  let submissionId = crypto.randomUUID();
+  let sending = false;
+
   if (contactForm) {
     contactForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      if (!submitButton || !formStatus) return;
+      if (!submitButton || !formStatus || sending) return;
+      sending = true;
 
       const originalLabel = submitButton.textContent ?? '';
       submitButton.disabled = true;
@@ -74,6 +78,7 @@ const contactEndpoint = '/.netlify/functions/editions?action=contact';
       try {
         const formData = new FormData(contactForm);
         formData.append('locale', contactForm.dataset.locale ?? 'en');
+        formData.set('submissionId', submissionId);
         const response = await fetch(contactForm.action, {
           method: 'POST',
           headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -83,6 +88,7 @@ const contactEndpoint = '/.netlify/functions/editions?action=contact';
         if (!response.ok) throw new Error('Form submission failed');
 
         contactForm.reset();
+        submissionId = crypto.randomUUID();
         formStatus.textContent = contactForm.dataset.success ?? 'Thank you.';
         formStatus.classList.add('form-status--success');
       } catch {
@@ -91,6 +97,7 @@ const contactEndpoint = '/.netlify/functions/editions?action=contact';
       } finally {
         formStatus.hidden = false;
         submitButton.disabled = false;
+        sending = false;
         submitButton.textContent = originalLabel;
       }
     });
