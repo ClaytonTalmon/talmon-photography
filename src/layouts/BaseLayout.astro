@@ -31,6 +31,7 @@ const faviconPath = `${basePath}/favicon.svg`;
 const alternatePath = (targetLocale: Locale) =>
   canonicalPath.replace(localePrefixPattern, `/${targetLocale}`);
 const ct = (text: string) => collectorText(locale, text);
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 ---
 
 <!doctype html>
@@ -42,6 +43,7 @@ const ct = (text: string) => collectorText(locale, text);
     <title>{searchTitle}</title>
     {description && <meta name="description" content={description} />}
     <meta name="generator" content={Astro.generator} />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
 
     {!isEditor && locales.map((l) => (
       <link rel="alternate" hreflang={localeHtmlLang[l]} href={`${canonicalOrigin}${alternatePath(l)}`} />
@@ -56,9 +58,9 @@ const ct = (text: string) => collectorText(locale, text);
     <meta property="og:type" content="website" />
 
     <meta name="referrer" content="no-referrer" />
-    {!isEditor && !/\/(editions|mailing-list)\//.test(canonicalPath) && <Analytics />}
   </head>
   <body>
+    {!isEditor && !/\/(editions|mailing-list)\//.test(canonicalPath) && <Analytics />}
     <a class="skip-link" href="#main">{ct("Skip to content")}</a>
     <Header locale={locale} currentPath={currentPath} variant={headerVariant} />
     <main id="main">
