@@ -27,7 +27,7 @@ const formImages = getSeriesImages('form');
 const aboutImages = getAboutImages();
 const workPhoto = formImages.find(({ filename }) => filename === 'Together, We Are Free.jpg') ?? formImages[0];
 
-const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jpeg') ?? aboutImages[0];
+const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-print-performance.jpg') ?? aboutImages.find(({ filename }) => filename === 'Studio-3.jpeg') ?? aboutImages[0];
 ---
 
 <BaseLayout
