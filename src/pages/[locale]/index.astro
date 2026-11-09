@@ -97,51 +97,8 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     </div>
   </section>
 
-  <!-- Temporarily retired public features: FLIGHT and WORLD remain in GitHub. -->
-  {/*
-  <section class="featured-image flight-featured-image">
-    <div class="work-section__visual">
-      <ResponsivePhoto
-        src={flightPhoto.image}
-        assetPath={flightPhoto.assetPath}
-        alt={t.home.flightTitle}
-        class="work-section__image"
-        sizes="100vw"
-        loading="lazy"
-      />
-      <div class="work-section__overlay">
-        <h2 class="hero__title">{t.home.flightTitle}</h2>
-        <p class="hero__subtitle">{t.home.flightSubtitle}</p>
-        <a class="link-underline hero__cta" href={localizedPath(locale, '/work/flight')}>
-          {t.home.flightCta} ↗
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- FLIGHT and WORLD homepage features are temporarily hidden; source retained in Git history. -->
 
-  <section class="featured-image world-featured-image">
-    <div class="work-section__visual">
-      <ResponsivePhoto
-        src={worldPhoto.image}
-        assetPath={worldPhoto.assetPath}
-        alt={t.home.worldTitle}
-        class="work-section__image"
-        sizes="100vw"
-        loading="lazy"
-      />
-      <div class="work-section__overlay">
-        <div class="world-text-block">
-          <h2 class="hero__title">{t.home.worldTitle}</h2>
-          <p class="hero__subtitle">{t.home.worldSubtitle}</p>
-          <a class="link-underline hero__cta" href={localizedPath(locale, '/work/world')}>
-            {t.home.worldCta} ↗
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  */}
   <section class="studio-section">
     <ResponsivePhoto
       src={studioPhoto.image}
