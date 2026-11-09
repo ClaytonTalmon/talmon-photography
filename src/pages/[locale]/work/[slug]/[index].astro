@@ -45,12 +45,18 @@ const nextPath = index < imageCount - 1 ? localizedPath(locale, `/work/${slug}/$
 const previousImagePath = previousPath ? `${previousPath}#artwork` : null;
 const nextImagePath = nextPath ? `${nextPath}#artwork` : null;
 const ct = (text: string) => collectorText(locale, text);
-const metaDescription = entry.data.subtitle[locale] || entry.data.description[locale].split('\n')[0];
+const metaDescription = locale === 'en'
+  ? `${details.title ?? entry.data.title.en} from ${entry.data.title.en}, a fine art photography collection by Clayton Talmon de l’Armée. Explore this limited-edition photographic work.`
+  : `${details.title ? `${details.title}. ` : ''}${entry.data.subtitle[locale] || entry.data.description[locale].split('\n')[0].slice(0, 135)}`;
+const artworkSearchTitle = locale === 'en' && details.title
+  ? `${details.title} | ${entry.data.title.en} Photography | TALMON`
+  : undefined;
 ---
 
 <BaseLayout
   locale={locale}
   title={details.title ?? entry.data.title[locale]}
+  seoTitle={artworkSearchTitle}
   description={metaDescription}
 >
   <div class="image-page container">

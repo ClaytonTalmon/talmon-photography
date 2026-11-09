@@ -21,6 +21,26 @@ const { entry } = Astro.props;
 const t = getTranslations(locale);
 const images = getSeriesImages(entry.data.slug);
 const descriptionParagraphs = entry.data.description[locale].split('\n\n');
+const englishSeo: Record<string, { title: string; description: string }> = {
+  form: {
+    title: 'FORM | Fine Art Figure Photography | TALMON',
+    description: 'Explore FORM, Clayton Talmon de l’Armée’s monochrome fine art photography of the human figure in the desert. Discover limited-edition photographic works.',
+  },
+  flow: {
+    title: 'FLOW | Black & White Seascape Photography | TALMON',
+    description: 'Explore FLOW, monochrome studies of the sea by Clayton Talmon de l’Armée. Fine art photographs of water, light, and movement, available in limited editions.',
+  },
+  flight: {
+    title: 'FLIGHT | Fine Art Aerial Photography | TALMON',
+    description: 'Discover FLIGHT, fine art aerial photography by Clayton Talmon de l’Armée exploring the Earth from above through light, scale, and movement.',
+  },
+  world: {
+    title: 'WORLD | Fine Art Photography Collection | TALMON',
+    description: 'Explore WORLD, a collection of monochrome fine art photographs by Clayton Talmon de l’Armée examining people, places, distance, and scale.',
+  },
+};
+const englishSearch = locale === 'en' ? englishSeo[entry.data.slug] : undefined;
+const localizedDescription = entry.data.subtitle[locale] || descriptionParagraphs[0].slice(0, 158);
 
 // Look up each image's caption (title / print size / edition size) by its
 // filename in this series' `imageDetails` — see src/content/series/*.json.
@@ -32,7 +52,8 @@ function detailsFor(filename: string) {
 <BaseLayout
   locale={locale}
   title={entry.data.title[locale]}
-  description={entry.data.subtitle[locale]}
+  seoTitle={englishSearch?.title}
+  description={englishSearch?.description ?? localizedDescription}
 >
   <header class="series-header container">
     <span class="eyebrow">{t.work.title} — {entry.data.year}</span>
