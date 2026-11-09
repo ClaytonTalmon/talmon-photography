@@ -23,12 +23,10 @@ const workIntro: Record<Locale, string> = {
 };
 
 const formImages = getSeriesImages('form');
-const flightImages = getSeriesImages('flight');
-const worldImages = getSeriesImages('world');
+// FLIGHT and WORLD are retained in source but temporarily off public display.
 const aboutImages = getAboutImages();
 const workPhoto = formImages.find(({ filename }) => filename === 'Together, We Are Free.jpg') ?? formImages[0];
-const flightPhoto = flightImages.find(({ filename }) => filename === 'ATL 1.jpg') ?? flightImages[0];
-const worldPhoto = worldImages.find(({ filename }) => filename === 'Space Time.jpg') ?? worldImages[0];
+
 const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jpeg') ?? aboutImages[0];
 ---
 
@@ -36,7 +34,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
   locale={locale}
   title={collectorText(locale, "Home")}
   seoTitle={locale === "en" ? "Fine Art Photography & Limited Edition Prints | TALMON" : undefined}
-  description={locale === "en" ? "Monochrome fine art photography by Clayton Talmon de l’Armée. Explore FORM, FLOW, FLIGHT and WORLD, four collections of limited-edition photographic works." : t.home.workBody}
+  description={locale === "en" ? "Monochrome fine art photography by Clayton Talmon de l’Armée. Explore FORM and FLOW, two collections of limited-edition photographic works." : t.home.workBody}
   headerVariant="light"
 >
   <section class="hero">
@@ -99,6 +97,8 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     </div>
   </section>
 
+  <!-- Temporarily retired public features: FLIGHT and WORLD remain in GitHub. -->
+  {/*
   <section class="featured-image flight-featured-image">
     <div class="work-section__visual">
       <ResponsivePhoto
@@ -141,6 +141,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
     </div>
   </section>
 
+  */}
   <section class="studio-section">
     <ResponsivePhoto
       src={studioPhoto.image}
