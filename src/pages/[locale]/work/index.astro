@@ -13,7 +13,9 @@ export function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 
-const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - b.data.order);
+const allSeries = (await getCollection('series'))
+  .filter((entry) => entry.data.slug === 'form' || entry.data.slug === 'flow')
+  .sort((a, b) => a.data.order - b.data.order);
 ---
 
 <BaseLayout locale={locale} title={t.work.title} description={t.work.intro}>

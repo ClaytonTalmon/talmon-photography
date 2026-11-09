@@ -7,7 +7,8 @@ import { locales, localizedPath, type Locale } from '../../../i18n/utils';
 import { getSeriesImages } from '../../../lib/seriesImages';
 
 export async function getStaticPaths() {
-  const allSeries = await getCollection('series');
+  const allSeries = (await getCollection('series'))
+    .filter((entry) => entry.data.slug === 'form' || entry.data.slug === 'flow');
   return locales.flatMap((locale) =>
     allSeries.map((entry) => ({
       params: { locale, slug: entry.data.slug },
