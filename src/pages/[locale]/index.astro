@@ -34,8 +34,8 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'Studio-3.jp
 
 <BaseLayout
   locale={locale}
-  title={collectorText(locale, "Home")}
-  description={t.home.workBody}
+  title={locale === "en" ? "Fine Art Photography & Limited Edition Prints" : collectorText(locale, "Home")}
+  description={locale === "en" ? "Monochrome fine art photography by Clayton Talmon de l’Armée. Explore FORM, FLOW, FLIGHT and WORLD, four collections of limited-edition photographic works." : t.home.workBody}
   headerVariant="light"
 >
   <section class="hero">
