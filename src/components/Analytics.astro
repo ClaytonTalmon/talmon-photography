@@ -2,7 +2,9 @@
 // GA4 is enabled only when a Measurement ID is supplied at build time.
 // EU-friendly default: no Google script, cookies, or analytics hits before consent.
 // This component is already excluded from editor and acquisition routes in BaseLayout.
-const measurementId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
+// GA4 Measurement IDs are public identifiers. This fallback keeps tracking active
+// without requiring Netlify environment-variable access.
+const measurementId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID || 'G-7N3P5YP7ZH';
 const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
