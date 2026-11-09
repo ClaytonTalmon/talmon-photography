@@ -1,14 +1,8 @@
 ---
-// Privacy-friendly, cookie-free analytics — no backend to run.
-//
-// Default here is Cloudflare Web Analytics, which reports visitor
-// geography and visit frequency without cookies or consent banners.
-// Sign up at https://dash.cloudflare.com → Analytics → Web Analytics,
-// grab your beacon token, and put it in a `.env` file as:
-//   PUBLIC_CF_BEACON_TOKEN=your-token-here
-//
-// Prefer Plausible or Fathom instead? Swap the script tag below for
-// their snippet — same "drop a script tag" pattern, same no-backend model.
+// GA4 is enabled only when a Measurement ID is supplied at build time.
+// EU-friendly default: no Google script, cookies, or analytics hits before consent.
+// This component is already excluded from editor and acquisition routes in BaseLayout.
+const measurementId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
 const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
 ---
 
@@ -17,6 +11,111 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
     is:inline
     defer
     src="https://static.cloudflareinsights.com/beacon.min.js"
-    data-cf-beacon={`{"token": "${beaconToken}"}`}
+    data-cf-beacon={JSON.stringify({ token: beaconToken })}
   />
 )}
+
+{measurementId && (
+  <>
+    <div id="talmon-analytics-consent" class="analytics-consent" hidden role="dialog" aria-label="Website analytics preferences" aria-modal="false">
+      <p>May we use optional analytics cookies to understand visits and improve the website? You can change this choice at any time.</p>
+      <div class="analytics-consent__actions">
+        <button type="button" data-analytics-choice="reject">Decline</button>
+        <button type="button" data-analytics-choice="accept">Accept analytics</button>
+      </div>
+    </div>
+    <button id="talmon-analytics-settings" type="button" class="analytics-settings" hidden>Analytics preferences</button>
+    <script is:inline data-measurement-id={measurementId}>
+      (() => {
+        const id = document.currentScript?.getAttribute('data-measurement-id');
+        if (!id || !/^G-[A-Z0-9]+$/.test(id)) return;
+        const key = 'talmon.analytics-consent.v1';
+        const notice = document.querySelector('#talmon-analytics-consent');
+        const settings = document.querySelector('#talmon-analytics-settings');
+        let active = false;
+
+        function readChoice() {
+          try { return localStorage.getItem(key); } catch { return null; }
+        }
+        function saveChoice(value) {
+          try { localStorage.setItem(key, value); } catch {}
+        }
+        function showChoice() {
+          if (notice) notice.hidden = false;
+          if (settings) settings.hidden = true;
+        }
+        function hideChoice() {
+          if (notice) notice.hidden = true;
+          if (settings) settings.hidden = false;
+        }
+        function startAnalytics() {
+          if (active) return;
+          active = true;
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function() { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          // No advertising features or enhanced user-data collection.
+          window.gtag('config', id, { allow_google_signals: false, allow_ad_personalization_signals: false });
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+          document.head.appendChild(script);
+        }
+        function choose(value) {
+          saveChoice(value);
+          hideChoice();
+          if (value === 'accepted') startAnalytics();
+          // Refusing consent after prior acceptance stops future page tracking
+          // immediately and reloads to clear any existing tracker in this tab.
+          else if (active) location.reload();
+        }
+        const previous = readChoice();
+        if (previous === 'accepted') { hideChoice(); startAnalytics(); }
+        else if (previous === 'declined') hideChoice();
+        else showChoice();
+        notice?.querySelectorAll('[data-analytics-choice]').forEach((button) => {
+          button.addEventListener('click', () => choose(button.getAttribute('data-analytics-choice') === 'accept' ? 'accepted' : 'declined'));
+        });
+        settings?.addEventListener('click', showChoice);
+      })();
+    </script>
+  </>
+)}
+
+<style>
+  .analytics-consent[hidden], .analytics-settings[hidden] { display: none !important; }
+  .analytics-consent {
+    position: fixed;
+    z-index: 999;
+    bottom: 16px;
+    left: 16px;
+    width: min(440px, calc(100vw - 32px));
+    padding: 20px;
+    border: 1px solid var(--color-line);
+    background: var(--color-bg);
+    color: var(--color-ink);
+    box-shadow: 0 12px 40px rgba(0,0,0,.17);
+    font: 13px/1.6 var(--font-ui);
+  }
+  .analytics-consent p { margin: 0; }
+  .analytics-consent__actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+  .analytics-consent button, .analytics-settings {
+    border: 1px solid var(--color-ink);
+    padding: 9px 12px;
+    font: inherit;
+    cursor: pointer;
+    background: transparent;
+    color: inherit;
+  }
+  .analytics-consent button[data-analytics-choice="accept"] { background: var(--color-ink); color: var(--color-bg); }
+  .analytics-settings {
+    position: fixed;
+    z-index: 998;
+    bottom: 8px;
+    left: 8px;
+    padding: 5px 8px;
+    font: 11px var(--font-ui);
+    background: var(--color-bg);
+    opacity: .75;
+  }
+</style>
