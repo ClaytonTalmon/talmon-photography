@@ -15,7 +15,7 @@ const ct=(text:string)=>collectorText(locale,text);
   <form id="access-request" class="panel"><h2>{ct("Request collection details")}</h2><p class="small">{ct("The studio will review your request and email a personal password. Your access lasts 24 hours from the time the password is issued.")}</p>
    <label>{ct("Your name")}<input name="name" autocomplete="name" required maxlength="120" /></label>
    <label>{ct("Email address")}<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
-   <fieldset class="collection-choices"><legend>{ct("I’m interested in")}</legend>{[...new Set(catalog.map(w=>w.collection))].map(c=><label class="choice"><input type="checkbox" name="collections" value={c} /><span>{c.toUpperCase()}</span></label>)}</fieldset>
+   <fieldset class="collection-choices"><legend>{ct("I’m interested in")}</legend>{[...new Set(catalog.map(w=>w.collection))].filter(c=>c==='form'||c==='flow').map(c=><label class="choice"><input type="checkbox" name="collections" value={c} /><span>{c.toUpperCase()}</span></label>)}</fieldset>
    <label>{ct("Message")} <span class="small">{ct("(optional)")}</span><textarea name="message" rows="3" maxlength="2000"></textarea></label>
    <label class="honey" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off" /></label>
    <label class="check"><input name="consent" type="checkbox" /> <span>{ct("I would also like occasional studio news and exhibition invitations. Optional; you can leave the list at any time.")}</span></label>
