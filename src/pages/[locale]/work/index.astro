@@ -16,6 +16,11 @@ const t = getTranslations(locale);
 const allSeries = (await getCollection('series'))
   .filter((entry) => entry.data.slug === 'form' || entry.data.slug === 'flow')
   .sort((a, b) => a.data.order - b.data.order);
+
+// Use FORM's current cover as the height reference for both public collections.
+// The widths remain natural, so neither photograph is cropped or distorted.
+const formCover = getSeriesImages('form')[0];
+const referenceAspect = formCover ? `${formCover.image.width} / ${formCover.image.height}` : '2 / 3';
 ---
 
 <BaseLayout locale={locale} title={t.work.title} description={t.work.intro}>
@@ -33,14 +38,16 @@ const allSeries = (await getCollection('series'))
       return (
         <a class="series-card" href={localizedPath(locale, `/work/${entry.data.slug}`)}>
           {cover && (
-            <ResponsivePhoto
-              src={cover.image}
-              assetPath={cover.assetPath}
-              alt={entry.data.title[locale]}
-              class="series-card__image"
-              sizes="(max-width: 860px) 100vw, 50vw"
-              loading="lazy"
-            />
+            <div class="series-card__visual" style={`aspect-ratio: ${referenceAspect};`}>
+              <ResponsivePhoto
+                src={cover.image}
+                assetPath={cover.assetPath}
+                alt={entry.data.title[locale]}
+                class="series-card__image"
+                sizes="(max-width: 860px) 100vw, 50vw"
+                loading="lazy"
+              />
+            </div>
           )}
           <div class="series-card__meta">
             <h2>{entry.data.title[locale]}</h2>
@@ -88,11 +95,21 @@ const allSeries = (await getCollection('series'))
     display: block;
   }
 
+  .series-card__visual {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
   :global(.series-card__image) {
     display: block;
-    width: 100%;
-    height: auto;
+    width: auto;
+    max-width: 100%;
+    height: 100%;
     object-fit: contain;
+    object-position: top left;
   }
 
   .series-card__meta {
