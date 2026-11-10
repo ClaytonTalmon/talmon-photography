@@ -142,18 +142,18 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
     height: 64svh;
     min-height: 358.4px;
     overflow: hidden;
+    background: #111;
   }
 
   :global(.hero__image) {
     position: absolute;
-    top: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    /* Keep the previous rendered image scale; crop from the top instead. */
-    height: 125%;
+    top: 0;
+    left: 7.5%;
+    width: 85%;
+    height: 100%;
+    /* Make the photograph visibly smaller without altering the hero frame. */
     object-fit: cover;
+    object-position: center bottom;
   }
 
   .hero__overlay {
