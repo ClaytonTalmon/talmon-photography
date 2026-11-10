@@ -186,7 +186,7 @@ export const translations: Record<Locale, Dictionary> = {
       collectorsLabel: 'For Collectors',
       collectorsTitle: "Let’s Talk About the Work",
       collectorsBody:
-        "Private online appointments offer an opportunity to explore a photograph or collection, learn about the work and its background, and discuss any questions with the artist. Please suggest a preferred time, and the studio will be in touch to confirm.",
+        "Private online appointments offer an opportunity to explore a photograph or collection, learn about the work and its background, and discuss any questions with the artist.",
       collectorsCta: "Request an Appointment",
     },
     work: {
