@@ -80,8 +80,8 @@ const artworkStructuredData = {
     name: entry.data.title.en,
     url: `https://talmonphoto.com${localizedPath(locale, `/work/${slug}/`)}`
   },
-  width: { '@type': 'QuantitativeValue', value: loadedImage.image.width, unitCode: 'E37' },
-  height: { '@type': 'QuantitativeValue', value: loadedImage.image.height, unitCode: 'E37' }
+  width: `${loadedImage.image.width} px`,
+  height: `${loadedImage.image.height} px`
 };
 ---
 
