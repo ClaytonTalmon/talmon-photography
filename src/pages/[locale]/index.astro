@@ -151,17 +151,26 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
     position: absolute;
     inset: 0;
     display: flex;
+    justify-content: flex-start;
     align-items: flex-end;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.05) 45%, transparent 65%);
   }
 
+  /* Anchor the entire FLOW copy group to the exact left inset of FORM.
+     Do not apply positioning changes to the separately centered scroll cue. */
   .hero__content {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    flex: none;
+    box-sizing: border-box;
     width: min(720px, 100%);
     max-width: 100%;
-    margin-inline: 0;
+    margin: 0;
     padding-inline: clamp(24px, 5vw, 64px);
     padding-bottom: clamp(48px, 8vw, 96px);
     color: var(--color-dark-ink);
+    text-align: left;
   }
 
   .hero__label {
