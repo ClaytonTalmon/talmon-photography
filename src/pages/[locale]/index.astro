@@ -142,14 +142,16 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
     height: 64svh;
     min-height: 358.4px;
     overflow: hidden;
+    background: #111;
   }
 
   :global(.hero__image) {
     position: absolute;
-    inset: 0;
-    width: 100%;
+    top: 0;
+    left: 10%;
+    width: 80%;
     height: 100%;
-    /* Fill the complete hero without the previous 125% oversized image box. */
+    /* Reduce the apparent photo scale by 20%, while retaining the hero frame. */
     object-fit: cover;
     object-position: center bottom;
   }
