@@ -45,6 +45,7 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
     <title>{searchTitle}</title>
     {description && <meta name="description" content={description} />}
     <meta name="generator" content={Astro.generator} />
+    <meta name="facebook-domain-verification" content="3cg80014cv7vb8vnriuoj96yr18utr" />
     {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
 
     {!isEditor && locales.map((l) => (
