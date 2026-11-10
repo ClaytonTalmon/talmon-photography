@@ -12,9 +12,19 @@ export function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 const portraitPhoto = getAboutImages().find(({ filename }) => filename === 'On Location 3.jpg');
+const artistStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://talmonphoto.com/en/about/#artist',
+  name: 'Clayton Talmon de l’Armée',
+  url: 'https://talmonphoto.com/en/about/',
+  jobTitle: 'Fine art photographer',
+  description: 'American fine art photographer based in the South of France, working in monochrome photography.',
+  knowsAbout: ['Fine art photography', 'Black and white photography', 'Silver gelatin printing']
+};
 ---
 
-<BaseLayout locale={locale} title={t.about.title} description={t.about.body}>
+<BaseLayout locale={locale} title={t.about.title} description={t.about.body} structuredData={artistStructuredData}>
   <header class="page-header container">
     <h1>{t.about.intro}</h1>
     <p class="artist-details">{({en:'(American. B. 1960)',fr:'(Américain. Né en 1960)',es:'(Estadounidense. Nacido en 1960)',it:'(Americano. Nato nel 1960)',de:'(Amerikaner. Geboren 1960)',ja:'（アメリカ出身、1960年生まれ）',zh:'（美国人，生于1960年）'})[locale]}</p>

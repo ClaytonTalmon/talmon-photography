@@ -12,10 +12,12 @@ interface Props {
   title: string;
   description?: string;
   seoTitle?: string;
+  socialImage?: string;
+  structuredData?: Record<string, unknown>;
   headerVariant?: 'light' | 'dark';
 }
 
-const { locale, title, description, seoTitle, headerVariant = 'light' } = Astro.props;
+const { locale, title, description, seoTitle, socialImage, structuredData, headerVariant = 'light' } = Astro.props;
 const currentPath = new URL(Astro.request.url).pathname;
 const siteName = 'Talmon de l’Armée Photography';
 const searchTitle = seoTitle ?? `${title} — ${siteName}`;
@@ -56,6 +58,9 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
     <meta property="og:title" content={searchTitle} />
     {description && <meta property="og:description" content={description} />}
     <meta property="og:type" content="website" />
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    {socialImage && <meta name="twitter:card" content="summary_large_image" />}
+    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />}
 
     <meta name="referrer" content="no-referrer" />
   </head>

@@ -42,6 +42,37 @@ const englishSeo: Record<string, { title: string; description: string }> = {
 };
 const englishSearch = locale === 'en' ? englishSeo[entry.data.slug] : undefined;
 const localizedDescription = entry.data.subtitle[locale] || descriptionParagraphs[0].slice(0, 158);
+const seriesUrl = `https://talmonphoto.com${localizedPath(locale, `/work/${entry.data.slug}/`)}`;
+const imageUrlFor = (assetPath: string, width: number, height: number) => {
+  const maxWidth = Math.min(1200, width, Math.floor(2000 * width / Math.max(width, height)));
+  return `https://talmonphoto.com/_images/${assetPath.split('/').map(encodeURIComponent).join('/')}-${maxWidth}.webp`;
+};
+const collectionStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': seriesUrl + '#collection',
+  name: entry.data.title[locale],
+  description: englishSearch?.description ?? localizedDescription,
+  url: seriesUrl,
+  mainEntity: {
+    '@type': 'ItemList',
+    name: entry.data.title.en,
+    itemListElement: images.map(({ filename }, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: entry.data.imageDetails[filename]?.title || filename.split('.')[0],
+      url: `https://talmonphoto.com${localizedPath(locale, `/work/${entry.data.slug}/${index}/`)}`
+    }))
+  },
+  creator: {
+    '@type': 'Person',
+    '@id': 'https://talmonphoto.com/en/about/#artist',
+    name: 'Clayton Talmon de l’Armée'
+  }
+};
+const collectionCover = images[0]
+  ? imageUrlFor(images[0].assetPath, images[0].image.width, images[0].image.height)
+  : undefined;
 
 // Look up each image's caption (title / print size / edition size) by its
 // filename in this series' `imageDetails` — see src/content/series/*.json.
@@ -55,6 +86,8 @@ function detailsFor(filename: string) {
   title={entry.data.title[locale]}
   seoTitle={englishSearch?.title}
   description={englishSearch?.description ?? localizedDescription}
+  socialImage={collectionCover}
+  structuredData={collectionStructuredData}
 >
   <header class="series-header container">
     <span class="eyebrow">{t.work.title} — {entry.data.year}</span>

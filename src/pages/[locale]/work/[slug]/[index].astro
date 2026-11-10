@@ -52,6 +52,37 @@ const metaDescription = locale === 'en'
 const artworkSearchTitle = locale === 'en' && details.title
   ? `${details.title} | ${entry.data.title.en} Photography | TALMON`
   : undefined;
+const artworkUrl = `https://talmonphoto.com${localizedPath(locale, `/work/${slug}/${index}/`)}`;
+const artworkImagePath = loadedImage.assetPath.split('/').map(encodeURIComponent).join('/');
+const artworkImageWidth = Math.min(1200, loadedImage.image.width, Math.floor(2000 * loadedImage.image.width / Math.max(loadedImage.image.width, loadedImage.image.height)));
+const artworkImageUrl = `https://talmonphoto.com/_images/${artworkImagePath}-${artworkImageWidth}.webp`;
+const artistReference = {
+  '@type': 'Person',
+  '@id': 'https://talmonphoto.com/en/about/#artist',
+  name: 'Clayton Talmon de l’Armée',
+  url: 'https://talmonphoto.com/en/about/'
+};
+const artworkStructuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ImageObject',
+  '@id': artworkUrl + '#photograph',
+  name: details.title || entry.data.title[locale],
+  description: metaDescription,
+  contentUrl: artworkImageUrl,
+  thumbnailUrl: artworkImageUrl,
+  url: artworkUrl,
+  creator: artistReference,
+  copyrightHolder: artistReference,
+  creditText: 'Clayton Talmon de l’Armée',
+  copyrightNotice: '© Clayton Talmon de l’Armée',
+  isPartOf: {
+    '@type': 'CreativeWorkSeries',
+    name: entry.data.title.en,
+    url: `https://talmonphoto.com${localizedPath(locale, `/work/${slug}/`)}`
+  },
+  width: `${loadedImage.image.width} px`,
+  height: `${loadedImage.image.height} px`
+};
 ---
 
 <BaseLayout
@@ -59,6 +90,8 @@ const artworkSearchTitle = locale === 'en' && details.title
   title={details.title ?? entry.data.title[locale]}
   seoTitle={artworkSearchTitle}
   description={metaDescription}
+  socialImage={artworkImageUrl}
+  structuredData={artworkStructuredData}
 >
   <div class="image-page container">
     <a class="back-link" href={seriesPath}>← {t.work.backToSeries}</a>
