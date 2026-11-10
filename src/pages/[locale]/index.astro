@@ -38,15 +38,15 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
   headerVariant="light"
 >
   <section class="hero">
-    <!-- Account for the portrait image's rendered width when object-fit covers the hero. -->
+    <!-- Show the entire photograph's width edge to edge, cropping only vertically. -->
     <img
       src="/images/flow-hero-800.webp"
-      srcset="/images/flow-hero-800.webp 800w, /images/flow-hero-960.webp 960w, /images/flow-hero-1440.webp 1440w, /images/flow-hero-1869.webp 1869w"
-      width="1869"
-      height="3543"
+      srcset="/images/flow-hero-800.webp 800w, /images/flow-hero-960.webp 960w, /images/flow-hero-1440.webp 1440w, /images/flow-hero-1869.webp 1869w, /images/flow-hero-2560.webp 2560w"
+      width="4360"
+      height="8268"
       alt={t.home.exhibitionTitle}
       class="hero__image"
-      sizes="max(100vw, 52.752svh, 295.412px)"
+      sizes="100vw"
       loading="eager"
       decoding="async"
       fetchpriority="high"
