@@ -100,14 +100,19 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
   <!-- FLIGHT and WORLD homepage features are temporarily hidden; source retained in Git history. -->
 
   <section class="studio-section">
-    <ResponsivePhoto
-      src={studioPhoto.image}
-      assetPath={studioPhoto.assetPath}
-      alt={t.home.studioTitle.replace('\n', ' ')}
-      class="studio-section__image"
-      sizes="(max-width: 860px) 100vw, 50vw"
-      loading="lazy"
-    />
+    <div
+      class="studio-section__visual"
+      style={`aspect-ratio: ${studioPhoto.image.width} / ${studioPhoto.image.height};`}
+    >
+      <ResponsivePhoto
+        src={studioPhoto.image}
+        assetPath={studioPhoto.assetPath}
+        alt={t.home.studioTitle.replace('\n', ' ')}
+        class="studio-section__image"
+        sizes="(max-width: 860px) 100vw, 50vw"
+        loading="lazy"
+      />
+    </div>
     <div class="studio-section__panel">
       <div class="studio-section__inner">
         <h2 class="studio-section__title">
@@ -441,14 +446,25 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
   .studio-section {
     border-top: 7px solid #fff;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: max-content;
+  }
+
+  /* The wrapper carries the image's true aspect ratio in the grid's
+     layout calculations; the image itself can no longer overlap Collectors. */
+  .studio-section__visual {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
   }
 
   :global(.studio-section__image) {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
-    height: auto;
-    min-height: 0;
+    height: 100%;
     object-fit: contain;
     filter: grayscale(1);
   }
@@ -488,7 +504,8 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
 
   @media (min-width: 860px) {
     .studio-section {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-auto-rows: max-content;
     }
 
   }
