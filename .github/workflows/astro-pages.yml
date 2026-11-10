@@ -1,8 +1,8 @@
 name: Deploy Astro site to GitHub Pages
 
+# Netlify publishes talmonphoto.com automatically from main.
+# Keep GitHub Pages available only as an explicitly triggered backup build.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
