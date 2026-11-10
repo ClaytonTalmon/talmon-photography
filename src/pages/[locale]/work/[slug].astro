@@ -60,7 +60,7 @@ const collectionStructuredData = {
     itemListElement: images.map(({ filename }, index) => ({
       '@type': 'ListItem',
       position: index + 1,
-      name: entry.data.imageDetails[filename]?.title || filename.replace(/\\.[^.]+$/, ''),
+      name: entry.data.imageDetails[filename]?.title || filename.split('.')[0],
       url: `https://talmonphoto.com${localizedPath(locale, `/work/${entry.data.slug}/${index}/`)}`
     }))
   },
