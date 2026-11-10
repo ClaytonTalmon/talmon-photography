@@ -80,6 +80,11 @@ const formAction = '/.netlify/functions/editions?action=appointment';
 </BaseLayout>
 
 <script>
+  declare global {
+    interface Window {
+      talmonTrackEvent?: (eventName: string) => void;
+    }
+  }
   const requestForm = document.getElementById('pv-request-form') as HTMLFormElement | null;
   const submitButton = requestForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const formStatus = requestForm?.querySelector<HTMLElement>('.pv-status');
