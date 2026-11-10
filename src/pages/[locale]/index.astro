@@ -147,13 +147,13 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
 
   :global(.hero__image) {
     position: absolute;
-    top: 0;
-    left: 10%;
-    width: 80%;
-    height: 100%;
-    /* Reduce the apparent photo scale by 20%, while retaining the hero frame. */
-    object-fit: cover;
-    object-position: center bottom;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    /* Display the full original image width without further zoom or distortion.
+       The shorter hero crops only the top and bottom of the portrait. */
+    transform: translateY(-50%);
   }
 
   .hero__overlay {
