@@ -57,7 +57,33 @@ const beaconToken = import.meta.env.PUBLIC_CF_BEACON_TOKEN;
           window.gtag = function() { window.dataLayer.push(arguments); };
           window.gtag('js', new Date());
           // No advertising features or enhanced user-data collection.
-          window.gtag('config', id, { allow_google_signals: false, allow_ad_personalization_signals: false });
+          // Avoid sending sensitive access tokens or email-confirmation parameters
+          // in Google Analytics' default page_location.
+          window.gtag('config', id, {
+            send_page_view: false,
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false
+          });
+          const safeLocation = new URL(location.href);
+          const allowedCampaignKeys = new Set(['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']);
+          for (const key of [...safeLocation.searchParams.keys()]) {
+            if (!allowedCampaignKeys.has(key)) safeLocation.searchParams.delete(key);
+          }
+          safeLocation.hash = '';
+          window.gtag('event', 'page_view', {
+            page_location: safeLocation.href,
+            page_title: document.title
+          });
+          const allowedEvents = new Set([
+            'request_collection_access', 'begin_acquisition_enquiry',
+            'submit_acquisition_enquiry', 'submit_appointment_request',
+            'submit_contact_form'
+          ]);
+          window.talmonTrackEvent = (eventName) => {
+            if (allowedEvents.has(eventName)) {
+              window.gtag('event', eventName, { page_location: safeLocation.href });
+            }
+          };
           const script = document.createElement('script');
           script.async = true;
           script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);

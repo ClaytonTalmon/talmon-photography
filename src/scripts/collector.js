@@ -196,6 +196,7 @@ for (const [id, action] of [
         form.reset();
         notice(t("Welcome to the editions."));
       } else {
+        if (action === "request") window.talmonTrackEvent?.("request_collection_access");
         form.reset();
         notice(
           action === "request"
@@ -256,6 +257,7 @@ document.addEventListener("visibilitychange", () => {
 
 $("enquire").onclick = () => {
   $("acquisition-request").hidden = false;
+  window.talmonTrackEvent?.("begin_acquisition_enquiry");
   $("enquiry-work").textContent = active.title + " · " + active.collection.toUpperCase() + " · " + t(active.formats.find(f=>f.key===selected)?.label || "Format on enquiry");
   $("enquiry-notice").textContent = "";
   $("acquisition-request").scrollIntoView({behavior:"smooth",block:"center"});
@@ -268,6 +270,7 @@ $("acquisition-request").onsubmit = async event => {
     const format = active.formats.find(f => f.key === selected);
     await api("enquiry", {...Object.fromEntries(new FormData(form)), work:active.id, format:selected, quote:{price:format.price,sold:format.sold,currency:format.currency}});
     form.reset();
+    window.talmonTrackEvent?.("submit_acquisition_enquiry");
     $("enquiry-notice").textContent = t("Your enquiry has reached the studio. We’ll be in touch shortly.");
   } catch(error) { $("enquiry-notice").textContent = error.message; }
   finally { button.disabled = false; }

@@ -55,6 +55,11 @@ const contactEndpoint = '/.netlify/functions/editions?action=contact';
 </BaseLayout>
 
 <script>
+  declare global {
+    interface Window {
+      talmonTrackEvent?: (eventName: string) => void;
+    }
+  }
   const contactForm = document.querySelector<HTMLFormElement>('.contact-form');
   const submitButton = contactForm?.querySelector<HTMLButtonElement>('button[type="submit"]');
   const formStatus = contactForm?.querySelector<HTMLElement>('.form-status');
@@ -88,6 +93,7 @@ const contactEndpoint = '/.netlify/functions/editions?action=contact';
         if (!response.ok) throw new Error('Form submission failed');
 
         contactForm.reset();
+        window.talmonTrackEvent?.("submit_contact_form");
         submissionId = crypto.randomUUID();
         formStatus.textContent = contactForm.dataset.success ?? 'Thank you.';
         formStatus.classList.add('form-status--success');
