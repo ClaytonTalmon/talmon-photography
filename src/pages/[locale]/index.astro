@@ -52,7 +52,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
       fetchpriority="high"
     />
     <div class="hero__overlay">
-      <div class="container hero__content">
+      <div class="hero__content">
         <span class="eyebrow hero__label">{t.home.exhibitionLabel}</span>
         <h1 class="hero__title">{t.home.exhibitionTitle}</h1>
         <p class="hero__subtitle">{t.home.exhibitionSubtitle}</p>
@@ -156,9 +156,12 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
   }
 
   .hero__content {
+    width: min(720px, 100%);
+    max-width: 100%;
+    margin-inline: 0;
+    padding-inline: clamp(24px, 5vw, 64px);
     padding-bottom: clamp(48px, 8vw, 96px);
     color: var(--color-dark-ink);
-    max-width: 720px;
   }
 
   .hero__label {
