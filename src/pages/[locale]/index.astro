@@ -256,7 +256,7 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
   .work-section__head {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 21px;
     align-items: start;
   }
 
@@ -425,7 +425,8 @@ const studioPhoto = aboutImages.find(({ filename }) => filename === 'talmon-prin
       grid-template-rows: 1fr;
       column-gap: 40px;
       align-items: center;
-      padding-block: 36px;
+      /* Reduce THE WORK text panel height by approximately 5% without scaling its contents. */
+      padding-block: 31px;
     }
 
     .work-section__label { position: absolute; top: 0; left: 0; }
