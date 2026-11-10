@@ -60,7 +60,7 @@ const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
     <meta name="referrer" content="no-referrer" />
   </head>
   <body>
-    {!isEditor && !/\/(editions|mailing-list)\//.test(canonicalPath) && <Analytics />}
+    {!isEditor && !/\/mailing-list\//.test(canonicalPath) && <Analytics />}
     <a class="skip-link" href="#main">{ct("Skip to content")}</a>
     <Header locale={locale} currentPath={currentPath} variant={headerVariant} />
     <main id="main">
