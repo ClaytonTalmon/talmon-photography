@@ -12,6 +12,10 @@ export function getStaticPaths() {
 
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
+const homepageStraplines: Record<string, string> = {
+  form: t.home.formSubtitle,
+  flight: t.home.flightSubtitle,
+};
 
 const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - b.data.order);
 
@@ -33,6 +37,7 @@ const referenceAspect = formCover ? `${formCover.image.width} / ${formCover.imag
       const cover = entry.data.slug === 'world'
         ? images.find(({ filename }) => filename === 'Cloth & Wind.jpg') ?? images[0]
         : images[0];
+      const subtitle = entry.data.subtitle[locale] || homepageStraplines[entry.data.slug];
       return (
         <a class="series-card" href={localizedPath(locale, `/work/${entry.data.slug}`)}>
           {cover && (
@@ -49,7 +54,7 @@ const referenceAspect = formCover ? `${formCover.image.width} / ${formCover.imag
           )}
           <div class="series-card__meta">
             <h2>{entry.data.title[locale]}</h2>
-            <p>{entry.data.subtitle[locale]}</p>
+            {subtitle && <p>{subtitle}</p>}
             <span class="link-underline">{t.work.viewSeries} ↗</span>
           </div>
         </a>
