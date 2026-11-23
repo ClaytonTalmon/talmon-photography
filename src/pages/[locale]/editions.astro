@@ -1,4 +1,5 @@
 ---
+import { publicAcquisitionEnabled } from '../../config/site-features';
 import { collectorText } from '../../i18n/collector.mjs';
 import CollectorExperience from '../../components/CollectorExperience.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -6,7 +7,7 @@ import { locales, type Locale } from '../../i18n/utils';
 import '../../styles/editions.css';
 import catalog from '../../data/edition-catalog.mjs';
 export function getStaticPaths() {
- return locales.map(locale=>({params:{locale}}));
+ return (publicAcquisitionEnabled ? locales : []).map(locale=>({params:{locale}}));
 }
 
 const {locale}=Astro.params as {locale:Locale};

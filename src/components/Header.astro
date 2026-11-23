@@ -1,4 +1,5 @@
 ---
+import { publicAcquisitionEnabled } from '../config/site-features';
 import { collectorText } from '../i18n/collector.mjs';
 import { getTranslations } from '../i18n/translations';
 import { localizedPath, otherLocales, type Locale } from '../i18n/utils';
@@ -32,7 +33,7 @@ const ct = (text: string) => collectorText(locale, text);
       <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
       <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
       <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
-      <a href={localizedPath(locale, '/editions/')}>{ct("Acquisition")}</a>
+      {publicAcquisitionEnabled && <a href={localizedPath(locale, '/editions/')}>{ct("Acquisition")}</a>}
       <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
       <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
     </nav>
@@ -52,8 +53,8 @@ const ct = (text: string) => collectorText(locale, text);
         <a href={localizedPath(locale, '/work')}>{t.nav.work}</a>
         <a href={localizedPath(locale, '/studio')}>{t.nav.studio}</a>
         <a href={localizedPath(locale, '/about')}>{t.nav.about}</a>
-        <a href={localizedPath(locale, '/editions/')}>{ct("Acquisition")}</a>
-      <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
+        {publicAcquisitionEnabled && <a href={localizedPath(locale, '/editions/')}>{ct("Acquisition")}</a>}
+        <a href={localizedPath(locale, '/private-view')}>{t.nav.privateView}</a>
         <a href={localizedPath(locale, '/contact')}>{t.nav.contact}</a>
         <div class="mobile-menu__langs">
           {(currentPath.includes("editions-editor") ? [] : otherLocales(locale)).map((l) => (

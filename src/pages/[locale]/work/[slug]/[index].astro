@@ -1,4 +1,5 @@
 ---
+import { publicAcquisitionEnabled } from '../../../../config/site-features';
 import { collectorText } from '../../../../i18n/collector.mjs';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
@@ -141,7 +142,9 @@ const artworkStructuredData = {
       <a href={seriesPath}>{t.work.backToSeries}</a>
       {nextImagePath ? <a href={nextImagePath}>{t.work.next} →</a> : <span />}
     </nav>
-    <p style="margin:24px 0;text-align:center"><a class="btn" href={localizedPath(locale, '/editions/') + '?work=' + encodeURIComponent(slug + '/' + loadedImage.filename)}>{ct("Editions & acquisition request")}</a></p>
+    {publicAcquisitionEnabled && (
+      <p style="margin:24px 0;text-align:center"><a class="btn" href={localizedPath(locale, '/editions/') + '?work=' + encodeURIComponent(slug + '/' + loadedImage.filename)}>{ct("Editions & acquisition request")}</a></p>
+    )}
   </div>
 </BaseLayout>
 
