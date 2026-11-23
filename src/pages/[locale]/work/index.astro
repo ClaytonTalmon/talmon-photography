@@ -13,12 +13,10 @@ export function getStaticPaths() {
 const { locale } = Astro.params as { locale: Locale };
 const t = getTranslations(locale);
 
-const allSeries = (await getCollection('series'))
-  .filter((entry) => entry.data.slug === 'form' || entry.data.slug === 'flow')
-  .sort((a, b) => a.data.order - b.data.order);
+const allSeries = (await getCollection('series')).sort((a, b) => a.data.order - b.data.order);
 
-// Use FORM's current cover as the height reference for both public collections.
-// The widths remain natural, so neither photograph is cropped or distorted.
+// Use FORM's current cover as the height reference for the collection covers.
+// Keep each photograph at its natural width to avoid cropping or distortion.
 const formCover = getSeriesImages('form')[0];
 const referenceAspect = formCover ? `${formCover.image.width} / ${formCover.image.height}` : '2 / 3';
 ---
